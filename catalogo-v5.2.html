@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Friday PRIO 2025 - v5.2 Enhanced</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .product-card:hover::before {
+            left: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border-color: #667eea;
+        }
+        
+        .discount-badge {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+        }
+        
+        .countdown {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+        }
+        
+        .category-pill {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .category-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .category-pill.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+        
+        .product-image {
+            height: 240px;
+            object-fit: contain;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.7);
+        }
+        
+        .skeleton {
+            animation: skeleton-loading 1s linear infinite alternate;
+        }
+        
+        @keyframes skeleton-loading {
+            0% { background-color: hsl(200, 20%, 80%); }
+            100% { background-color: hsl(200, 20%, 95%); }
+        }
+        
+        .cart-badge {
+            animation: pop 0.3s ease;
+        }
+        
+        @keyframes pop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .price-tag {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .price-tag::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        .new-badge {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(251, 191, 36, 0); }
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .star-rating {
+            color: #fbbf24;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header com Badge v5.2 -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">P</span>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">PRIO</h1>
+                        <p class="text-xs text-gray-500">Black Friday 2025 <span class="text-purple-600 font-semibold">v5.2</span></p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-2 bg-gradient-to-r from-purple-100 to-pink-100 px-4 py-2 rounded-full">
+                        <i class="fas fa-tag text-purple-600"></i>
+                        <span class="text-sm font-semibold text-purple-700" id="product-count">71 Ofertas</span>
+                    </div>
+                    <button onclick="toggleCart()" class="relative p-2 text-gray-600 hover:text-purple-600 transition">
+                        <i class="fas fa-shopping-cart text-2xl"></i>
+                        <span id="cart-badge" class="cart-badge absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Melhorado -->
+    <section class="hero-gradient text-white py-12 md:py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <div class="new-badge inline-block px-4 py-2 rounded-full text-sm font-bold mb-4 text-gray-900">
+                    🚀 NOVA VERSÃO 5.2 - Agora com 117 produtos!
+                </div>
+                <h2 class="text-4xl md:text-6xl font-black mb-4 floating">🎉 BLACK FRIDAY 2025</h2>
+                <p class="text-xl md:text-2xl mb-2 font-light">Até <span class="font-bold text-3xl">50%</span> de desconto em produtos selecionados!</p>
+                <p class="text-sm md:text-base mb-8 opacity-90">71 Produtos Principais + 31 Brindes + 15 Inovações Tecnológicas</p>
+                
+                <!-- Countdown Timer -->
+                <div class="countdown inline-block px-8 py-4 rounded-2xl shadow-2xl">
+                    <p class="text-sm mb-2 font-semibold">⏰ Ofertas terminam em:</p>
+                    <div class="flex space-x-4 text-center">
+                        <div>
+                            <div id="days" class="text-3xl font-bold">00</div>
+                            <div class="text-xs uppercase">Dias</div>
+                        </div>
+                        <div class="text-3xl">:</div>
+                        <div>
+                            <div id="hours" class="text-3xl font-bold">00</div>
+                            <div class="text-xs uppercase">Horas</div>
+                        </div>
+                        <div class="text-3xl">:</div>
+                        <div>
+                            <div id="minutes" class="text-3xl font-bold">00</div>
+                            <div class="text-xs uppercase">Min</div>
+                        </div>
+                        <div class="text-3xl">:</div>
+                        <div>
+                            <div id="seconds" class="text-3xl font-bold">00</div>
+                            <div class="text-xs uppercase">Seg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="bg-white py-6 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div>
+                    <div class="text-3xl font-bold text-purple-600">71</div>
+                    <div class="text-sm text-gray-600">Produtos Principais</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-pink-600">31</div>
+                    <div class="text-sm text-gray-600">Brindes PRIO</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-indigo-600">15</div>
+                    <div class="text-sm text-gray-600">Inovações 2025</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-green-600">50%</div>
+                    <div class="text-sm text-gray-600">Desconto Máximo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Filter com design melhorado -->
+    <section class="bg-white shadow-sm py-6 sticky top-16 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap gap-3 justify-center">
+                <button onclick="filterCategory('')" class="category-pill active px-6 py-2 rounded-full bg-gray-100 text-gray-700 font-medium transition-all">
+                    <i class="fas fa-th-large mr-2"></i>Todos (117)
+                </button>
+                <button onclick="filterCategory('Eletrônicos')" class="category-pill px-6 py-2 rounded-full bg-gray-100 text-gray-700 font-medium transition-all">
+                    <i class="fas fa-laptop mr-2"></i>Eletrônicos
+                </button>
+                <button onclick="filterCategory('Nespresso e Cafés')" class="category-pill px-6 py-2 rounded-full bg-gray-100 text-gray-700 font-medium transition-all">
+                    <i class="fas fa-coffee mr-2"></i>Cafés
+                </button>
+                <button onclick="filterCategory('Vouchers e Experiências')" class="category-pill px-6 py-2 rounded-full bg-gray-100 text-gray-700 font-medium transition-all">
+                    <i class="fas fa-ticket-alt mr-2"></i>Vouchers
+                </button>
+                <button onclick="filterCategory('Cartões-presente e Esporte')" class="category-pill px-6 py-2 rounded-full bg-gray-100 text-gray-700 font-medium transition-all">
+                    <i class="fas fa-gift mr-2"></i>Presentes
+                </button>
+                <button onclick="filterCategory('Brindes PRIOAPP')" class="category-pill px-6 py-2 rounded-full bg-gray-100 text-gray-700 font-medium transition-all">
+                    <i class="fas fa-star mr-2"></i>Brindes
+                </button>
+            </div>
+            
+            <!-- Search Bar com ícone de limpar -->
+            <div class="mt-4 max-w-xl mx-auto">
+                <div class="relative">
+                    <input type="text" id="searchInput" placeholder="Buscar produtos..." class="w-full px-4 py-3 pl-12 pr-12 rounded-full border-2 border-gray-200 focus:border-purple-500 focus:outline-none transition-all">
+                    <i class="fas fa-search absolute left-4 top-4 text-gray-400"></i>
+                    <button onclick="clearSearch()" class="absolute right-4 top-3 text-gray-400 hover:text-gray-600 hidden" id="clear-search">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Products will be loaded here -->
+        </div>
+        
+        <!-- No Results Message -->
+        <div id="no-results" class="hidden text-center py-20">
+            <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+            <h3 class="text-2xl font-semibold text-gray-700 mb-2">Nenhum produto encontrado</h3>
+            <p class="text-gray-500">Tente buscar por outro termo ou categoria</p>
+            <button onclick="clearSearch(); filterCategory('')" class="mt-4 px-6 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">
+                Ver Todos os Produtos
+            </button>
+        </div>
+        
+        <!-- Loading Skeleton -->
+        <div id="loading-skeleton" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="skeleton h-96 rounded-lg"></div>
+            <div class="skeleton h-96 rounded-lg"></div>
+            <div class="skeleton h-96 rounded-lg"></div>
+            <div class="skeleton h-96 rounded-lg"></div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="bg-gradient-to-br from-purple-50 to-pink-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">O que nossos clientes dizem</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                            MC
+                        </div>
+                        <div class="ml-3">
+                            <div class="font-semibold">Maria Clara</div>
+                            <div class="star-rating text-sm">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Produtos incríveis com preços imbatíveis! Adorei a variedade e a qualidade."</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center text-white font-bold">
+                            RS
+                        </div>
+                        <div class="ml-3">
+                            <div class="font-semibold">Roberto Silva</div>
+                            <div class="star-rating text-sm">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Entrega rápida e atendimento excelente. Recomendo muito a PRIO!"</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
+                            AF
+                        </div>
+                        <div class="ml-3">
+                            <div class="font-semibold">Ana Ferreira</div>
+                            <div class="star-rating text-sm">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Melhor Black Friday que já participei. Economizei muito!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-90vh overflow-y-auto">
+            <div class="relative">
+                <button onclick="closeModal()" class="absolute top-4 right-4 z-10 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg hover:bg-gray-100 transition">
+                    <i class="fas fa-times text-gray-600"></i>
+                </button>
+                <div id="modal-content" class="p-8">
+                    <!-- Modal content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="flex flex-col h-full">
+            <div class="flex justify-between items-center p-6 border-b bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+                <h3 class="text-xl font-bold flex items-center">
+                    <i class="fas fa-shopping-cart mr-2"></i>
+                    Meu Carrinho
+                </h3>
+                <button onclick="toggleCart()" class="text-white hover:text-gray-200 transition">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+                <div class="text-center text-gray-500 py-20">
+                    <i class="fas fa-shopping-cart text-6xl mb-4 text-gray-300"></i>
+                    <p>Seu carrinho está vazio</p>
+                    <p class="text-sm mt-2">Adicione produtos incríveis!</p>
+                </div>
+            </div>
+            <div class="border-t p-6 bg-gray-50">
+                <div class="flex justify-between mb-4 text-lg font-bold">
+                    <span>Total:</span>
+                    <span id="cart-total" class="price-tag text-purple-600">R$ 0,00</span>
+                </div>
+                <button onclick="finalizePurchase()" class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-4 rounded-full font-semibold hover:shadow-2xl transition transform hover:scale-105">
+                    <i class="fas fa-check-circle mr-2"></i>Finalizar Pedido via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de saber mais sobre a Black Friday PRIO 2025 v5.2" target="_blank" class="whatsapp-btn" title="Fale Conosco">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">PRIO v5.2</h4>
+                    <p class="text-gray-400">As melhores ofertas da Black Friday 2025</p>
+                    <p class="text-sm text-gray-500 mt-2">117 produtos disponíveis</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contato</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p><i class="fas fa-phone mr-2"></i>(11) 99999-9999</p>
+                        <p><i class="fas fa-envelope mr-2"></i>contato@prio.com.br</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Informações</h4>
+                    <div class="space-y-2">
+                        <a href="#" class="block text-gray-400 hover:text-white transition">Sobre Nós</a>
+                        <a href="#" class="block text-gray-400 hover:text-white transition">Termos de Uso</a>
+                        <a href="#" class="block text-gray-400 hover:text-white transition">Política de Privacidade</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Redes Sociais</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 PRIO. Todos os direitos reservados. | <span class="text-purple-400 font-semibold">Versão 5.2 Enhanced</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="produtos-data.js"></script>
+    <script src="catalogo.js"></script>
+    <script>
+        // Função para limpar busca
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('clear-search').classList.add('hidden');
+            applyFilters();
+        }
+        
+        // Mostrar/esconder botão de limpar busca
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const clearBtn = document.getElementById('clear-search');
+            
+            searchInput.addEventListener('input', function() {
+                if (this.value.length > 0) {
+                    clearBtn.classList.remove('hidden');
+                } else {
+                    clearBtn.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

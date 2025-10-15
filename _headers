@@ -1,0 +1,29 @@
+# Configuração de Headers para Cloudflare Pages
+# Sistema Black Friday Prio 2025 v6.0
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  
+/*.js
+  Content-Type: application/javascript; charset=utf-8
+  Cache-Control: public, max-age=31536000, immutable
+  
+/*.html
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=3600, must-revalidate
+  
+/*.css
+  Content-Type: text/css; charset=utf-8
+  Cache-Control: public, max-age=31536000, immutable
+  
+/*.csv
+  Content-Type: text/csv; charset=utf-8
+  Cache-Control: private, no-cache
+  
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=86400

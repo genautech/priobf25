@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Produtos Black Friday PRIO v6.0.1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .gradient-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .product-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+        }
+        .selected-card {
+            border: 3px solid #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        .compare-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            max-width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .cart-badge {
+            animation: bounce 0.5s;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .comparison-table {
+            overflow-x: auto;
+        }
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-header sticky-header text-white shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold flex items-center gap-3">
+                        <i class="fas fa-chart-line"></i>
+                        Análise de Produtos Black Friday
+                    </h1>
+                    <p class="text-white text-opacity-90 mt-2">Compare, analise e escolha os melhores produtos para seu negócio</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center gap-4">
+                    <!-- Carrinho de Seleção -->
+                    <button onclick="showComparisonModal()" class="relative bg-white text-purple-600 px-6 py-3 rounded-xl font-bold hover:bg-gray-100 transition-all shadow-lg">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        Minha Seleção
+                        <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold">
+                            0
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="glass-effect rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Total de Produtos</p>
+                        <p id="stat-total" class="text-3xl font-bold text-purple-600">122</p>
+                    </div>
+                    <i class="fas fa-boxes text-4xl text-purple-300"></i>
+                </div>
+            </div>
+            <div class="glass-effect rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Selecionados</p>
+                        <p id="stat-selected" class="text-3xl font-bold text-blue-600">0</p>
+                    </div>
+                    <i class="fas fa-check-circle text-4xl text-blue-300"></i>
+                </div>
+            </div>
+            <div class="glass-effect rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Investimento</p>
+                        <p id="stat-investment" class="text-2xl font-bold text-green-600">R$ 0</p>
+                    </div>
+                    <i class="fas fa-dollar-sign text-4xl text-green-300"></i>
+                </div>
+            </div>
+            <div class="glass-effect rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Lucro Projetado</p>
+                        <p id="stat-profit" class="text-2xl font-bold text-orange-600">R$ 0</p>
+                    </div>
+                    <i class="fas fa-chart-line text-4xl text-orange-300"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="glass-effect rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex flex-wrap gap-4">
+                <div class="flex-1 min-w-[250px]">
+                    <div class="relative">
+                        <input type="text" id="searchProducts" 
+                               placeholder="🔍 Buscar por nome, marca, categoria..." 
+                               class="w-full px-4 py-3 pl-12 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all">
+                        <i class="fas fa-search absolute left-4 top-4 text-gray-400"></i>
+                    </div>
+                </div>
+                <select id="filterCategory" class="px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200">
+                    <option value="">📦 Todas Categorias</option>
+                </select>
+                <select id="filterSubcategory" class="px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200">
+                    <option value="">🏷️ Todas Subcategorias</option>
+                </select>
+                <select id="sortBy" class="px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200">
+                    <option value="nome">Nome A-Z</option>
+                    <option value="preco-asc">Menor Preço</option>
+                    <option value="preco-desc">Maior Preço</option>
+                    <option value="margem-desc">Maior Margem</option>
+                    <option value="lucro-desc">Maior Lucro</option>
+                </select>
+                <button onclick="clearFilters()" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-all">
+                    <i class="fas fa-times mr-2"></i>Limpar
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Products will be loaded here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+            <p class="text-xl text-gray-500">Nenhum produto encontrado</p>
+            <p class="text-gray-400 mt-2">Tente ajustar seus filtros</p>
+        </div>
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content w-full max-w-6xl mx-4">
+            <div id="modalContent" class="p-8">
+                <!-- Content will be injected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div id="comparisonModal" class="modal">
+        <div class="modal-content w-full max-w-7xl mx-4">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800">
+                        <i class="fas fa-shopping-cart text-purple-600 mr-3"></i>
+                        Minha Seleção de Produtos
+                    </h2>
+                    <button onclick="closeComparisonModal()" class="text-gray-400 hover:text-gray-600 text-3xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Summary Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-purple-50 rounded-lg p-4">
+                        <p class="text-sm text-purple-600 font-semibold">Total de Produtos</p>
+                        <p id="comparison-total" class="text-2xl font-bold text-purple-700">0</p>
+                    </div>
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <p class="text-sm text-blue-600 font-semibold">Total em Unidades</p>
+                        <p id="comparison-units" class="text-2xl font-bold text-blue-700">0</p>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <p class="text-sm text-green-600 font-semibold">Investimento Total</p>
+                        <p id="comparison-investment" class="text-2xl font-bold text-green-700">R$ 0</p>
+                    </div>
+                    <div class="bg-orange-50 rounded-lg p-4">
+                        <p class="text-sm text-orange-600 font-semibold">Lucro Projetado</p>
+                        <p id="comparison-profit" class="text-2xl font-bold text-orange-700">R$ 0</p>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="glass-effect rounded-lg p-4">
+                        <h3 class="text-lg font-bold mb-3">Distribuição por Categoria</h3>
+                        <canvas id="categoryChart" height="250"></canvas>
+                    </div>
+                    <div class="glass-effect rounded-lg p-4">
+                        <h3 class="text-lg font-bold mb-3">Análise Financeira</h3>
+                        <canvas id="financialChart" height="250"></canvas>
+                    </div>
+                </div>
+
+                <!-- Selected Products Table -->
+                <div class="glass-effect rounded-lg p-4 mb-6">
+                    <h3 class="text-xl font-bold mb-4">Produtos Selecionados</h3>
+                    <div id="selectedProductsTable" class="comparison-table overflow-x-auto">
+                        <!-- Table will be rendered here -->
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex flex-wrap gap-4 justify-end">
+                    <button onclick="exportSelection()" class="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg">
+                        <i class="fas fa-download mr-2"></i>Exportar Seleção
+                    </button>
+                    <button onclick="clearSelection()" class="px-6 py-3 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg">
+                        <i class="fas fa-trash mr-2"></i>Limpar Tudo
+                    </button>
+                    <button onclick="closeComparisonModal()" class="px-6 py-3 bg-gray-600 text-white rounded-xl font-bold hover:bg-gray-700 transition-all shadow-lg">
+                        <i class="fas fa-times mr-2"></i>Fechar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Products Data -->
+    <script src="produtos-v6.0.js"></script>
+
+    <!-- Main Application Script -->
+    <script>
+        // Global State
+        let allProducts = [];
+        let selectedProducts = new Set();
+        let charts = {};
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            initializeFilters();
+            renderProducts();
+            loadSavedSelection();
+        });
+
+        // Load Products
+        function loadProducts() {
+            allProducts = [...produtosPlanilha, ...produtosSugeridos];
+            document.getElementById('stat-total').textContent = allProducts.length;
+        }
+
+        // ============================================
+        // FORMATAÇÃO DE PREÇOS (Padrão BR: R$ 1.000,33)
+        // ============================================
+        function formatarPreco(valor) {
+            if (typeof valor !== 'number') valor = parseFloat(valor);
+            return valor.toLocaleString('pt-BR', { 
+                style: 'currency', 
+                currency: 'BRL',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        // Initialize Filters
+        function initializeFilters() {
+            const categories = [...new Set(allProducts.map(p => p.categoria))];
+            const subcategories = [...new Set(allProducts.map(p => p.subcategoria))];
+            
+            const categorySelect = document.getElementById('filterCategory');
+            categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                option.textContent = cat;
+                categorySelect.appendChild(option);
+            });
+            
+            const subcategorySelect = document.getElementById('filterSubcategory');
+            subcategories.forEach(sub => {
+                const option = document.createElement('option');
+                option.value = sub;
+                option.textContent = sub;
+                subcategorySelect.appendChild(option);
+            });
+
+            // Event Listeners
+            document.getElementById('searchProducts').addEventListener('input', renderProducts);
+            document.getElementById('filterCategory').addEventListener('change', renderProducts);
+            document.getElementById('filterSubcategory').addEventListener('change', renderProducts);
+            document.getElementById('sortBy').addEventListener('change', renderProducts);
+        }
+
+        // Render Products
+        function renderProducts() {
+            const search = document.getElementById('searchProducts').value.toLowerCase();
+            const categoryFilter = document.getElementById('filterCategory').value;
+            const subcategoryFilter = document.getElementById('filterSubcategory').value;
+            const sortBy = document.getElementById('sortBy').value;
+            
+            let filtered = allProducts.filter(p => {
+                const matchSearch = p.nome.toLowerCase().includes(search) || 
+                                   p.fornecedor.toLowerCase().includes(search) ||
+                                   p.categoria.toLowerCase().includes(search) ||
+                                   p.subcategoria.toLowerCase().includes(search);
+                const matchCategory = !categoryFilter || p.categoria === categoryFilter;
+                const matchSubcategory = !subcategoryFilter || p.subcategoria === subcategoryFilter;
+                return matchSearch && matchCategory && matchSubcategory;
+            });
+
+            // Sort
+            filtered.sort((a, b) => {
+                switch(sortBy) {
+                    case 'nome':
+                        return a.nome.localeCompare(b.nome);
+                    case 'preco-asc':
+                        return a.precoVenda - b.precoVenda;
+                    case 'preco-desc':
+                        return b.precoVenda - a.precoVenda;
+                    case 'margem-desc':
+                        return b.margem - a.margem;
+                    case 'lucro-desc':
+                        const lucroA = (a.precoVenda - a.custoBase) * a.quantidade;
+                        const lucroB = (b.precoVenda - b.custoBase) * b.quantidade;
+                        return lucroB - lucroA;
+                    default:
+                        return 0;
+                }
+            });
+
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(produto => {
+                const isSelected = selectedProducts.has(produto.id);
+                const lucro = produto.precoVenda - produto.custoBase;
+                const lucroTotal = lucro * produto.quantidade;
+                
+                return `
+                    <div class="product-card glass-effect rounded-xl shadow-lg overflow-hidden ${isSelected ? 'selected-card' : ''}" 
+                         onclick="showProductDetail(${produto.id})">
+                        ${isSelected ? `
+                            <div class="compare-badge">
+                                <span class="inline-block px-3 py-1 bg-purple-600 text-white text-xs font-bold rounded-full">
+                                    <i class="fas fa-check"></i> Selecionado
+                                </span>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="relative">
+                            <img src="${produto.imagem}" alt="${produto.nome}" 
+                                 class="w-full h-48 object-contain bg-white p-4"
+                                 onerror="this.src='https://via.placeholder.com/300x300?text=Sem+Imagem'">
+                            ${produto.badge ? `
+                                <span class="absolute top-2 right-2 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
+                                    ${produto.badge}
+                                </span>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-xs px-2 py-1 bg-purple-100 text-purple-600 rounded-full font-semibold">
+                                    ${produto.subcategoria}
+                                </span>
+                                <span class="text-xs text-gray-500">${produto.fornecedor}</span>
+                            </div>
+                            
+                            <h3 class="font-bold text-gray-800 mb-2 line-clamp-2 min-h-[3rem]">${produto.nome}</h3>
+                            
+                            <div class="space-y-2 mb-4">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Custo Unitário:</span>
+                                    <span class="font-semibold">${formatarPreco(produto.custoBase)}</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Preço Venda:</span>
+                                    <span class="font-bold text-purple-600 text-lg">${formatarPreco(produto.precoVenda)}</span>
+                                </div>
+                                <div class="flex justify-between text-sm pt-2 border-t">
+                                    <span class="text-gray-500">Lucro/Un:</span>
+                                    <span class="font-bold text-green-600">${formatarPreco(lucro)}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2 mb-3">
+                                <div class="text-center p-2 bg-green-50 rounded-lg">
+                                    <div class="text-xs text-green-600 font-semibold">Margem</div>
+                                    <div class="text-lg font-bold text-green-700">${produto.margem}%</div>
+                                </div>
+                                <div class="text-center p-2 bg-blue-50 rounded-lg">
+                                    <div class="text-xs text-blue-600 font-semibold">Estoque</div>
+                                    <div class="text-lg font-bold text-blue-700">${produto.quantidade} un</div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-3 bg-orange-50 rounded-lg mb-3">
+                                <div class="text-xs text-orange-600 text-center font-semibold mb-1">Lucro Total Projetado</div>
+                                <div class="text-xl font-bold text-orange-700 text-center">${formatarPreco(lucroTotal)}</div>
+                            </div>
+                            
+                            <button onclick="event.stopPropagation(); toggleSelection(${produto.id})" 
+                                    class="${isSelected ? 'bg-purple-600' : 'bg-gray-600'} text-white w-full py-3 rounded-lg font-bold hover:opacity-90 transition-all">
+                                <i class="fas ${isSelected ? 'fa-check' : 'fa-plus'} mr-2"></i>
+                                ${isSelected ? 'Remover da Seleção' : 'Adicionar à Seleção'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Toggle Product Selection
+        function toggleSelection(productId) {
+            if (selectedProducts.has(productId)) {
+                selectedProducts.delete(productId);
+            } else {
+                selectedProducts.add(productId);
+            }
+            
+            updateSelectionStats();
+            renderProducts();
+            saveSelection();
+            
+            // Animate cart badge
+            const badge = document.getElementById('cartCount');
+            badge.classList.add('cart-badge');
+            setTimeout(() => badge.classList.remove('cart-badge'), 500);
+        }
+
+        // Update Selection Stats
+        function updateSelectionStats() {
+            const selected = Array.from(selectedProducts).map(id => 
+                allProducts.find(p => p.id === id)
+            );
+            
+            const totalInvestment = selected.reduce((sum, p) => 
+                sum + (p.custoBase * p.quantidade), 0
+            );
+            
+            const totalProfit = selected.reduce((sum, p) => 
+                sum + ((p.precoVenda - p.custoBase) * p.quantidade), 0
+            );
+            
+            document.getElementById('cartCount').textContent = selected.length;
+            document.getElementById('stat-selected').textContent = selected.length;
+            document.getElementById('stat-investment').textContent = formatarPreco(totalInvestment);
+            document.getElementById('stat-profit').textContent = formatarPreco(totalProfit);
+        }
+
+        // Show Product Detail Modal
+        function showProductDetail(productId) {
+            const produto = allProducts.find(p => p.id === productId);
+            if (!produto) return;
+
+            const isSelected = selectedProducts.has(productId);
+            const lucro = produto.precoVenda - produto.custoBase;
+            const lucroTotal = lucro * produto.quantidade;
+            const investimentoTotal = produto.custoBase * produto.quantidade;
+            const receitaTotal = produto.precoVenda * produto.quantidade;
+
+            const modal = document.getElementById('productModal');
+            const content = document.getElementById('modalContent');
+            
+            content.innerHTML = `
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800">${produto.nome}</h2>
+                    <button onclick="closeProductModal()" class="text-gray-400 hover:text-gray-600 text-3xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Left Column: Image and Basic Info -->
+                    <div>
+                        <img src="${produto.imagem}" alt="${produto.nome}" 
+                             class="w-full rounded-xl shadow-lg mb-4"
+                             onerror="this.src='https://via.placeholder.com/500x500?text=Sem+Imagem'">
+                        
+                        ${produto.badge ? `
+                            <div class="text-center mb-4">
+                                <span class="inline-block px-6 py-3 bg-red-500 text-white font-bold rounded-full text-lg">
+                                    ${produto.badge}
+                                </span>
+                            </div>
+                        ` : ''}
+
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-4">Informações Básicas</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">SKU:</span>
+                                    <span class="font-mono font-bold">${produto.sku}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Categoria:</span>
+                                    <span class="font-semibold">${produto.categoria}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Subcategoria:</span>
+                                    <span class="font-semibold">${produto.subcategoria}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Fornecedor:</span>
+                                    <span class="font-semibold">${produto.fornecedor}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Quantidade Disponível:</span>
+                                    <span class="font-bold text-blue-600">${produto.quantidade} unidades</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Financial Info -->
+                    <div>
+                        <div class="glass-effect rounded-xl p-6 mb-6">
+                            <h3 class="text-xl font-bold mb-4">Análise Financeira</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Custo Base Unitário:</span>
+                                    <span class="text-xl font-bold">${formatarPreco(produto.custoBase)}</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Preço Mercado:</span>
+                                    <span class="text-xl font-semibold text-gray-500 line-through">${formatarPreco(produto.precoMercado)}</span>
+                                </div>
+                                <div class="flex justify-between items-center py-3 border-t-2 border-b-2">
+                                    <span class="text-gray-800 font-bold text-lg">Preço de Venda:</span>
+                                    <span class="text-3xl font-bold text-purple-600">${formatarPreco(produto.precoVenda)}</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Lucro Unitário:</span>
+                                    <span class="text-xl font-bold text-green-600">${formatarPreco(lucro)}</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Margem de Lucro:</span>
+                                    <span class="px-4 py-2 bg-green-100 text-green-700 rounded-full text-lg font-bold">
+                                        ${produto.margem}%
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-effect rounded-xl p-6 mb-6">
+                            <h3 class="text-xl font-bold mb-4">Projeção Total (${produto.quantidade} unidades)</h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="bg-blue-50 rounded-lg p-4">
+                                    <div class="text-sm text-blue-600 font-semibold mb-1">Investimento Total</div>
+                                    <div class="text-2xl font-bold text-blue-700">${formatarPreco(investimentoTotal)}</div>
+                                </div>
+                                <div class="bg-purple-50 rounded-lg p-4">
+                                    <div class="text-sm text-purple-600 font-semibold mb-1">Receita Total</div>
+                                    <div class="text-2xl font-bold text-purple-700">${formatarPreco(receitaTotal)}</div>
+                                </div>
+                                <div class="bg-green-50 rounded-lg p-4">
+                                    <div class="text-sm text-green-600 font-semibold mb-1">Lucro Total</div>
+                                    <div class="text-3xl font-bold text-green-700">${formatarPreco(lucroTotal)}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${produto.especificacoes ? `
+                            <div class="glass-effect rounded-xl p-6 mb-6">
+                                <h3 class="text-xl font-bold mb-4">Especificações Técnicas</h3>
+                                <div class="space-y-2">
+                                    ${Object.entries(produto.especificacoes).map(([key, value]) => `
+                                        <div class="flex justify-between py-2 border-b border-gray-200">
+                                            <span class="text-gray-600 capitalize font-semibold">${key}:</span>
+                                            <span class="text-gray-800 font-semibold">${value}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3">Descrição do Produto</h3>
+                            <p class="text-gray-700 leading-relaxed">${produto.descricao}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-center">
+                    <button onclick="toggleSelection(${produto.id}); closeProductModal();" 
+                            class="${isSelected ? 'bg-red-600 hover:bg-red-700' : 'bg-purple-600 hover:bg-purple-700'} text-white px-12 py-4 rounded-xl font-bold text-lg transition-all shadow-lg">
+                        <i class="fas ${isSelected ? 'fa-times' : 'fa-plus'} mr-3"></i>
+                        ${isSelected ? 'Remover da Seleção' : 'Adicionar à Seleção'}
+                    </button>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        // Show Comparison Modal
+        function showComparisonModal() {
+            const selected = Array.from(selectedProducts).map(id => 
+                allProducts.find(p => p.id === id)
+            );
+
+            if (selected.length === 0) {
+                alert('Nenhum produto selecionado ainda!');
+                return;
+            }
+
+            const totalUnits = selected.reduce((sum, p) => sum + p.quantidade, 0);
+            const totalInvestment = selected.reduce((sum, p) => sum + (p.custoBase * p.quantidade), 0);
+            const totalRevenue = selected.reduce((sum, p) => sum + (p.precoVenda * p.quantidade), 0);
+            const totalProfit = totalRevenue - totalInvestment;
+
+            // Update summary
+            document.getElementById('comparison-total').textContent = selected.length;
+            document.getElementById('comparison-units').textContent = totalUnits;
+            document.getElementById('comparison-investment').textContent = formatarPreco(totalInvestment);
+            document.getElementById('comparison-profit').textContent = formatarPreco(totalProfit);
+
+            // Render table
+            const tableContainer = document.getElementById('selectedProductsTable');
+            tableContainer.innerHTML = `
+                <table class="min-w-full">
+                    <thead class="bg-purple-100">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-purple-700 uppercase">Produto</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-purple-700 uppercase">Categoria</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-purple-700 uppercase">Qtd</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-purple-700 uppercase">Custo Un.</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-purple-700 uppercase">Venda Un.</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-purple-700 uppercase">Margem</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-purple-700 uppercase">Investimento</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-purple-700 uppercase">Lucro Total</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-purple-700 uppercase">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        ${selected.map(p => {
+                            const lucroUnit = p.precoVenda - p.custoBase;
+                            const lucroTotal = lucroUnit * p.quantidade;
+                            const investimento = p.custoBase * p.quantidade;
+                            
+                            return `
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center gap-3">
+                                            <img src="${p.imagem}" class="w-12 h-12 object-contain rounded" 
+                                                 onerror="this.src='https://via.placeholder.com/50'">
+                                            <div>
+                                                <div class="font-semibold text-sm">${p.nome.substring(0, 40)}...</div>
+                                                <div class="text-xs text-gray-500">${p.fornecedor}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-center text-sm">${p.subcategoria}</td>
+                                    <td class="px-4 py-3 text-right font-semibold">${p.quantidade}</td>
+                                    <td class="px-4 py-3 text-right text-sm">${formatarPreco(p.custoBase)}</td>
+                                    <td class="px-4 py-3 text-right font-semibold text-purple-600">${formatarPreco(p.precoVenda)}</td>
+                                    <td class="px-4 py-3 text-center">
+                                        <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">
+                                            ${p.margem}%
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-right font-semibold text-blue-600">${formatarPreco(investimento)}</td>
+                                    <td class="px-4 py-3 text-right font-bold text-green-600">${formatarPreco(lucroTotal)}</td>
+                                    <td class="px-4 py-3 text-center">
+                                        <button onclick="toggleSelection(${p.id}); showComparisonModal();" 
+                                                class="text-red-600 hover:text-red-800 font-semibold">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                    <tfoot class="bg-gray-100 font-bold">
+                        <tr>
+                            <td colspan="2" class="px-4 py-4 text-lg">TOTAIS</td>
+                            <td class="px-4 py-4 text-right">${totalUnits}</td>
+                            <td colspan="3"></td>
+                            <td class="px-4 py-4 text-right text-blue-700">${formatarPreco(totalInvestment)}</td>
+                            <td class="px-4 py-4 text-right text-green-700">${formatarPreco(totalProfit)}</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            `;
+
+            // Update charts
+            updateComparisonCharts(selected);
+
+            document.getElementById('comparisonModal').classList.add('active');
+        }
+
+        function closeComparisonModal() {
+            document.getElementById('comparisonModal').classList.remove('active');
+        }
+
+        // Update Comparison Charts
+        function updateComparisonCharts(selected) {
+            // Category Chart
+            const categories = {};
+            selected.forEach(p => {
+                categories[p.subcategoria] = (categories[p.subcategoria] || 0) + 1;
+            });
+
+            const ctxCat = document.getElementById('categoryChart');
+            if (charts.category) charts.category.destroy();
+            
+            charts.category = new Chart(ctxCat, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(categories),
+                    datasets: [{
+                        data: Object.values(categories),
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b', '#fa709a', '#fee140', '#30cfd0']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Financial Chart
+            const investimentos = selected.map(p => p.custoBase * p.quantidade);
+            const lucros = selected.map(p => (p.precoVenda - p.custoBase) * p.quantidade);
+            const labels = selected.map(p => p.nome.substring(0, 20) + '...');
+
+            const ctxFin = document.getElementById('financialChart');
+            if (charts.financial) charts.financial.destroy();
+            
+            charts.financial = new Chart(ctxFin, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Investimento',
+                            data: investimentos,
+                            backgroundColor: 'rgba(59, 130, 246, 0.7)'
+                        },
+                        {
+                            label: 'Lucro',
+                            data: lucros,
+                            backgroundColor: 'rgba(34, 197, 94, 0.7)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        // Export Selection
+        function exportSelection() {
+            const selected = Array.from(selectedProducts).map(id => 
+                allProducts.find(p => p.id === id)
+            );
+
+            let csv = 'SKU,Nome,Categoria,Subcategoria,Fornecedor,Quantidade,Custo Base,Preço Venda,Margem %,Investimento Total,Lucro Total\n';
+            
+            selected.forEach(p => {
+                const investimento = p.custoBase * p.quantidade;
+                const lucro = (p.precoVenda - p.custoBase) * p.quantidade;
+                csv += `"${p.sku}","${p.nome}","${p.categoria}","${p.subcategoria}","${p.fornecedor}",${p.quantidade},${p.custoBase},${p.precoVenda},${p.margem},${investimento.toFixed(2)},${lucro.toFixed(2)}\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `selecao_produtos_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        // Clear Selection
+        function clearSelection() {
+            if (confirm('Tem certeza que deseja limpar toda a seleção?')) {
+                selectedProducts.clear();
+                updateSelectionStats();
+                renderProducts();
+                saveSelection();
+                closeComparisonModal();
+            }
+        }
+
+        // Clear Filters
+        function clearFilters() {
+            document.getElementById('searchProducts').value = '';
+            document.getElementById('filterCategory').value = '';
+            document.getElementById('filterSubcategory').value = '';
+            document.getElementById('sortBy').value = 'nome';
+            renderProducts();
+        }
+
+        // Save/Load Selection (localStorage)
+        function saveSelection() {
+            localStorage.setItem('selectedProducts', JSON.stringify(Array.from(selectedProducts)));
+        }
+
+        function loadSavedSelection() {
+            const saved = localStorage.getItem('selectedProducts');
+            if (saved) {
+                selectedProducts = new Set(JSON.parse(saved));
+                updateSelectionStats();
+            }
+        }
+
+        // Close modals on click outside
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) closeProductModal();
+        });
+
+        document.getElementById('comparisonModal').addEventListener('click', function(e) {
+            if (e.target === this) closeComparisonModal();
+        });
+    </script>
+</body>
+</html>
