@@ -1,0 +1,379 @@
+{
+  "versao_template": "1.0.0",
+  "data_criacao": "2025-10-16",
+  "sistema": "Black Friday PRIO 2025 - Yoobe",
+  "descricao": "Template para importação de produtos pesquisados em marketplaces",
+  
+  "meta_informacoes": {
+    "data_pesquisa": "2025-10-16",
+    "pesquisador": "Yoobe",
+    "fonte_dados": "Amazon / Mercado Livre / Shopee / Magazine Luiza / Outros",
+    "objetivo": "Revenda Black Friday 2025 - Superar preços PRIO",
+    "observacoes": "Preencha os dados de cada produto pesquisado nos marketplaces"
+  },
+  
+  "configuracao_margem": {
+    "margem_padrao_percentual": 25,
+    "margem_minima": 10,
+    "margem_maxima": 70,
+    "moeda": "BRL",
+    "incluir_frete_no_custo": false,
+    "observacao": "Ajuste a margem de acordo com a competitividade"
+  },
+  
+  "produtos": [
+    {
+      "sku": "YB-001",
+      "nome": "Smartphone Samsung Galaxy S24 256GB",
+      "marca": "Samsung",
+      "modelo": "Galaxy S24",
+      "categoria": "Eletrônicos",
+      "subcategoria": "Smartphones",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 2899.00,
+          "link": "https://www.amazon.com.br/produto",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 2,
+          "avaliacao": 4.5,
+          "num_avaliacoes": 1250,
+          "vendedor": "Amazon"
+        },
+        "mercadolivre": {
+          "preco": 2850.00,
+          "link": "https://www.mercadolivre.com.br/produto",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 3,
+          "avaliacao": 4.6,
+          "num_avaliacoes": 890,
+          "vendedor": "Loja Oficial Samsung"
+        },
+        "magazineluiza": {
+          "preco": 2999.00,
+          "link": "https://www.magazineluiza.com.br/produto",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 5,
+          "avaliacao": 4.3,
+          "num_avaliacoes": 450,
+          "vendedor": "Magazine Luiza"
+        },
+        "shopee": {
+          "preco": 2920.00,
+          "link": "https://shopee.com.br/produto",
+          "disponivel": true,
+          "frete_gratis": false,
+          "prazo_entrega_dias": 7,
+          "avaliacao": 4.4,
+          "num_avaliacoes": 320,
+          "vendedor": "Tech Store BR"
+        }
+      },
+      
+      "melhor_oferta": {
+        "marketplace": "mercadolivre",
+        "preco_compra": 2850.00,
+        "link": "https://www.mercadolivre.com.br/produto",
+        "motivo_escolha": "Menor preço + frete grátis + melhor avaliação"
+      },
+      
+      "comparacao_prio": {
+        "preco_prio": 3200.00,
+        "produto_existe_prio": true,
+        "nome_no_prio": "Samsung Galaxy S24",
+        "observacao": "PRIO vende por R$ 3.200,00"
+      },
+      
+      "estrategia_yoobe": {
+        "custo_compra": 2850.00,
+        "custo_frete": 0.00,
+        "custo_total": 2850.00,
+        "margem_lucro_percentual": 25,
+        "margem_lucro_reais": 712.50,
+        "preco_venda_yoobe": 3562.50,
+        "comparacao_vs_prio": {
+          "diferenca_reais": -362.50,
+          "diferenca_percentual": -11.33,
+          "competitivo": false,
+          "recomendacao": "❌ NÃO COMPETITIVO - Ajustar margem para 12% ou buscar fornecedor mais barato"
+        }
+      },
+      
+      "imagens": [
+        "https://exemplo.com/samsung-s24-frente.jpg",
+        "https://exemplo.com/samsung-s24-verso.jpg"
+      ],
+      
+      "especificacoes": {
+        "cor": "Preto",
+        "memoria_interna": "256GB",
+        "ram": "8GB",
+        "tela": "6.2 polegadas AMOLED",
+        "processador": "Snapdragon 8 Gen 3",
+        "camera": "50MP + 12MP + 10MP",
+        "bateria": "4000mAh",
+        "5g": true,
+        "garantia_meses": 12
+      },
+      
+      "tags": ["smartphone", "samsung", "5g", "black friday", "android"],
+      
+      "status_importacao": {
+        "ativo": true,
+        "destaque": false,
+        "novo": true,
+        "estoque_inicial": 50,
+        "importar": true,
+        "observacoes": "Aguardando ajuste de margem"
+      }
+    },
+    
+    {
+      "sku": "YB-002",
+      "nome": "AirPods Pro 2ª Geração",
+      "marca": "Apple",
+      "modelo": "AirPods Pro Gen 2",
+      "categoria": "Eletrônicos",
+      "subcategoria": "Áudio",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 1299.00,
+          "link": "https://www.amazon.com.br/airpods",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 1,
+          "avaliacao": 4.8,
+          "num_avaliacoes": 3200,
+          "vendedor": "Amazon"
+        },
+        "mercadolivre": {
+          "preco": 1320.00,
+          "link": "https://www.mercadolivre.com.br/airpods",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 2,
+          "avaliacao": 4.7,
+          "num_avaliacoes": 1890,
+          "vendedor": "Apple Store Oficial"
+        },
+        "magazineluiza": {
+          "preco": 1399.00,
+          "link": "https://www.magazineluiza.com.br/airpods",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 4,
+          "avaliacao": 4.6,
+          "num_avaliacoes": 890,
+          "vendedor": "Magazine Luiza"
+        }
+      },
+      
+      "melhor_oferta": {
+        "marketplace": "amazon",
+        "preco_compra": 1299.00,
+        "link": "https://www.amazon.com.br/airpods",
+        "motivo_escolha": "Menor preço + entrega mais rápida + melhor avaliação"
+      },
+      
+      "comparacao_prio": {
+        "preco_prio": 1499.00,
+        "produto_existe_prio": true,
+        "nome_no_prio": "Airpods",
+        "observacao": "PRIO vende por R$ 1.499,00"
+      },
+      
+      "estrategia_yoobe": {
+        "custo_compra": 1299.00,
+        "custo_frete": 0.00,
+        "custo_total": 1299.00,
+        "margem_lucro_percentual": 12,
+        "margem_lucro_reais": 155.88,
+        "preco_venda_yoobe": 1454.88,
+        "comparacao_vs_prio": {
+          "diferenca_reais": 44.12,
+          "diferenca_percentual": 2.94,
+          "competitivo": true,
+          "recomendacao": "✅ COMPETITIVO - Preço 2.94% menor que PRIO!"
+        }
+      },
+      
+      "imagens": [
+        "https://exemplo.com/airpods-pro-2.jpg"
+      ],
+      
+      "especificacoes": {
+        "cor": "Branco",
+        "cancelamento_ruido": true,
+        "resistencia_agua": "IPX4",
+        "bateria_horas": 6,
+        "case_carregamento": "MagSafe + Lightning",
+        "bluetooth": "5.3",
+        "garantia_meses": 12
+      },
+      
+      "tags": ["airpods", "apple", "fone", "bluetooth", "cancelamento de ruído"],
+      
+      "status_importacao": {
+        "ativo": true,
+        "destaque": true,
+        "novo": true,
+        "estoque_inicial": 30,
+        "importar": true,
+        "observacoes": "PRODUTO COMPETITIVO - Importar com prioridade"
+      }
+    },
+    
+    {
+      "sku": "YB-003",
+      "nome": "[ADICIONE MAIS PRODUTOS AQUI]",
+      "marca": "",
+      "modelo": "",
+      "categoria": "Eletrônicos",
+      "subcategoria": "",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 0.00,
+          "link": "",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 0,
+          "avaliacao": 0.0,
+          "num_avaliacoes": 0,
+          "vendedor": ""
+        },
+        "mercadolivre": {
+          "preco": 0.00,
+          "link": "",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 0,
+          "avaliacao": 0.0,
+          "num_avaliacoes": 0,
+          "vendedor": ""
+        }
+      },
+      
+      "melhor_oferta": {
+        "marketplace": "",
+        "preco_compra": 0.00,
+        "link": "",
+        "motivo_escolha": ""
+      },
+      
+      "comparacao_prio": {
+        "preco_prio": 0.00,
+        "produto_existe_prio": false,
+        "nome_no_prio": "",
+        "observacao": ""
+      },
+      
+      "estrategia_yoobe": {
+        "custo_compra": 0.00,
+        "custo_frete": 0.00,
+        "custo_total": 0.00,
+        "margem_lucro_percentual": 25,
+        "margem_lucro_reais": 0.00,
+        "preco_venda_yoobe": 0.00,
+        "comparacao_vs_prio": {
+          "diferenca_reais": 0.00,
+          "diferenca_percentual": 0.00,
+          "competitivo": false,
+          "recomendacao": ""
+        }
+      },
+      
+      "imagens": [],
+      
+      "especificacoes": {},
+      
+      "tags": [],
+      
+      "status_importacao": {
+        "ativo": false,
+        "destaque": false,
+        "novo": true,
+        "estoque_inicial": 0,
+        "importar": false,
+        "observacoes": "Template vazio - duplicar e preencher"
+      }
+    }
+  ],
+  
+  "resumo_importacao": {
+    "total_produtos": 2,
+    "produtos_competitivos": 1,
+    "produtos_nao_competitivos": 1,
+    "produtos_para_importar": 1,
+    "investimento_total": 1299.00,
+    "receita_estimada": 1454.88,
+    "lucro_estimado": 155.88,
+    "margem_media": 12.0
+  },
+  
+  "instrucoes_preenchimento": {
+    "passo_1": "Pesquise produtos nos marketplaces (Amazon, Mercado Livre, Shopee, Magazine Luiza)",
+    "passo_2": "Para cada marketplace, anote: preço, link, disponibilidade, frete, avaliação",
+    "passo_3": "Identifique a melhor oferta (menor preço + melhor condições)",
+    "passo_4": "Consulte o preço do mesmo produto (ou similar) na PRIO",
+    "passo_5": "Calcule sua margem de lucro desejada (10-70%)",
+    "passo_6": "Calcule o preço de venda: custo_compra * (1 + margem/100)",
+    "passo_7": "Compare com PRIO: diferença = preco_prio - preco_venda_yoobe",
+    "passo_8": "Se diferença > 0 (positivo) = COMPETITIVO ✅",
+    "passo_9": "Se diferença < 0 (negativo) = NÃO COMPETITIVO ❌ (ajustar margem)",
+    "passo_10": "Marque 'importar: true' apenas para produtos competitivos",
+    "passo_11": "Salve o arquivo e importe na interface do sistema"
+  },
+  
+  "dicas_importantes": {
+    "margem_lucro": "Use margem entre 10-30% para produtos competitivos. Margem de 50-70% apenas para produtos exclusivos.",
+    "frete": "Priorize produtos com frete grátis para reduzir custos",
+    "avaliacao": "Produtos com avaliação acima de 4.5 têm melhor aceitação",
+    "prazo_entrega": "Considere o prazo de entrega na escolha do marketplace",
+    "estoque": "Verifique disponibilidade real antes de importar",
+    "comparacao": "Sempre compare com PRIO para garantir competitividade",
+    "atualizacao": "Atualize os preços regularmente (Black Friday tem variações diárias)"
+  },
+  
+  "categorias_sugeridas": [
+    "Eletrônicos > Smartphones",
+    "Eletrônicos > Laptops",
+    "Eletrônicos > Tablets",
+    "Eletrônicos > Áudio (Fones, Caixas de Som)",
+    "Eletrônicos > Wearables (Smartwatch, Fitness)",
+    "Eletrônicos > Gaming (Consoles, Controles)",
+    "Eletrônicos > Smart Home",
+    "Eletrônicos > Câmeras",
+    "Casa e Cozinha > Cafeteiras",
+    "Casa e Cozinha > Eletrodomésticos",
+    "Esporte > Acessórios",
+    "Beleza > Cuidados Pessoais",
+    "Moda > Acessórios"
+  ],
+  
+  "exemplos_calculo": {
+    "exemplo_1_competitivo": {
+      "produto": "AirPods Pro",
+      "custo_compra": 1299.00,
+      "margem": 12,
+      "preco_venda_yoobe": 1454.88,
+      "preco_prio": 1499.00,
+      "diferenca": 44.12,
+      "resultado": "✅ COMPETITIVO - R$ 44,12 mais barato que PRIO"
+    },
+    "exemplo_2_nao_competitivo": {
+      "produto": "Samsung S24",
+      "custo_compra": 2850.00,
+      "margem": 25,
+      "preco_venda_yoobe": 3562.50,
+      "preco_prio": 3200.00,
+      "diferenca": -362.50,
+      "resultado": "❌ NÃO COMPETITIVO - R$ 362,50 mais caro que PRIO",
+      "solucao": "Reduzir margem para 12% = R$ 3.192,00 (R$ 8,00 mais barato que PRIO)"
+    }
+  }
+}

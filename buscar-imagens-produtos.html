@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Imagens de Produtos - BF25</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .info-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+        }
+        
+        .info-box h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .info-box p {
+            color: #856404;
+            line-height: 1.6;
+        }
+        
+        .controls {
+            padding: 30px;
+            border-bottom: 2px solid #dee2e6;
+            background: #f8f9fa;
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+        }
+        
+        .control-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            display: block;
+        }
+        
+        .control-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        
+        .control-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #218838;
+        }
+        
+        .btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background: white;
+        }
+        
+        .stat-card {
+            padding: 20px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .product-list {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .product-item {
+            display: grid;
+            grid-template-columns: 200px 1fr 200px;
+            gap: 20px;
+            padding: 20px;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .product-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-item.sem-imagem {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+        
+        .product-item.com-imagem {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .product-image {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .product-link {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9em;
+            word-break: break-all;
+        }
+        
+        .product-link:hover {
+            text-decoration: underline;
+        }
+        
+        .product-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .btn-small {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-buscar {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-buscar:hover {
+            background: #0056b3;
+        }
+        
+        .btn-copiar {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-copiar:hover {
+            background: #218838;
+        }
+        
+        .btn-small:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .modal.active {
+            display: block;
+        }
+        
+        .modal-content {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-close {
+            cursor: pointer;
+            font-size: 2em;
+            color: #6c757d;
+        }
+        
+        .modal-close:hover {
+            color: #333;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .image-option {
+            cursor: pointer;
+            border: 3px solid #dee2e6;
+            border-radius: 8px;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .image-option:hover {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+        
+        .image-option img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #28a745;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 2000;
+        }
+        
+        .toast.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(400px); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Buscar Imagens de Produtos</h1>
+            <p>Sistema Automático de Busca e Atualização de Imagens</p>
+        </div>
+        
+        <div class="info-box">
+            <h3>📢 Como Funciona</h3>
+            <p><strong>Este sistema busca imagens de produtos automaticamente usando:</strong></p>
+            <p>1. <strong>Método 1 (Automático):</strong> Usa API pública do Unsplash para buscar imagens relacionadas ao nome do produto</p>
+            <p>2. <strong>Método 2 (Manual):</strong> Permite inserir URL de imagem personalizada</p>
+            <p>3. <strong>Método 3 (Amazon):</strong> Extrai imagem diretamente do link da Amazon quando possível</p>
+            <p><strong>⚠️ Nota:</strong> Por questões de CORS, não é possível fazer scraping direto de sites externos. Use a busca automática ou insira URLs manualmente.</p>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label class="control-label">🔑 API Key do Unsplash (Opcional - para mais buscas)</label>
+                <input type="text" id="api-key" class="control-input" placeholder="Cole sua API Key do Unsplash aqui (gratuita em unsplash.com/developers)">
+                <small style="color: #6c757d; display: block; margin-top: 5px;">
+                    Sem API Key: 50 buscas/hora | Com API Key: 5000 buscas/hora
+                </small>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="carregarProdutos()">
+                    📦 Carregar Produtos
+                </button>
+                <button class="btn btn-secondary" onclick="buscarTodasImagens()" disabled id="btn-buscar-todas">
+                    🚀 Buscar Todas as Imagens
+                </button>
+                <button class="btn btn-secondary" onclick="exportarJSON()" disabled id="btn-exportar">
+                    💾 Exportar JSON Atualizado
+                </button>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="total-produtos">0</div>
+                <div class="stat-label">Total de Produtos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="sem-imagem">0</div>
+                <div class="stat-label">Sem Imagem</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="com-imagem">0</div>
+                <div class="stat-label">Com Imagem</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="imagens-encontradas">0</div>
+                <div class="stat-label">Imagens Encontradas</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Carregando produtos...</p>
+            </div>
+            
+            <div class="product-list" id="product-list"></div>
+        </div>
+    </div>
+    
+    <!-- Modal para seleção de imagem -->
+    <div class="modal" id="modal-imagens">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-titulo">Selecione uma imagem</h2>
+                <span class="modal-close" onclick="fecharModal()">×</span>
+            </div>
+            <div class="image-grid" id="image-grid"></div>
+        </div>
+    </div>
+    
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script src="produtos-v6.1.js"></script>
+    <script>
+        let produtosCarregados = [];
+        let imagensEncontradas = 0;
+        let produtoAtual = null;
+
+        // Verificar se é placeholder
+        function isPlaceholder(url) {
+            if (!url) return true;
+            const placeholders = ['placeholder', 'via.placeholder', 'placehold.it', 'lorempixel'];
+            return placeholders.some(p => url.includes(p));
+        }
+
+        // Carregar produtos do JS
+        function carregarProdutos() {
+            document.getElementById('loading').style.display = 'block';
+            
+            setTimeout(() => {
+                // Combinar todos os produtos
+                let todosProdutos = [];
+                
+                if (typeof produtosPlanilha !== 'undefined') {
+                    todosProdutos = todosProdutos.concat(produtosPlanilha);
+                }
+                
+                if (typeof produtosSugeridos !== 'undefined') {
+                    todosProdutos = todosProdutos.concat(produtosSugeridos);
+                }
+                
+                produtosCarregados = todosProdutos;
+                
+                atualizarEstatisticas();
+                renderizarProdutos();
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('btn-buscar-todas').disabled = false;
+                document.getElementById('btn-exportar').disabled = false;
+                
+                mostrarToast(`${todosProdutos.length} produtos carregados!`);
+            }, 500);
+        }
+
+        // Atualizar estatísticas
+        function atualizarEstatisticas() {
+            const total = produtosCarregados.length;
+            const semImagem = produtosCarregados.filter(p => isPlaceholder(p.imagem)).length;
+            const comImagem = total - semImagem;
+            
+            document.getElementById('total-produtos').textContent = total;
+            document.getElementById('sem-imagem').textContent = semImagem;
+            document.getElementById('com-imagem').textContent = comImagem;
+            document.getElementById('imagens-encontradas').textContent = imagensEncontradas;
+        }
+
+        // Renderizar lista de produtos
+        function renderizarProdutos() {
+            const container = document.getElementById('product-list');
+            
+            container.innerHTML = produtosCarregados.map((produto, index) => {
+                const temImagem = !isPlaceholder(produto.imagem);
+                const classe = temImagem ? 'com-imagem' : 'sem-imagem';
+                const imagemSrc = temImagem ? produto.imagem : 'https://via.placeholder.com/180x180?text=Sem+Imagem';
+                
+                return `
+                    <div class="product-item ${classe}" id="produto-${index}">
+                        <img src="${imagemSrc}" alt="${produto.nome}" class="product-image" 
+                             onerror="this.src='https://via.placeholder.com/180x180?text=Erro'">
+                        <div class="product-info">
+                            <div class="product-name">${produto.nome}</div>
+                            <a href="${produto.linkCompra}" target="_blank" class="product-link">
+                                ${produto.linkCompra}
+                            </a>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-small btn-buscar" onclick="buscarImagem(${index})">
+                                🔍 Buscar
+                            </button>
+                            <button class="btn-small btn-copiar" onclick="inserirURLManual(${index})">
+                                ✏️ URL Manual
+                            </button>
+                            ${temImagem ? `
+                                <button class="btn-small btn-copiar" onclick="copiarURL(${index})">
+                                    📋 Copiar URL
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Buscar imagem usando Unsplash API
+        async function buscarImagem(index) {
+            const produto = produtosCarregados[index];
+            produtoAtual = { produto, index };
+            
+            const apiKey = document.getElementById('api-key').value || 'demo'; // Usar demo sem API key
+            
+            mostrarToast('Buscando imagens...');
+            
+            try {
+                // Simplificar nome do produto para busca
+                const termoBusca = produto.nome
+                    .replace(/[🔥💎⭐✨]/g, '')
+                    .replace(/\(.*?\)/g, '')
+                    .replace(/\d+GB|\d+TB/g, '')
+                    .trim()
+                    .split(' ')
+                    .slice(0, 3)
+                    .join(' ');
+                
+                const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(termoBusca + ' product')}&per_page=12&client_id=${apiKey}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.results && data.results.length > 0) {
+                    mostrarModalImagens(data.results);
+                } else {
+                    mostrarToast('Nenhuma imagem encontrada. Tente URL manual.', true);
+                }
+            } catch (error) {
+                console.error('Erro ao buscar imagem:', error);
+                mostrarToast('Erro ao buscar. Tente inserir URL manual.', true);
+            }
+        }
+
+        // Mostrar modal com opções de imagem
+        function mostrarModalImagens(imagens) {
+            const modal = document.getElementById('modal-imagens');
+            const grid = document.getElementById('image-grid');
+            const titulo = document.getElementById('modal-titulo');
+            
+            titulo.textContent = `Selecione uma imagem para: ${produtoAtual.produto.nome}`;
+            
+            grid.innerHTML = imagens.map(img => `
+                <div class="image-option" onclick="selecionarImagem('${img.urls.regular}')">
+                    <img src="${img.urls.small}" alt="Opção">
+                </div>
+            `).join('');
+            
+            modal.classList.add('active');
+        }
+
+        // Selecionar imagem
+        function selecionarImagem(url) {
+            if (produtoAtual) {
+                produtosCarregados[produtoAtual.index].imagem = url;
+                imagensEncontradas++;
+                atualizarEstatisticas();
+                renderizarProdutos();
+                fecharModal();
+                mostrarToast('Imagem atualizada com sucesso!');
+            }
+        }
+
+        // Fechar modal
+        function fecharModal() {
+            document.getElementById('modal-imagens').classList.remove('active');
+        }
+
+        // Inserir URL manual
+        function inserirURLManual(index) {
+            const url = prompt('Cole a URL da imagem do produto:');
+            
+            if (url && url.trim()) {
+                produtosCarregados[index].imagem = url.trim();
+                imagensEncontradas++;
+                atualizarEstatisticas();
+                renderizarProdutos();
+                mostrarToast('Imagem atualizada com sucesso!');
+            }
+        }
+
+        // Copiar URL
+        function copiarURL(index) {
+            const url = produtosCarregados[index].imagem;
+            navigator.clipboard.writeText(url).then(() => {
+                mostrarToast('URL copiada!');
+            });
+        }
+
+        // Buscar todas as imagens automaticamente
+        async function buscarTodasImagens() {
+            const semImagem = produtosCarregados.filter(p => isPlaceholder(p.imagem));
+            
+            if (semImagem.length === 0) {
+                mostrarToast('Todos os produtos já têm imagem!');
+                return;
+            }
+            
+            if (!confirm(`Deseja buscar imagens para ${semImagem.length} produtos?\n\nIsso pode demorar alguns minutos.`)) {
+                return;
+            }
+            
+            mostrarToast('Iniciando busca automática...');
+            
+            const apiKey = document.getElementById('api-key').value || 'demo';
+            let encontradas = 0;
+            
+            for (let i = 0; i < produtosCarregados.length; i++) {
+                const produto = produtosCarregados[i];
+                
+                if (!isPlaceholder(produto.imagem)) continue;
+                
+                try {
+                    const termoBusca = produto.nome
+                        .replace(/[🔥💎⭐✨]/g, '')
+                        .replace(/\(.*?\)/g, '')
+                        .trim()
+                        .split(' ')
+                        .slice(0, 2)
+                        .join(' ');
+                    
+                    const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(termoBusca)}&per_page=1&client_id=${apiKey}`;
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    
+                    if (data.results && data.results.length > 0) {
+                        produtosCarregados[i].imagem = data.results[0].urls.regular;
+                        encontradas++;
+                        imagensEncontradas++;
+                    }
+                    
+                    // Delay para não exceder rate limit
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                } catch (error) {
+                    console.error('Erro:', error);
+                }
+            }
+            
+            atualizarEstatisticas();
+            renderizarProdutos();
+            mostrarToast(`Busca concluída! ${encontradas} imagens encontradas.`);
+        }
+
+        // Exportar JSON atualizado
+        function exportarJSON() {
+            const json = JSON.stringify(produtosCarregados, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'produtos-atualizados.json';
+            a.click();
+            mostrarToast('JSON exportado com sucesso!');
+        }
+
+        // Mostrar toast
+        function mostrarToast(mensagem, erro = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = mensagem;
+            toast.style.background = erro ? '#dc3545' : '#28a745';
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 3000);
+        }
+    </script>
+</body>
+</html>

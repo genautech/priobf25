@@ -1,0 +1,315 @@
+# ═══════════════════════════════════════════════════════════
+# 📋 COMANDOS GIT - COPIAR E COLAR
+# Sistema de Comparação de Preços v6.0.2
+# ═══════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 OPÇÃO 1: REPOSITÓRIO NOVO (Primeira vez)
+# ═══════════════════════════════════════════════════════════
+
+# Passo 1: Navegar até a pasta do projeto
+cd /caminho/para/sistema-comparacao-precos
+
+# Passo 2: Inicializar Git (se ainda não tem)
+git init
+
+# Passo 3: Adicionar arquivos
+git add index.html
+git add admin-v6.html
+git add cliente-analise-v6.html
+git add produtos-v6.0.js
+git add README.md
+git add .gitignore
+git add _headers
+git add GIT-DEPLOY-GUIDE.md
+git add DEPLOY-CHECKLIST.md
+
+# Ou adicionar todos de uma vez:
+git add .
+
+# Passo 4: Fazer commit com mensagem completa
+git commit -m "v6.0.2 - Links de compra + correções + 100% imagens
+
+✨ Novidades:
+- Links de compra Amazon em todos os 142 produtos (admin)
+- Geração automática de links de busca Amazon BR
+
+🔧 Correções:
+- Botão 'Minha Seleção' funcionando (cliente-analise)
+- Contagem correta de categorias (4) em todas as páginas
+
+🖼️ Imagens:
+- 100% cobertura de imagens (142/142 produtos)
+- 11 novas imagens de alta qualidade adicionadas
+
+📚 Arquivos modificados:
+- admin-v6.html
+- cliente-analise-v6.html
+- produtos-v6.0.js
+- index.html
+- README.md
+
+✅ Testado: Todas funcionalidades validadas
+🚀 Status: Pronto para produção"
+
+# Passo 5: Configurar branch principal
+git branch -M main
+
+# Passo 6: Adicionar repositório remoto
+# ⚠️ SUBSTITUA: SEU-USUARIO e NOME-REPO pelos seus valores
+git remote add origin https://github.com/SEU-USUARIO/NOME-REPO.git
+
+# Passo 7: Enviar para GitHub
+git push -u origin main
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 OPÇÃO 2: ATUALIZAR REPOSITÓRIO EXISTENTE
+# ═══════════════════════════════════════════════════════════
+
+# Passo 1: Navegar até a pasta
+cd /caminho/para/sistema-comparacao-precos
+
+# Passo 2: Verificar status
+git status
+
+# Passo 3: Adicionar mudanças
+git add .
+
+# Passo 4: Commit
+git commit -m "v6.0.2 - Links de compra + correções + 100% imagens"
+
+# Passo 5: Push
+git push origin main
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 COMANDOS ÚTEIS
+# ═══════════════════════════════════════════════════════════
+
+# Ver status dos arquivos
+git status
+
+# Ver histórico de commits
+git log --oneline
+
+# Ver branch atual
+git branch
+
+# Ver repositórios remotos configurados
+git remote -v
+
+# Verificar diferenças antes do commit
+git diff
+
+# Desfazer último commit (mantém mudanças)
+git reset --soft HEAD~1
+
+# Limpar mudanças não commitadas (CUIDADO!)
+git reset --hard HEAD
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 RESOLVER PROBLEMAS COMUNS
+# ═══════════════════════════════════════════════════════════
+
+# Erro: "remote origin already exists"
+git remote remove origin
+git remote add origin https://github.com/SEU-USUARIO/NOME-REPO.git
+
+# Erro: "Updates were rejected"
+git pull origin main --allow-unrelated-histories
+git push origin main
+
+# Erro: "Permission denied"
+# → Use GitHub Personal Access Token como senha
+# → Gere em: Settings → Developer settings → Personal access tokens
+
+# Forçar push (CUIDADO - sobrescreve histórico remoto)
+git push -f origin main
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 COMMIT MESSAGES ALTERNATIVOS
+# ═══════════════════════════════════════════════════════════
+
+# VERSÃO CURTA (rápida):
+git commit -m "v6.0.2 - Admin com links de compra + correções"
+
+# VERSÃO MÍNIMA (ultra-rápida):
+git commit -m "v6.0.2 - Links de compra e correções"
+
+# VERSÃO DETALHADA (completa - já mostrada acima)
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 CRIAR NOVA BRANCH PARA DESENVOLVIMENTO
+# ═══════════════════════════════════════════════════════════
+
+# Criar e mudar para nova branch
+git checkout -b desenvolvimento
+
+# Fazer mudanças e commit
+git add .
+git commit -m "Adicionar nova funcionalidade"
+
+# Enviar branch para GitHub
+git push -u origin desenvolvimento
+
+# Voltar para branch principal
+git checkout main
+
+# Fazer merge da branch de desenvolvimento
+git merge desenvolvimento
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 CONFIGURAÇÕES INICIAIS DO GIT (Se primeira vez)
+# ═══════════════════════════════════════════════════════════
+
+# Configurar nome de usuário
+git config --global user.name "Seu Nome"
+
+# Configurar email
+git config --global user.email "seu@email.com"
+
+# Verificar configurações
+git config --list
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 GERAR PERSONAL ACCESS TOKEN (Para autenticação)
+# ═══════════════════════════════════════════════════════════
+
+# GitHub não aceita mais senha em linha de comando
+# Você precisa de um Personal Access Token
+
+# 1. Acesse: https://github.com/settings/tokens
+# 2. Clique em "Generate new token (classic)"
+# 3. Selecione permissões:
+#    - repo (todas)
+#    - workflow
+# 4. Generate token
+# 5. COPIE o token (só aparece uma vez!)
+# 6. Use como senha ao fazer push
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 VERIFICAR SE TUDO ESTÁ OK ANTES DO PUSH
+# ═══════════════════════════════════════════════════════════
+
+# Ver quais arquivos serão enviados
+git status
+
+# Ver quantidade de mudanças
+git diff --stat
+
+# Ver lista de commits locais não enviados
+git log origin/main..HEAD
+
+# Ver para onde vai fazer push
+git remote show origin
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 CRIAR .gitignore (Ignorar arquivos temporários)
+# ═══════════════════════════════════════════════════════════
+
+# Já criado automaticamente, mas você pode editar:
+# Abra .gitignore e adicione arquivos/pastas para ignorar
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 EXEMPLO COMPLETO - PASSO A PASSO
+# ═══════════════════════════════════════════════════════════
+
+# 1. Configure Git (primeira vez)
+git config --global user.name "João Silva"
+git config --global user.email "joao@email.com"
+
+# 2. Navegue até sua pasta
+cd ~/Downloads/sistema-comparacao-precos
+
+# 3. Inicialize Git
+git init
+
+# 4. Adicione todos os arquivos
+git add .
+
+# 5. Faça commit
+git commit -m "v6.0.2 - Sistema completo"
+
+# 6. Configure branch
+git branch -M main
+
+# 7. Adicione repositório remoto
+git remote add origin https://github.com/joaosilva/sistema-precos.git
+
+# 8. Envie para GitHub
+git push -u origin main
+
+# 9. Ative GitHub Pages no navegador:
+#    - Settings → Pages → Source: main → Save
+
+# 10. Aguarde 2 minutos e acesse:
+#     https://joaosilva.github.io/sistema-precos/
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 CHECKLIST FINAL
+# ═══════════════════════════════════════════════════════════
+
+# [ ] Git instalado e configurado
+# [ ] Repositório criado no GitHub
+# [ ] Arquivos adicionados (git add)
+# [ ] Commit feito (git commit)
+# [ ] Remote configurado (git remote add)
+# [ ] Push realizado (git push)
+# [ ] GitHub Pages ativado
+# [ ] Site testado e funcionando
+
+
+# ═══════════════════════════════════════════════════════════
+# 🔹 ATALHOS ÚTEIS
+# ═══════════════════════════════════════════════════════════
+
+# Atalho para add + commit
+git commit -am "Mensagem do commit"
+# ⚠️ Só funciona para arquivos já rastreados
+
+# Atalho para ver log resumido
+git log --oneline --graph --all
+
+# Atalho para ver status curto
+git status -s
+
+
+# ═══════════════════════════════════════════════════════════
+# 📌 NOTAS IMPORTANTES
+# ═══════════════════════════════════════════════════════════
+
+# ⚠️ SEMPRE verifique antes de push:
+#    - Arquivos corretos adicionados
+#    - Commit message adequado
+#    - Repositório remoto correto
+
+# ⚠️ NUNCA faça push de:
+#    - Senhas ou API keys
+#    - Arquivos muito grandes (>100MB)
+#    - Arquivos temporários
+
+# ✅ BOM SABER:
+#    - Git é case-sensitive (Arquivo.txt ≠ arquivo.txt)
+#    - Commits são permanentes (histórico)
+#    - Push envia para nuvem (GitHub)
+
+
+# ═══════════════════════════════════════════════════════════
+# 🎉 PRONTO!
+# ═══════════════════════════════════════════════════════════
+
+# Seu sistema está no GitHub!
+# Próximo passo: Ativar GitHub Pages
+# Guia completo: GIT-DEPLOY-GUIDE.md
+
+# ═══════════════════════════════════════════════════════════

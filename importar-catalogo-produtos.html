@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importar Catálogo de Produtos - Black Friday PRIO 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .produto-competitivo { border-left: 4px solid #10b981; background: #f0fdf4; }
+        .produto-nao-competitivo { border-left: 4px solid #ef4444; background: #fef2f2; }
+        .produto-neutro { border-left: 4px solid #f59e0b; background: #fffbeb; }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .progress-bar { transition: width 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        
+        <!-- Header -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800 flex items-center gap-3">
+                        <i class="fas fa-file-import text-indigo-600"></i>
+                        Importar Catálogo de Produtos
+                    </h1>
+                    <p class="text-gray-600 mt-2">Sistema de importação e análise comparativa vs PRIO - Versão 6.1.2</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-sm text-gray-500">Black Friday 2025</span>
+                    <div class="text-2xl font-bold text-indigo-600">Yoobe</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estatísticas Rápidas -->
+        <div id="statsContainer" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8" style="display: none;">
+            <div class="bg-white rounded-lg shadow p-4">
+                <div class="text-sm text-gray-600">Total de Produtos</div>
+                <div class="text-3xl font-bold text-gray-800" id="statTotal">0</div>
+            </div>
+            <div class="bg-green-50 rounded-lg shadow p-4">
+                <div class="text-sm text-green-700">✅ Competitivos</div>
+                <div class="text-3xl font-bold text-green-600" id="statCompetitivos">0</div>
+            </div>
+            <div class="bg-red-50 rounded-lg shadow p-4">
+                <div class="text-sm text-red-700">❌ Não Competitivos</div>
+                <div class="text-3xl font-bold text-red-600" id="statNaoCompetitivos">0</div>
+            </div>
+            <div class="bg-blue-50 rounded-lg shadow p-4">
+                <div class="text-sm text-blue-700">💰 Lucro Estimado</div>
+                <div class="text-2xl font-bold text-blue-600" id="statLucro">R$ 0,00</div>
+            </div>
+        </div>
+
+        <!-- Área de Upload -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <i class="fas fa-cloud-upload-alt text-indigo-600"></i>
+                Passo 1: Carregar Arquivo JSON
+            </h2>
+            
+            <div class="border-2 border-dashed border-indigo-300 rounded-lg p-12 text-center hover:border-indigo-500 transition-colors cursor-pointer" id="dropZone">
+                <input type="file" id="fileInput" accept=".json" class="hidden">
+                <i class="fas fa-cloud-upload-alt text-6xl text-indigo-400 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">Arraste seu arquivo JSON aqui</h3>
+                <p class="text-gray-500 mb-4">ou clique para selecionar</p>
+                <button onclick="document.getElementById('fileInput').click()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                    <i class="fas fa-folder-open mr-2"></i>
+                    Escolher Arquivo
+                </button>
+                <p class="text-sm text-gray-400 mt-4">Formato aceito: template-importacao-produtos.json</p>
+            </div>
+
+            <div class="mt-6 flex gap-4">
+                <a href="template-importacao-produtos.json" download class="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold text-center transition-colors">
+                    <i class="fas fa-download mr-2"></i>
+                    Baixar Template Vazio
+                </a>
+                <button onclick="carregarExemplo()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                    <i class="fas fa-eye mr-2"></i>
+                    Ver Exemplo Preenchido
+                </button>
+            </div>
+        </div>
+
+        <!-- Análise e Preview -->
+        <div id="previewSection" style="display: none;">
+            
+            <!-- Resumo da Análise -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                    <i class="fas fa-chart-line text-indigo-600"></i>
+                    Passo 2: Análise Comparativa vs PRIO
+                </h2>
+                
+                <div id="resumoAnalise" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+                
+                <div class="mt-6 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-6">
+                    <h3 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                        <i class="fas fa-lightbulb text-yellow-500"></i>
+                        Recomendação Geral
+                    </h3>
+                    <p id="recomendacaoGeral" class="text-gray-700"></p>
+                </div>
+            </div>
+
+            <!-- Lista de Produtos -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                    <i class="fas fa-list text-indigo-600"></i>
+                    Passo 3: Preview dos Produtos
+                </h2>
+                
+                <div class="mb-4 flex gap-2">
+                    <button onclick="filtrarProdutos('todos')" class="filter-btn bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg font-semibold transition-colors" data-filter="todos">
+                        <i class="fas fa-list mr-2"></i>Todos
+                    </button>
+                    <button onclick="filtrarProdutos('competitivos')" class="filter-btn bg-green-100 hover:bg-green-200 px-4 py-2 rounded-lg font-semibold transition-colors" data-filter="competitivos">
+                        <i class="fas fa-check-circle mr-2"></i>Competitivos
+                    </button>
+                    <button onclick="filtrarProdutos('nao-competitivos')" class="filter-btn bg-red-100 hover:bg-red-200 px-4 py-2 rounded-lg font-semibold transition-colors" data-filter="nao-competitivos">
+                        <i class="fas fa-times-circle mr-2"></i>Não Competitivos
+                    </button>
+                </div>
+                
+                <div id="produtosLista" class="space-y-4"></div>
+            </div>
+
+            <!-- Ações Finais -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                    <i class="fas fa-check-double text-indigo-600"></i>
+                    Passo 4: Confirmar Importação
+                </h2>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-6">
+                    <p class="text-yellow-800 font-semibold mb-2">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Atenção: Esta ação irá SUBSTITUIR o catálogo atual
+                    </p>
+                    <p class="text-yellow-700 text-sm">
+                        Os produtos atuais serão preservados em backup automático. 
+                        Apenas produtos marcados como "importar: true" serão adicionados.
+                    </p>
+                </div>
+                
+                <div class="flex gap-4">
+                    <button onclick="exportarProdutosSelecionados()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-lg font-semibold text-lg transition-colors">
+                        <i class="fas fa-download mr-2"></i>
+                        Exportar Produtos Selecionados (JSON)
+                    </button>
+                    <button onclick="confirmarImportacao()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-4 rounded-lg font-semibold text-lg transition-colors">
+                        <i class="fas fa-check mr-2"></i>
+                        Confirmar e Importar para Sistema
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="produtos-v6.1.js"></script>
+    <script>
+        let dadosImportacao = null;
+        let produtosFiltrados = [];
+
+        // Drag & Drop
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-indigo-500', 'bg-indigo-50');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-indigo-500', 'bg-indigo-50');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-indigo-500', 'bg-indigo-50');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) processarArquivo(files[0]);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files.length > 0) processarArquivo(files[0]);
+        });
+
+        // Processar arquivo JSON
+        function processarArquivo(file) {
+            if (!file.name.endsWith('.json')) {
+                alert('❌ Por favor, selecione um arquivo JSON válido');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    dadosImportacao = JSON.parse(e.target.result);
+                    validarEAnalisar();
+                } catch (error) {
+                    alert('❌ Erro ao ler o arquivo JSON. Verifique se o formato está correto.');
+                    console.error(error);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Validar e analisar dados
+        function validarEAnalisar() {
+            if (!dadosImportacao || !dadosImportacao.produtos) {
+                alert('❌ Arquivo JSON inválido. Verifique a estrutura.');
+                return;
+            }
+
+            // Filtrar produtos válidos
+            produtosFiltrados = dadosImportacao.produtos.filter(p => {
+                return p.nome && 
+                       p.nome !== "[ADICIONE MAIS PRODUTOS AQUI]" && 
+                       p.melhor_oferta && 
+                       p.melhor_oferta.preco_compra > 0;
+            });
+
+            if (produtosFiltrados.length === 0) {
+                alert('❌ Nenhum produto válido encontrado no arquivo.');
+                return;
+            }
+
+            // Enriquecer produtos com análise
+            produtosFiltrados = produtosFiltrados.map(analisarProduto);
+
+            // Atualizar interface
+            atualizarEstatisticas();
+            exibirResumoAnalise();
+            exibirProdutos();
+            
+            document.getElementById('previewSection').style.display = 'block';
+            document.getElementById('statsContainer').style.display = 'grid';
+            
+            // Scroll suave para o preview
+            setTimeout(() => {
+                document.getElementById('previewSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        }
+
+        // Validar produto antes de analisar
+        function validarProdutoImportacao(produto) {
+            const erros = [];
+            
+            // 1. Nome obrigatório
+            if (!produto.nome || produto.nome.trim() === "" || produto.nome === "[ADICIONE MAIS PRODUTOS AQUI]") {
+                erros.push("Nome do produto é obrigatório");
+            }
+            
+            // 2. Link de compra obrigatório (CRÍTICO)
+            if (!produto.melhor_oferta?.link) {
+                erros.push("❌ Link de compra é OBRIGATÓRIO");
+            } else if (produto.melhor_oferta.link === "#" || produto.melhor_oferta.link.trim() === "") {
+                erros.push("❌ Link de compra não pode estar vazio");
+            } else if (!produto.melhor_oferta.link.startsWith('http://') && !produto.melhor_oferta.link.startsWith('https://')) {
+                erros.push("❌ Link deve ser uma URL válida (http:// ou https://)");
+            }
+            
+            // 3. Preço válido
+            if (!produto.melhor_oferta?.preco_compra || produto.melhor_oferta.preco_compra <= 0) {
+                erros.push("Preço de compra deve ser maior que zero");
+            }
+            
+            // 4. Categoria válida
+            if (!produto.categoria || produto.categoria.trim() === "") {
+                erros.push("Categoria é obrigatória");
+            }
+            
+            // 5. SKU único
+            if (!produto.sku || produto.sku.trim() === "") {
+                erros.push("SKU é obrigatório");
+            }
+            
+            return erros;
+        }
+
+        // Analisar cada produto
+        function analisarProduto(produto) {
+            // Validar primeiro
+            const erros = validarProdutoImportacao(produto);
+            
+            if (erros.length > 0) {
+                return {
+                    ...produto,
+                    valido: false,
+                    erros: erros,
+                    analise: {
+                        preco_venda_calculado: 0,
+                        diferenca_reais: 0,
+                        diferenca_percentual: 0,
+                        competitivo: false,
+                        lucro_unitario: 0,
+                        margem_real: 0
+                    }
+                };
+            }
+            
+            const custoTotal = produto.estrategia_yoobe?.custo_total || 0;
+            const margemPercent = produto.estrategia_yoobe?.margem_lucro_percentual || 25;
+            const precoVenda = custoTotal * (1 + margemPercent / 100);
+            const precoPrio = produto.comparacao_prio?.preco_prio || 0;
+            
+            const diferenca = precoPrio - precoVenda;
+            const diferencaPercent = precoPrio > 0 ? (diferenca / precoPrio * 100) : 0;
+            const competitivo = diferenca > 0;
+            
+            // Enriquecer dados
+            produto.valido = true;
+            produto.erros = [];
+            produto.analise = {
+                preco_venda_calculado: precoVenda,
+                diferenca_reais: diferenca,
+                diferenca_percentual: diferencaPercent,
+                competitivo: competitivo,
+                lucro_unitario: precoVenda - custoTotal,
+                margem_real: ((precoVenda - custoTotal) / precoVenda * 100)
+            };
+            
+            return produto;
+        }
+
+        // Atualizar estatísticas
+        function atualizarEstatisticas() {
+            const competitivos = produtosFiltrados.filter(p => p.analise.competitivo).length;
+            const naoCompetitivos = produtosFiltrados.length - competitivos;
+            const lucroTotal = produtosFiltrados.reduce((sum, p) => {
+                const estoque = p.status_importacao?.estoque_inicial || 1;
+                return sum + (p.analise.lucro_unitario * estoque);
+            }, 0);
+
+            document.getElementById('statTotal').textContent = produtosFiltrados.length;
+            document.getElementById('statCompetitivos').textContent = competitivos;
+            document.getElementById('statNaoCompetitivos').textContent = naoCompetitivos;
+            document.getElementById('statLucro').textContent = lucroTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        // Exibir resumo da análise
+        function exibirResumoAnalise() {
+            const competitivos = produtosFiltrados.filter(p => p.analise.competitivo);
+            const naoCompetitivos = produtosFiltrados.filter(p => !p.analise.competitivo);
+            const investimentoTotal = produtosFiltrados.reduce((sum, p) => {
+                const estoque = p.status_importacao?.estoque_inicial || 1;
+                return sum + (p.estrategia_yoobe.custo_total * estoque);
+            }, 0);
+            const receitaEstimada = produtosFiltrados.reduce((sum, p) => {
+                const estoque = p.status_importacao?.estoque_inicial || 1;
+                return sum + (p.analise.preco_venda_calculado * estoque);
+            }, 0);
+            const lucro = receitaEstimada - investimentoTotal;
+
+            const html = `
+                <div class="bg-blue-50 rounded-lg p-6">
+                    <div class="text-sm text-blue-700 font-semibold mb-2">💰 Investimento Total</div>
+                    <div class="text-3xl font-bold text-blue-900">${investimentoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
+                </div>
+                <div class="bg-green-50 rounded-lg p-6">
+                    <div class="text-sm text-green-700 font-semibold mb-2">📈 Receita Estimada</div>
+                    <div class="text-3xl font-bold text-green-900">${receitaEstimada.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
+                </div>
+                <div class="bg-indigo-50 rounded-lg p-6">
+                    <div class="text-sm text-indigo-700 font-semibold mb-2">💎 Lucro Estimado</div>
+                    <div class="text-3xl font-bold text-indigo-900">${lucro.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
+                    <div class="text-sm text-indigo-600 mt-1">${((lucro / investimentoTotal) * 100).toFixed(1)}% de margem</div>
+                </div>
+            `;
+
+            document.getElementById('resumoAnalise').innerHTML = html;
+
+            // Recomendação
+            let recomendacao = '';
+            const percentualCompetitivos = (competitivos.length / produtosFiltrados.length) * 100;
+            
+            if (percentualCompetitivos >= 70) {
+                recomendacao = `✅ <strong>Excelente!</strong> ${competitivos.length} produtos (${percentualCompetitivos.toFixed(0)}%) são competitivos vs PRIO. Recomendamos importar todos os produtos competitivos.`;
+            } else if (percentualCompetitivos >= 40) {
+                recomendacao = `⚠️ <strong>Bom resultado.</strong> ${competitivos.length} produtos (${percentualCompetitivos.toFixed(0)}%) são competitivos. Considere ajustar a margem dos ${naoCompetitivos.length} produtos não competitivos.`;
+            } else {
+                recomendacao = `❌ <strong>Atenção!</strong> Apenas ${competitivos.length} produtos (${percentualCompetitivos.toFixed(0)}%) são competitivos. Recomendamos revisar as margens ou buscar fornecedores mais baratos.`;
+            }
+
+            document.getElementById('recomendacaoGeral').innerHTML = recomendacao;
+        }
+
+        // Exibir produtos
+        function exibirProdutos(filtro = 'todos') {
+            let produtos = produtosFiltrados;
+            
+            if (filtro === 'competitivos') {
+                produtos = produtos.filter(p => p.valido && p.analise.competitivo);
+            } else if (filtro === 'nao-competitivos') {
+                produtos = produtos.filter(p => p.valido && !p.analise.competitivo);
+            }
+
+            const html = produtos.map(produto => {
+                // Verificar se produto é válido
+                const valido = produto.valido !== false;
+                const temErros = produto.erros && produto.erros.length > 0;
+                
+                if (!valido || temErros) {
+                    // Produto com erros de validação
+                    return `
+                        <div class="border-l-4 border-red-500 bg-red-50 rounded-lg p-6 fade-in">
+                            <div class="flex gap-6">
+                                <div class="flex-shrink-0">
+                                    <img src="${produto.imagens && produto.imagens[0] ? produto.imagens[0] : 'https://via.placeholder.com/150?text=Sem+Imagem'}" 
+                                         alt="${produto.nome}" 
+                                         class="w-32 h-32 object-cover rounded-lg opacity-50">
+                                </div>
+                                <div class="flex-grow">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h3 class="text-xl font-bold text-gray-800">${produto.nome}</h3>
+                                            <p class="text-sm text-gray-600">${produto.marca || ''} ${produto.modelo || ''}</p>
+                                        </div>
+                                        <span class="text-3xl">❌</span>
+                                    </div>
+                                    
+                                    <div class="bg-red-100 border border-red-300 rounded-lg p-4 mt-4">
+                                        <p class="text-red-800 font-bold mb-2">
+                                            <i class="fas fa-exclamation-triangle"></i> Erros de Validação:
+                                        </p>
+                                        <ul class="list-disc list-inside text-red-700 text-sm space-y-1">
+                                            ${produto.erros.map(erro => `<li>${erro}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    
+                                    <p class="text-sm text-gray-600 mt-4">
+                                        ⚠️ Este produto não pode ser importado. Corrija os erros no arquivo JSON.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                const competitivo = produto.analise.competitivo;
+                const classeBorda = competitivo ? 'produto-competitivo' : 'produto-nao-competitivo';
+                const iconeStatus = competitivo ? '✅' : '❌';
+                
+                return `
+                    <div class="${classeBorda} rounded-lg p-6 fade-in">
+                        <div class="flex gap-6">
+                            <div class="flex-shrink-0">
+                                <img src="${produto.imagens && produto.imagens[0] ? produto.imagens[0] : 'https://via.placeholder.com/150?text=Sem+Imagem'}" 
+                                     alt="${produto.nome}" 
+                                     class="w-32 h-32 object-cover rounded-lg">
+                            </div>
+                            <div class="flex-grow">
+                                <div class="flex items-start justify-between mb-2">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-800">${produto.nome}</h3>
+                                        <p class="text-sm text-gray-600">${produto.marca || ''} ${produto.modelo || ''}</p>
+                                        <p class="text-xs text-gray-500 mt-1">${produto.categoria} > ${produto.subcategoria}</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-3xl">${iconeStatus}</span>
+                                        <p class="text-sm font-semibold ${competitivo ? 'text-green-600' : 'text-red-600'}">
+                                            ${competitivo ? 'COMPETITIVO' : 'NÃO COMPETITIVO'}
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Melhor Preço de Compra</p>
+                                        <p class="text-lg font-bold text-blue-600">${produto.estrategia_yoobe.custo_total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                                        <p class="text-xs text-gray-500">${produto.melhor_oferta.marketplace}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500">Preço Venda Yoobe</p>
+                                        <p class="text-lg font-bold text-indigo-600">${produto.analise.preco_venda_calculado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                                        <p class="text-xs text-gray-500">Margem: ${produto.estrategia_yoobe.margem_lucro_percentual}%</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500">Preço PRIO</p>
+                                        <p class="text-lg font-bold text-gray-700">${produto.comparacao_prio.preco_prio > 0 ? produto.comparacao_prio.preco_prio.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'N/D'}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500">Diferença vs PRIO</p>
+                                        <p class="text-lg font-bold ${competitivo ? 'text-green-600' : 'text-red-600'}">
+                                            ${produto.analise.diferenca_reais.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                                        </p>
+                                        <p class="text-xs ${competitivo ? 'text-green-600' : 'text-red-600'}">(${produto.analise.diferenca_percentual.toFixed(1)}%)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 p-4 bg-white rounded-lg">
+                                    <p class="text-sm font-semibold text-gray-700 mb-2">
+                                        ${produto.estrategia_yoobe.comparacao_vs_prio?.recomendacao || ''}
+                                    </p>
+                                    ${!competitivo ? `
+                                        <p class="text-xs text-red-600">
+                                            💡 Dica: Reduza a margem para ${calcularMargemIdeal(produto)}% para ficar competitivo
+                                        </p>
+                                    ` : ''}
+                                </div>
+                                
+                                <div class="mt-4 flex gap-2">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" 
+                                               class="w-5 h-5" 
+                                               ${produto.status_importacao?.importar ? 'checked' : ''}
+                                               onchange="toggleImportar('${produto.sku}', this.checked)">
+                                        <span class="text-sm font-semibold text-gray-700">Importar este produto</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('produtosLista').innerHTML = html || '<p class="text-center text-gray-500 py-8">Nenhum produto encontrado com este filtro.</p>';
+        }
+
+        // Calcular margem ideal
+        function calcularMargemIdeal(produto) {
+            const custoTotal = produto.estrategia_yoobe.custo_total;
+            const precoPrio = produto.comparacao_prio.preco_prio;
+            
+            if (precoPrio <= custoTotal) return 0;
+            
+            // Calcular margem para ficar 5% abaixo do PRIO
+            const precoAlvo = precoPrio * 0.95;
+            const margemIdeal = ((precoAlvo - custoTotal) / custoTotal * 100);
+            
+            return Math.max(5, Math.round(margemIdeal));
+        }
+
+        // Toggle importar produto
+        function toggleImportar(sku, importar) {
+            const produto = produtosFiltrados.find(p => p.sku === sku);
+            if (produto) {
+                produto.status_importacao.importar = importar;
+                atualizarEstatisticas();
+            }
+        }
+
+        // Filtrar produtos
+        function filtrarProdutos(filtro) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                if (btn.dataset.filter === filtro) {
+                    btn.classList.add('bg-indigo-600', 'text-white');
+                }
+            });
+            exibirProdutos(filtro);
+        }
+
+        // Exportar produtos selecionados
+        function exportarProdutosSelecionados() {
+            const selecionados = produtosFiltrados.filter(p => p.status_importacao?.importar);
+            
+            if (selecionados.length === 0) {
+                alert('⚠️ Nenhum produto selecionado para exportar.');
+                return;
+            }
+
+            const exportData = {
+                ...dadosImportacao,
+                produtos: selecionados,
+                meta_exportacao: {
+                    data_exportacao: new Date().toISOString(),
+                    total_produtos: selecionados.length,
+                    produtos_competitivos: selecionados.filter(p => p.analise.competitivo).length
+                }
+            };
+
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `produtos-importar-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert(`✅ ${selecionados.length} produtos exportados com sucesso!`);
+        }
+
+        // Confirmar importação
+        function confirmarImportacao() {
+            const selecionados = produtosFiltrados.filter(p => p.status_importacao?.importar);
+            
+            if (selecionados.length === 0) {
+                alert('⚠️ Nenhum produto selecionado para importar.');
+                return;
+            }
+
+            const competitivos = selecionados.filter(p => p.analise.competitivo).length;
+            const naoCompetitivos = selecionados.length - competitivos;
+
+            const confirmMsg = `
+🔔 CONFIRMAR IMPORTAÇÃO
+
+📦 Total: ${selecionados.length} produtos
+✅ Competitivos: ${competitivos}
+❌ Não competitivos: ${naoCompetitivos}
+
+⚠️ Esta ação irá adicionar estes produtos ao catálogo atual.
+Os produtos existentes serão preservados.
+
+Deseja continuar?
+            `;
+
+            if (!confirm(confirmMsg)) return;
+
+            // Converter para formato do sistema atual
+            const produtosConvertidos = converterParaFormatoSistema(selecionados);
+            
+            // Gerar arquivo para baixar (usuário precisará adicionar manualmente ao produtos-v6.1.js)
+            const codigo = gerarCodigoProdutos(produtosConvertidos);
+            
+            const blob = new Blob([codigo], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `produtos-novos-${new Date().toISOString().split('T')[0]}.js`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert(`
+✅ IMPORTAÇÃO PREPARADA!
+
+${selecionados.length} produtos foram convertidos para o formato do sistema.
+
+📥 Arquivo baixado: produtos-novos-${new Date().toISOString().split('T')[0]}.js
+
+📋 PRÓXIMOS PASSOS:
+1. Abra o arquivo produtos-v6.1.js
+2. Localize o array 'produtosBF' no final do arquivo
+3. Copie o conteúdo do arquivo baixado
+4. Cole DENTRO do array, antes do fechamento ]
+5. Salve e teste o sistema
+
+💡 Dica: Faça backup do produtos-v6.1.js antes de modificar!
+            `);
+        }
+
+        // Converter para formato do sistema
+        function converterParaFormatoSistema(produtos) {
+            return produtos.map(p => {
+                return {
+                    id: p.sku.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+                    nome: p.nome,
+                    descricao: `${p.marca} ${p.modelo}`.trim(),
+                    categoria: p.categoria,
+                    subcategoria: p.subcategoria,
+                    preco: p.analise.preco_venda_calculado,
+                    precoMercado: p.estrategia_yoobe.custo_total,
+                    precoVenda: p.analise.preco_venda_calculado,
+                    custoBase: p.estrategia_yoobe.custo_total,
+                    precoConcorrente: p.comparacao_prio.preco_prio || null,
+                    fornecedor: p.melhor_oferta.marketplace,
+                    linkCompra: p.melhor_oferta.link,
+                    imagem: p.imagens && p.imagens[0] ? p.imagens[0] : 'https://via.placeholder.com/400?text=Produto',
+                    estoque: p.status_importacao.estoque_inicial || 10,
+                    badge: p.status_importacao.destaque ? '🔥 NOVO!' : null,
+                    especificacoes: p.especificacoes || {},
+                    tags: p.tags || []
+                };
+            });
+        }
+
+        // Gerar código JavaScript
+        function gerarCodigoProdutos(produtos) {
+            let codigo = `// ============================================\n`;
+            codigo += `// PRODUTOS IMPORTADOS - ${new Date().toLocaleDateString('pt-BR')}\n`;
+            codigo += `// Total: ${produtos.length} produtos\n`;
+            codigo += `// ============================================\n\n`;
+            codigo += `// ADICIONE ESTES PRODUTOS AO ARRAY produtosBF[] em produtos-v6.1.js\n\n`;
+            
+            produtos.forEach(p => {
+                codigo += `    {\n`;
+                Object.entries(p).forEach(([key, value]) => {
+                    if (value !== null && value !== undefined) {
+                        if (typeof value === 'string') {
+                            codigo += `        ${key}: "${value}",\n`;
+                        } else if (typeof value === 'object') {
+                            codigo += `        ${key}: ${JSON.stringify(value, null, 8)},\n`;
+                        } else {
+                            codigo += `        ${key}: ${value},\n`;
+                        }
+                    }
+                });
+                codigo += `    },\n\n`;
+            });
+            
+            return codigo;
+        }
+
+        // Carregar exemplo
+        function carregarExemplo() {
+            alert('📖 Funcionalidade: Carregue o arquivo "template-importacao-produtos.json" para ver um exemplo completo com 2 produtos preenchidos.');
+        }
+    </script>
+
+</body>
+</html>

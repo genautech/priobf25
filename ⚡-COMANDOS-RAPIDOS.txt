@@ -1,0 +1,121 @@
+═══════════════════════════════════════════════════════════════
+⚡ COMANDOS RÁPIDOS PARA DEPLOY
+═══════════════════════════════════════════════════════════════
+
+Repositório: https://github.com/genautech/priobf25
+
+═══════════════════════════════════════════════════════════════
+🚀 OPÇÃO 1: SE GIT JÁ ESTÁ CONFIGURADO
+═══════════════════════════════════════════════════════════════
+
+# Abra o terminal e execute linha por linha:
+
+cd ~/downloads/prio/priobf25
+
+git add -A
+
+git commit -m "fix: v6.1.2.3 - corrige bugs críticos, sistema 100% funcional"
+
+git pull origin main --rebase
+
+git push origin main
+
+# ✅ PRONTO! Aguarde 2 minutos para deploy automático
+
+
+═══════════════════════════════════════════════════════════════
+🔧 OPÇÃO 2: PRIMEIRA VEZ (CONFIGURAR TUDO)
+═══════════════════════════════════════════════════════════════
+
+# Execute linha por linha:
+
+cd ~/downloads/prio/priobf25
+
+git init
+
+git remote add origin https://github.com/genautech/priobf25.git
+
+git config user.name "Seu Nome"
+
+git config user.email "seu-email@example.com"
+
+git add -A
+
+git commit -m "fix: v6.1.2.3 - sistema completo com bugs corrigidos"
+
+git pull origin main --rebase
+
+git push origin main
+
+# ⚠️ GitHub pode pedir login:
+# - Se abrir navegador: faça login
+# - Se pedir senha: use TOKEN (não senha)
+#   → Crie token em: https://github.com/settings/tokens
+
+
+═══════════════════════════════════════════════════════════════
+🐛 SE DER ERRO
+═══════════════════════════════════════════════════════════════
+
+# Erro: "failed to push"
+git pull origin main --rebase
+git push origin main
+
+# Erro: "Permission denied"
+git remote set-url origin https://github.com/genautech/priobf25.git
+git push origin main
+
+# Erro: "Conflitos ao fazer pull"
+git checkout --ours .
+git add -A
+git rebase --continue
+git push origin main
+
+
+═══════════════════════════════════════════════════════════════
+✅ VERIFICAR SE DEU CERTO
+═══════════════════════════════════════════════════════════════
+
+1. Abra: https://github.com/genautech/priobf25
+   → Último commit deve ser "fix: v6.1.2.3..."
+
+2. Abra: https://priobf25.pages.dev/admin
+   → Clique em "Comparativo de Preços"
+   → Tabela deve carregar com produtos
+
+3. Abra console (F12)
+   → Deve mostrar: "Produtos carregados: 142"
+
+
+═══════════════════════════════════════════════════════════════
+🌐 CONECTAR CLOUDFLARE (SE AINDA NÃO FEZ)
+═══════════════════════════════════════════════════════════════
+
+1. Acesse: https://dash.cloudflare.com
+2. Workers & Pages → Create application
+3. Pages → Connect to Git
+4. Connect GitHub → Autorize
+5. Selecione: genautech/priobf25
+6. CONFIGURAÇÃO IMPORTANTE:
+   - Framework preset: None
+   - Build command: (vazio)
+   - Build output: /
+7. Save and Deploy
+8. Aguarde 2 minutos
+
+
+═══════════════════════════════════════════════════════════════
+📞 AJUDA RÁPIDA
+═══════════════════════════════════════════════════════════════
+
+Guia completo: Abra 🚀-DEPLOY-PASSO-A-PASSO.md
+
+Token GitHub: https://github.com/settings/tokens
+Dashboard Cloudflare: https://dash.cloudflare.com
+
+
+═══════════════════════════════════════════════════════════════
+✅ FIM
+═══════════════════════════════════════════════════════════════
+
+Copie e cole os comandos da OPÇÃO 1 no terminal!

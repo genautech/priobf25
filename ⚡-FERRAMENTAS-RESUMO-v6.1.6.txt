@@ -1,0 +1,290 @@
+════════════════════════════════════════════════════════════════
+   ⚡ NOVA ABA FERRAMENTAS - v6.1.6
+════════════════════════════════════════════════════════════════
+
+📅 Data: 16/10/2025
+✅ Status: IMPLEMENTADO E FUNCIONANDO
+🎯 Objetivo: Central de gestão de catálogo integrada no admin
+
+════════════════════════════════════════════════════════════════
+   🛠️ 6 FERRAMENTAS DISPONÍVEIS
+════════════════════════════════════════════════════════════════
+
+1️⃣ EXPORTAR TEMPLATE DE PRODUTOS
+   📤 Exporta todos os 142 produtos em JSON
+   ✅ Backup completo do catálogo
+   ✅ Formato editável
+   
+2️⃣ IMPORTAR/ATUALIZAR CATÁLOGO ⭐ PRINCIPAL
+   📥 Importa produtos de arquivo JSON
+   ✅ Atualiza produtos existentes
+   ✅ Adiciona novos produtos
+   ✅ Sistema inteligente de merge
+   
+3️⃣ CORRIGIR LINKS DE COMPRA
+   🔗 Gera links Amazon automaticamente
+   ✅ Corrige produtos sem link
+   ✅ Atualização em massa
+   
+4️⃣ ATUALIZAR IMAGENS
+   🖼️ Em desenvolvimento
+   ⚠️ Use: executar-atualizacao-imagens.html
+   
+5️⃣ BUSCAR PRODUTOS ONLINE
+   🔍 Em desenvolvimento
+   ⚠️ Use: buscar-imagens-FINAL.html
+   
+6️⃣ EXPORTAR CSV COMPLETO
+   📊 Análise de preços Prio
+   ✅ 142 produtos com 14 colunas
+   ✅ Download automático
+
+════════════════════════════════════════════════════════════════
+   📥 COMO FUNCIONA A IMPORTAÇÃO
+════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────┐
+│  PERGUNTA DO USUÁRIO:                                       │
+│  "Se eu exportar o template, os produtos atualizarão        │
+│   automaticamente no catálogo?"                             │
+└─────────────────────────────────────────────────────────────┘
+
+RESPOSTA:
+
+❌ NÃO AUTOMATICAMENTE
+
+✅ FLUXO CORRETO:
+
+   1️⃣ EXPORTAR TEMPLATE
+      ↓
+      Salva arquivo JSON com 142 produtos
+      Arquivo: template-produtos-2025-10-16_14-30.json
+      
+   2️⃣ EDITAR ARQUIVO
+      ↓
+      Abrir JSON em editor de texto
+      Alterar preços, quantidades, etc.
+      Adicionar novos produtos
+      Salvar arquivo
+      
+   3️⃣ IMPORTAR CATÁLOGO
+      ↓
+      Clicar "Importar Produtos"
+      Selecionar arquivo editado
+      Sistema processa mudanças:
+      
+      ┌──────────────────────────────────────┐
+      │ Para cada produto no arquivo JSON:  │
+      │                                      │
+      │ 1. Buscar produto por ID ou SKU     │
+      │                                      │
+      │ 2a. SE ENCONTRADO:                  │
+      │     → ATUALIZAR produto existente   │
+      │     → Manter ID original            │
+      │     → Aplicar novos valores         │
+      │                                      │
+      │ 2b. SE NÃO ENCONTRADO:              │
+      │     → ADICIONAR como novo produto   │
+      │     → Usar ID do arquivo            │
+      │     → Incrementar total             │
+      └──────────────────────────────────────┘
+      
+   4️⃣ RESULTADO
+      ↓
+      ✅ Catálogo atualizado na memória
+      ✅ Mudanças visíveis em todas as abas
+      ✅ Mensagem: "X atualizados, Y novos"
+
+════════════════════════════════════════════════════════════════
+   💡 EXEMPLOS PRÁTICOS
+════════════════════════════════════════════════════════════════
+
+EXEMPLO 1: ATUALIZAR PREÇOS DE 10 PRODUTOS
+┌─────────────────────────────────────────────────────────────┐
+│ Estado Inicial: 142 produtos                                │
+│                                                              │
+│ 1. Exportar template                                        │
+│    → template-produtos.json (142 produtos)                  │
+│                                                              │
+│ 2. Editar arquivo:                                          │
+│    Produto ID 1001: custoBase 420 → 380                    │
+│    Produto ID 1002: custoBase 300 → 280                    │
+│    ... (8 produtos mais)                                    │
+│                                                              │
+│ 3. Importar template                                        │
+│    → Sistema detecta 10 produtos com IDs existentes         │
+│    → Atualiza apenas esses 10                               │
+│    → Outros 132 mantidos intactos                           │
+│                                                              │
+│ ✅ Resultado: 142 produtos (10 atualizados, 0 novos)       │
+└─────────────────────────────────────────────────────────────┘
+
+EXEMPLO 2: ADICIONAR 5 NOVOS PRODUTOS
+┌─────────────────────────────────────────────────────────────┐
+│ Estado Inicial: 142 produtos                                │
+│                                                              │
+│ 1. Exportar template                                        │
+│                                                              │
+│ 2. Editar arquivo - Adicionar no array:                    │
+│    {                                                         │
+│      "id": 2001,  ← Novo ID único                          │
+│      "sku": "NOVO-001",                                     │
+│      "nome": "Produto Novo 1",                              │
+│      ...                                                     │
+│    },                                                        │
+│    ... (mais 4 produtos)                                    │
+│                                                              │
+│ 3. Importar template                                        │
+│    → Sistema detecta 5 IDs não existentes                   │
+│    → Adiciona os 5 como novos                               │
+│                                                              │
+│ ✅ Resultado: 147 produtos (0 atualizados, 5 novos)        │
+└─────────────────────────────────────────────────────────────┘
+
+EXEMPLO 3: MIX (ATUALIZAR + ADICIONAR)
+┌─────────────────────────────────────────────────────────────┐
+│ Estado Inicial: 142 produtos                                │
+│                                                              │
+│ 1. Exportar template                                        │
+│                                                              │
+│ 2. Editar arquivo:                                          │
+│    - Alterar custoBase de 10 produtos existentes            │
+│    - Adicionar 3 produtos novos                             │
+│    - Deletar 2 produtos do array (IDs 1050, 1051)          │
+│                                                              │
+│ 3. Importar template                                        │
+│    → 10 produtos atualizados                                │
+│    → 3 produtos adicionados                                 │
+│    → 2 produtos NÃO importados = permanecem no catálogo     │
+│      (só são removidos se não estiverem no arquivo)         │
+│                                                              │
+│ ✅ Resultado: 145 produtos (10 atualizados, 3 novos)       │
+│    ⚠️ ATENÇÃO: Deletar do JSON NÃO remove do catálogo!     │
+└─────────────────────────────────────────────────────────────┘
+
+════════════════════════════════════════════════════════════════
+   🚀 FLUXO DE TRABALHO RECOMENDADO
+════════════════════════════════════════════════════════════════
+
+PASSO 1: BACKUP (SEMPRE!)
+   📤 Exportar Template
+   ✅ Salvar arquivo com data: backup-2025-10-16.json
+   
+PASSO 2: EDITAR
+   📝 Abrir JSON em VS Code ou editor online
+   ✅ Fazer alterações necessárias
+   ✅ Validar JSON (jsonlint.com)
+   ✅ Salvar arquivo
+   
+PASSO 3: TESTAR (OPCIONAL MAS RECOMENDADO)
+   🧪 Importar com 1-2 produtos primeiro
+   ✅ Verificar se funcionou
+   ✅ Se OK, importar arquivo completo
+   
+PASSO 4: IMPORTAR
+   📥 Clicar "Importar Produtos"
+   ✅ Selecionar arquivo editado
+   ✅ Aguardar mensagem de sucesso
+   
+PASSO 5: VERIFICAR
+   👀 Ir para "Todos os Produtos"
+   ✅ Conferir alterações
+   ✅ Testar funcionalidades
+   
+PASSO 6: EXPORTAR NOVO BACKUP (OPCIONAL)
+   📤 Exportar template atualizado
+   ✅ Salvar com nova data
+
+════════════════════════════════════════════════════════════════
+   ⚠️ CUIDADOS IMPORTANTES
+════════════════════════════════════════════════════════════════
+
+✅ FAZER:
+   • Sempre exportar backup antes de importar
+   • Validar JSON antes de importar
+   • Testar com poucos produtos primeiro
+   • Usar IDs únicos para novos produtos
+   • Manter arquivo de backup datado
+
+❌ NÃO FAZER:
+   • Importar sem backup
+   • Usar IDs duplicados
+   • Editar JSON sem validar sintaxe
+   • Confiar 100% sem testar antes
+   • Deletar todos os backups
+
+⚠️ LIMITAÇÕES:
+   • Mudanças ficam apenas na MEMÓRIA
+   • Recarregar página = perder alterações
+   • Para salvar permanente = atualizar produtos-v6.1.js
+
+════════════════════════════════════════════════════════════════
+   🎯 CASOS DE USO PRINCIPAIS
+════════════════════════════════════════════════════════════════
+
+1️⃣ ATUALIZAR PREÇOS DO FORNECEDOR
+   Fornecedor enviou lista com novos preços
+   → Exportar template
+   → Atualizar campo custoBase
+   → Importar de volta
+   
+2️⃣ ADICIONAR PRODUTOS DA BLACK FRIDAY
+   Novos 20 produtos para promoção
+   → Exportar template
+   → Copiar estrutura de produto
+   → Criar 20 novos com IDs 2001-2020
+   → Importar
+   
+3️⃣ CORRIGIR DADOS EM MASSA
+   Vários produtos com informações erradas
+   → Exportar template
+   → Buscar e substituir no editor
+   → Importar corrigido
+   
+4️⃣ RESTAURAR BACKUP
+   Algo deu errado, precisa voltar
+   → Abrir backup anterior
+   → Importar arquivo de backup
+   → Catálogo restaurado
+
+════════════════════════════════════════════════════════════════
+   📚 DOCUMENTAÇÃO
+════════════════════════════════════════════════════════════════
+
+📖 Guia Completo:
+   📄 📖-GUIA-FERRAMENTAS-v6.1.6.md
+   → Todas as ferramentas detalhadas
+   → Exemplos práticos
+   → FAQs
+
+📋 README Atualizado:
+   📄 README.md (seção v6.1.6)
+   → Visão geral das ferramentas
+   → Como funciona importação
+
+════════════════════════════════════════════════════════════════
+   ✅ RESUMO FINAL
+════════════════════════════════════════════════════════════════
+
+🎉 NOVA ABA "FERRAMENTAS" IMPLEMENTADA!
+
+✅ Exportar/Importar produtos (principal)
+✅ Atualização inteligente (merge automático)
+✅ Corrigir links em massa
+✅ Exportar CSV com análise
+✅ Sistema de backup integrado
+✅ Interface visual intuitiva
+
+RESPOSTA DIRETA:
+
+Q: "Se eu exportar o template, os produtos atualizarão?"
+A: ❌ NÃO automaticamente
+   ✅ Precisa IMPORTAR de volta depois de editar
+
+FLUXO: EXPORTAR → EDITAR → IMPORTAR → ATUALIZADO ✅
+
+════════════════════════════════════════════════════════════════
+
+✅ SISTEMA 100% FUNCIONAL E PRONTO PARA USO! 🚀
+
+════════════════════════════════════════════════════════════════

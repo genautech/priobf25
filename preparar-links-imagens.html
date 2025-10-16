@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Preparar Links e Imagens - Todos os Produtos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Preparar Links e Imagens - 142 Produtos</h1>
+        
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-xl font-bold mb-4">Produtos que PRECISAM de imagem/link:</h2>
+            <div id="produtos-sem-link" class="space-y-2"></div>
+        </div>
+
+        <div class="bg-green-50 rounded-lg shadow p-6">
+            <h2 class="text-xl font-bold mb-4 text-green-800">Produtos que JÁ TÊM imagem:</h2>
+            <div id="produtos-com-link" class="space-y-2"></div>
+        </div>
+    </div>
+
+    <script src="produtos-v6.0.js"></script>
+    <script>
+        const todosProdutos = [...produtosPlanilha, ...produtosSugeridos];
+        
+        const comImagem = [];
+        const semImagem = [];
+        
+        todosProdutos.forEach(p => {
+            // Verificar se a imagem foi atualizada (não é a antiga quebrada)
+            const imagemFuncional = p.imagem && 
+                                   !p.imagem.includes('I/81IJSYW-VvL') && // iPhone 16 antiga
+                                   !p.imagem.includes('I/71Hx87J8OYL') && // S24 antiga
+                                   !p.imagem.includes('I/61hFO9ZfEEL') && // AirPods antiga
+                                   !p.imagem.includes('I/71HnNm+Lv0L') && // Watch antiga
+                                   !p.imagem.includes('I/61h6L-WqV0L') && // Nespresso antiga
+                                   !p.imagem.includes('I/61KKpV3p7UL') && // Switch antiga
+                                   !p.imagem.includes('I/61gJN+FJPSL') && // DualSense antiga
+                                   !p.imagem.includes('I/61vVMJdGLuL') && // Tab antiga
+                                   !p.imagem.includes('I/61U6MFMI8tL') && // Echo antiga
+                                   !p.imagem.includes('I/51gzQ8vZVjL');   // JBL antiga
+            
+            if (imagemFuncional) {
+                comImagem.push(p);
+            } else {
+                semImagem.push(p);
+            }
+        });
+        
+        document.getElementById('produtos-sem-link').innerHTML = `
+            <p class="text-red-600 font-bold mb-4">Total: ${semImagem.length} produtos precisam de imagem</p>
+            ${semImagem.map((p, i) => `
+                <div class="p-3 bg-red-50 rounded border-l-4 border-red-500">
+                    <div class="font-semibold">${i + 1}. ${p.nome}</div>
+                    <div class="text-sm text-gray-600">ID: ${p.id} | SKU: ${p.sku} | Categoria: ${p.subcategoria}</div>
+                    <div class="text-xs text-gray-500 mt-1">Buscar: "${p.nome} ${p.subcategoria}"</div>
+                </div>
+            `).join('')}
+        `;
+        
+        document.getElementById('produtos-com-link').innerHTML = `
+            <p class="text-green-600 font-bold mb-4">Total: ${comImagem.length} produtos JÁ TÊM imagem ✅</p>
+            ${comImagem.map((p, i) => `
+                <div class="p-2 bg-white rounded border-l-4 border-green-500">
+                    <div class="font-semibold text-sm">${i + 1}. ${p.nome}</div>
+                    <div class="text-xs text-gray-500">✅ Imagem OK</div>
+                </div>
+            `).join('')}
+        `;
+        
+        console.log('=== RESUMO ===');
+        console.log('Produtos COM imagem:', comImagem.length);
+        console.log('Produtos SEM imagem:', semImagem.length);
+        console.log('Total:', todosProdutos.length);
+        console.log('\n=== PRODUTOS QUE PRECISAM DE BUSCA ===');
+        semImagem.forEach((p, i) => {
+            console.log(`${i+1}. ${p.nome} (${p.subcategoria})`);
+        });
+    </script>
+</body>
+</html>

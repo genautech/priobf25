@@ -1,0 +1,639 @@
+// ============================================
+// SCRIPT AUXILIAR: ATUALIZAÇÃO DE IMAGENS
+// Versão: 1.0
+// Data: 2025-10-15
+// Objetivo: Popular imagens faltantes dos produtos
+// usando o JSON de imagens extraídas
+// ============================================
+
+// Carrega o JSON de imagens extraídas
+const imagensExtraidas = {
+    "products": [
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51-7ivDG+6L._AC_SL1500_.jpg",
+        "product_name": "🔥 NOVO! Oura Ring 4 - Smart Ring Premium"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61PvbQyWfzL._AC_SL1500_.jpg",
+        "product_name": "1MORE EVO"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71ZnQtHdj5L._AC_SL1500_.jpg",
+        "product_name": "Acer Swift Edge 16"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61hFO9ZfEEL._AC_SL1500_.jpg",
+        "product_name": "AirPods 3ª Geração"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/81EbEV5y3aL._AC_SL1500_.jpg",
+        "product_name": "AirPods Max"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61U6MFMI8tL._AC_SL1000_.jpg",
+        "product_name": "Alexa - Echo Dot 5ª Geração"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61hnAKQKRsL._AC_SL1200_.jpg",
+        "product_name": "Almofada Massageadora Shiatsu Dellamed Preta"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61XvC7VfYrL._AC_SL1500_.jpg",
+        "product_name": "Amazfit GTR 5 Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71IyZGr5A3L._AC_SL1000_.jpg",
+        "product_name": "Amazon Echo (4ª Geração)"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61QPqVJhKbL._AC_SL1000_.jpg",
+        "product_name": "Amazon Fire Max 11"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51-TW5sEWdL._AC_SL1500_.jpg",
+        "product_name": "Anker 747 GaNPrime 150W Carregador"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61+g5Fx5+nL._AC_SL1500_.jpg",
+        "product_name": "Anker Nebula Capsule 3 Laser"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61MYWEWYnXL._AC_SL1500_.jpg",
+        "product_name": "Anker Soundcore Liberty 3 Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61bIgCdjrbL._AC_SL1500_.jpg",
+        "product_name": "Apple Magic Keyboard com Touch ID"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/41McAU3EqLL._AC_SL1500_.jpg",
+        "product_name": "Apple Pencil Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71HnNm+Lv0L._AC_SL1500_.jpg",
+        "product_name": "Apple Watch Series 10"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71e+7z6LHML._AC_SL1500_.jpg",
+        "product_name": "Apple Watch Series 9 41mm Branca"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71HnNm+Lv0L._AC_SL1500_.jpg",
+        "product_name": "Apple Watch Series 9 45mm Preta"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51T5hGIvE1L._AC_SL1500_.jpg",
+        "product_name": "Aqara Hub M2"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71TZ4kGCvzL._AC_SL1500_.jpg",
+        "product_name": "ASUS ROG Ally Z1 Extreme"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71mXjqVEYzL._AC_SL1500_.jpg",
+        "product_name": "ASUS ROG Phone 8"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71cSV+-YZDL._AC_SL1500_.jpg",
+        "product_name": "ASUS ZenBook 14 OLED"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71OTxJ1BDzL._AC_SL1500_.jpg",
+        "product_name": "Audio-Technica ATH-M50xBT2"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61Hs-nIGMWL._AC_SL1500_.jpg",
+        "product_name": "August Wi-Fi Smart Lock"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71MppLxhIgL._AC_SL1500_.jpg",
+        "product_name": "Autel EVO Lite+"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51V8HnBNkPL._AC_SL1200_.jpg",
+        "product_name": "Balança Digital Xiaomi com Bioimpedância Scale 2 Original"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71pGiOpq6CL._AC_SL1500_.jpg",
+        "product_name": "Beats Powerbeats Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61vqMQiD4JL._AC_SL1500_.jpg",
+        "product_name": "Belkin BoostCharge Pro 3-in-1 MagSafe"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71YKUwNGdaL._AC_SL1500_.jpg",
+        "product_name": "BenQ TK700STi Gaming Projetor 4K"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51JkkCRQJjL._AC_SL1200_.jpg",
+        "product_name": "Bose QuietComfort 45"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/81g0NixQBTL._AC_SL1500_.jpg",
+        "product_name": "Caixa de Som JBL Flip 6"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/81VZ5V9KZSL._AC_SL1500_.jpg",
+        "product_name": "Caixa de Som JBL Xtreme 3 Portátil"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71Q7k1YSCDL._AC_SL1500_.jpg",
+        "product_name": "Câmera Polaroid - Instax Mini 11"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71L9yC35cqL._AC_SL1500_.jpg",
+        "product_name": "Câmera Polaroid Instax Mini 11"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/81jWfCFgT0L._AC_SL1500_.jpg",
+        "product_name": "Canon PowerShot G7 X Mark III"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51Y8RhMxkbL._AC_SL1200_.jpg",
+        "product_name": "Chaleira Elétrica Térmica CE-06 Mondial Preto/Inox 2L 127V"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61KL2WAJG6L._AC_SL1500_.jpg",
+        "product_name": "Controle Sem Fio Microsoft Xbox Wireless Carbon Black"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61gJN+FJPSL._AC_SL1500_.jpg",
+        "product_name": "Controle Sony DualSense Sem Fio PlayStation 5 Branco"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61eqiU8kfVL._AC_SL1500_.jpg",
+        "product_name": "Coros Vertix 2S"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71KN6+kQLyL._AC_SL1500_.jpg",
+        "product_name": "Corsair K70 RGB PRO Mechanical"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71JCNVJtIBL._AC_SL1500_.jpg",
+        "product_name": "Dell XPS 15 9530"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61Ku1sPVOqL._AC_SL1500_.jpg",
+        "product_name": "DJI Action 4"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51NNp3JZVML._AC_SL1080_.jpg",
+        "product_name": "DJI Air 3"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61AKQNpAWUL._AC_SL1500_.jpg",
+        "product_name": "DJI Avata 2 FPV Drone"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61KJBdHd7ZL._AC_SL1500_.jpg",
+        "product_name": "DJI Mic 2"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61EQnlH1lzL._AC_SL1500_.jpg",
+        "product_name": "DJI Mini 4 Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51KNw5QNPGL._AC_SL1500_.jpg",
+        "product_name": "DJI Pocket 3"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51gvSJGMwfL._AC_SL1500_.jpg",
+        "product_name": "DJI RS 3 Gimbal"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71e4yMvmY-L._AC_SL1500_.jpg",
+        "product_name": "Ecobee SmartThermostat Premium"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61xkBYLM3lL._AC_SL1500_.jpg",
+        "product_name": "Edifier NeoBuds Pro 2"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71W3pYSP7EL._AC_SL1500_.jpg",
+        "product_name": "Epson Home Cinema 2250 3LCD"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61uLT4uSXDL._AC_SL1500_.jpg",
+        "product_name": "Eve Energy Smart Plug"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61YRCy6GFZL._AC_SL1500_.jpg",
+        "product_name": "Fitbit Charge 6"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61vEU91AfnL._AC_SL1500_.jpg",
+        "product_name": "Fone de Ouvido Bluetooth com Cancelamento de Ruído Ativo"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61h+RwMqZnL._AC_SL1500_.jpg",
+        "product_name": "Fone de Ouvido JBL com Condução Óssea"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51gzQ8vZVjL._AC_SL1500_.jpg",
+        "product_name": "Fone JBL Wave Buds"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/81TE7XnUoKL._AC_SL1500_.jpg",
+        "product_name": "Fujifilm X100V"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71m5fY5MKOL._AC_SL1500_.jpg",
+        "product_name": "Garmin Forerunner 165 GPS Running Watch"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71xo4e+UuqL._AC_SL1500_.jpg",
+        "product_name": "Garmin Forerunner 965"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61H3DqJ7PjL._AC_SL1500_.jpg",
+        "product_name": "Geonav Power Bank Carregador Portátil 20.000mAh"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61DXNhHYmaL._AC_SL1500_.jpg",
+        "product_name": "Google Nest Hub (2ª Geração)"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71AJnVwWDyL._AC_SL1500_.jpg",
+        "product_name": "Google Pixel 8 Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61riZ-2xkML._AC_SL1500_.jpg",
+        "product_name": "GoPro HERO 12 Black"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71sOk8sMCzL._AC_SL1500_.jpg",
+        "product_name": "HolyStone HS720E 4K GPS Drone"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51Xhx0pPmtL._AC_SL1500_.jpg",
+        "product_name": "Honor Earbuds X6"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71wkh7W3nIL._AC_SL1500_.jpg",
+        "product_name": "HP Spectre x360 14"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61wP9mwCmwL._AC_SL1500_.jpg",
+        "product_name": "Huawei MatePad Pro 13.2"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61M+FxQhkjL._AC_SL1500_.jpg",
+        "product_name": "Huawei Watch Fit 5"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61yPgMUNfxL._AC_SL1500_.jpg",
+        "product_name": "HyperX Cloud III Wireless"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51wZVL8HZAL._AC_SL1500_.jpg",
+        "product_name": "Insta360 GO 3"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61DljHSPQnL._AC_SL1500_.jpg",
+        "product_name": "Insta360 X3"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61NGnpjoRDL._AC_SL1500_.jpg",
+        "product_name": "iPad Air 11\" M2"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/81RKl3FvFGL._AC_SL1500_.jpg",
+        "product_name": "iPad Pro 13\" M4"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/81IJSYW-VvL._AC_SL1500_.jpg",
+        "product_name": "iPhone 16 Pro Max 256GB"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61LrBFLh-cL._AC_SL1500_.jpg",
+        "product_name": "Jabra Elite 85t"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61xRQ8sPTvL._AC_SL1500_.jpg",
+        "product_name": "JBL Tour One M2"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61QGQJYZfxL._AC_SL1500_.jpg",
+        "product_name": "JBL Wave Buds Intra"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/6182S7MYC2L._AC_SL1000_.jpg",
+        "product_name": "Kindle 11ª Geração"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51QCk82iGcL._AC_SL1000_.jpg",
+        "product_name": "Kindle Paperwhite 11ª Geração"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51MPw9H9W2L._AC_SL1500_.jpg",
+        "product_name": "Lâmpada Wi-Fi Inteligente TP-Link Tapo L530E Ajuste Cor Bivolt"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71NMF3vLBtL._AC_SL1500_.jpg",
+        "product_name": "Lenovo Tab P12 Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61FhYJypRwL._AC_SL1500_.jpg",
+        "product_name": "Lenovo ThinkPad X1 Carbon Gen 11"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/81jZ8R9xSsL._AC_SL1500_.jpg",
+        "product_name": "LG 27\" OLED Gaming Monitor 240Hz"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51Qn1WJ3ySL._AC_SL1500_.jpg",
+        "product_name": "Logitech G Pro X Superlight 2"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg",
+        "product_name": "Logitech MX Master 3S"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71f5Eu5lJtL._AC_SL1500_.jpg",
+        "product_name": "MacBook Air 15\" M3"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61RJn0ofUsL._AC_SL1500_.jpg",
+        "product_name": "MacBook Pro 16\" M3 Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61gtIkVdK7L._AC_SL1500_.jpg",
+        "product_name": "Microsoft Surface Pro 9"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71NMGj+8mSL._AC_SL1500_.jpg",
+        "product_name": "Mochila de Hidratação Track&Field"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61VC8pC3iLL._AC_SL1500_.jpg",
+        "product_name": "Motorola Edge 14 Ultra"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71TlQZE0GiL._AC_SL1500_.jpg",
+        "product_name": "MSI Prestige 16 Studio"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61h6L-WqV0L._AC_SL1500_.jpg",
+        "product_name": "Nespresso Vertuo Pop Branca"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71cjGFaoURL._AC_SL1500_.jpg",
+        "product_name": "Nespresso Vertuo Pop Preta"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61KKpV3p7UL._AC_SL1500_.jpg",
+        "product_name": "Nintendo Switch OLED 64GB Standard Branco"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61ks9ZJ7BbL._AC_SL1500_.jpg",
+        "product_name": "Nothing Ear (2)"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61KhRU+UJVL._AC_SL1500_.jpg",
+        "product_name": "Nothing Phone (3)"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61xB1hgPmJL._AC_SL1500_.jpg",
+        "product_name": "OnePlus 12 Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61r4W-fq9eL._AC_SL1500_.jpg",
+        "product_name": "OnePlus Pad"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61TnC0F-TuL._AC_SL1500_.jpg",
+        "product_name": "OPPO Find X7 Ultra"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/81OeJcpQAyL._AC_SL1500_.jpg",
+        "product_name": "Peak Design Everyday Messenger 13L"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61jtQxjDMDL._AC_SL1500_.jpg",
+        "product_name": "Philips Hue Kit Inicial (3 Lâmpadas + Bridge)"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61NfPpHBk6L._AC_SL1500_.jpg",
+        "product_name": "Pipoqueira Mondial PopFlix PP-03 Vermelha 110V"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51w2yS8VndL._AC_SL1500_.jpg",
+        "product_name": "PlayStation 5 Digital Edition"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61RN+q-rBJL._AC_SL1500_.jpg",
+        "product_name": "Polar Vantage V3"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71RGFlqXgvL._AC_SL1500_.jpg",
+        "product_name": "Razer Blade 14 Gaming"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51tLFIXYfOL._AC_SL1500_.jpg",
+        "product_name": "Razer Viper V3 Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51S5zCzGBtL._AC_SL1000_.jpg",
+        "product_name": "Ring Video Doorbell Pro 2"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61Hxkz8IojL._AC_SL1500_.jpg",
+        "product_name": "Robô Aspirador Eletrolux com 2h20min de Autonomia"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61V3QKJvZYL._AC_SL1500_.jpg",
+        "product_name": "Robô Aspirador Eletrônico"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61Y3SzfC+TL._AC_SL1200_.jpg",
+        "product_name": "Robô Aspirador Eletrônico Inteligente"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71IjKM6sOiL._AC_SL1500_.jpg",
+        "product_name": "Samsung Galaxy Book3 Ultra"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61PomnXks7L._AC_SL1500_.jpg",
+        "product_name": "Samsung Galaxy Buds2 Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51oHqZT8yEL._AC_SL1500_.jpg",
+        "product_name": "Samsung Galaxy Ring"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71Hx87J8OYL._AC_SL1500_.jpg",
+        "product_name": "Samsung Galaxy S24 Ultra"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71ZcQ9h4sHL._AC_SL1500_.jpg",
+        "product_name": "Samsung Galaxy Tab S9"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71L+MqVI9LL._AC_SL1500_.jpg",
+        "product_name": "Samsung Galaxy Tab S9 Ultra"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71vYDRBxJOL._AC_SL1500_.jpg",
+        "product_name": "Samsung Galaxy Watch 6 Classic"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61V7-soHNYL._AC_SL1500_.jpg",
+        "product_name": "Samsung Galaxy Z Fold 5"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/41C1ghLnAiL._AC_SL1000_.jpg",
+        "product_name": "Samsung S Pen Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/81h9RwNlD2L._AC_SL1500_.jpg",
+        "product_name": "Samsung T7 Shield Portable SSD 4TB"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61B9tKzJAUL._AC_SL1500_.jpg",
+        "product_name": "Samsung The Freestyle Projetor"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/81ge59j1WML._AC_SL1500_.jpg",
+        "product_name": "SanDisk Extreme Portable SSD 2TB"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61v-3HbgXfL._AC_SL1500_.jpg",
+        "product_name": "Sennheiser Momentum 4 Wireless"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61DXNhHYmaL._AC_SL1500_.jpg",
+        "product_name": "Smart Display com Alexa (Echo Show 8)"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51J5dpCMQOL._AC_SL1500_.jpg",
+        "product_name": "Sonoff SNZB-03 Sensor Movimento Zigbee (Pack 4)"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51EZ+TEcLfL._AC_SL1500_.jpg",
+        "product_name": "Sony LinkBuds S"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61vEU91AfnL._AC_SL1500_.jpg",
+        "product_name": "Sony WH-1000XM5"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/719Z9MN0A4L._AC_SL1500_.jpg",
+        "product_name": "Sony ZV-E10"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71ZK0NHpYyL._AC_SL1500_.jpg",
+        "product_name": "Steam Deck 512GB"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71VZFp8HWHL._AC_SL1500_.jpg",
+        "product_name": "SteelSeries Apex Pro TKL"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61ks7MHFAML._AC_SL1500_.jpg",
+        "product_name": "Suunto 9 Peak Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61vVMJdGLuL._AC_SL1500_.jpg",
+        "product_name": "Tablet Samsung Galaxy Tab S6 Lite 64GB + Caneta S Pen"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61NyMHqnQoL._AC_SL1500_.jpg",
+        "product_name": "TicWatch Pro 5 Ultra"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71qBxLg4+VL._AC_SL1500_.jpg",
+        "product_name": "Tomtoc Mochila 40L Travel Backpack"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/41F2KY1ztmL._AC_SL1000_.jpg",
+        "product_name": "TP-Link Tapo C520WS Câmera 360°"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61R+V5pQzqL._AC_SL1500_.jpg",
+        "product_name": "WHOOP 4.0"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71HdXLPcVWL._AC_SL1500_.jpg",
+        "product_name": "Withings ScanWatch 2"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/51EZWGRi0XL._AC_SL1500_.jpg",
+        "product_name": "Xbox Series X"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61MoSNy7TBL._AC_SL1500_.jpg",
+        "product_name": "XGIMI Horizon 2 Pro Projetor 4K"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71kZXRu3xjL._AC_SL1500_.jpg",
+        "product_name": "Xiaomi 14 Pro"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/61cRnup8LzL._AC_SL1500_.jpg",
+        "product_name": "Xiaomi Pad 6"
+      },
+      {
+        "image_url": "https://m.media-amazon.com/images/I/71c9ro4AwVL._AC_SL1500_.jpg",
+        "product_name": "Xiaomi Smart Band 8 Pro"
+      }
+    ]
+};
+
+// Criar mapa de imagens para lookup rápido
+function criarMapaImagens() {
+    const mapa = new Map();
+    
+    imagensExtraidas.products.forEach(produto => {
+        // Normalizar o nome do produto para matching
+        const nomeNormalizado = produto.product_name
+            .toLowerCase()
+            .replace(/🔥\s*novo!\s*/i, '')
+            .trim();
+        
+        mapa.set(nomeNormalizado, produto.image_url);
+    });
+    
+    return mapa;
+}
+
+// Função para normalizar nome de produto
+function normalizarNome(nome) {
+    return nome
+        .toLowerCase()
+        .replace(/[^\w\s]/g, ' ') // Remove pontuação
+        .replace(/\s+/g, ' ') // Remove espaços múltiplos
+        .trim();
+}
+
+// Função para encontrar imagem correspondente
+function encontrarImagem(nomeProduto, mapaImagens) {
+    const nomeNorm = normalizarNome(nomeProduto);
+    
+    // Tentar match exato primeiro
+    if (mapaImagens.has(nomeNorm)) {
+        return mapaImagens.get(nomeNorm);
+    }
+    
+    // Tentar match parcial
+    for (let [nomeImagem, url] of mapaImagens) {
+        if (nomeNorm.includes(nomeImagem) || nomeImagem.includes(nomeNorm)) {
+            return url;
+        }
+    }
+    
+    return null;
+}
+
+// Exportar funções para uso
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        imagensExtraidas,
+        criarMapaImagens,
+        encontrarImagem,
+        normalizarNome
+    };
+}
+
+console.log('✅ Script auxiliar de atualização de imagens carregado!');
+console.log('📊 Total de imagens disponíveis:', imagensExtraidas.products.length);

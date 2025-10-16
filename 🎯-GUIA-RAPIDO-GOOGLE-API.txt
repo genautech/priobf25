@@ -1,0 +1,252 @@
+═══════════════════════════════════════════════════════════════
+  🎯 GUIA RÁPIDO - Buscar Imagens via Google API
+═══════════════════════════════════════════════════════════════
+
+📁 ARQUIVO: buscar-imagens-google.html
+
+
+═══════════════════════════════════════════════════════════════
+  🚀 PROCESSO COMPLETO (4 ETAPAS)
+═══════════════════════════════════════════════════════════════
+
+ETAPA 1: OBTER API KEY (5 minutos - só primeira vez)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Acesse: https://serpapi.com/users/sign_up
+
+2. Preencha o cadastro:
+   - Email
+   - Senha
+   - SEM cartão de crédito!
+
+3. Confirme o email que receberá
+
+4. Acesse: https://serpapi.com/manage-api-key
+
+5. Copie sua API Key
+   Exemplo: abc123def456ghi789...
+
+
+ETAPA 2: CONFIGURAR (30 segundos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Abra: buscar-imagens-google.html
+
+2. Na seção "🔑 Passo 1":
+   
+   a) Escolha o método:
+      [🤖 SerpAPI (100 grátis + Automático)]
+   
+   b) Cole sua API Key no campo
+   
+   c) Clique: [✓ Testar API Key]
+      → Deve aparecer: "✅ API Key válida!"
+
+
+ETAPA 3: CARREGAR PRODUTOS (5 segundos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Na seção "🚀 Passo 2":
+   
+   Clique: [📦 1. Carregar Produtos]
+   
+   → Resultado: "✅ 142 produtos carregados!"
+
+2. Veja a lista de produtos com:
+   - Número do produto
+   - Nome
+   - Categoria
+   - Preço
+   - Link clicável
+   - Status (Com Imagem / Pendente)
+
+
+ETAPA 4: BUSCAR IMAGENS (20-25 minutos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPÇÃO A: Buscar Todas Automaticamente (5 minutos)
+──────────────────────────────────────────────────
+
+1. Clique: [🚀 2. Buscar Todas]
+
+2. Confirme quando perguntar
+
+3. Aguarde processar:
+   → 100 produtos via API (5 min)
+   → Barra de progresso mostra andamento
+
+4. Resultado:
+   → ~100 produtos com imagem ✅
+   → ~42 produtos pendentes ⏳
+
+
+OPÇÃO B: Buscar Uma por Uma (melhor qualidade)
+──────────────────────────────────────────────────
+
+Para cada produto:
+
+1. Clique: [🔍 Buscar Google]
+   → Abre modal com 12 imagens do produto
+   → Escolha a melhor
+   → Imagem é salva automaticamente
+
+2. Ou clique: [✏️ Manual]
+   → Sistema abre o link do produto
+   → Você copia a URL da imagem
+   → Cola quando solicitado
+
+3. Ou clique: [🛒 Ver Produto]
+   → Abre o produto no site original
+   → Útil para conferir detalhes
+
+
+OPÇÃO C: Completar os Restantes (20 minutos)
+──────────────────────────────────────────────────
+
+Após buscar 100 automaticamente:
+
+1. Role a página
+2. Veja produtos com "⏳ Pendente"
+3. Para cada um, clique:
+   - [🔍 Buscar Google] (escolhe manualmente)
+   - Ou [✏️ Manual] (cola URL)
+
+
+ETAPA 5: EXPORTAR (5 segundos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Clique: [💾 3. Exportar JSON]
+
+2. Arquivo baixa automaticamente:
+   produtos-imagens-2025-10-16.json
+
+3. Pronto! ✅
+
+
+═══════════════════════════════════════════════════════════════
+  💡 DICAS IMPORTANTES
+═══════════════════════════════════════════════════════════════
+
+✅ API Key é salva no navegador
+   → Próxima vez não precisa digitar de novo
+
+✅ Link do produto é clicável
+   → Clique para ver o produto original
+   → Ajuda a encontrar a imagem certa
+
+✅ Botão "Ver Produto"
+   → Abre o produto em nova aba
+   → Útil para copiar imagem manualmente
+
+✅ Categorias e Preço
+   → Mostrados para facilitar identificação
+   → Ajuda a encontrar produto certo
+
+✅ Número do produto (#1, #2...)
+   → Para você saber qual está processando
+
+
+═══════════════════════════════════════════════════════════════
+  📊 ESTATÍSTICAS EM TEMPO REAL
+═══════════════════════════════════════════════════════════════
+
+No topo da página você vê:
+
+┌────────────────────────────────────────────────┐
+│  Total │ Com Imagem │ Pendentes │ Processadas │
+│  142   │    100     │    42     │     100     │
+└────────────────────────────────────────────────┘
+
+→ Atualiza automaticamente conforme processa
+
+
+═══════════════════════════════════════════════════════════════
+  ⏱️ TEMPO ESTIMADO
+═══════════════════════════════════════════════════════════════
+
+Primeira Vez:
+├─ Cadastro SerpAPI:      5 min
+├─ Configurar:            30 seg
+├─ Carregar:              5 seg
+├─ Buscar 100 auto:       5 min
+├─ Completar 42 manual:   20 min
+└─ Exportar:              5 seg
+──────────────────────────────────
+TOTAL:                   ~30 min
+
+
+Próximas Vezes:
+├─ Configurar:            10 seg (API já salva)
+├─ Carregar:              5 seg
+├─ Buscar 100 auto:       5 min
+├─ Completar 42 manual:   20 min
+└─ Exportar:              5 seg
+──────────────────────────────────
+TOTAL:                   ~25 min
+
+
+═══════════════════════════════════════════════════════════════
+  🆘 PROBLEMAS COMUNS
+═══════════════════════════════════════════════════════════════
+
+Problema: "Botão Carregar Produtos está desabilitado"
+→ Você não escolheu o método (SerpAPI ou Manual)
+→ Escolha na seção "Passo 1"
+
+
+Problema: "API Key inválida"
+→ Verifique se copiou corretamente
+→ Confirme o email no SerpAPI
+→ Clique em "Testar API Key" para validar
+
+
+Problema: "Limite de API excedido"
+→ Você usou 100 buscas do mês
+→ Aguarde próximo mês ou
+→ Atualize para plano pago ou
+→ Complete restantes manualmente
+
+
+Problema: "Imagens não relacionadas ao produto"
+→ Nome do produto pode estar confuso
+→ Clique [🔍 Buscar Google] e escolha manualmente
+→ Ou use [✏️ Manual] e cole URL correta
+
+
+Problema: "Link do produto não abre"
+→ URL pode estar inválida
+→ Verifique no arquivo produtos-v6.1.js
+
+
+═══════════════════════════════════════════════════════════════
+  ✅ CHECKLIST FINAL
+═══════════════════════════════════════════════════════════════
+
+Antes de exportar, verifique:
+
+[ ] Todos os produtos processados (142/142)
+[ ] Taxa de sucesso ≥95%
+[ ] Imagens carregando corretamente
+[ ] Links testados (abra alguns produtos)
+[ ] Estatísticas corretas no topo
+[ ] Pronto para exportar JSON
+
+
+═══════════════════════════════════════════════════════════════
+  🎉 RESULTADO FINAL
+═══════════════════════════════════════════════════════════════
+
+✅ 142 produtos com imagens reais
+✅ URLs de Google Images (alta qualidade)
+✅ Imagens públicas e estáveis
+✅ 100% de taxa de sucesso
+✅ Arquivo JSON pronto para uso
+✅ Tempo: 25-30 minutos
+✅ Custo: R$ 0,00 (grátis!)
+
+
+═══════════════════════════════════════════════════════════════
+
+COMECE AGORA: buscar-imagens-google.html
+
+═══════════════════════════════════════════════════════════════

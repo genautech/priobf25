@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Imagens de Produtos - Via Proxy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .status-ok {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .image-preview {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body class="p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-2xl p-8 mb-6">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                🔍 Buscar Imagens Reais dos Produtos
+            </h1>
+            <p class="text-gray-600 text-lg mb-6">
+                Sistema que busca as imagens diretamente dos links dos produtos usando serviços proxy públicos
+            </p>
+            
+            <!-- Alert Box -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">Como Funciona</h3>
+                        <div class="mt-2 text-sm text-blue-700">
+                            <p><strong>Método 1 - API de Open Graph (Recomendado):</strong></p>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li>Usa serviços como jsonlink.io ou opengraph.io</li>
+                                <li>Extrai metadados og:image da página do produto</li>
+                                <li>Funciona para Amazon, Mercado Livre, e outros</li>
+                            </ul>
+                            <p class="mt-3"><strong>Método 2 - Inserção Manual:</strong></p>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li>Abra o link do produto em nova aba</li>
+                                <li>Clique com botão direito na imagem → "Copiar endereço da imagem"</li>
+                                <li>Cole o link na caixa "URL Manual"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-4 gap-4 mb-6">
+                <div class="bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl p-4 text-center">
+                    <div class="text-3xl font-bold text-purple-700" id="total-produtos">0</div>
+                    <div class="text-sm text-purple-600 font-medium">Total</div>
+                </div>
+                <div class="bg-gradient-to-br from-green-100 to-green-50 rounded-xl p-4 text-center">
+                    <div class="text-3xl font-bold text-green-700" id="com-imagem">0</div>
+                    <div class="text-sm text-green-600 font-medium">Com Imagem</div>
+                </div>
+                <div class="bg-gradient-to-br from-yellow-100 to-yellow-50 rounded-xl p-4 text-center">
+                    <div class="text-3xl font-bold text-yellow-700" id="sem-imagem">0</div>
+                    <div class="text-sm text-yellow-600 font-medium">Sem Imagem</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl p-4 text-center">
+                    <div class="text-3xl font-bold text-blue-700" id="processadas">0</div>
+                    <div class="text-sm text-blue-600 font-medium">Processadas</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex gap-4">
+                <button onclick="carregarProdutos()" class="flex-1 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold py-3 px-6 rounded-xl hover:from-purple-700 hover:to-purple-800 transition-all shadow-lg">
+                    📦 Carregar Produtos
+                </button>
+                <button onclick="buscarTodasAutomatico()" id="btn-buscar" disabled class="flex-1 bg-gradient-to-r from-green-600 to-green-700 text-white font-bold py-3 px-6 rounded-xl hover:from-green-700 hover:to-green-800 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    🚀 Buscar Todas (Automático)
+                </button>
+                <button onclick="exportarJSON()" id="btn-exportar" disabled class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold py-3 px-6 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    💾 Exportar JSON
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="hidden bg-white rounded-2xl shadow-xl p-8 text-center">
+            <div class="spinner mx-auto mb-4"></div>
+            <p class="text-gray-600 text-lg font-medium">Carregando produtos...</p>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Products will be rendered here -->
+        </div>
+    </div>
+
+    <script src="produtos-v6.1.js"></script>
+    <script>
+        let produtosCarregados = [];
+        let processadas = 0;
+
+        // Verificar se é placeholder
+        function isPlaceholder(url) {
+            if (!url) return true;
+            const placeholders = ['placeholder', 'via.placeholder', 'placehold.it', 'lorempixel'];
+            return placeholders.some(p => url.includes(p));
+        }
+
+        // Atualizar estatísticas
+        function atualizarEstatisticas() {
+            const total = produtosCarregados.length;
+            const semImagem = produtosCarregados.filter(p => isPlaceholder(p.imagem)).length;
+            const comImagem = total - semImagem;
+            
+            document.getElementById('total-produtos').textContent = total;
+            document.getElementById('sem-imagem').textContent = semImagem;
+            document.getElementById('com-imagem').textContent = comImagem;
+            document.getElementById('processadas').textContent = processadas;
+        }
+
+        // Carregar produtos
+        function carregarProdutos() {
+            document.getElementById('loading').classList.remove('hidden');
+            
+            setTimeout(() => {
+                let todosProdutos = [];
+                
+                if (typeof produtosPlanilha !== 'undefined') {
+                    todosProdutos = todosProdutos.concat(produtosPlanilha);
+                }
+                
+                if (typeof produtosSugeridos !== 'undefined') {
+                    todosProdutos = todosProdutos.concat(produtosSugeridos);
+                }
+                
+                produtosCarregados = todosProdutos;
+                
+                atualizarEstatisticas();
+                renderizarProdutos();
+                
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('btn-buscar').disabled = false;
+                document.getElementById('btn-exportar').disabled = false;
+            }, 500);
+        }
+
+        // Renderizar produtos
+        function renderizarProdutos() {
+            const grid = document.getElementById('products-grid');
+            
+            grid.innerHTML = produtosCarregados.map((produto, index) => {
+                const temImagem = !isPlaceholder(produto.imagem);
+                const imagemSrc = temImagem ? produto.imagem : 'https://via.placeholder.com/150x150?text=Sem+Imagem';
+                const statusClass = temImagem ? 'status-ok' : 'status-pending';
+                const statusText = temImagem ? '✓ Com Imagem' : '⏳ Pendente';
+                
+                return `
+                    <div class="product-card bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex gap-4">
+                            <img src="${imagemSrc}" 
+                                 alt="${produto.nome}" 
+                                 class="image-preview"
+                                 onerror="this.src='https://via.placeholder.com/150x150?text=Erro'">
+                            
+                            <div class="flex-1">
+                                <div class="mb-2">
+                                    <span class="status-badge ${statusClass}">${statusText}</span>
+                                </div>
+                                <h3 class="font-bold text-gray-800 mb-2">${produto.nome}</h3>
+                                <a href="${produto.linkCompra}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm break-all block mb-3">
+                                    🔗 ${produto.linkCompra}
+                                </a>
+                                
+                                <div class="flex gap-2">
+                                    <button onclick="buscarImagemAPI(${index})" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                                        🔍 Buscar Auto
+                                    </button>
+                                    <button onclick="inserirManual(${index})" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                                        ✏️ Manual
+                                    </button>
+                                </div>
+                                
+                                ${temImagem ? `
+                                    <button onclick="copiarURL(${index})" class="w-full mt-2 bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                                        📋 Copiar URL
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Buscar imagem via API Open Graph
+        async function buscarImagemAPI(index) {
+            const produto = produtosCarregados[index];
+            const url = produto.linkCompra;
+            
+            // Mostrar loading
+            const card = document.querySelectorAll('.product-card')[index];
+            const btn = card.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<div class="spinner"></div>';
+            btn.disabled = true;
+            
+            try {
+                // Opção 1: jsonlink.io (grátis, sem API key)
+                const apiUrl = `https://jsonlink.io/api/extract?url=${encodeURIComponent(url)}`;
+                
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                
+                if (data.images && data.images.length > 0) {
+                    // Pegar a primeira imagem de alta qualidade
+                    const imagemUrl = data.images[0];
+                    produtosCarregados[index].imagem = imagemUrl;
+                    processadas++;
+                    atualizarEstatisticas();
+                    renderizarProdutos();
+                    alert('✅ Imagem encontrada com sucesso!');
+                } else if (data.image) {
+                    // Tentar og:image
+                    produtosCarregados[index].imagem = data.image;
+                    processadas++;
+                    atualizarEstatisticas();
+                    renderizarProdutos();
+                    alert('✅ Imagem encontrada com sucesso!');
+                } else {
+                    throw new Error('Nenhuma imagem encontrada');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('❌ Não foi possível buscar a imagem automaticamente.\n\nTente:\n1. Usar o botão "Manual"\n2. Abrir o link e copiar a URL da imagem');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Inserir URL manual
+        function inserirManual(index) {
+            const instrucoes = `
+📝 INSTRUÇÕES:
+
+1. Clique no link do produto abaixo (abrirá em nova aba)
+2. Clique com botão DIREITO na imagem do produto
+3. Selecione "Copiar endereço da imagem" ou "Copiar link da imagem"
+4. Cole o link na próxima caixa que aparecer
+
+Link do produto: ${produtosCarregados[index].linkCompra}
+            `;
+            
+            alert(instrucoes);
+            
+            // Abrir link em nova aba
+            window.open(produtosCarregados[index].linkCompra, '_blank');
+            
+            // Aguardar usuário copiar a URL
+            setTimeout(() => {
+                const url = prompt('Cole a URL da imagem aqui:');
+                
+                if (url && url.trim()) {
+                    produtosCarregados[index].imagem = url.trim();
+                    processadas++;
+                    atualizarEstatisticas();
+                    renderizarProdutos();
+                    alert('✅ Imagem atualizada com sucesso!');
+                }
+            }, 1000);
+        }
+
+        // Copiar URL
+        function copiarURL(index) {
+            const url = produtosCarregados[index].imagem;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('✅ URL copiada para a área de transferência!');
+            });
+        }
+
+        // Buscar todas automaticamente
+        async function buscarTodasAutomatico() {
+            const semImagem = produtosCarregados.filter(p => isPlaceholder(p.imagem));
+            
+            if (semImagem.length === 0) {
+                alert('✅ Todos os produtos já têm imagem!');
+                return;
+            }
+            
+            if (!confirm(`🚀 Deseja buscar imagens para ${semImagem.length} produtos?\n\n⚠️ IMPORTANTE:\n- Isso pode demorar alguns minutos\n- Algumas imagens podem não ser encontradas\n- APIs gratuitas têm limites de requisições\n\nDeseja continuar?`)) {
+                return;
+            }
+            
+            let sucessos = 0;
+            let falhas = 0;
+            
+            for (let i = 0; i < produtosCarregados.length; i++) {
+                if (!isPlaceholder(produtosCarregados[i].imagem)) continue;
+                
+                try {
+                    const url = produtosCarregados[i].linkCompra;
+                    const apiUrl = `https://jsonlink.io/api/extract?url=${encodeURIComponent(url)}`;
+                    
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+                    
+                    if (data.images && data.images.length > 0) {
+                        produtosCarregados[i].imagem = data.images[0];
+                        sucessos++;
+                        processadas++;
+                    } else if (data.image) {
+                        produtosCarregados[i].imagem = data.image;
+                        sucessos++;
+                        processadas++;
+                    } else {
+                        falhas++;
+                    }
+                    
+                    // Delay entre requisições (rate limiting)
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    // Atualizar interface a cada 5 produtos
+                    if (i % 5 === 0) {
+                        atualizarEstatisticas();
+                        renderizarProdutos();
+                    }
+                    
+                } catch (error) {
+                    console.error('Erro ao buscar produto:', produtosCarregados[i].nome, error);
+                    falhas++;
+                }
+            }
+            
+            atualizarEstatisticas();
+            renderizarProdutos();
+            
+            alert(`✅ Busca concluída!\n\n✓ Sucessos: ${sucessos}\n✗ Falhas: ${falhas}\n\nProdutos com falha podem ser atualizados manualmente.`);
+        }
+
+        // Exportar JSON
+        function exportarJSON() {
+            const json = JSON.stringify(produtosCarregados, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `produtos-atualizados-${Date.now()}.json`;
+            a.click();
+            alert('✅ JSON exportado com sucesso!');
+        }
+    </script>
+</body>
+</html>

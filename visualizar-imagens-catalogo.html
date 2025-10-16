@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de Imagens - Catálogo BF25</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        .controls {
+            padding: 20px;
+            background: white;
+            border-bottom: 2px solid #dee2e6;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .filter-btns {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            background: #f8f9fa;
+            padding: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .card-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            flex: 1;
+        }
+        
+        .url-container {
+            margin-top: auto;
+        }
+        
+        .url-label {
+            font-size: 0.85em;
+            color: #6c757d;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .url-box {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .url-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 0.85em;
+            background: #f8f9fa;
+            color: #495057;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .btn-copy {
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .btn-copy:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+        
+        .btn-copy.copied {
+            background: #667eea;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #6c757d;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 60px;
+            color: #6c757d;
+            font-size: 1.2em;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            background: rgba(0,0,0,0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #28a745;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .toast.active {
+            display: flex;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🖼️ Visualizador de Imagens do Catálogo</h1>
+            <p>Todas as imagens extraídas do catálogo Black Friday 2025</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="total-images">-</div>
+                <div class="stat-label">Total de Imagens</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="filtered-images">-</div>
+                <div class="stat-label">Imagens Exibidas</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="copied-count">0</div>
+                <div class="stat-label">URLs Copiadas</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="🔍 Buscar por nome do produto...">
+            </div>
+            <div class="filter-btns">
+                <button class="btn btn-primary" onclick="limparBusca()">🔄 Limpar Busca</button>
+                <button class="btn btn-secondary" onclick="copiarTodas()">📋 Copiar Todas URLs</button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Carregando imagens do catálogo...</p>
+            </div>
+            
+            <div class="grid" id="grid"></div>
+            
+            <div class="no-results" id="no-results" style="display: none;">
+                <h2>😕 Nenhum resultado encontrado</h2>
+                <p>Tente buscar por outro termo</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para visualização em tela cheia -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="fecharModal()">×</div>
+            <img class="modal-image" id="modal-image" src="" alt="">
+        </div>
+    </div>
+    
+    <!-- Toast de confirmação -->
+    <div class="toast" id="toast">
+        <span>✅</span>
+        <span id="toast-message">URL copiada!</span>
+    </div>
+
+    <script>
+        let produtos = [];
+        let produtosFiltrados = [];
+        let copiadosCount = 0;
+
+        // Carregar dados do JSON
+        async function carregarImagens() {
+            try {
+                const response = await fetch('catalog_images.json');
+                const data = await response.json();
+                
+                if (data.data && data.data.products) {
+                    produtos = data.data.products;
+                    produtosFiltrados = [...produtos];
+                    
+                    document.getElementById('total-images').textContent = produtos.length;
+                    document.getElementById('filtered-images').textContent = produtos.length;
+                    
+                    renderizarGrid();
+                } else {
+                    mostrarErro('Formato de JSON inválido');
+                }
+            } catch (error) {
+                console.error('Erro ao carregar imagens:', error);
+                mostrarErro('Erro ao carregar o catálogo de imagens');
+            }
+        }
+
+        // Renderizar grid de imagens
+        function renderizarGrid() {
+            const grid = document.getElementById('grid');
+            const loading = document.getElementById('loading');
+            const noResults = document.getElementById('no-results');
+            
+            loading.style.display = 'none';
+            
+            if (produtosFiltrados.length === 0) {
+                grid.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            
+            grid.innerHTML = produtosFiltrados.map((produto, index) => `
+                <div class="card">
+                    <img 
+                        class="card-image" 
+                        src="${produto.image_url}" 
+                        alt="${produto.product_name}"
+                        onclick="abrirModal('${produto.image_url}')"
+                        onerror="this.src='https://via.placeholder.com/300x300?text=Imagem+Indisponível'"
+                    >
+                    <div class="card-body">
+                        <div class="card-title">${produto.product_name}</div>
+                        <div class="url-container">
+                            <div class="url-label">URL da Imagem:</div>
+                            <div class="url-box">
+                                <input 
+                                    type="text" 
+                                    class="url-input" 
+                                    value="${produto.image_url}" 
+                                    readonly
+                                    id="url-${index}"
+                                >
+                                <button 
+                                    class="btn-copy" 
+                                    onclick="copiarURL('${produto.image_url}', ${index})"
+                                    id="btn-${index}"
+                                >
+                                    📋 Copiar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Buscar produtos
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            const termo = e.target.value.toLowerCase();
+            
+            if (termo === '') {
+                produtosFiltrados = [...produtos];
+            } else {
+                produtosFiltrados = produtos.filter(p => 
+                    p.product_name.toLowerCase().includes(termo)
+                );
+            }
+            
+            document.getElementById('filtered-images').textContent = produtosFiltrados.length;
+            renderizarGrid();
+        });
+
+        // Limpar busca
+        function limparBusca() {
+            document.getElementById('search-input').value = '';
+            produtosFiltrados = [...produtos];
+            document.getElementById('filtered-images').textContent = produtos.length;
+            renderizarGrid();
+        }
+
+        // Copiar URL
+        function copiarURL(url, index) {
+            navigator.clipboard.writeText(url).then(() => {
+                copiadosCount++;
+                document.getElementById('copied-count').textContent = copiadosCount;
+                
+                const btn = document.getElementById(`btn-${index}`);
+                const originalText = btn.textContent;
+                
+                btn.textContent = '✅ Copiado!';
+                btn.classList.add('copied');
+                
+                mostrarToast('URL copiada para a área de transferência!');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Erro ao copiar:', err);
+                mostrarToast('Erro ao copiar URL', true);
+            });
+        }
+
+        // Copiar todas as URLs
+        function copiarTodas() {
+            const urls = produtosFiltrados.map(p => 
+                `${p.product_name}: ${p.image_url}`
+            ).join('\n\n');
+            
+            navigator.clipboard.writeText(urls).then(() => {
+                mostrarToast(`${produtosFiltrados.length} URLs copiadas!`);
+            }).catch(err => {
+                console.error('Erro ao copiar:', err);
+                mostrarToast('Erro ao copiar URLs', true);
+            });
+        }
+
+        // Abrir modal
+        function abrirModal(imageUrl) {
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modal-image');
+            
+            modalImage.src = imageUrl;
+            modal.classList.add('active');
+        }
+
+        // Fechar modal
+        function fecharModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+        }
+
+        // Fechar modal ao clicar fora
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') {
+                fecharModal();
+            }
+        });
+
+        // Fechar modal com ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                fecharModal();
+            }
+        });
+
+        // Mostrar toast
+        function mostrarToast(mensagem, erro = false) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            toastMessage.textContent = mensagem;
+            toast.style.background = erro ? '#dc3545' : '#28a745';
+            toast.classList.add('active');
+            
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        // Mostrar erro
+        function mostrarErro(mensagem) {
+            const loading = document.getElementById('loading');
+            loading.innerHTML = `
+                <div style="color: #dc3545;">
+                    <h2>❌ Erro</h2>
+                    <p>${mensagem}</p>
+                </div>
+            `;
+        }
+
+        // Inicializar
+        carregarImagens();
+    </script>
+</body>
+</html>

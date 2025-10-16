@@ -1,0 +1,226 @@
+{
+  "meta": {
+    "versao": "1.0.0",
+    "data_pesquisa": "2025-10-16",
+    "pesquisador": "Yoobe",
+    "objetivo": "Black Friday 2025 - Busca de produtos com melhores preços",
+    "observacoes": "Template para importação de produtos pesquisados em marketplaces"
+  },
+  "configuracao": {
+    "margem_lucro_padrao": 15,
+    "margem_lucro_minima": 10,
+    "margem_lucro_maxima": 30,
+    "moeda": "BRL"
+  },
+  "produtos": [
+    {
+      "id": "exemplo-001",
+      "nome": "Smartphone Samsung Galaxy S24",
+      "descricao": "Smartphone Samsung Galaxy S24, 256GB, 5G, Câmera 50MP",
+      "categoria": "Eletrônicos",
+      "subcategoria": "Smartphones",
+      "
+": "Samsung",
+      "modelo": "Galaxy S24",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 2899.00,
+          "link": "https://www.amazon.com.br/...",
+          "disponibilidade": "Em estoque",
+          "frete_gratis": true,
+          "avaliacao": 4.5,
+          "vendedor": "Amazon"
+        },
+        "magazineluiza": {
+          "preco": 2999.00,
+          "link": "https://www.magazineluiza.com.br/...",
+          "disponibilidade": "Em estoque",
+          "frete_gratis": true,
+          "avaliacao": 4.3,
+          "vendedor": "Magazine Luiza"
+        },
+        "mercadolivre": {
+          "preco": 2850.00,
+          "link": "https://www.mercadolivre.com.br/...",
+          "disponibilidade": "Em estoque",
+          "frete_gratis": true,
+          "avaliacao": 4.6,
+          "vendedor": "Loja Oficial Samsung"
+        },
+        "casasbahia": {
+          "preco": 3050.00,
+          "link": "https://www.casasbahia.com.br/...",
+          "disponibilidade": "Em estoque",
+          "frete_gratis": false,
+          "avaliacao": 4.2,
+          "vendedor": "Casas Bahia"
+        }
+      },
+      
+      "melhor_preco": {
+        "marketplace": "mercadolivre",
+        "valor": 2850.00,
+        "link": "https://www.mercadolivre.com.br/...",
+        "economia_vs_media": 149.50
+      },
+      
+      "analise_prio": {
+        "preco_prio": 3200.00,
+        "link_prio": "https://www.prio.com.br/...",
+        "disponivel_prio": true
+      },
+      
+      "estrategia_yoobe": {
+        "preco_compra": 2850.00,
+        "margem_lucro_percentual": 15,
+        "margem_lucro_valor": 427.50,
+        "preco_venda_yoobe": 3277.50,
+        "vantagem_vs_prio_percentual": -2.42,
+        "vantagem_vs_prio_valor": -77.50,
+        "competitivo": false,
+        "recomendacao": "Ajustar margem para 10% ou buscar fornecedor mais barato"
+      },
+      
+      "imagens": [
+        "https://exemplo.com/imagem1.jpg",
+        "https://exemplo.com/imagem2.jpg"
+      ],
+      
+      "especificacoes": {
+        "cor": "Preto",
+        "memoria": "256GB",
+        "ram": "8GB",
+        "tela": "6.2 polegadas",
+        "garantia": "12 meses"
+      },
+      
+      "tags": ["smartphone", "samsung", "5g", "black friday", "oferta"],
+      
+      "ativo": true,
+      "destaque": false,
+      "novo": true,
+      "estoque": 50,
+      "data_adicao": "2025-10-16"
+    },
+    {
+      "id": "exemplo-002",
+      "nome": "Notebook Dell Inspiron 15",
+      "descricao": "Notebook Dell Inspiron 15, Intel i5, 8GB RAM, 256GB SSD",
+      "categoria": "Eletrônicos",
+      "subcategoria": "Laptops",
+      "marca": "Dell",
+      "modelo": "Inspiron 15",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 3299.00,
+          "link": "https://www.amazon.com.br/...",
+          "disponibilidade": "Em estoque",
+          "frete_gratis": true,
+          "avaliacao": 4.4,
+          "vendedor": "Amazon"
+        },
+        "magazineluiza": {
+          "preco": 3399.00,
+          "link": "https://www.magazineluiza.com.br/...",
+          "disponibilidade": "Pré-venda",
+          "frete_gratis": true,
+          "avaliacao": 4.2,
+          "vendedor": "Magazine Luiza"
+        },
+        "mercadolivre": {
+          "preco": 3199.00,
+          "link": "https://www.mercadolivre.com.br/...",
+          "disponibilidade": "Em estoque",
+          "frete_gratis": true,
+          "avaliacao": 4.5,
+          "vendedor": "Kalunga"
+        }
+      },
+      
+      "melhor_preco": {
+        "marketplace": "mercadolivre",
+        "valor": 3199.00,
+        "link": "https://www.mercadolivre.com.br/...",
+        "economia_vs_media": 100.00
+      },
+      
+      "analise_prio": {
+        "preco_prio": 3650.00,
+        "link_prio": "https://www.prio.com.br/...",
+        "disponivel_prio": true
+      },
+      
+      "estrategia_yoobe": {
+        "preco_compra": 3199.00,
+        "margem_lucro_percentual": 12,
+        "margem_lucro_valor": 383.88,
+        "preco_venda_yoobe": 3582.88,
+        "vantagem_vs_prio_percentual": 1.84,
+        "vantagem_vs_prio_valor": 67.12,
+        "competitivo": true,
+        "recomendacao": "Produto competitivo! Preço 1.84% menor que PRIO"
+      },
+      
+      "imagens": [
+        "https://exemplo.com/notebook1.jpg"
+      ],
+      
+      "especificacoes": {
+        "processador": "Intel Core i5",
+        "ram": "8GB",
+        "armazenamento": "256GB SSD",
+        "tela": "15.6 polegadas",
+        "sistema": "Windows 11",
+        "garantia": "12 meses"
+      },
+      
+      "tags": ["notebook", "dell", "laptop", "windows", "black friday"],
+      
+      "ativo": true,
+      "destaque": true,
+      "novo": true,
+      "estoque": 30,
+      "data_adicao": "2025-10-16"
+    }
+  ],
+  
+  "resumo_analise": {
+    "total_produtos": 2,
+    "produtos_competitivos": 1,
+    "produtos_nao_competitivos": 1,
+    "economia_media_vs_prio": "1.84%",
+    "margem_lucro_media": 13.5,
+    "valor_total_investimento": 6049.00,
+    "valor_total_venda": 6860.38,
+    "lucro_estimado": 811.38
+  },
+  
+  "instrucoes": {
+    "como_preencher": [
+      "1. Pesquise cada produto nos principais marketplaces",
+      "2. Preencha os preços encontrados em cada marketplace",
+      "3. Identifique o melhor preço automaticamente ou manualmente",
+      "4. Consulte o preço do mesmo produto na PRIO",
+      "5. Calcule a margem de lucro desejada",
+      "6. Verifique se o preço final é competitivo vs PRIO",
+      "7. Adicione imagens e especificações do produto",
+      "8. Marque como ativo=true para incluir no catálogo"
+    ],
+    "campos_obrigatorios": [
+      "id (único)",
+      "nome",
+      "categoria",
+      "melhor_preco.valor",
+      "estrategia_yoobe.preco_venda_yoobe"
+    ],
+    "dicas": [
+      "Use margem de lucro entre 10-30% dependendo da concorrência",
+      "Produtos com 'competitivo: true' são mais vantajosos que PRIO",
+      "Priorize produtos com frete grátis e alta avaliação",
+      "Verifique disponibilidade em estoque antes de adicionar",
+      "Use tags para facilitar busca e filtros no catálogo"
+    ]
+  }
+}

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Corrigir Links de Produtos - Black Friday PRIO 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        
+        <!-- Header -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 flex items-center gap-3">
+                <i class="fas fa-link text-indigo-600"></i>
+                Corrigir Links de Produtos
+            </h1>
+            <p class="text-gray-600 mt-2">Adicione ou corrija links de compra para produtos sem URL válida</p>
+        </div>
+
+        <!-- Estatísticas -->
+        <div id="stats" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8" style="display: none;">
+            <div class="bg-white rounded-lg shadow p-4">
+                <div class="text-sm text-gray-600">Total de Produtos</div>
+                <div class="text-3xl font-bold text-gray-800" id="statTotal">0</div>
+            </div>
+            <div class="bg-red-50 rounded-lg shadow p-4">
+                <div class="text-sm text-red-700">Sem Link Válido</div>
+                <div class="text-3xl font-bold text-red-600" id="statSemLink">0</div>
+            </div>
+            <div class="bg-green-50 rounded-lg shadow p-4">
+                <div class="text-sm text-green-700">Links Corrigidos</div>
+                <div class="text-3xl font-bold text-green-600" id="statCorrigidos">0</div>
+            </div>
+            <div class="bg-blue-50 rounded-lg shadow p-4">
+                <div class="text-sm text-blue-700">Progresso</div>
+                <div class="text-3xl font-bold text-blue-600" id="statProgresso">0%</div>
+            </div>
+        </div>
+
+        <!-- Ações -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex gap-4 flex-wrap">
+                <button onclick="carregarProdutos()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                    <i class="fas fa-download mr-2"></i>
+                    Carregar Produtos sem Link
+                </button>
+                <button onclick="gerarLinksAutomatico()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors" id="btnAuto" style="display: none;">
+                    <i class="fas fa-magic mr-2"></i>
+                    Gerar Links Automático
+                </button>
+                <button onclick="validarLinks()" class="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors" id="btnValidar" style="display: none;">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    Validar Todos os Links
+                </button>
+                <button onclick="exportarCorrigidos()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors" id="btnExportar" style="display: none;">
+                    <i class="fas fa-file-export mr-2"></i>
+                    Exportar Produtos Corrigidos
+                </button>
+            </div>
+        </div>
+
+        <!-- Lista de Produtos -->
+        <div id="produtosContainer" style="display: none;">
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-list text-indigo-600"></i>
+                    Produtos para Corrigir
+                </h2>
+                
+                <div class="mb-4 flex gap-2">
+                    <input type="text" id="searchProdutos" placeholder="Buscar produtos..." 
+                           onkeyup="filtrarProdutos()" 
+                           class="flex-1 border rounded-lg px-4 py-2">
+                    <select id="filterCategoria" onchange="filtrarProdutos()" class="border rounded-lg px-4 py-2">
+                        <option value="">Todas as Categorias</option>
+                    </select>
+                </div>
+                
+                <div id="produtos-sem-link" class="space-y-4"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="produtos-v6.1.js"></script>
+    <script>
+        let produtosSemLink = [];
+        let produtosCorrigidos = [];
+        let todasCategorias = new Set();
+
+        function carregarProdutos() {
+            const todosProdutos = window.todosOsProdutosV6 || [];
+            
+            // Identificar produtos sem link válido
+            produtosSemLink = todosProdutos.filter(p => 
+                !p.linkCompra || 
+                p.linkCompra === "#" || 
+                p.linkCompra === "" ||
+                p.linkCompra.trim() === ""
+            );
+            
+            console.log(`📊 Produtos sem link: ${produtosSemLink.length} de ${todosProdutos.length}`);
+            
+            if (produtosSemLink.length === 0) {
+                alert('✅ Todos os produtos já têm links válidos!');
+                return;
+            }
+            
+            // Extrair categorias
+            produtosSemLink.forEach(p => todasCategorias.add(p.categoria));
+            
+            // Atualizar estatísticas
+            document.getElementById('statTotal').textContent = todosProdutos.length;
+            document.getElementById('statSemLink').textContent = produtosSemLink.length;
+            document.getElementById('stats').style.display = 'grid';
+            
+            // Mostrar botões
+            document.getElementById('btnAuto').style.display = 'inline-block';
+            document.getElementById('btnValidar').style.display = 'inline-block';
+            document.getElementById('btnExportar').style.display = 'inline-block';
+            
+            // Preencher filtro de categorias
+            const selectCategoria = document.getElementById('filterCategoria');
+            selectCategoria.innerHTML = '<option value="">Todas as Categorias</option>';
+            todasCategorias.forEach(cat => {
+                selectCategoria.innerHTML += `<option value="${cat}">${cat}</option>`;
+            });
+            
+            // Renderizar produtos
+            renderizarProdutos(produtosSemLink);
+            
+            document.getElementById('produtosContainer').style.display = 'block';
+        }
+
+        function renderizarProdutos(produtos) {
+            const html = produtos.map(produto => {
+                const linkAtual = produto.linkCompra || '';
+                const linkSugerido = gerarLinkSugerido(produto);
+                const corrigido = produtosCorrigidos.includes(produto.id);
+                
+                return `
+                    <div class="border rounded-lg p-6 ${corrigido ? 'bg-green-50 border-green-300' : 'bg-white'}" data-produto-id="${produto.id}">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0">
+                                <img src="${produto.imagem || 'https://via.placeholder.com/100?text=Sem+Imagem'}" 
+                                     alt="${produto.nome}" 
+                                     class="w-24 h-24 object-cover rounded-lg">
+                            </div>
+                            <div class="flex-grow">
+                                <div class="flex items-start justify-between mb-2">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-800">${produto.nome}</h3>
+                                        <p class="text-sm text-gray-600">${produto.categoria} > ${produto.subcategoria}</p>
+                                        <p class="text-xs text-gray-500 mt-1">Fornecedor: ${produto.fornecedor || 'Não informado'}</p>
+                                    </div>
+                                    ${corrigido ? '<span class="text-green-600 font-bold">✅ Corrigido</span>' : '<span class="text-red-600 font-bold">❌ Sem Link</span>'}
+                                </div>
+                                
+                                <div class="mt-4 space-y-2">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                                            Link de Compra: <span class="text-red-600">*</span>
+                                        </label>
+                                        <div class="flex gap-2">
+                                            <input 
+                                                type="url" 
+                                                id="link-${produto.id}"
+                                                placeholder="https://www.amazon.com.br/..."
+                                                class="flex-1 border rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500"
+                                                value="${linkAtual}"
+                                                onchange="marcarComoCorrigido(${produto.id})"
+                                            >
+                                            <button onclick="usarLinkSugerido(${produto.id})" 
+                                                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
+                                                    title="Usar link sugerido">
+                                                <i class="fas fa-magic"></i> Sugerir
+                                            </button>
+                                            <button onclick="copiarLink(${produto.id})" 
+                                                    class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
+                                                    title="Copiar link">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-blue-50 border border-blue-200 rounded p-3">
+                                        <p class="text-sm font-medium text-blue-800 mb-1">💡 Link Sugerido:</p>
+                                        <a href="${linkSugerido}" target="_blank" class="text-sm text-blue-600 hover:text-blue-800 break-all">
+                                            ${linkSugerido}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('produtos-sem-link').innerHTML = html;
+        }
+
+        function gerarLinkSugerido(produto) {
+            const termoBusca = encodeURIComponent(produto.nome.replace(/\s+/g, '+'));
+            const fornecedor = (produto.fornecedor || '').toLowerCase();
+            
+            // Marketplace específico baseado no fornecedor
+            if (fornecedor.includes('amazon')) {
+                return `https://www.amazon.com.br/s?k=${termoBusca}`;
+            } else if (fornecedor.includes('mercado livre') || fornecedor.includes('ml')) {
+                return `https://lista.mercadolivre.com.br/${termoBusca}`;
+            } else if (fornecedor.includes('shopee')) {
+                return `https://shopee.com.br/search?keyword=${termoBusca}`;
+            } else if (fornecedor.includes('magalu') || fornecedor.includes('magazine')) {
+                return `https://www.magazineluiza.com.br/busca/${termoBusca}`;
+            } else if (fornecedor.includes('casas bahia')) {
+                return `https://www.casasbahia.com.br/${termoBusca}/b`;
+            } else if (fornecedor.includes('kabum')) {
+                return `https://www.kabum.com.br/busca/${termoBusca}`;
+            } else if (fornecedor.includes('americanas')) {
+                return `https://www.americanas.com.br/busca/${termoBusca}`;
+            } else {
+                // Fallback para Amazon (maior marketplace)
+                return `https://www.amazon.com.br/s?k=${termoBusca}`;
+            }
+        }
+
+        function usarLinkSugerido(produtoId) {
+            const produto = produtosSemLink.find(p => p.id === produtoId);
+            const linkSugerido = gerarLinkSugerido(produto);
+            document.getElementById(`link-${produtoId}`).value = linkSugerido;
+            marcarComoCorrigido(produtoId);
+        }
+
+        function copiarLink(produtoId) {
+            const link = document.getElementById(`link-${produtoId}`).value;
+            navigator.clipboard.writeText(link);
+            alert('✅ Link copiado!');
+        }
+
+        function marcarComoCorrigido(produtoId) {
+            if (!produtosCorrigidos.includes(produtoId)) {
+                produtosCorrigidos.push(produtoId);
+                atualizarEstatisticas();
+                
+                // Atualizar visual do card
+                const card = document.querySelector(`[data-produto-id="${produtoId}"]`);
+                card.classList.add('bg-green-50', 'border-green-300');
+            }
+        }
+
+        function gerarLinksAutomatico() {
+            if (!confirm('Gerar links sugeridos para TODOS os produtos?')) return;
+            
+            produtosSemLink.forEach(produto => {
+                const linkSugerido = gerarLinkSugerido(produto);
+                document.getElementById(`link-${produto.id}`).value = linkSugerido;
+                marcarComoCorrigido(produto.id);
+            });
+            
+            alert(`✅ ${produtosSemLink.length} links gerados automaticamente!`);
+            renderizarProdutos(produtosSemLink);
+        }
+
+        function validarLinks() {
+            let validos = 0;
+            let invalidos = 0;
+            
+            produtosSemLink.forEach(produto => {
+                const link = document.getElementById(`link-${produto.id}`).value;
+                
+                if (!link || link === "" || link === "#") {
+                    invalidos++;
+                } else if (!link.startsWith('http://') && !link.startsWith('https://')) {
+                    invalidos++;
+                    document.getElementById(`link-${produto.id}`).classList.add('border-red-500');
+                } else {
+                    validos++;
+                    document.getElementById(`link-${produto.id}`).classList.remove('border-red-500');
+                }
+            });
+            
+            alert(`✅ Links válidos: ${validos}\n❌ Links inválidos: ${invalidos}`);
+        }
+
+        function atualizarEstatisticas() {
+            document.getElementById('statCorrigidos').textContent = produtosCorrigidos.length;
+            const progresso = Math.round((produtosCorrigidos.length / produtosSemLink.length) * 100);
+            document.getElementById('statProgresso').textContent = progresso + '%';
+        }
+
+        function filtrarProdutos() {
+            const busca = document.getElementById('searchProdutos').value.toLowerCase();
+            const categoriaFiltro = document.getElementById('filterCategoria').value;
+            
+            const produtosFiltrados = produtosSemLink.filter(p => {
+                const matchBusca = p.nome.toLowerCase().includes(busca);
+                const matchCategoria = !categoriaFiltro || p.categoria === categoriaFiltro;
+                return matchBusca && matchCategoria;
+            });
+            
+            renderizarProdutos(produtosFiltrados);
+        }
+
+        function exportarCorrigidos() {
+            const produtosAtualizados = produtosSemLink.map(produto => {
+                const link = document.getElementById(`link-${produto.id}`)?.value;
+                return {
+                    ...produto,
+                    linkCompra: link && link !== "" && link !== "#" ? link : produto.linkCompra
+                };
+            });
+            
+            // Verificar quantos têm links válidos
+            const comLink = produtosAtualizados.filter(p => 
+                p.linkCompra && 
+                p.linkCompra !== "#" && 
+                p.linkCompra !== "" &&
+                p.linkCompra.startsWith('http')
+            );
+            
+            if (comLink.length === 0) {
+                alert('⚠️ Nenhum produto com link válido para exportar!');
+                return;
+            }
+            
+            // Exportar JSON
+            const blob = new Blob([JSON.stringify(produtosAtualizados, null, 2)], 
+                { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `produtos-com-links-corrigidos-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert(`✅ ${comLink.length} produtos com links válidos exportados!\n\n📝 Próximo passo:\n1. Abra produtos-v6.1.js\n2. Substitua os produtos correspondentes\n3. Salve e teste o sistema`);
+        }
+    </script>
+
+</body>
+</html>

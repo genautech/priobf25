@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar CSV - Catálogo Completo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen p-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-6">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                        <i class="fas fa-file-csv text-green-600 mr-3"></i>
+                        Gerar CSV do Catálogo
+                    </h1>
+                    <p class="text-gray-600">Exportar todos os produtos com preços Prio e preços de venda nas lojas</p>
+                </div>
+            </div>
+
+            <!-- Informações -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="bg-blue-50 rounded-lg p-4 text-center">
+                    <div class="text-sm text-gray-600 mb-1">Total de Produtos</div>
+                    <div class="text-3xl font-bold text-blue-600" id="totalProdutos">0</div>
+                </div>
+                <div class="bg-green-50 rounded-lg p-4 text-center">
+                    <div class="text-sm text-gray-600 mb-1">Com Preço Prio</div>
+                    <div class="text-3xl font-bold text-green-600" id="comPrecoPrio">0</div>
+                </div>
+                <div class="bg-orange-50 rounded-lg p-4 text-center">
+                    <div class="text-sm text-gray-600 mb-1">Sem Preço Prio</div>
+                    <div class="text-3xl font-bold text-orange-600" id="semPrecoPrio">0</div>
+                </div>
+            </div>
+
+            <!-- Botão Gerar CSV -->
+            <button id="gerarCsvBtn" 
+                    onclick="gerarCSV()"
+                    class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105 mb-4">
+                <i class="fas fa-download mr-2"></i>
+                Gerar e Baixar CSV Completo
+            </button>
+
+            <!-- Status -->
+            <div id="status" class="hidden mt-4 p-4 rounded-lg"></div>
+        </div>
+
+        <!-- Preview -->
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-eye text-purple-600 mr-2"></i>
+                Preview dos Dados (Primeiros 10 produtos)
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm" id="previewTable">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-3 py-2 text-left">SKU</th>
+                            <th class="px-3 py-2 text-left">Nome</th>
+                            <th class="px-3 py-2 text-left">Categoria</th>
+                            <th class="px-3 py-2 text-right">Custo Prio</th>
+                            <th class="px-3 py-2 text-right">Preço Venda Yoobe</th>
+                            <th class="px-3 py-2 text-left">Fornecedor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="previewBody" class="divide-y divide-gray-200">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="produtos-v6.1.js"></script>
+    <script>
+        // Verificar se produtos-v6.1.js carregou
+        window.addEventListener('DOMContentLoaded', function() {
+            if (typeof produtosPlanilha === 'undefined' || typeof produtosSugeridos === 'undefined') {
+                document.body.innerHTML = `
+                    <div class="min-h-screen flex items-center justify-center p-8">
+                        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-2xl">
+                            <div class="text-center mb-6">
+                                <i class="fas fa-exclamation-triangle text-red-500 text-6xl mb-4"></i>
+                                <h1 class="text-3xl font-bold text-gray-800 mb-4">Erro ao Carregar Dados</h1>
+                            </div>
+                            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                                <p class="text-red-800 font-semibold mb-2">
+                                    <i class="fas fa-times-circle mr-2"></i>
+                                    Arquivo produtos-v6.1.js não foi carregado
+                                </p>
+                                <p class="text-red-700 text-sm">
+                                    O sistema precisa do arquivo produtos-v6.1.js para funcionar.
+                                </p>
+                            </div>
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                                <p class="font-bold text-blue-800 mb-2">
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    Soluções:
+                                </p>
+                                <ol class="text-blue-700 text-sm space-y-2 ml-6 list-decimal">
+                                    <li>Verificar se o arquivo <code class="bg-blue-100 px-2 py-1 rounded">produtos-v6.1.js</code> está na mesma pasta</li>
+                                    <li>Abrir esta página usando um servidor local (não funciona com file://)</li>
+                                    <li>Usar o gerador integrado no <code class="bg-blue-100 px-2 py-1 rounded">admin-v6.1.html</code> (recomendado)</li>
+                                </ol>
+                            </div>
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                                <p class="font-bold text-green-800 mb-2">
+                                    <i class="fas fa-lightbulb mr-2"></i>
+                                    Alternativa Recomendada:
+                                </p>
+                                <p class="text-green-700 text-sm mb-3">
+                                    Use o painel admin que já tem os dados carregados:
+                                </p>
+                                <ol class="text-green-700 text-sm space-y-2 ml-6 list-decimal">
+                                    <li>Abrir <code class="bg-green-100 px-2 py-1 rounded">admin-v6.1.html</code></li>
+                                    <li>Ir para aba "Análise Comparativa"</li>
+                                    <li>Usar o botão de exportar (em breve será implementado)</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            carregarProdutos();
+        });
+
+        // Normalização de nomes para matching
+        function normalizarNome(nome) {
+            return nome
+                .toLowerCase()
+                .trim()
+                .replace(/[áàãâä]/g, 'a')
+                .replace(/[éèêë]/g, 'e')
+                .replace(/[íìîï]/g, 'i')
+                .replace(/[óòõôö]/g, 'o')
+                .replace(/[úùûü]/g, 'u')
+                .replace(/ç/g, 'c')
+                .replace(/ª/g, 'a')
+                .replace(/º/g, 'o')
+                .replace(/\s+/g, ' ');
+        }
+        
+        function buscarPrecoConcorrente(nomeProduto) {
+            // 1. Tentar match exato primeiro
+            if (window.precosConcorrente[nomeProduto]) {
+                return window.precosConcorrente[nomeProduto];
+            }
+            
+            // 2. Tentar match normalizado
+            const nomeNormalizado = normalizarNome(nomeProduto);
+            
+            for (const [chave, preco] of Object.entries(window.precosConcorrente)) {
+                const chaveNormalizada = normalizarNome(chave);
+                
+                // Match exato normalizado
+                if (chaveNormalizada === nomeNormalizado) {
+                    return preco;
+                }
+                
+                // Match parcial: verificar se um contém o outro (mínimo 70% das palavras)
+                const palavrasProduto = nomeNormalizado.split(' ').filter(p => p.length > 2);
+                const palavrasChave = chaveNormalizada.split(' ').filter(p => p.length > 2);
+                
+                if (palavrasProduto.length >= 2 && palavrasChave.length >= 2) {
+                    let matchCount = 0;
+                    palavrasProduto.forEach(palavra => {
+                        if (palavrasChave.some(p => p.includes(palavra) || palavra.includes(p))) {
+                            matchCount++;
+                        }
+                    });
+                    
+                    const similaridade = matchCount / palavrasProduto.length;
+                    if (similaridade >= 0.7) {
+                        return preco;
+                    }
+                }
+            }
+            
+            return null;
+        }
+
+        // Carregar produtos
+        let allProducts = [];
+        
+        function carregarProdutos() {
+            allProducts = [...produtosPlanilha, ...produtosSugeridos];
+            
+            // Adicionar precoConcorrente
+            let comPreco = 0;
+            allProducts.forEach(produto => {
+                const precoConcorrente = buscarPrecoConcorrente(produto.nome);
+                if (precoConcorrente) {
+                    produto.precoConcorrente = precoConcorrente;
+                    comPreco++;
+                }
+            });
+            
+            // Atualizar estatísticas
+            document.getElementById('totalProdutos').textContent = allProducts.length;
+            document.getElementById('comPrecoPrio').textContent = comPreco;
+            document.getElementById('semPrecoPrio').textContent = allProducts.length - comPreco;
+            
+            // Atualizar preview
+            atualizarPreview();
+            
+            console.log('✅ Produtos carregados:', allProducts.length);
+            console.log('📊 Com preço Prio:', comPreco);
+        }
+
+        function atualizarPreview() {
+            const tbody = document.getElementById('previewBody');
+            const preview = allProducts.slice(0, 10);
+            
+            tbody.innerHTML = preview.map(p => `
+                <tr class="hover:bg-gray-50">
+                    <td class="px-3 py-2 font-mono text-xs">${p.sku}</td>
+                    <td class="px-3 py-2">${p.nome.substring(0, 40)}...</td>
+                    <td class="px-3 py-2 text-xs">${p.subcategoria}</td>
+                    <td class="px-3 py-2 text-right font-semibold ${p.precoConcorrente ? 'text-green-600' : 'text-gray-400'}">
+                        ${p.precoConcorrente ? 'R$ ' + p.precoConcorrente.toFixed(2) : '-'}
+                    </td>
+                    <td class="px-3 py-2 text-right font-bold text-blue-600">
+                        R$ ${p.precoVenda.toFixed(2)}
+                    </td>
+                    <td class="px-3 py-2 text-xs">${p.fornecedor || 'N/A'}</td>
+                </tr>
+            `).join('');
+        }
+
+        function formatarPrecoCSV(valor) {
+            if (!valor || valor === 0) return '';
+            return valor.toFixed(2).replace('.', ',');
+        }
+
+        function escaparCSV(texto) {
+            if (!texto) return '';
+            texto = String(texto);
+            if (texto.includes(',') || texto.includes('"') || texto.includes('\n')) {
+                return '"' + texto.replace(/"/g, '""') + '"';
+            }
+            return texto;
+        }
+
+        function gerarCSV() {
+            const btn = document.getElementById('gerarCsvBtn');
+            const status = document.getElementById('status');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Gerando CSV...';
+            
+            status.classList.remove('hidden', 'bg-green-100', 'bg-red-100');
+            status.classList.add('bg-blue-100');
+            status.innerHTML = '<i class="fas fa-info-circle mr-2"></i>Processando dados...';
+            
+            setTimeout(() => {
+                try {
+                    // Cabeçalho do CSV
+                    let csv = 'SKU,Nome do Produto,Categoria,Subcategoria,Fornecedor,Quantidade,';
+                    csv += 'Custo Fornecedor Prio (R$),Margem (%),Preço Venda Yoobe (R$),Preço Mercado (R$),';
+                    csv += 'Link de Compra,Tem Preço Prio,Diferença Yoobe vs Prio (R$),Status Competitividade\n';
+                    
+                    // Dados
+                    allProducts.forEach(p => {
+                        const precoPrio = p.precoConcorrente || p.custoBase;
+                        const temPrecoPrio = p.precoConcorrente ? 'Sim' : 'Não';
+                        const diferenca = p.precoConcorrente ? (p.precoVenda - p.precoConcorrente) : 0;
+                        
+                        let statusCompetitividade = '';
+                        if (p.precoConcorrente) {
+                            if (diferenca < 0) {
+                                statusCompetitividade = 'Yoobe mais barato';
+                            } else if (diferenca === 0) {
+                                statusCompetitividade = 'Preço igual';
+                            } else {
+                                statusCompetitividade = 'Yoobe mais caro';
+                            }
+                        } else {
+                            statusCompetitividade = 'Sem comparação';
+                        }
+                        
+                        csv += escaparCSV(p.sku) + ',';
+                        csv += escaparCSV(p.nome) + ',';
+                        csv += escaparCSV(p.categoria) + ',';
+                        csv += escaparCSV(p.subcategoria) + ',';
+                        csv += escaparCSV(p.fornecedor) + ',';
+                        csv += p.quantidade + ',';
+                        csv += formatarPrecoCSV(precoPrio) + ',';
+                        csv += p.margem + ',';
+                        csv += formatarPrecoCSV(p.precoVenda) + ',';
+                        csv += formatarPrecoCSV(p.precoMercado) + ',';
+                        csv += escaparCSV(p.linkCompra || '') + ',';
+                        csv += temPrecoPrio + ',';
+                        csv += formatarPrecoCSV(Math.abs(diferenca)) + ',';
+                        csv += statusCompetitividade + '\n';
+                    });
+                    
+                    // Criar e baixar arquivo
+                    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+                    const link = document.createElement('a');
+                    const url = URL.createObjectURL(blob);
+                    
+                    const dataHora = new Date().toISOString().slice(0, 16).replace('T', '_').replace(/:/g, '-');
+                    link.setAttribute('href', url);
+                    link.setAttribute('download', `catalogo-completo-prio-${dataHora}.csv`);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // Sucesso
+                    status.classList.remove('bg-blue-100');
+                    status.classList.add('bg-green-100', 'text-green-800');
+                    status.innerHTML = `
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 text-xl mr-3 mt-1"></i>
+                            <div>
+                                <div class="font-bold mb-1">CSV Gerado com Sucesso! ✅</div>
+                                <div class="text-sm">
+                                    Arquivo: <span class="font-mono">catalogo-completo-prio-${dataHora}.csv</span><br>
+                                    Total: ${allProducts.length} produtos<br>
+                                    Com preço Prio: ${allProducts.filter(p => p.precoConcorrente).length} produtos<br>
+                                    O arquivo foi baixado automaticamente!
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                } catch (error) {
+                    status.classList.remove('bg-blue-100');
+                    status.classList.add('bg-red-100', 'text-red-800');
+                    status.innerHTML = `
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Erro ao gerar CSV: ${error.message}
+                    `;
+                }
+                
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-download mr-2"></i>Gerar e Baixar CSV Completo';
+            }, 500);
+        }
+
+        // Inicializar ao carregar página
+        document.addEventListener('DOMContentLoaded', carregarProdutos);
+    </script>
+</body>
+</html>

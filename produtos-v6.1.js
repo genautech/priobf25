@@ -1,7 +1,8 @@
 // ============================================
-// VERSÃO 6.0.2 - PRODUTOS BLACK FRIDAY PRIO 2025
+// VERSÃO 6.1.0 - PRODUTOS BLACK FRIDAY PRIO 2025
 // Total: 142 produtos (32 planilha + 110 sugestões)
 // Atualizado: 2025-10-15
+// NOVOS: Preços Concorrente, Análise Comparativa, Cupons
 // ============================================
 //
 // CATEGORIAS PRINCIPAIS (4):
@@ -20,6 +21,289 @@
 //    - Subcategorias: Acessórios Esportivos
 // ============================================
 
+// ============================================
+// CUPONS DE DESCONTO DISPONÍVEIS
+// ============================================
+const cuponsDesconto = [
+    {
+        id: "CUP-001",
+        loja: "Amazon",
+        codigo: "BLACKFRIDAY25",
+        desconto: "15%",
+        validade: "2025-11-29",
+        minimo: 200,
+        maximo: 500,
+        categorias: ["Eletrônicos", "Casa e Cozinha"],
+        ativo: true,
+        link: "https://www.amazon.com.br"
+    },
+    {
+        id: "CUP-002",
+        loja: "Magazine Luiza",
+        codigo: "MAGALU15",
+        desconto: "10%",
+        validade: "2025-11-30",
+        minimo: 150,
+        maximo: 300,
+        categorias: ["Eletrônicos"],
+        ativo: true,
+        link: "https://www.magazineluiza.com.br"
+    },
+    {
+        id: "CUP-003",
+        loja: "Americanas",
+        codigo: "AME20",
+        desconto: "20%",
+        validade: "2025-11-25",
+        minimo: 300,
+        maximo: 1000,
+        categorias: ["Eletrônicos", "Gaming"],
+        ativo: true,
+        link: "https://www.americanas.com.br"
+    },
+    {
+        id: "CUP-004",
+        loja: "Mercado Livre",
+        codigo: "MELI12",
+        desconto: "12%",
+        validade: "2025-11-28",
+        minimo: 100,
+        maximo: 400,
+        categorias: ["Todos"],
+        ativo: true,
+        link: "https://www.mercadolivre.com.br"
+    },
+    {
+        id: "CUP-005",
+        loja: "Casas Bahia",
+        codigo: "CB25OFF",
+        desconto: "25%",
+        validade: "2025-11-29",
+        minimo: 500,
+        maximo: 2000,
+        categorias: ["Eletrônicos", "Casa e Cozinha"],
+        ativo: true,
+        link: "https://www.casasbahia.com.br"
+    },
+    {
+        id: "CUP-006",
+        loja: "Kabum",
+        codigo: "KABUM10",
+        desconto: "10%",
+        validade: "2025-11-30",
+        minimo: 200,
+        maximo: 800,
+        categorias: ["Eletrônicos", "Gaming"],
+        ativo: true,
+        link: "https://www.kabum.com.br"
+    },
+    {
+        id: "CUP-007",
+        loja: "Fast Shop",
+        codigo: "FAST18",
+        desconto: "18%",
+        validade: "2025-11-27",
+        minimo: 400,
+        maximo: 1500,
+        categorias: ["Eletrônicos"],
+        ativo: true,
+        link: "https://www.fastshop.com.br"
+    },
+    {
+        id: "CUP-008",
+        loja: "Ponto Frio",
+        codigo: "PONTONOV",
+        desconto: "15%",
+        validade: "2025-11-29",
+        minimo: 250,
+        maximo: 600,
+        categorias: ["Casa e Cozinha", "Eletrônicos"],
+        ativo: true,
+        link: "https://www.pontofrio.com.br"
+    },
+    {
+        id: "CUP-009",
+        loja: "Submarino",
+        codigo: "SUB22",
+        desconto: "22%",
+        validade: "2025-11-26",
+        minimo: 350,
+        maximo: 900,
+        categorias: ["Eletrônicos"],
+        ativo: true,
+        link: "https://www.submarino.com.br"
+    },
+    {
+        id: "CUP-010",
+        loja: "Shopee",
+        codigo: "SHOPEE30",
+        desconto: "30%",
+        validade: "2025-11-30",
+        minimo: 150,
+        maximo: 300,
+        categorias: ["Todos"],
+        ativo: true,
+        link: "https://shopee.com.br",
+        observacao: "Limitado aos primeiros 100 cupons"
+    },
+    {
+        id: "CUP-011",
+        loja: "Extra",
+        codigo: "EXTRA20BF",
+        desconto: "20%",
+        validade: "2025-11-29",
+        minimo: 400,
+        maximo: 1200,
+        categorias: ["Eletrônicos", "Casa e Cozinha"],
+        ativo: true,
+        link: "https://www.extra.com.br"
+    },
+    {
+        id: "CUP-012",
+        loja: "Carrefour",
+        codigo: "CARRE15",
+        desconto: "15%",
+        validade: "2025-11-30",
+        minimo: 300,
+        maximo: 800,
+        categorias: ["Todos"],
+        ativo: true,
+        link: "https://www.carrefour.com.br"
+    }
+];
+
+// ============================================
+// MAPEAMENTO DE PREÇOS DO FORNECEDOR CONCORRENTE (CSV BF25)
+// ============================================
+const precosConcorrente = {
+    "Alexa - Echo Dot 5ª Geração": 420.00,
+    "Alexa - EchoDot 5º Geração": 420.00,
+    "Fone JBL": 300.00,
+    "Fone Wave Buds JBL": 300.00,
+    "Fone JBL Wave Buds": 300.00,
+    "JBL Wave Buds Intra": 233.00,
+    "JBL Wavebuds Intra": 233.00,
+    "Kindle 11ª Geração": 450.00,
+    "Kindle 11ª geração": 450.00,
+    "Nespresso Vertuo Pop Branca": 500.00,
+    "Máquina de café Vertuo Pop nespresso brancas": 500.00,
+    "Nespresso Vertuo Pop Preta": 500.00,
+    "Máquina de café Vertuo Pop nespresso pretas": 500.00,
+    "Caixa de Som JBL Flip 6": 800.00,
+    "Caixa de som JBL Flip 6": 800.00,
+    "Robô Aspirador Eletrônico": 510.00,
+    "Robô aspirador eletrônico": 510.00,
+    "Câmera Polaroid - Instax Mini 11": 390.00,
+    "Câmera Polaroid Instax Mini 11": 390.00,
+    "AirPods 3ª Geração": 1499.00,
+    "Airpods": 1499.00,
+    "Apple Watch Series 9 45mm Preta": 3499.00,
+    "Apple WATCH S9 7 preta": 3499.00,
+    "Apple Watch Series 9 41mm Branca": 3499.00,
+    "Apple WATCH S9 8 branca": 3499.00,
+    "Caixa de som JBL pequena portatil": 883.50,
+    "Caixa de som JBL Xtreme 3": 1600.00,
+    "Garmin Forerunner 165": 3058.50,
+    "Playstation 5": 4200.00,
+    "PlayStation 5": 4200.00,
+    "Fone de Ouvido Bluetooth com Cancelamento de Ruído": 1677.00,
+    "Fone de ouvido JBL com condução óssea": 877.50,
+    "Power Bank 20.000mAh": 240.00,
+    "Tablet Samsung Galaxy Tab S6 Lite": 2671.65,
+    "Robô aspirador Eletrolux": 712.50,
+    "Smart display com Alexa": 1323.00,
+    "Controle Sony DualSense": 562.50,
+    "Controle Microsoft Xbox": 540.00,
+    "Nintendo Switch OLED": 3103.50,
+    "Chaleira Elétrica Mondial": 166.50,
+    "Almofada Massageadora Shiatsu": 400.00,
+    "Balança Digital Xiaomi": 295.42,
+    "Kindle Paperwhite": 1078.65,
+    "Pipoqueira Mondial": 214.60,
+    "Lâmpada Wi-Fi Inteligente": 71.00,
+    "Máquina de café Nespresso Vertuo": 2999.00,
+    "Máquina Vertuo Pop brancas": 500.00,
+    "Máquina Vertuo Pop pretas": 500.00,
+    "Máquina Vertuo Next vermelhas": 500.00,
+    "Máquina Vertuo Next pretas": 500.00,
+    "Máquina Vertuo Lattissima": 1800.00,
+    "Caneca térmica Nespresso": 145.00,
+    "Porta-Cápsulas Drawer": 280.00,
+    "Xícaras LUME Lungo": 180.00,
+    "Máquina de espuma de leite": 480.00,
+    "Xícaras Double Espresso Vertuo": 190.00,
+    "Porta-Cápsulas Vertical": 190.00,
+    "Mochila de hidratação Track&Field": 399.90
+};
+
+// ============================================
+// FUNÇÃO: Calcular Status Comparativo
+// ============================================
+function calcularStatusComparativo(precoYoobe, precoConcorrente) {
+    if (!precoConcorrente) {
+        return {
+            status: "Exclusivo Yoobe",
+            observacaoTecnica: "Produto não disponível no fornecedor concorrente",
+            recomendacao: "Comprar - Produto exclusivo no mercado"
+        };
+    }
+
+    const diferenca = precoConcorrente - precoYoobe;
+    const percentualEconomia = ((diferenca / precoConcorrente) * 100).toFixed(1);
+
+    if (diferenca > 0) {
+        return {
+            status: `✅ Vantagem Yoobe - Economia de ${percentualEconomia}%`,
+            observacaoTecnica: `Yoobe R$ ${diferenca.toFixed(2)} mais barato que concorrente (R$ ${precoYoobe.toFixed(2)} vs R$ ${precoConcorrente.toFixed(2)})`,
+            recomendacao: `✅ Comprar - Economia significativa de R$ ${diferenca.toFixed(2)}`
+        };
+    } else if (diferenca === 0) {
+        return {
+            status: "⚠️ Preço Igual ao Concorrente",
+            observacaoTecnica: `Mesmo preço do concorrente: R$ ${precoYoobe.toFixed(2)}`,
+            recomendacao: "⚠️ Avaliar outros fatores (entrega, garantia, benefícios)"
+        };
+    } else {
+        const prejuizo = Math.abs(diferenca);
+        const percentualMaisCaro = ((prejuizo / precoConcorrente) * 100).toFixed(1);
+        return {
+            status: `❌ Desvantagem - ${percentualMaisCaro}% mais caro`,
+            observacaoTecnica: `Yoobe R$ ${prejuizo.toFixed(2)} mais caro que concorrente (R$ ${precoYoobe.toFixed(2)} vs R$ ${precoConcorrente.toFixed(2)})`,
+            recomendacao: `❌ REVISAR: Ajuste de preço necessário (reduzir pelo menos R$ ${prejuizo.toFixed(2)})`
+        };
+    }
+}
+
+// ============================================
+// FUNÇÃO: Enriquecer produtos com análise
+// ============================================
+function enriquecerProdutos(produtos) {
+    return produtos.map(produto => {
+        const precoConcorrente = precosConcorrente[produto.nome] || null;
+        const analise = calcularStatusComparativo(produto.precoVenda, precoConcorrente);
+        
+        return {
+            ...produto,
+            // Novos campos
+            precoConcorrente: precoConcorrente,
+            custoFornecedorYoobe: produto.custoBase,
+            custoMercadoYoobe: produto.precoMercado,
+            precoVendaYoobe: produto.precoVenda,
+            versaoFornecedor: produto.especificacoes?.modelo || "Padrão",
+            versaoMercado: produto.especificacoes?.modelo || "Padrão",
+            versaoAtualizada: produto.badge === "🔥 NOVO!" || false,
+            fornecedorCompra: produto.fornecedor || "Yoobe Warehouse Connect",
+            linkCompraAdmin: produto.linkCompra || "#",
+            temNoConcorrente: precoConcorrente !== null,
+            // Análise
+            status: analise.status,
+            observacaoTecnica: analise.observacaoTecnica,
+            recomendacao: analise.recomendacao
+        };
+    });
+}
+
+// ============================================
 // PRODUTOS DA PLANILHA (Em Estoque + Para Compra)
 const produtosPlanilha = [
     // ELETRÔNICOS EM ESTOQUE
@@ -36,7 +320,7 @@ const produtosPlanilha = [
         precoVenda: 546,
         estoque: "Em Estoque",
         fornecedor: "Amazon.com.br",
-        imagem: "https://m.media-amazon.com/images/I/71yRY8YlAbL._UF1000,1000_QL80_.jpg",
+        imagem: "https://m.media-amazon.com/images/I/61U6MFMI8tL._AC_SL1000_.jpg",
         linkCompra: "https://www.amazon.com.br/s?k=Echo+Dot+5+Gera%C3%A7%C3%A3o",
         descricao: "Smart speaker com Alexa, som premium 360°, controle de casa inteligente por voz",
         especificacoes: {
@@ -60,7 +344,7 @@ const produtosPlanilha = [
         precoVenda: 390,
         estoque: "Em Estoque",
         fornecedor: "JBL Brasil",
-        imagem: "https://media.hifi.lu/sys-master/products/9423329951774/2160x2160.33004973_1.webp",
+        imagem: "https://m.media-amazon.com/images/I/51gzQ8vZVjL._AC_SL1500_.jpg",
         linkCompra: "https://www.amazon.com.br/s?k=JBL+Wave+Buds",
         descricao: "Fone de ouvido sem fio JBL com graves potentes e 8h de bateria",
         especificacoes: {
@@ -130,7 +414,7 @@ const produtosPlanilha = [
         precoVenda: 650,
         estoque: "Em Estoque",
         fornecedor: "Nespresso",
-        imagem: "https://m.media-amazon.com/images/I/51CFNiaVRNL._UF894,1000_QL80_.jpg",
+        imagem: "https://m.media-amazon.com/images/I/61h6L-WqV0L._AC_SL1500_.jpg",
         descricao: "Cafeteira Nespresso Vertuo Pop branca, sistema Centrifusion, 5 tamanhos de xícara",
         especificacoes: {
             marca: "Nespresso",
@@ -247,7 +531,7 @@ const produtosPlanilha = [
         precoVenda: 1949,
         estoque: "Para Compra",
         fornecedor: "Apple Store",
-        imagem: "https://m.media-amazon.com/images/I/61CVih3UpdL.jpg",
+        imagem: "https://m.media-amazon.com/images/I/61hFO9ZfEEL._AC_SL1500_.jpg",
         descricao: "AirPods 3ª geração com áudio espacial, resistente a suor e água",
         especificacoes: {
             marca: "Apple",
@@ -270,7 +554,7 @@ const produtosPlanilha = [
         precoVenda: 4549,
         estoque: "Para Compra",
         fornecedor: "Apple Store",
-        imagem: "https://m.media-amazon.com/images/I/71aXGgNCE9L._UF894,1000_QL80_.jpg",
+        imagem: "https://m.media-amazon.com/images/I/71HnNm+Lv0L._AC_SL1500_.jpg",
         descricao: "Apple Watch Series 9 com tela Always-On, GPS, monitoramento de saúde",
         especificacoes: {
             marca: "Apple",
@@ -479,7 +763,7 @@ const produtosPlanilha = [
         precoVenda: 3473,
         estoque: "Para Compra",
         fornecedor: "Samsung",
-        imagem: "https://m.media-amazon.com/images/I/61dQeJ7Z+CL.jpg",
+        imagem: "https://m.media-amazon.com/images/I/61vVMJdGLuL._AC_SL1500_.jpg",
         descricao: "Galaxy Tab S6 Lite com tela 10.4\", S Pen incluída, 64GB + 4GB RAM, ideal para produtividade",
         especificacoes: {
             marca: "Samsung",
@@ -548,7 +832,7 @@ const produtosPlanilha = [
         precoVenda: 731,
         estoque: "Para Compra",
         fornecedor: "Sony",
-        imagem: "https://m.media-amazon.com/images/I/51PmeLGEkML.jpg",
+        imagem: "https://m.media-amazon.com/images/I/61gJN+FJPSL._AC_SL1500_.jpg",
         descricao: "Controle DualSense PS5 com feedback háptico, gatilhos adaptativos, alto-falante e microfone",
         especificacoes: {
             marca: "Sony",
@@ -594,7 +878,7 @@ const produtosPlanilha = [
         precoVenda: 4035,
         estoque: "Para Compra",
         fornecedor: "Nintendo",
-        imagem: "https://m.media-amazon.com/images/I/51uVPY-aBzL._UF1000,1000_QL80_.jpg",
+        imagem: "https://m.media-amazon.com/images/I/61KKpV3p7UL._AC_SL1500_.jpg",
         descricao: "Nintendo Switch OLED com tela 7\" vibrante, 64GB, base com LAN, modo portátil/TV",
         especificacoes: {
             marca: "Nintendo",
@@ -783,7 +1067,7 @@ const produtosSugeridos = [
         precoVenda: 12999,
         badge: "🔥 NOVO!",
         fornecedor: "Apple Store",
-        imagem: "https://m.media-amazon.com/images/I/617OBw7dFnL._UF894,1000_QL80_.jpg",
+        imagem: "https://m.media-amazon.com/images/I/81IJSYW-VvL._AC_SL1500_.jpg",
         descricao: "iPhone 16 Pro Max com chip A18 Pro, câmera 48MP, tela ProMotion 120Hz, titânio",
         especificacoes: {
             marca: "Apple",
@@ -1032,7 +1316,7 @@ const produtosSugeridos = [
         precoVenda: 8124,
         badge: "⭐ VERSÃO NOVA",
         fornecedor: "Apple Store",
-        imagem: "https://i5.walmartimages.com/asr/1340b73d-c0d6-4fd5-aa9a-895e4ccc2fd5.09fc534d4b3a18928f5f185c1dc80e66.jpeg",
+        imagem: "https://m.media-amazon.com/images/I/71HnNm+Lv0L._AC_SL1500_.jpg",
         linkCompra: "https://www.amazon.com.br/s?k=Apple+Watch+Series+10",
         descricao: "Apple Watch Series 10 com tela maior, processador S10, detecção de queda aprimorada",
         especificacoes: {
@@ -3275,9 +3559,29 @@ const produtosSugeridos = [
     }
 ];
 
+// ============================================
+// PROCESSAR E ENRIQUECER PRODUTOS
+// ============================================
+const produtosPlanilhaEnriquecidos = enriquecerProdutos(produtosPlanilha);
+const produtosSugeridosEnriquecidos = enriquecerProdutos(produtosSugeridos);
+const todosOsProdutosV6Enriquecidos = [...produtosPlanilhaEnriquecidos, ...produtosSugeridosEnriquecidos];
+
 // Exportar para uso global
 if (typeof window !== 'undefined') {
+    // Versão original (compatibilidade)
     window.produtosPlanilha = produtosPlanilha;
     window.produtosSugeridos = produtosSugeridos;
     window.todosOsProdutosV6 = [...produtosPlanilha, ...produtosSugeridos];
+    
+    // Nova versão enriquecida (recomendada)
+    window.produtosPlanilhaEnriquecidos = produtosPlanilhaEnriquecidos;
+    window.produtosSugeridosEnriquecidos = produtosSugeridosEnriquecidos;
+    window.todosOsProdutosV6Enriquecidos = todosOsProdutosV6Enriquecidos;
+    
+    // Cupons de desconto
+    window.cuponsDesconto = cuponsDesconto;
+    
+    // Funções auxiliares
+    window.calcularStatusComparativo = calcularStatusComparativo;
+    window.precosConcorrente = precosConcorrente;
 }

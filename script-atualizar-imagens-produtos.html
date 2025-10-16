@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Atualização de Imagens - PrioBF v6.1</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .container {
+            background: #0a0a0a;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #00ffff;
+            text-align: center;
+            text-shadow: 0 0 10px #00ffff;
+        }
+        button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #00ffff;
+            box-shadow: 0 0 20px #00ffff;
+        }
+        #log {
+            background: #000;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+        .success {
+            color: #00ff00;
+        }
+        .error {
+            color: #ff0000;
+        }
+        .warning {
+            color: #ffff00;
+        }
+        .info {
+            color: #00ffff;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #1a1a1a;
+            border: 1px solid #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00ffff;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #00ff00;
+        }
+        pre {
+            background: #000;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ ATUALIZAÇÃO AUTOMÁTICA DE IMAGENS</h1>
+        <p style="text-align: center;">Sistema PrioBF v6.1 - Atualização de Imagens dos Produtos</p>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="total-produtos">0</div>
+                <div class="stat-label">Total Produtos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="total-imagens">0</div>
+                <div class="stat-label">Imagens Disponíveis</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="matches">0</div>
+                <div class="stat-label">Matches Encontrados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="atualizados">0</div>
+                <div class="stat-label">Produtos Atualizados</div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <button onclick="processarAtualizacao()">🚀 PROCESSAR ATUALIZAÇÃO</button>
+            <button onclick="gerarArquivoAtualizado()">💾 BAIXAR ARQUIVO ATUALIZADO</button>
+            <button onclick="copiarParaClipboard()">📋 COPIAR RELATÓRIO</button>
+            <button onclick="limparLog()">🗑️ LIMPAR LOG</button>
+        </div>
+
+        <div id="log"></div>
+    </div>
+
+    <script>
+        // Dados de imagens extraídas do JSON
+        const imagensExtraidas = {
+            "🔥 NOVO! Oura Ring 4 - Smart Ring Premium": "https://m.media-amazon.com/images/I/51-7ivDG+6L._AC_SL1500_.jpg",
+            "1MORE EVO": "https://m.media-amazon.com/images/I/61PvbQyWfzL._AC_SL1500_.jpg",
+            "Acer Swift Edge 16": "https://m.media-amazon.com/images/I/71ZnQtHdj5L._AC_SL1500_.jpg",
+            "AirPods 3ª Geração": "https://m.media-amazon.com/images/I/61hFO9ZfEEL._AC_SL1500_.jpg",
+            "AirPods Max": "https://m.media-amazon.com/images/I/81EbEV5y3aL._AC_SL1500_.jpg",
+            "Alexa - Echo Dot 5ª Geração": "https://m.media-amazon.com/images/I/61U6MFMI8tL._AC_SL1000_.jpg",
+            "Almofada Massageadora Shiatsu Dellamed Preta": "https://m.media-amazon.com/images/I/61hnAKQKRsL._AC_SL1200_.jpg",
+            "Amazfit GTR 5 Pro": "https://m.media-amazon.com/images/I/61XvC7VfYrL._AC_SL1500_.jpg",
+            "Amazon Echo (4ª Geração)": "https://m.media-amazon.com/images/I/71IyZGr5A3L._AC_SL1000_.jpg",
+            "Amazon Fire Max 11": "https://m.media-amazon.com/images/I/61QPqVJhKbL._AC_SL1000_.jpg",
+            "Anker 747 GaNPrime 150W Carregador": "https://m.media-amazon.com/images/I/51-TW5sEWdL._AC_SL1500_.jpg",
+            "Anker Nebula Capsule 3 Laser": "https://m.media-amazon.com/images/I/61+g5Fx5+nL._AC_SL1500_.jpg",
+            "Anker Soundcore Liberty 3 Pro": "https://m.media-amazon.com/images/I/61MYWEWYnXL._AC_SL1500_.jpg",
+            "Apple Magic Keyboard com Touch ID": "https://m.media-amazon.com/images/I/61bIgCdjrbL._AC_SL1500_.jpg",
+            "Apple Pencil Pro": "https://m.media-amazon.com/images/I/41McAU3EqLL._AC_SL1500_.jpg",
+            "Apple Watch Series 10": "https://m.media-amazon.com/images/I/71HnNm+Lv0L._AC_SL1500_.jpg",
+            "Apple Watch Series 9 41mm Branca": "https://m.media-amazon.com/images/I/71e+7z6LHML._AC_SL1500_.jpg",
+            "Apple Watch Series 9 45mm Preta": "https://m.media-amazon.com/images/I/71HnNm+Lv0L._AC_SL1500_.jpg",
+            "Aqara Hub M2": "https://m.media-amazon.com/images/I/51T5hGIvE1L._AC_SL1500_.jpg",
+            "ASUS ROG Ally Z1 Extreme": "https://m.media-amazon.com/images/I/71TZ4kGCvzL._AC_SL1500_.jpg",
+            "ASUS ROG Phone 8": "https://m.media-amazon.com/images/I/71mXjqVEYzL._AC_SL1500_.jpg",
+            "ASUS ZenBook 14 OLED": "https://m.media-amazon.com/images/I/71cSV+-YZDL._AC_SL1500_.jpg",
+            "Audio-Technica ATH-M50xBT2": "https://m.media-amazon.com/images/I/71OTxJ1BDzL._AC_SL1500_.jpg",
+            "August Wi-Fi Smart Lock": "https://m.media-amazon.com/images/I/61Hs-nIGMWL._AC_SL1500_.jpg",
+            "Autel EVO Lite+": "https://m.media-amazon.com/images/I/71MppLxhIgL._AC_SL1500_.jpg",
+            "Balança Digital Xiaomi com Bioimpedância Scale 2 Original": "https://m.media-amazon.com/images/I/51V8HnBNkPL._AC_SL1200_.jpg",
+            "Beats Powerbeats Pro": "https://m.media-amazon.com/images/I/71pGiOpq6CL._AC_SL1500_.jpg",
+            "Belkin BoostCharge Pro 3-in-1 MagSafe": "https://m.media-amazon.com/images/I/61vqMQiD4JL._AC_SL1500_.jpg",
+            "BenQ TK700STi Gaming Projetor 4K": "https://m.media-amazon.com/images/I/71YKUwNGdaL._AC_SL1500_.jpg",
+            "Bose QuietComfort 45": "https://m.media-amazon.com/images/I/51JkkCRQJjL._AC_SL1200_.jpg",
+            "Caixa de Som JBL Flip 6": "https://m.media-amazon.com/images/I/81g0NixQBTL._AC_SL1500_.jpg",
+            "Caixa de Som JBL Xtreme 3 Portátil": "https://m.media-amazon.com/images/I/81VZ5V9KZSL._AC_SL1500_.jpg",
+            "Câmera Polaroid - Instax Mini 11": "https://m.media-amazon.com/images/I/71Q7k1YSCDL._AC_SL1500_.jpg",
+            "Câmera Polaroid Instax Mini 11": "https://m.media-amazon.com/images/I/71L9yC35cqL._AC_SL1500_.jpg",
+            "Canon PowerShot G7 X Mark III": "https://m.media-amazon.com/images/I/81jWfCFgT0L._AC_SL1500_.jpg",
+            "Chaleira Elétrica Térmica CE-06 Mondial Preto/Inox 2L 127V": "https://m.media-amazon.com/images/I/51Y8RhMxkbL._AC_SL1200_.jpg",
+            "Controle Sem Fio Microsoft Xbox Wireless Carbon Black": "https://m.media-amazon.com/images/I/61KL2WAJG6L._AC_SL1500_.jpg",
+            "Controle Sony DualSense Sem Fio PlayStation 5 Branco": "https://m.media-amazon.com/images/I/61gJN+FJPSL._AC_SL1500_.jpg",
+            "Coros Vertix 2S": "https://m.media-amazon.com/images/I/61eqiU8kfVL._AC_SL1500_.jpg",
+            "Corsair K70 RGB PRO Mechanical": "https://m.media-amazon.com/images/I/71KN6+kQLyL._AC_SL1500_.jpg",
+            "Dell XPS 15 9530": "https://m.media-amazon.com/images/I/71JCNVJtIBL._AC_SL1500_.jpg",
+            "DJI Action 4": "https://m.media-amazon.com/images/I/61Ku1sPVOqL._AC_SL1500_.jpg",
+            "DJI Air 3": "https://m.media-amazon.com/images/I/51NNp3JZVML._AC_SL1080_.jpg",
+            "DJI Avata 2 FPV Drone": "https://m.media-amazon.com/images/I/61AKQNpAWUL._AC_SL1500_.jpg",
+            "DJI Mic 2": "https://m.media-amazon.com/images/I/61KJBdHd7ZL._AC_SL1500_.jpg",
+            "DJI Mini 4 Pro": "https://m.media-amazon.com/images/I/61EQnlH1lzL._AC_SL1500_.jpg",
+            "DJI Pocket 3": "https://m.media-amazon.com/images/I/51KNw5QNPGL._AC_SL1500_.jpg",
+            "DJI RS 3 Gimbal": "https://m.media-amazon.com/images/I/51gvSJGMwfL._AC_SL1500_.jpg",
+            "Ecobee SmartThermostat Premium": "https://m.media-amazon.com/images/I/71e4yMvmY-L._AC_SL1500_.jpg",
+            "Edifier NeoBuds Pro 2": "https://m.media-amazon.com/images/I/61xkBYLM3lL._AC_SL1500_.jpg",
+            "Epson Home Cinema 2250 3LCD": "https://m.media-amazon.com/images/I/71W3pYSP7EL._AC_SL1500_.jpg",
+            "Eve Energy Smart Plug": "https://m.media-amazon.com/images/I/61uLT4uSXDL._AC_SL1500_.jpg",
+            "Fitbit Charge 6": "https://m.media-amazon.com/images/I/61YRCy6GFZL._AC_SL1500_.jpg",
+            "Fone de Ouvido Bluetooth com Cancelamento de Ruído Ativo": "https://m.media-amazon.com/images/I/61vEU91AfnL._AC_SL1500_.jpg",
+            "Fone de Ouvido JBL com Condução Óssea": "https://m.media-amazon.com/images/I/61h+RwMqZnL._AC_SL1500_.jpg",
+            "Fone JBL Wave Buds": "https://m.media-amazon.com/images/I/51gzQ8vZVjL._AC_SL1500_.jpg",
+            "Fujifilm X100V": "https://m.media-amazon.com/images/I/81TE7XnUoKL._AC_SL1500_.jpg",
+            "Garmin Forerunner 165 GPS Running Watch": "https://m.media-amazon.com/images/I/71m5fY5MKOL._AC_SL1500_.jpg",
+            "Garmin Forerunner 965": "https://m.media-amazon.com/images/I/71xo4e+UuqL._AC_SL1500_.jpg",
+            "Geonav Power Bank Carregador Portátil 20.000mAh": "https://m.media-amazon.com/images/I/61H3DqJ7PjL._AC_SL1500_.jpg",
+            "Google Nest Hub (2ª Geração)": "https://m.media-amazon.com/images/I/61DXNhHYmaL._AC_SL1500_.jpg",
+            "Google Pixel 8 Pro": "https://m.media-amazon.com/images/I/71AJnVwWDyL._AC_SL1500_.jpg",
+            "GoPro HERO 12 Black": "https://m.media-amazon.com/images/I/61riZ-2xkML._AC_SL1500_.jpg",
+            "HolyStone HS720E 4K GPS Drone": "https://m.media-amazon.com/images/I/71sOk8sMCzL._AC_SL1500_.jpg",
+            "Honor Earbuds X6": "https://m.media-amazon.com/images/I/51Xhx0pPmtL._AC_SL1500_.jpg",
+            "HP Spectre x360 14": "https://m.media-amazon.com/images/I/71wkh7W3nIL._AC_SL1500_.jpg",
+            "Huawei MatePad Pro 13.2": "https://m.media-amazon.com/images/I/61wP9mwCmwL._AC_SL1500_.jpg",
+            "Huawei Watch Fit 5": "https://m.media-amazon.com/images/I/61M+FxQhkjL._AC_SL1500_.jpg",
+            "HyperX Cloud III Wireless": "https://m.media-amazon.com/images/I/61yPgMUNfxL._AC_SL1500_.jpg",
+            "Insta360 GO 3": "https://m.media-amazon.com/images/I/51wZVL8HZAL._AC_SL1500_.jpg",
+            "Insta360 X3": "https://m.media-amazon.com/images/I/61DljHSPQnL._AC_SL1500_.jpg",
+            "iPad Air 11\" M2": "https://m.media-amazon.com/images/I/61NGnpjoRDL._AC_SL1500_.jpg",
+            "iPad Pro 13\" M4": "https://m.media-amazon.com/images/I/81RKl3FvFGL._AC_SL1500_.jpg",
+            "iPhone 16 Pro Max 256GB": "https://m.media-amazon.com/images/I/81IJSYW-VvL._AC_SL1500_.jpg",
+            "Jabra Elite 85t": "https://m.media-amazon.com/images/I/61LrBFLh-cL._AC_SL1500_.jpg",
+            "JBL Tour One M2": "https://m.media-amazon.com/images/I/61xRQ8sPTvL._AC_SL1500_.jpg",
+            "JBL Wave Buds Intra": "https://m.media-amazon.com/images/I/61QGQJYZfxL._AC_SL1500_.jpg",
+            "Kindle 11ª Geração": "https://m.media-amazon.com/images/I/6182S7MYC2L._AC_SL1000_.jpg",
+            "Kindle Paperwhite 11ª Geração": "https://m.media-amazon.com/images/I/51QCk82iGcL._AC_SL1000_.jpg",
+            "Lâmpada Wi-Fi Inteligente TP-Link Tapo L530E Ajuste Cor Bivolt": "https://m.media-amazon.com/images/I/51MPw9H9W2L._AC_SL1500_.jpg",
+            "Lenovo Tab P12 Pro": "https://m.media-amazon.com/images/I/71NMF3vLBtL._AC_SL1500_.jpg",
+            "Lenovo ThinkPad X1 Carbon Gen 11": "https://m.media-amazon.com/images/I/61FhYJypRwL._AC_SL1500_.jpg",
+            "LG 27\" OLED Gaming Monitor 240Hz": "https://m.media-amazon.com/images/I/81jZ8R9xSsL._AC_SL1500_.jpg",
+            "Logitech G Pro X Superlight 2": "https://m.media-amazon.com/images/I/51Qn1WJ3ySL._AC_SL1500_.jpg",
+            "Logitech MX Master 3S": "https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg",
+            "MacBook Air 15\" M3": "https://m.media-amazon.com/images/I/71f5Eu5lJtL._AC_SL1500_.jpg",
+            "MacBook Pro 16\" M3 Pro": "https://m.media-amazon.com/images/I/61RJn0ofUsL._AC_SL1500_.jpg",
+            "Microsoft Surface Pro 9": "https://m.media-amazon.com/images/I/61gtIkVdK7L._AC_SL1500_.jpg",
+            "Mochila de Hidratação Track&Field": "https://m.media-amazon.com/images/I/71NMGj+8mSL._AC_SL1500_.jpg",
+            "Motorola Edge 14 Ultra": "https://m.media-amazon.com/images/I/61VC8pC3iLL._AC_SL1500_.jpg",
+            "MSI Prestige 16 Studio": "https://m.media-amazon.com/images/I/71TlQZE0GiL._AC_SL1500_.jpg",
+            "Nespresso Vertuo Pop Branca": "https://m.media-amazon.com/images/I/61h6L-WqV0L._AC_SL1500_.jpg",
+            "Nespresso Vertuo Pop Preta": "https://m.media-amazon.com/images/I/71cjGFaoURL._AC_SL1500_.jpg",
+            "Nintendo Switch OLED 64GB Standard Branco": "https://m.media-amazon.com/images/I/61KKpV3p7UL._AC_SL1500_.jpg",
+            "Nothing Ear (2)": "https://m.media-amazon.com/images/I/61ks9ZJ7BbL._AC_SL1500_.jpg",
+            "Nothing Phone (3)": "https://m.media-amazon.com/images/I/61KhRU+UJVL._AC_SL1500_.jpg",
+            "OnePlus 12 Pro": "https://m.media-amazon.com/images/I/61xB1hgPmJL._AC_SL1500_.jpg",
+            "OnePlus Pad": "https://m.media-amazon.com/images/I/61r4W-fq9eL._AC_SL1500_.jpg",
+            "OPPO Find X7 Ultra": "https://m.media-amazon.com/images/I/61TnC0F-TuL._AC_SL1500_.jpg",
+            "Peak Design Everyday Messenger 13L": "https://m.media-amazon.com/images/I/81OeJcpQAyL._AC_SL1500_.jpg",
+            "Philips Hue Kit Inicial (3 Lâmpadas + Bridge)": "https://m.media-amazon.com/images/I/61jtQxjDMDL._AC_SL1500_.jpg",
+            "Pipoqueira Mondial PopFlix PP-03 Vermelha 110V": "https://m.media-amazon.com/images/I/61NfPpHBk6L._AC_SL1500_.jpg",
+            "PlayStation 5 Digital Edition": "https://m.media-amazon.com/images/I/51w2yS8VndL._AC_SL1500_.jpg",
+            "Polar Vantage V3": "https://m.media-amazon.com/images/I/61RN+q-rBJL._AC_SL1500_.jpg",
+            "Razer Blade 14 Gaming": "https://m.media-amazon.com/images/I/71RGFlqXgvL._AC_SL1500_.jpg",
+            "Razer Viper V3 Pro": "https://m.media-amazon.com/images/I/51tLFIXYfOL._AC_SL1500_.jpg",
+            "Ring Video Doorbell Pro 2": "https://m.media-amazon.com/images/I/51S5zCzGBtL._AC_SL1000_.jpg",
+            "Robô Aspirador Eletrolux com 2h20min de Autonomia": "https://m.media-amazon.com/images/I/61Hxkz8IojL._AC_SL1500_.jpg",
+            "Robô Aspirador Eletrônico": "https://m.media-amazon.com/images/I/61V3QKJvZYL._AC_SL1500_.jpg",
+            "Robô Aspirador Eletrônico Inteligente": "https://m.media-amazon.com/images/I/61Y3SzfC+TL._AC_SL1200_.jpg",
+            "Samsung Galaxy Book3 Ultra": "https://m.media-amazon.com/images/I/71IjKM6sOiL._AC_SL1500_.jpg",
+            "Samsung Galaxy Buds2 Pro": "https://m.media-amazon.com/images/I/61PomnXks7L._AC_SL1500_.jpg",
+            "Samsung Galaxy Ring": "https://m.media-amazon.com/images/I/51oHqZT8yEL._AC_SL1500_.jpg",
+            "Samsung Galaxy S24 Ultra": "https://m.media-amazon.com/images/I/71Hx87J8OYL._AC_SL1500_.jpg",
+            "Samsung Galaxy Tab S9": "https://m.media-amazon.com/images/I/71ZcQ9h4sHL._AC_SL1500_.jpg",
+            "Samsung Galaxy Tab S9 Ultra": "https://m.media-amazon.com/images/I/71L+MqVI9LL._AC_SL1500_.jpg",
+            "Samsung Galaxy Watch 6 Classic": "https://m.media-amazon.com/images/I/71vYDRBxJOL._AC_SL1500_.jpg",
+            "Samsung Galaxy Z Fold 5": "https://m.media-amazon.com/images/I/61V7-soHNYL._AC_SL1500_.jpg",
+            "Samsung S Pen Pro": "https://m.media-amazon.com/images/I/41C1ghLnAiL._AC_SL1000_.jpg",
+            "Samsung T7 Shield Portable SSD 4TB": "https://m.media-amazon.com/images/I/81h9RwNlD2L._AC_SL1500_.jpg",
+            "Samsung The Freestyle Projetor": "https://m.media-amazon.com/images/I/61B9tKzJAUL._AC_SL1500_.jpg",
+            "SanDisk Extreme Portable SSD 2TB": "https://m.media-amazon.com/images/I/81ge59j1WML._AC_SL1500_.jpg",
+            "Sennheiser Momentum 4 Wireless": "https://m.media-amazon.com/images/I/61v-3HbgXfL._AC_SL1500_.jpg",
+            "Smart Display com Alexa (Echo Show 8)": "https://m.media-amazon.com/images/I/61DXNhHYmaL._AC_SL1500_.jpg",
+            "Sonoff SNZB-03 Sensor Movimento Zigbee (Pack 4)": "https://m.media-amazon.com/images/I/51J5dpCMQOL._AC_SL1500_.jpg",
+            "Sony LinkBuds S": "https://m.media-amazon.com/images/I/51EZ+TEcLfL._AC_SL1500_.jpg",
+            "Sony WH-1000XM5": "https://m.media-amazon.com/images/I/61vEU91AfnL._AC_SL1500_.jpg",
+            "Sony ZV-E10": "https://m.media-amazon.com/images/I/719Z9MN0A4L._AC_SL1500_.jpg",
+            "Steam Deck 512GB": "https://m.media-amazon.com/images/I/71ZK0NHpYyL._AC_SL1500_.jpg",
+            "SteelSeries Apex Pro TKL": "https://m.media-amazon.com/images/I/71VZFp8HWHL._AC_SL1500_.jpg",
+            "Suunto 9 Peak Pro": "https://m.media-amazon.com/images/I/61ks7MHFAML._AC_SL1500_.jpg",
+            "Tablet Samsung Galaxy Tab S6 Lite 64GB + Caneta S Pen": "https://m.media-amazon.com/images/I/61vVMJdGLuL._AC_SL1500_.jpg",
+            "TicWatch Pro 5 Ultra": "https://m.media-amazon.com/images/I/61NyMHqnQoL._AC_SL1500_.jpg",
+            "Tomtoc Mochila 40L Travel Backpack": "https://m.media-amazon.com/images/I/71qBxLg4+VL._AC_SL1500_.jpg",
+            "TP-Link Tapo C520WS Câmera 360°": "https://m.media-amazon.com/images/I/41F2KY1ztmL._AC_SL1000_.jpg",
+            "WHOOP 4.0": "https://m.media-amazon.com/images/I/61R+V5pQzqL._AC_SL1500_.jpg",
+            "Withings ScanWatch 2": "https://m.media-amazon.com/images/I/71HdXLPcVWL._AC_SL1500_.jpg",
+            "Xbox Series X": "https://m.media-amazon.com/images/I/51EZWGRi0XL._AC_SL1500_.jpg",
+            "XGIMI Horizon 2 Pro Projetor 4K": "https://m.media-amazon.com/images/I/61MoSNy7TBL._AC_SL1500_.jpg",
+            "Xiaomi 14 Pro": "https://m.media-amazon.com/images/I/71kZXRu3xjL._AC_SL1500_.jpg",
+            "Xiaomi Pad 6": "https://m.media-amazon.com/images/I/61cRnup8LzL._AC_SL1500_.jpg",
+            "Xiaomi Smart Band 8 Pro": "https://m.media-amazon.com/images/I/71c9ro4AwVL._AC_SL1500_.jpg"
+        };
+
+        // Normalização de nomes para matching
+        function normalizarNome(nome) {
+            return nome
+                .toLowerCase()
+                .replace(/🔥\s*novo!\s*/i, '')
+                .replace(/[^\w\sáàâãéêíóôõúçñ]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        // Criar mapa normalizado
+        const mapaImagensNormalizado = new Map();
+        Object.entries(imagensExtraidas).forEach(([nome, url]) => {
+            const nomeNorm = normalizarNome(nome);
+            mapaImagensNormalizado.set(nomeNorm, { original: nome, url: url });
+        });
+
+        // Função de log
+        function log(mensagem, tipo = 'info') {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const classes = {
+                'success': 'success',
+                'error': 'error',
+                'warning': 'warning',
+                'info': 'info'
+            };
+            logDiv.innerHTML += `<div class="${classes[tipo]}">[${timestamp}] ${mensagem}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function limparLog() {
+            document.getElementById('log').innerHTML = '';
+            log('Log limpo.', 'info');
+        }
+
+        // Atualizar estatísticas
+        function atualizarStats(stats) {
+            if (stats.totalProdutos) document.getElementById('total-produtos').textContent = stats.totalProdutos;
+            if (stats.totalImagens) document.getElementById('total-imagens').textContent = stats.totalImagens;
+            if (stats.matches) document.getElementById('matches').textContent = stats.matches;
+            if (stats.atualizados) document.getElementById('atualizados').textContent = stats.atualizados;
+        }
+
+        let resultadoProcessamento = null;
+
+        async function processarAtualizacao() {
+            log('═══════════════════════════════════════════════════════', 'info');
+            log('🚀 INICIANDO PROCESSAMENTO DE ATUALIZAÇÃO DE IMAGENS', 'info');
+            log('═══════════════════════════════════════════════════════', 'info');
+            
+            try {
+                // Carregar arquivo produtos-v6.1.js
+                log('📥 Carregando arquivo produtos-v6.1.js...', 'info');
+                const response = await fetch('produtos-v6.1.js');
+                const conteudo = await response.text();
+                log('✅ Arquivo carregado com sucesso!', 'success');
+
+                // Extrair produtos usando regex
+                log('🔍 Extraindo dados dos produtos...', 'info');
+                const regexProduto = /{\s*id:\s*(\d+),[\s\S]*?nome:\s*"([^"]+)"[\s\S]*?imagem:\s*"([^"]+)"[\s\S]*?}/g;
+                const produtos = [];
+                let match;
+                
+                while ((match = regexProduto.exec(conteudo)) !== null) {
+                    produtos.push({
+                        id: match[1],
+                        nome: match[2],
+                        imagemAtual: match[3]
+                    });
+                }
+
+                log(`📊 Total de produtos encontrados: ${produtos.length}`, 'success');
+                atualizarStats({ 
+                    totalProdutos: produtos.length,
+                    totalImagens: Object.keys(imagensExtraidas).length
+                });
+
+                // Processar matching
+                log('═══════════════════════════════════════════════════════', 'info');
+                log('🔄 PROCESSANDO MATCHING DE NOMES...', 'info');
+                log('═══════════════════════════════════════════════════════', 'info');
+
+                const atualizacoes = [];
+                let matchesEncontrados = 0;
+                let imagensAtualizadas = 0;
+
+                produtos.forEach((produto, index) => {
+                    const nomeNorm = normalizarNome(produto.nome);
+                    
+                    // Tentar match exato
+                    if (mapaImagensNormalizado.has(nomeNorm)) {
+                        const dados = mapaImagensNormalizado.get(nomeNorm);
+                        matchesEncontrados++;
+                        
+                        // Verificar se a imagem é diferente
+                        if (produto.imagemAtual !== dados.url) {
+                            atualizacoes.push({
+                                id: produto.id,
+                                nome: produto.nome,
+                                imagemAntiga: produto.imagemAtual,
+                                imagemNova: dados.url,
+                                tipoMatch: 'EXATO'
+                            });
+                            imagensAtualizadas++;
+                            log(`✅ [${produto.id}] ${produto.nome} - MATCH EXATO`, 'success');
+                        } else {
+                            log(`ℹ️ [${produto.id}] ${produto.nome} - Imagem já atualizada`, 'info');
+                        }
+                    } else {
+                        // Tentar match parcial
+                        let matchParcial = false;
+                        for (let [nomeImagemNorm, dados] of mapaImagensNormalizado) {
+                            if (nomeNorm.includes(nomeImagemNorm) || nomeImagemNorm.includes(nomeNorm)) {
+                                matchesEncontrados++;
+                                matchParcial = true;
+                                
+                                if (produto.imagemAtual !== dados.url) {
+                                    atualizacoes.push({
+                                        id: produto.id,
+                                        nome: produto.nome,
+                                        imagemAntiga: produto.imagemAtual,
+                                        imagemNova: dados.url,
+                                        tipoMatch: 'PARCIAL'
+                                    });
+                                    imagensAtualizadas++;
+                                    log(`⚠️ [${produto.id}] ${produto.nome} - MATCH PARCIAL com "${dados.original}"`, 'warning');
+                                }
+                                break;
+                            }
+                        }
+                        
+                        if (!matchParcial) {
+                            log(`❌ [${produto.id}] ${produto.nome} - SEM MATCH`, 'error');
+                        }
+                    }
+                });
+
+                atualizarStats({ 
+                    matches: matchesEncontrados,
+                    atualizados: imagensAtualizadas
+                });
+
+                log('═══════════════════════════════════════════════════════', 'info');
+                log('📊 RESUMO DO PROCESSAMENTO', 'info');
+                log('═══════════════════════════════════════════════════════', 'info');
+                log(`✅ Total de produtos: ${produtos.length}`, 'success');
+                log(`✅ Matches encontrados: ${matchesEncontrados}`, 'success');
+                log(`✅ Imagens a atualizar: ${imagensAtualizadas}`, 'success');
+                log(`⚠️ Produtos sem match: ${produtos.length - matchesEncontrados}`, 'warning');
+
+                // Aplicar atualizações no conteúdo
+                if (imagensAtualizadas > 0) {
+                    log('═══════════════════════════════════════════════════════', 'info');
+                    log('💾 APLICANDO ATUALIZAÇÕES NO ARQUIVO...', 'info');
+                    log('═══════════════════════════════════════════════════════', 'info');
+
+                    let conteudoAtualizado = conteudo;
+                    atualizacoes.forEach(atualizacao => {
+                        const urlAntigaEscapada = atualizacao.imagemAntiga.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        conteudoAtualizado = conteudoAtualizado.replace(
+                            new RegExp(`imagem:\\s*"${urlAntigaEscapada}"`, 'g'),
+                            `imagem: "${atualizacao.imagemNova}"`
+                        );
+                        log(`🔄 Atualizado: ${atualizacao.nome}`, 'success');
+                    });
+
+                    resultadoProcessamento = {
+                        conteudo: conteudoAtualizado,
+                        stats: {
+                            total: produtos.length,
+                            matches: matchesEncontrados,
+                            atualizados: imagensAtualizadas
+                        },
+                        atualizacoes: atualizacoes
+                    };
+
+                    log('✅ PROCESSAMENTO CONCLUÍDO COM SUCESSO!', 'success');
+                    log('💡 Use o botão "BAIXAR ARQUIVO ATUALIZADO" para salvar', 'info');
+                } else {
+                    log('ℹ️ Nenhuma atualização necessária - todas as imagens já estão corretas!', 'info');
+                }
+
+            } catch (erro) {
+                log(`❌ ERRO: ${erro.message}`, 'error');
+                console.error(erro);
+            }
+        }
+
+        function gerarArquivoAtualizado() {
+            if (!resultadoProcessamento) {
+                log('⚠️ Execute o processamento antes de baixar o arquivo!', 'warning');
+                return;
+            }
+
+            const blob = new Blob([resultadoProcessamento.conteudo], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'produtos-v6.1-ATUALIZADO.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            log('✅ Arquivo baixado com sucesso: produtos-v6.1-ATUALIZADO.js', 'success');
+            log('📋 Substitua o arquivo produtos-v6.1.js pelo arquivo baixado', 'info');
+        }
+
+        function copiarParaClipboard() {
+            const logDiv = document.getElementById('log');
+            const texto = logDiv.innerText;
+            navigator.clipboard.writeText(texto).then(() => {
+                log('✅ Relatório copiado para área de transferência!', 'success');
+            }).catch(err => {
+                log('❌ Erro ao copiar: ' + err.message, 'error');
+            });
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            log('✅ Sistema de atualização de imagens pronto!', 'success');
+            log('📊 Imagens disponíveis no JSON: ' + Object.keys(imagensExtraidas).length, 'info');
+            log('💡 Clique em "PROCESSAR ATUALIZAÇÃO" para iniciar', 'info');
+            atualizarStats({ totalImagens: Object.keys(imagensExtraidas).length });
+        });
+    </script>
+</body>
+</html>
