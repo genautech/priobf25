@@ -1,10 +1,10 @@
 # 🛍️ Sistema Black Friday PRIO 2025
 
-**Sistema Completo de Gestão e Análise de Produtos - Versão 6.1.6**
+**Sistema Completo de Gestão e Análise de Produtos - Versão 6.1.10**
 
 [![Status](https://img.shields.io/badge/status-production-brightgreen)]()
-[![Version](https://img.shields.io/badge/version-6.1.6-blue)]()
-[![Products](https://img.shields.io/badge/products-142-orange)]()
+[![Version](https://img.shields.io/badge/version-6.1.10-blue)]()
+[![Products](https://img.shields.io/badge/products-150-orange)]()
 [![Deploy](https://img.shields.io/badge/deploy-cloudflare-yellow)]()
 [![Security](https://img.shields.io/badge/security-enhanced-red)]()
 
@@ -12,7 +12,248 @@
 
 ---
 
-## 🎉 NOVA ATUALIZAÇÃO v6.1.6 (16/10/2025)
+## ✨ NOVA FUNCIONALIDADE v6.1.10 (16/10/2025)
+
+### 🔧 **Importador Avançado Integrado ao Admin Panel**
+
+**Nova ferramenta adicionada na aba "Ferramentas" do Admin!**
+
+#### 📋 O que há de novo:
+- ✅ **Card "Importador Inteligente"** adicionado (3ª ferramenta)
+- ✅ **Acesso direto** ao Sistema de Importação Avançado v2.0
+- ✅ **Badge "NOVO v2.0"** com animação destacada
+- ✅ **Instruções completas** exibidas ao clicar
+- ✅ **Total de 7 ferramentas** agora disponíveis
+
+#### 🎯 Funcionalidade:
+Ao clicar em "Importador Avançado":
+1. Abre `importar-catalogo-produtos-v2.html` em nova aba
+2. Mostra notificação com guia passo a passo
+3. Lista todos os recursos disponíveis
+4. Facilita o workflow de importação
+
+#### 🎨 Design:
+- Cor índigo diferenciada
+- Ícone de varinha mágica (🪄)
+- Badge pulsante "NOVO v2.0"
+- Banner de destaque no topo da seção
+
+**Documentação completa**: `ATUALIZACAO-ADMIN-FERRAMENTAS-v6.1.10.md`
+
+---
+
+## ✨ ATUALIZAÇÃO: Custo Fornecedor Prio com Ícone ❌ (17/10/2025)
+
+### 🎯 Visual Claro para Produtos Sem Cotação Prio
+
+**O que mudou:**
+- ✅ Coluna "Custo Fornecedor Prio" agora mostra **APENAS** o preço do concorrente Prio
+- ✅ Quando **não há cotação Prio**, exibe **ícone vermelho ❌** ao invés de "-"
+- ✅ Removido fallback para custoBase (evita confusão)
+- ✅ Aplicado em **todas as interfaces**: Admin (Todos os Produtos + Análise Comparativa) e Gerador CSV
+
+**Benefícios:**
+- 🎯 **Clareza total**: Uma coluna = um conceito
+- 👁️ **Visual imediato**: Ícone ❌ vermelho chama atenção
+- 📊 **Análise precisa**: Comparação justa apenas com produtos cotados
+- ⚡ **Eficiência**: Fácil identificar produtos que precisam de pesquisa
+
+**Onde ver:**
+```
+Admin → Aba "Todos os Produtos" → Coluna "Custo Fornecedor Prio"
+Admin → Aba "Análise Comparativa" → Coluna "Preço Concorrente (Prio)"
+Admin → Aba "Ferramentas" → "Exportar CSV" → Preview da tabela
+```
+
+**Documentação completa**: `✅-ATUALIZACAO-CUSTO-FORNECEDOR-PRIO.md`
+
+---
+
+## 🔄 NOVO! Suite Completa: Substituição de Catálogo (17/10/2025)
+
+### 📦 Documentação Completa Disponível
+
+Precisa **substituir os produtos atuais** por uma nova versão importada do JSON? Temos documentação completa!
+
+#### 📚 Documentos Criados:
+
+1. **📋 PLANO-SUBSTITUICAO-CATALOGO.md** (18 KB)
+   - Plano completo com 3 estratégias
+   - Passos detalhados para cada opção
+   - Ferramentas auxiliares (validador, comparador)
+   - Troubleshooting completo
+   - Matriz de decisão
+
+2. **⚡ QUICK-START-SUBSTITUICAO.md** (6 KB)
+   - Processo em 6 passos (5-10 minutos)
+   - Comandos prontos para copiar/colar
+   - Checklist simples
+   - Troubleshooting rápido
+
+3. **🎨 FLUXO-VISUAL-SUBSTITUICAO.md** (23 KB)
+   - Diagramas de fluxo completos
+   - Comparativo visual das 3 opções
+   - Timeline estimado
+   - Checklist visual
+
+4. **📚 INDICE-SUBSTITUICAO-CATALOGO.md** (10 KB)
+   - Guia de navegação entre documentos
+   - Recomendações por cenário
+   - FAQ sobre documentação
+
+5. **⚡ RESUMO-EXECUTIVO-SUBSTITUICAO.md** (4 KB)
+   - Overview em 2 minutos
+   - Escolha rápida de estratégia
+   - Links diretos
+
+6. **📋 TABELA-REFERENCIA-RAPIDA.md** (7 KB)
+   - Tabela comparativa das opções
+   - Comandos prontos (bash/PowerShell)
+   - Troubleshooting em tabela
+
+7. **🎨 INFOGRAFICO-PROCESSO.md** (18 KB)
+   - Infográfico visual rico
+   - Linha do tempo
+   - Anatomia do JSON
+
+8. **📖 START-HERE-SUBSTITUICAO.md** (10 KB) ⭐ **COMECE AQUI**
+   - Porta de entrada da documentação
+   - Guia de navegação
+   - Recomendações por perfil
+
+**Total**: 8 documentos (~88 KB) | Cobertura: 100% | Status: ✅ Completo
+
+#### 🎯 3 Estratégias Disponíveis:
+
+**🔴 OPÇÃO 1: Substituição Total**
+- Apaga TODOS os 150 produtos atuais
+- Importa nova lista completa
+- Ideal: Você tem catálogo novo completo
+
+**🟡 OPÇÃO 2: Substituição Parcial (Mesclar)**
+- Mantém alguns produtos atuais
+- Substitui outros específicos
+- Adiciona novos
+- Ideal: Controle fino sobre o que manter/substituir
+
+**🟢 OPÇÃO 3: Atualização Incremental**
+- Mantém TODOS os 150 produtos atuais
+- Adiciona novos produtos no final
+- Ideal: Expandir catálogo sem perder produtos atuais
+
+#### ⚡ Quick Start:
+
+```bash
+# 1. Leia o índice primeiro
+📚-INDICE-SUBSTITUICAO-CATALOGO.md
+
+# 2. Para estudo detalhado
+PLANO-SUBSTITUICAO-CATALOGO.md
+
+# 3. Para execução rápida
+QUICK-START-SUBSTITUICAO.md
+
+# 4. Para visualização
+FLUXO-VISUAL-SUBSTITUICAO.md
+```
+
+**🎯 Tempo total**: 5-45 minutos (dependendo da estratégia escolhida)
+
+---
+
+## 🔴 CORREÇÃO CRÍTICA v6.1.9 (16/10/2025)
+
+### ✅ PROBLEMA "undefined" e "NaN" RESOLVIDO!
+
+**Problema Identificado:**
+- Interface mostrava "Estoque **undefined** un"
+- Cálculos resultavam em "**R$ NaN**"
+- Modal exibia "Projeção Total (**undefined** unidades)"
+
+**Causa:**
+- 7 dos 8 produtos importados tinham o campo `estoque` mas não `quantidade`
+- Código JavaScript busca especificamente `produto.quantidade` para cálculos
+- Resultado: valores undefined geravam erros NaN em toda a interface
+
+**Solução Aplicada:**
+- ✅ Adicionado campo `quantidade` a TODOS os 8 produtos importados
+- ✅ Mantido campo `estoque` para compatibilidade
+- ✅ Reorganizada ordem dos campos para padrão correto
+- ✅ Todos os cálculos agora funcionam perfeitamente
+
+**Produtos Corrigidos:**
+| ID | Produto | Quantidade | Status |
+|----|---------|------------|--------|
+| yb-006 | Máquina Vertuo Pop brancas | 6 | ✅ |
+| yb-007 | Fone JBL Tune 520BT | 27 | ✅ |
+| yb-008 | Fone Wave Buds JBL | 14 | ✅ |
+| yb-010 | Máquina Vertuo Pop pretas | 8 | ✅ |
+| yb-040 | Máquina Vertuo Pop brancas | 15 | ✅ |
+| yb-041 | Máquina Vertuo Pop pretas | 15 | ✅ |
+| yb-072 | Laptop Lenovo ThinkBook | 5 | ✅ |
+| yb-073 | Óculos Oakley Meta | 5 | ✅ |
+
+**Resultado:**
+- ✅ Cards exibem: "Estoque **6 un**" (sem undefined)
+- ✅ Economia calculada: "**R$ 554,00**" (sem NaN)
+- ✅ Modal funciona: "Projeção Total (**6 unidades**)"
+- ✅ Totais corretos em todo o sistema
+
+**Documentação:**
+- 📄 `CORRECAO-CRITICA-v6.1.9.md` - Análise técnica completa
+- 📄 `RESUMO-CORRECAO-UNDEFINED-NAN.md` - Resumo em português
+- 📄 `CHECKLIST-TESTE-RAPIDO.md` - 75 verificações de teste
+- 📄 `SOLUCAO-DEFINITIVA.txt` - Guia rápido
+- 📄 `CORRECOES-APLICADAS.md` - Histórico completo (atualizado)
+
+**Como Testar:**
+1. Limpar cache do navegador (Ctrl + Shift + Delete)
+2. Recarregar página (Ctrl + F5)
+3. Buscar produtos "Nespresso" ou "JBL"
+4. Verificar que não há mais "undefined" ou "NaN"
+
+---
+
+## 🎉 NOVA ATUALIZAÇÃO v6.1.7 (16/10/2025)
+
+### ✅ ETAPA 1 DE IMPORTAÇÃO CONCLUÍDA!
+
+**8 Novos Produtos Competitivos Adicionados com Sucesso!**
+
+#### 📊 Resumo da Importação:
+- ✅ **8 produtos importados** (100% competitivos vs PRIO)
+- ✅ **Total no sistema**: 150 produtos (+8)
+- ✅ **Investimento**: R$ 17.568,32
+- ✅ **Lucro estimado**: R$ 4.535,33
+- ✅ **Taxa de competitividade**: 100%
+
+#### 🛍️ Produtos Adicionados:
+**Casa e Cozinha (4 produtos):**
+- Nespresso Vertuo Pop Branca (YB-006)
+- Nespresso Vertuo Pop Preta (YB-010, YB-041)
+- Máquina Vertuo Pop Branca (YB-040)
+
+**Eletrônicos - Áudio (2 produtos):**
+- Fone JBL Tune 520BT (YB-007)
+- Fone Wave Buds JBL (YB-008)
+
+**Eletrônicos - Premium (2 produtos):**
+- 🔥 Laptop Lenovo ThinkBook Plus Gen 6 (YB-072)
+- 🔥 Óculos Inteligentes Oakley Meta (YB-073)
+
+#### 🚀 Sistema de Importação Inteligente v2.0:
+- ✅ **Auto-correção de formato** JSON
+- ✅ **Conversão automática** de estruturas complexas
+- ✅ **Código JavaScript** gerado automaticamente
+- ✅ **Preview visual** antes da importação
+- ✅ **Copiar código** com 1 clique
+
+**Arquivo**: `importar-catalogo-produtos-v2.html`  
+**Documentação**: `IMPORTACAO-ETAPA1-COMPLETA.md`
+
+---
+
+## 🎉 ATUALIZAÇÃO v6.1.6 (16/10/2025)
 
 ### 🛠️ Nova Aba "Ferramentas" no Admin Panel
 
