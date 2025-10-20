@@ -88,11 +88,32 @@ export async function onRequestPost(context) {
     
     // 6. Obter SHA do arquivo atual
     console.log('🔍 Obtendo SHA do arquivo atual...');
-    const sha = await obterSHAArquivo(env, config);
+    let sha = await obterSHAArquivo(env, config);
     
-    // 7. Fazer commit no GitHub
+    // 7. Fazer commit no GitHub (com retry se SHA mudar)
     console.log('📤 Fazendo commit no GitHub...');
-    const resultado = await fazerCommit(env, config, conteudoJS, sha);
+    let resultado;
+    let tentativas = 0;
+    const maxTentativas = 3;
+    
+    while (tentativas < maxTentativas) {
+      try {
+        resultado = await fazerCommit(env, config, conteudoJS, sha);
+        break; // Sucesso, sair do loop
+      } catch (erro) {
+        tentativas++;
+        
+        // Se erro for SHA mismatch, pegar novo SHA e tentar novamente
+        if (erro.message.includes('does not match') && tentativas < maxTentativas) {
+          console.log(`⚠️ SHA mismatch detectado, obtendo novo SHA (tentativa ${tentativas}/${maxTentativas})...`);
+          sha = await obterSHAArquivo(env, config);
+          continue;
+        }
+        
+        // Outros erros ou máximo de tentativas atingido
+        throw erro;
+      }
+    }
     
     // 8. Resposta de sucesso
     const duration = Date.now() - startTime;
