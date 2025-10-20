@@ -261,11 +261,11 @@ const produtosPlanilha = [
         "categoria": "Eletrônicos",
         "subcategoria": "Smart Home",
         "quantidade": 30,
-        "custoBase": 420,
-        "precoMercado": 599,
-        "margem": 30,
-        "precoVenda": 546,
-        "estoque": "Em Estoque",
+        "custoBase": 1,
+        "precoMercado": 1,
+        "margem": 1,
+        "precoVenda": 1.01,
+        "estoque": "Para Compra",
         "fornecedor": "Amazon.com.br",
         "imagem": "https://m.media-amazon.com/images/I/61U6MFMI8tL._AC_SL1000_.jpg",
         "linkCompra": "https://www.amazon.com.br/s?k=Echo+Dot+5+Gera%C3%A7%C3%A3o",
@@ -277,7 +277,8 @@ const produtosPlanilha = [
             "cor": "Preta",
             "garantia": "1 ano"
         },
-        "precoConcorrente": 420
+        "precoConcorrente": 420,
+        "dataAtualizacao": "2025-10-20T22:30:50.162Z"
     },
     {
         "id": 1002,
@@ -1054,10 +1055,10 @@ const produtosSugeridos = [
         "categoria": "Eletrônicos",
         "subcategoria": "Smartphones",
         "quantidade": 5,
-        "custoBase": 1,
-        "precoMercado": 1,
-        "margem": 1,
-        "precoVenda": 1.01,
+        "custoBase": 9999,
+        "precoMercado": 12999,
+        "margem": 30,
+        "precoVenda": 12999,
         "badge": "🔥 NOVO!",
         "fornecedor": "Apple Store",
         "imagem": "https://m.media-amazon.com/images/I/81IJSYW-VvL._AC_SL1500_.jpg",
@@ -1067,11 +1068,9 @@ const produtosSugeridos = [
             "modelo": "16 Pro Max",
             "armazenamento": "256GB",
             "camera": "48MP tripla",
-            "tela": "6.7"
+            "tela": "6.7\" Super Retina XDR"
         },
-        "linkCompra": "https://www.amazon.com.br/s?k=iPhone+16+Pro+Max+256GB",
-        "estoque": "Para Compra",
-        "dataAtualizacao": "2025-10-20T22:16:33.184Z"
+        "linkCompra": "https://www.amazon.com.br/s?k=iPhone+16+Pro+Max+256GB"
     },
     {
         "id": 2002,
