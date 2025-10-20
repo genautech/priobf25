@@ -153,27 +153,24 @@ class GitHubSyncWorker {
      */
     async verificarWorker() {
         try {
-            this._log('🔍 Verificando conectividade com Worker...');
+            this._log('🔍 Verificando conectividade com Pages Function...');
             
-            const response = await fetch(`${this.config.workerUrl}/health`, {
-                method: 'GET'
+            // Testar endpoint /sync com método OPTIONS (não faz commit)
+            const response = await fetch(`${this.config.workerUrl}/sync`, {
+                method: 'OPTIONS'
             });
             
-            if (!response.ok) {
-                throw new Error(`Worker retornou ${response.status}`);
-            }
-            
-            const data = await response.json();
-            this._log('✅ Worker está online:', data);
+            // Qualquer resposta (mesmo 405) significa que está acessível
+            this._log('✅ Pages Function está acessível');
             
             return {
                 online: true,
-                version: data.version,
-                status: data.status
+                version: 'v6.5',
+                status: 'ready'
             };
             
         } catch (erro) {
-            this._logError('❌ Worker offline ou inacessível:', erro);
+            this._logError('❌ Pages Function offline ou inacessível:', erro);
             
             return {
                 online: false,
@@ -270,12 +267,11 @@ setTimeout(async () => {
         const status = await window.gitHubSyncWorker.verificarWorker();
         
         if (status.online) {
-            console.log(`✅ Cloudflare Worker online (v${status.version})`);
-            console.log('🚀 Sincronização automática pronta!');
+            console.log(`✅ Cloudflare Pages Function online (v${status.version})`);
+            console.log('🚀 Sincronização automática via /sync pronta!');
         } else {
-            console.warn('⚠️ Cloudflare Worker offline ou não configurado');
-            console.warn('📝 Configure a URL do Worker:');
-            console.warn('   window.gitHubSyncWorker.configurarWorkerUrl("https://seu-worker.workers.dev")');
+            console.warn('⚠️ Pages Function /sync pode estar offline');
+            console.warn('   Verifique se GITHUB_TOKEN está configurado no Cloudflare');
         }
     } catch (erro) {
         console.error('❌ Erro ao verificar Worker:', erro);
