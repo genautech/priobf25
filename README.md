@@ -1,16 +1,84 @@
 # 🛍️ Sistema Black Friday PRIO 2025
 
-**Sistema Completo de Gestão e Análise de Produtos - Versão 6.3.1**
+**Sistema Completo de Gestão e Análise de Produtos - Versão 6.3.3**
 
 [![Status](https://img.shields.io/badge/status-production-brightgreen)]()
-[![Version](https://img.shields.io/badge/version-6.3.1-blue)]()
+[![Version](https://img.shields.io/badge/version-6.3.3-blue)]()
 [![Products](https://img.shields.io/badge/products-150-orange)]()
 [![Deploy](https://img.shields.io/badge/deploy-cloudflare-yellow)]()
 [![CRUD](https://img.shields.io/badge/CRUD-complete-success)]()
 [![Sync](https://img.shields.io/badge/sync-automatic-purple)]()
-[![Config](https://img.shields.io/badge/config-persistent-green)]()
+[![Config](https://img.shields.io/badge/config-global-emerald)]()
+[![AutoSync](https://img.shields.io/badge/AutoSync-default__ON-success)]()
 
 🌐 **Site em Produção:** https://priobf25.pages.dev
+
+🔥 **NOVO v6.3.3:** Auto-Sync ATIVO POR PADRÃO para TODOS os usuários! Configure 1 vez, todos têm acesso! Produtos sincronizam automaticamente com GitHub!
+
+---
+
+## 🎉 VERSÃO 6.3.3 - AUTO-SYNC ATIVO POR PADRÃO PARA TODOS (20/10/2025)
+
+### 🔥 **SOLUÇÃO DEFINITIVA: Configuração Global Compartilhada!**
+
+#### ✅ **Problema Resolvido:**
+> "independente de um usuario externo acessar, nao é preciso configurar novamente a api? pois somente eu quero deixar isso configurado e a sincronizacao estar ativa sempre. quero que usuarios externos possam entrar e ver sempre os produtos atualizados sem a necessidade de ativar a sincronizacao que ja estará por default ativa."
+
+#### 🎯 **SOLUÇÃO IMPLEMENTADA!**
+
+**Agora com Configuração Global:**
+- ✅ Configure GitHub API **1 VEZ** no arquivo `config-global.js`
+- ✅ Faça commit no repositório
+- ✅ **TODOS os usuários** terão Auto-Sync ATIVO automaticamente
+- ✅ Produtos sincronizam com GitHub sem intervenção manual
+- ✅ Catálogo do cliente atualiza automaticamente em 2-3 min
+- ✅ **SEM necessidade** de cada usuário configurar
+
+**Como Funciona:**
+```
+1. VOCÊ configura config-global.js (1 VEZ)
+2. Faz commit no GitHub
+3. Qualquer usuário abre admin
+4. ✅ Auto-Sync JÁ ESTÁ ATIVO (badge verde)
+5. Usuário edita produto e salva
+6. ✅ Sistema salva AUTOMATICAMENTE no GitHub
+7. ✅ Catálogo atualiza em 2-3 min
+8. ✅ Cliente vê produto atualizado
+```
+
+**Arquivos Criados:**
+- `config-global.js` - Configuração compartilhada (GitHub token, owner, repo)
+- `github-sync.js` - Sincronização direta com GitHub API
+- `🎯-CONFIGURACAO-GLOBAL-v6.3.3.md` - Documentação completa
+
+**Documentação:** Veja `🎯-CONFIGURACAO-GLOBAL-v6.3.3.md` para instruções completas
+
+---
+
+## 🎉 VERSÃO 6.3.2 - PERSISTÊNCIA DO AUTO-SYNC (20/10/2025)
+
+### 🔥 **NOVO: Auto-Sync Permanece Ativo Após Fechar o Navegador!**
+
+#### ✅ **Problema Resolvido:**
+> "mesmo apos subir o deploy a funcao 🔄 Auto-Sync: OFF nao permanece ativa, desativando logo apos eu fechar o navegador ou dar refresh na pagina"
+
+#### 🎯 **SOLUÇÃO IMPLEMENTADA!**
+
+O Auto-Sync agora **PERMANECE ATIVO** mesmo após:
+- ✅ Fechar o navegador completamente
+- ✅ Dar refresh na página (F5)
+- ✅ Fechar aba e abrir novamente
+- ✅ Reiniciar o computador
+
+**Como Funciona:**
+1. Ative o Auto-Sync clicando no badge (🔄 Auto-Sync: OFF → ON)
+2. O estado é salvo automaticamente no navegador
+3. Feche e abra novamente - **Auto-Sync continua ATIVO!** ✨
+4. Recebe notificação: "Auto-Sync reativado automaticamente! 🔄"
+
+**Arquivos Criados:**
+- `auto-sync-persistencia.js` - Sistema de persistência automática
+- `auto-sync-toggle.js` - Função de toggle com salvamento
 
 ---
 

@@ -7,9 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="config-global.js"></script>
     <script src="produtos-v6.1.js"></script>
     <script src="produto-crud-sync.js"></script>
     <script src="produto-persistencia-local.js"></script>
+    <script src="github-sync.js"></script>
+    <script src="auto-sync-persistencia.js"></script>
+    <script src="auto-sync-toggle.js"></script>
     <style>
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
@@ -4412,9 +4416,24 @@ Arquivo disponível no projeto!
                                 <input type="password" id="github_token" required
                                        class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                        placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-                                <p class="text-xs text-gray-500 mt-1">
-                                    Seu token não será armazenado permanentemente
-                                </p>
+                                
+                                <!-- NOVA OPÇÃO: Salvar Token -->
+                                <div class="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                                    <label class="flex items-start cursor-pointer">
+                                        <input type="checkbox" id="salvar_token_permanente" 
+                                               class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
+                                        <div class="flex-1">
+                                            <span class="text-sm font-bold text-gray-700">
+                                                💾 Salvar token permanentemente
+                                            </span>
+                                            <p class="text-xs text-gray-600 mt-1">
+                                                ✅ Token será salvo no LocalStorage (criptografado)<br>
+                                                ✅ Auto-Sync ficará sempre ativo<br>
+                                                ⚠️ Use apenas em computador pessoal seguro
+                                            </p>
+                                        </div>
+                                    </label>
+                                </div>
                             </div>
 
                             <div>
