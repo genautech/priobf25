@@ -1071,7 +1071,7 @@ const produtosSugeridos = [
         },
         "linkCompra": "https://www.amazon.com.br/s?k=iPhone+16+Pro+Max+256GB",
         "estoque": "Para Compra",
-        "dataAtualizacao": "2025-10-20T22:14:16.051Z"
+        "dataAtualizacao": "2025-10-20T22:16:33.184Z"
     },
     {
         "id": 2002,
