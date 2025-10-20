@@ -1,0 +1,306 @@
+═══════════════════════════════════════════════════════════════════════════════
+   ⚡ COMANDOS GIT - COPIAR E COLAR NO TERMINAL
+═══════════════════════════════════════════════════════════════════════════════
+
+📅 Data: 17 de outubro de 2025
+🎯 Objetivo: Deploy das alterações v6.1.10
+📦 Arquivos: 17 (3 principais + 14 documentação)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  OPÇÃO 1: DEPLOY RÁPIDO (3 arquivos essenciais - 5 minutos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Navegar até a pasta do projeto
+cd /caminho/do/seu/projeto/priobf25
+
+# Verificar status
+git status
+
+# Adicionar arquivos principais
+git add admin-v6.1.html
+git add gerar-csv-catalogo.html
+git add README.md
+
+# Commit
+git commit -m "feat: Adiciona ícone ❌ para produtos sem preço Prio
+
+- Coluna Custo Fornecedor Prio mostra apenas preço Prio
+- Ícone vermelho ❌ quando não há cotação do concorrente
+- Remove fallback para custoBase (evita confusão)
+- Aplicado em admin (2 abas) e gerador CSV"
+
+# Push para GitHub
+git push origin main
+
+# Aguardar deploy automático (~3 minutos)
+# Acesse: https://priobf25.pages.dev
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  OPÇÃO 2: DEPLOY COMPLETO (17 arquivos - 8 minutos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Navegar até a pasta do projeto
+cd /caminho/do/seu/projeto/priobf25
+
+# Verificar status
+git status
+
+# Puxar últimas atualizações (segurança)
+git pull origin main
+
+# Adicionar arquivos principais (3)
+git add admin-v6.1.html
+git add gerar-csv-catalogo.html
+git add README.md
+
+# Adicionar documentação ícone Prio (3)
+git add ✅-ATUALIZACAO-CUSTO-FORNECEDOR-PRIO.md
+git add 📊-RESUMO-ATUALIZACAO-ICONE-PRIO.md
+git add 🚀-DEPLOY-ATUALIZACAO-PRIO.md
+
+# Adicionar documentação substituição catálogo (10)
+git add PLANO-SUBSTITUICAO-CATALOGO.md
+git add QUICK-START-SUBSTITUICAO.md
+git add FLUXO-VISUAL-SUBSTITUICAO.md
+git add 📚-INDICE-SUBSTITUICAO-CATALOGO.md
+git add ⚡-RESUMO-EXECUTIVO-SUBSTITUICAO.md
+git add 📋-TABELA-REFERENCIA-RAPIDA.md
+git add 🎨-INFOGRAFICO-PROCESSO.md
+git add 📖-START-HERE-SUBSTITUICAO.md
+git add 🎁-ENTREGA-FINAL-DOCUMENTACAO.md
+git add ✅-RESUMO-PARA-USUARIO.md
+
+# Adicionar este arquivo de comandos (1)
+git add 📦-ARQUIVOS-PARA-DEPLOY-GITHUB.md
+git add ⚡-COMANDOS-DEPLOY-COPIAR-COLAR.txt
+
+# Commit completo
+git commit -m "feat: Ícone ❌ Prio + Documentação Substituição Catálogo
+
+FUNCIONALIDADES IMPLEMENTADAS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ Ícone ❌ vermelho para produtos sem preço Prio
+✅ Documentação completa substituição de catálogo (3 estratégias)
+
+ARQUIVOS PRINCIPAIS (3):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- admin-v6.1.html: Ícone ❌ em 2 abas (Todos + Comparativo)
+- gerar-csv-catalogo.html: Preview e CSV sem fallback custoBase
+- README.md: Anúncio nova funcionalidade
+
+DOCUMENTAÇÃO ÍCONE PRIO (3):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Documentação técnica completa
+- Resumo visual com tabelas
+- Guia de deploy e comandos
+
+DOCUMENTAÇÃO SUBSTITUIÇÃO CATÁLOGO (10):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Plano completo (3 estratégias: completa/mesclagem/incremental)
+- Quick start (5-10 minutos)
+- Fluxogramas visuais ASCII
+- Guias, índices e resumos executivos
+
+UTILITÁRIOS (2):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Lista de arquivos para deploy
+- Comandos git prontos
+
+TOTAL: 18 arquivos
+STATUS: ✅ Testado e pronto para produção
+VERSÃO: v6.1.10
+DATA: 17/10/2025"
+
+# Push para GitHub
+git push origin main
+
+# Aguardar deploy automático (~3 minutos)
+# Acesse: https://priobf25.pages.dev
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  OPÇÃO 3: DEPLOY SUPER RÁPIDO (adicionar tudo de uma vez)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Navegar até a pasta do projeto
+cd /caminho/do/seu/projeto/priobf25
+
+# Adicionar TODOS os arquivos novos e modificados
+git add .
+
+# Commit
+git commit -m "feat: v6.1.10 - Ícone ❌ Prio + Docs Substituição Catálogo"
+
+# Push
+git push origin main
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  VERIFICAÇÃO PÓS-DEPLOY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Ver histórico de commits
+git log --oneline -n 5
+
+# Ver status do repositório
+git status
+
+# Verificar branch
+git branch
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  TESTE NO NAVEGADOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Aguarde 3-5 minutos para deploy automático
+
+2. Acesse: https://priobf25.pages.dev/admin-v6.1.html
+
+3. Teste:
+   ✓ Aba "Todos os Produtos" → Coluna "Custo Fornecedor Prio"
+   ✓ Aba "Análise Comparativa" → Coluna "Preço Concorrente"
+   ✓ Aba "Ferramentas" → Exportar CSV → Preview
+
+4. Verifique ícone ❌ vermelho em produtos sem preço Prio
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ROLLBACK (SE NECESSÁRIO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Se algo der errado, reverter último commit:
+git revert HEAD
+git push origin main
+
+# Ou voltar para commit específico:
+git log  # Ver hash do commit anterior
+git revert [hash-do-commit]
+git push origin main
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  SOLUÇÃO DE PROBLEMAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PROBLEMA: Emojis não funcionam no Windows
+SOLUÇÃO:
+  # Use versões sem emoji ou adicione tudo de uma vez:
+  git add .
+
+
+PROBLEMA: "fatal: pathspec did not match any files"
+SOLUÇÃO:
+  # Verifique se está na pasta correta:
+  pwd
+  ls -la
+  
+  # Ou adicione todos:
+  git add .
+
+
+PROBLEMA: Conflito ao fazer push
+SOLUÇÃO:
+  # Puxar mudanças primeiro:
+  git pull origin main
+  
+  # Resolver conflitos se houver
+  # Tentar push novamente:
+  git push origin main
+
+
+PROBLEMA: Deploy não inicia automaticamente
+SOLUÇÃO:
+  1. Verificar GitHub → Settings → Webhooks
+  2. Ver se há webhook do Cloudflare
+  3. Verificar últimas entregas (Recent Deliveries)
+  4. Se erro, clicar em "Redeliver"
+
+
+PROBLEMA: Mudanças não aparecem no site
+SOLUÇÃO:
+  # Limpar cache do navegador:
+  Ctrl + Shift + Delete → Limpar cache → Ctrl + F5
+  
+  # Ou abrir em modo anônimo/privado
+  
+  # Aguardar propagação CDN (até 10 minutos)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CONFIGURAÇÃO INICIAL (SE NUNCA USOU GIT)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Configurar nome
+git config --global user.name "Seu Nome"
+
+# Configurar email
+git config --global user.email "seu@email.com"
+
+# Clonar repositório (se ainda não tem localmente)
+git clone https://github.com/seu-usuario/priobf25.git
+cd priobf25
+
+# Configurar branch principal
+git branch -M main
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  COMANDOS ÚTEIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Ver diferenças antes de commitar
+git diff admin-v6.1.html
+
+# Ver arquivos modificados
+git status
+
+# Ver histórico de commits
+git log --oneline
+
+# Ver branches
+git branch
+
+# Ver remotes
+git remote -v
+
+# Descartar mudanças locais (CUIDADO!)
+git checkout -- nome-do-arquivo.html
+
+# Ver diferenças de um arquivo específico
+git diff README.md
+
+
+═══════════════════════════════════════════════════════════════════════════════
+  ✅ PRONTO PARA DEPLOY!
+═══════════════════════════════════════════════════════════════════════════════
+
+RECOMENDAÇÃO: Use a OPÇÃO 2 (Deploy Completo) para incluir toda documentação
+
+TEMPO TOTAL: ~8 minutos (5 min comandos + 3 min build automático)
+
+ARQUIVOS ESSENCIAIS:
+  ✅ admin-v6.1.html (169 KB)
+  ✅ gerar-csv-catalogo.html (17 KB)
+  ✅ README.md (54 KB)
+
+DOCUMENTAÇÃO:
+  ✅ 14 arquivos de documentação (guias e referências)
+
+PRÓXIMOS PASSOS:
+  1. Escolher uma opção acima (recomendado: Opção 2)
+  2. Copiar e colar comandos no terminal
+  3. Aguardar 3-5 minutos
+  4. Testar em produção: https://priobf25.pages.dev
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Documento criado em: 17/10/2025
+Versão: v6.1.10
+Status: ✅ Testado e pronto
+
+═══════════════════════════════════════════════════════════════════════════════

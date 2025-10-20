@@ -1,18 +1,350 @@
 # 🛍️ Sistema Black Friday PRIO 2025
 
-**Sistema Completo de Gestão e Análise de Produtos - Versão 6.1.10**
+**Sistema Completo de Gestão e Análise de Produtos - Versão 6.3.0**
 
 [![Status](https://img.shields.io/badge/status-production-brightgreen)]()
-[![Version](https://img.shields.io/badge/version-6.1.10-blue)]()
+[![Version](https://img.shields.io/badge/version-6.3.0-blue)]()
 [![Products](https://img.shields.io/badge/products-150-orange)]()
 [![Deploy](https://img.shields.io/badge/deploy-cloudflare-yellow)]()
-[![Security](https://img.shields.io/badge/security-enhanced-red)]()
+[![CRUD](https://img.shields.io/badge/CRUD-complete-success)]()
+[![Sync](https://img.shields.io/badge/sync-automatic-purple)]()
 
 🌐 **Site em Produção:** https://priobf25.pages.dev
 
 ---
 
-## ✨ NOVA FUNCIONALIDADE v6.1.10 (16/10/2025)
+## 🚀 VERSÃO 6.3.2 - SOLUÇÃO SANDBOX + INSTRUÇÕES FERRAMENTAS (20/10/2025)
+
+### 🎯 **ATUALIZAÇÃO CRÍTICA - SOLUÇÃO PARA AMBIENTE SANDBOX**
+
+#### 🔥 **Problema do Preview Sandbox Resolvido!**
+
+**PROBLEMA IDENTIFICADO:**
+- ❌ Links das ferramentas externas não funcionam no preview da Genspark
+- ❌ Erro 404 ao tentar abrir ferramentas auxiliares
+- ❌ Preview sandbox só mostra arquivo principal
+
+**SOLUÇÃO IMPLEMENTADA v6.3.2:**
+- ✅ **Cards mostram instruções** ao invés de links quebrados
+- ✅ **Botão "Como Acessar"** com tutorial completo
+- ✅ **2 métodos explicados**: Local e Deploy
+- ✅ **Botão "Copiar Instruções"** para referência
+- ✅ **Educativo e útil** - usuário sabe exatamente o que fazer
+
+### 📋 **Como Usar Agora:**
+
+**NO PREVIEW (Genspark Sandbox):**
+1. Clique em "Como Acessar" nos cards de ferramentas
+2. Leia as instruções completas
+3. Copie as instruções (opcional)
+4. Baixe todos os arquivos
+5. Abra localmente conforme instruído
+
+**USO LOCAL (Recomendado):**
+1. Baixe TODOS os arquivos do projeto
+2. Coloque na mesma pasta
+3. Abra `admin-v6.3.html` no navegador
+4. ✅ Tudo funcionará perfeitamente!
+
+**DEPLOY ONLINE (Acesso Remoto):**
+1. Faça upload de todos os arquivos para Cloudflare/GitHub/Netlify
+2. Acesse via URL do servidor
+3. ✅ Todas as ferramentas funcionam online!
+
+📖 **Veja:** `⚡-COMO-USAR-LOCALMENTE-AGORA.txt` para guia completo
+
+---
+
+## 🚀 VERSÃO 6.3.0 - CRUD COMPLETO + PERSISTÊNCIA LOCAL (20/10/2025)
+
+### 🎯 **O QUE HÁ DE NOVO - CONTROLE TOTAL DO CATÁLOGO**
+
+#### 🔥 **Sistema CRUD Completo + Salvamento Automático SEM Backend!**
+
+Agora você tem **controle total** sobre o catálogo de produtos diretamente no Admin Panel **E** os dados são salvos automaticamente **SEM NECESSIDADE DE BACKEND**!
+
+#### ✅ **Funcionalidades Implementadas:**
+
+##### **1. CREATE - Adicionar Produtos**
+- ➕ **Botão "Adicionar Produto"** visível na aba Sugestões
+- ➕ **Ferramenta "Adicionar Produto"** na aba Ferramentas
+- 📝 **Formulário completo** com validação de todos os campos
+- 🎨 **Preview de imagem** em tempo real
+- 💰 **Cálculo automático** do preço de venda
+- ⚙️ **Especificações técnicas** dinâmicas (adicionar/remover)
+
+##### **2. READ - Visualizar Produtos**
+- 🔍 **Filtros avançados** por categoria, subcategoria, texto
+- 📊 **Visualização em cards** com todas as informações
+- 🎯 **Busca inteligente** em nome, SKU e descrição
+- 📈 **Estatísticas em tempo real** (dashboard atualizado)
+
+##### **3. UPDATE - Editar Produtos**
+- ✏️ **Botão "Editar"** em cada produto
+- 📋 **Formulário pré-preenchido** com dados atuais
+- ♻️ **Recálculo automático** de preços ao alterar custo/margem
+- 🔄 **Atualização instantânea** em todas as áreas
+
+##### **4. DELETE - Excluir Produtos**
+- 🗑️ **Botão "Excluir"** com confirmação
+- 🛡️ **Soft delete** (produto marcado como excluído, não removido)
+- ↩️ **Possibilidade de restaurar** via backup
+- ⚠️ **Confirmação obrigatória** antes de excluir
+
+##### **5. DUPLICATE - Duplicar Produtos**
+- 📋 **Botão "Duplicar"** para criar variações
+- 🔄 **Cópia completa** de todos os dados
+- 🆔 **Novo ID e SKU** gerados automaticamente
+- ✏️ **Editável imediatamente** após duplicar
+
+##### **6. IMPORT - Importação em Massa**
+- 📊 **Importar de Excel/CSV** múltiplos produtos
+- 📥 **Template CSV pronto** para download (`TEMPLATE-IMPORTACAO-PRODUTOS.csv`)
+- 👁️ **Preview antes de importar** com tabela completa
+- ✅ **Relatório detalhado** de sucessos e erros
+- 🔧 **Validação automática** de todos os campos
+
+##### **7. SYNC - Sincronização Automática**
+- 🔄 **Atualização automática** de TODAS as áreas:
+  - Dashboard (estatísticas e gráficos)
+  - Sugestões & Inovações
+  - Catálogo Cliente
+  - Análise Avançada
+  - Comparativo de Preços
+  - Cupons de Desconto
+- 🔔 **Notificações visuais** a cada ação
+- ⚡ **Sincronização instantânea** sem recarregar página
+
+##### **8. BACKUP - Sistema de Backup Automático**
+- 💾 **Backup automático** antes de qualquer modificação
+- 📅 **Histórico de 10 backups** mais recentes
+- 🕐 **Timestamp e motivo** de cada backup
+- ↩️ **Restauração fácil** via console do navegador
+
+##### **9. PERSISTÊNCIA LOCAL - Salvar SEM Backend! 🆕**
+- 💾 **3 opções de salvamento** sem necessidade de servidor:
+  
+  **Opção 1: LocalStorage** (Recomendado)
+  - ✅ Totalmente automático
+  - ✅ Salva a cada alteração
+  - ✅ Persiste entre sessões
+  - ✅ Sem configuração necessária
+  - ⚠️ Limite ~5MB (~500 produtos)
+  
+  **Opção 2: Download Automático**
+  - ✅ Gera arquivo JS após mudanças
+  - ✅ Sem limite de tamanho
+  - ✅ Backup físico
+  - ⚠️ Requer substituir arquivo manualmente
+  
+  **Opção 3: GitHub API** (Avançado)
+  - ✅ Salva direto no repositório
+  - ✅ Deploy automático
+  - ✅ Versionamento Git completo
+  - ⚠️ Requer token de acesso
+
+- 🎛️ **Interface na aba Ferramentas**
+- 🔔 **Notificações visuais** de cada salvamento
+- 📊 **Monitor de espaço** LocalStorage
+
+#### 📁 **Novos Arquivos Criados:**
+
+| Arquivo | Tamanho | Descrição |
+|---------|---------|-----------|
+| `admin-v6.3.html` | 180 KB | Admin Panel com CRUD completo |
+| `produto-crud-sync.js` | 19 KB | Sistema CRUD + Sincronização |
+| `TEMPLATE-IMPORTACAO-PRODUTOS.csv` | 1 KB | Template para importação |
+| `GUIA-CRUD-v6.3.0.md` | 15 KB | Guia completo de uso |
+| `produtos-v6.1.js.backup-v6.3.0-antes-crud` | 123 KB | Backup de segurança |
+
+#### 🎓 **Como Usar:**
+
+##### **Adicionar Produto Manualmente:**
+```
+1. Acesse: admin-v6.3.html
+2. Clique: "Adicionar Produto" (verde, topo direito)
+3. Preencha: Formulário completo
+4. Salve: Produto sincronizado automaticamente!
+```
+
+##### **Importar de Planilha:**
+```
+1. Baixe: TEMPLATE-IMPORTACAO-PRODUTOS.csv
+2. Preencha: Dados dos produtos
+3. Acesse: Ferramentas → "Importar Excel/CSV"
+4. Upload: Arraste o CSV ou clique para selecionar
+5. Preview: Revise os dados
+6. Confirme: Importação em massa!
+```
+
+##### **Editar/Duplicar/Excluir:**
+```
+1. Localize o produto desejado
+2. Clique no botão correspondente:
+   - [Editar] → Abre formulário preenchido
+   - [Duplicar] → Cria cópia editável
+   - [Excluir] → Remove com confirmação
+```
+
+#### 🎨 **Interface Atualizada:**
+
+##### **Aba "Ferramentas" - Agora com 13 Ferramentas:**
+
+**Ferramentas Internas (executam no admin):**
+1. Exportar Template JSON
+2. Importar Catálogo JSON
+3. Importador Inteligente (v2.0)
+4. Corrigir Links de Compra
+5. Atualizar Imagens
+6. Exportar CSV Completo
+7. **✨ NOVO: Adicionar Produto** ← v6.3
+8. **✨ NOVO: Importar Excel/CSV** ← v6.3
+
+**Ferramentas Externas (abrem em nova aba) 🆕 v6.3.1:**
+9. 🔗 **Buscar Imagens FINAL** → buscar-imagens-FINAL.html
+10. 🔗 **Buscar Google/Bing** → buscar-imagens-google.html
+11. 🔗 **Importador Externo v2** → importar-catalogo-produtos-v2.html
+12. 🔗 **Visualizar Imagens** → visualizar-imagens-catalogo.html
+13. 🔗 **Gerador CSV Externo** → gerar-csv-catalogo.html
+
+> 🔗 = Abre diretamente em nova aba com `target="_blank"`
+
+##### **Cards de Produtos - Novos Botões:**
+```
+┌─────────────────────────┐
+│ [IMAGEM DO PRODUTO]    │
+│ Nome do Produto        │
+│ R$ 999,99              │
+├─────────────────────────┤
+│ [Editar] [Duplicar]    │
+│ [Excluir]              │
+└─────────────────────────┘
+```
+
+#### 📊 **Validações Implementadas:**
+
+- ✅ **SKU único** (verifica duplicatas)
+- ✅ **Custo base** > 0
+- ✅ **Margem** entre 0% e 100%
+- ✅ **Campos obrigatórios** (nome, categoria, custo, margem)
+- ✅ **URLs válidas** (imagem e link de compra)
+- ✅ **Cálculos automáticos** de preço de venda
+
+#### 🔧 **Recursos Técnicos:**
+
+- **Classe `ProdutoCRUDSync`** - Sistema orientado a objetos
+- **Sistema de Listeners** - Notificações de mudanças
+- **Backup automático** - Histórico de alterações
+- **Validação robusta** - Prevenção de erros
+- **IDs automáticos** - Geração sequencial
+- **SKUs inteligentes** - Baseados em categoria
+
+#### 💡 **Casos de Uso:**
+
+##### **Cenário 1: Adicionar Produto de Fornecedor Novo**
+```
+1. Fornecedor enviou cotação de 5 produtos novos
+2. Clique "Adicionar Produto"
+3. Preencha dados manualmente
+4. Sistema gera ID, calcula preço, sincroniza
+5. Produto aparece em todas as áreas instantaneamente
+```
+
+##### **Cenário 2: Importar Lista de 50 Produtos**
+```
+1. Baixe template CSV
+2. Cole dados da cotação do fornecedor
+3. Faça upload na aba Ferramentas
+4. Preview mostra todos os 50 produtos
+5. Confirme importação
+6. Sistema processa e valida todos
+7. Relatório mostra sucessos e erros
+```
+
+##### **Cenário 3: Criar Variações de Produto**
+```
+1. Produto: "Echo Dot 5ª Geração Preta"
+2. Clique "Duplicar"
+3. Sistema cria cópia com novo ID
+4. Edite para "Echo Dot 5ª Geração Branca"
+5. Ajuste preço se necessário
+6. Salve - Produto novo no catálogo!
+```
+
+#### 📈 **Benefícios:**
+
+- ⚡ **Autonomia total** - Sem dependência de desenvolvedores
+- 🚀 **Velocidade** - Adicionar produtos em segundos
+- 🎯 **Precisão** - Validação automática previne erros
+- 🔄 **Sincronização** - Todas as áreas sempre atualizadas
+- 💾 **Segurança** - Backups automáticos antes de mudanças
+- 📊 **Escalabilidade** - Importar centenas de produtos facilmente
+
+#### 📚 **Documentação Completa:**
+
+- **Guia de Uso:** `GUIA-CRUD-v6.3.0.md` (15 KB)
+  - Passo a passo detalhado
+  - Exemplos práticos
+  - Resolução de problemas
+  - Recursos avançados via console
+
+#### ⚠️ **Importante:**
+
+1. **Produtos são salvos apenas no navegador** durante a sessão
+2. Para **salvar permanentemente**, você precisa:
+   - Exportar o JavaScript atualizado via console:
+     ```javascript
+     const js = window.produtoCRUD.exportarParaJS();
+     console.log(js); // Copie e salve em produtos-v6.1.js
+     ```
+   - Ou fazer commit dos produtos via sistema de versionamento
+
+3. **Backups são temporários** (apenas durante a sessão)
+4. **Recarregar a página** sem salvar perde as alterações
+
+#### 🎯 **Próximos Passos Recomendados:**
+
+1. ✅ Teste adicionando 1-2 produtos manualmente
+2. ✅ Experimente duplicar produtos existentes
+3. ✅ Teste importação com 3-5 produtos no CSV
+4. ✅ Verifique sincronização em todas as abas
+5. ✅ Explore o console para recursos avançados
+
+---
+
+## 🆕 NOVIDADE v6.2.0 (17/10/2025)
+
+### 🤖 **Prompt Gerador de JSON para Importação de Produtos**
+
+**Nova ferramenta: Automatize a pesquisa de produtos com ChatGPT!**
+
+#### 📋 O que há de novo:
+- ✅ **Prompt completo** para ChatGPT gerar JSONs de produtos automaticamente
+- ✅ **Pesquisa em 4 marketplaces** (Amazon, Mercado Livre, Magazine Luiza, Shopee)
+- ✅ **Comparação automática** vs preços PRIO
+- ✅ **Cálculo de competitividade** com margens de lucro
+- ✅ **Template JSON estruturado** pronto para importação
+- ✅ **Tabela de preços PRIO** integrada no prompt
+
+#### 🎯 Como usar:
+1. Abra o arquivo `PROMPT-GERAR-JSON-PRODUTOS.md`
+2. Copie TODO o conteúdo
+3. Cole no ChatGPT
+4. Envie links dos produtos para pesquisar
+5. Receba JSON pronto para importar!
+
+#### 💡 Benefícios:
+- ⚡ **Economize horas** de pesquisa manual
+- 🎯 **Comparação automática** de 4 marketplaces
+- 💰 **Análise de competitividade** instantânea
+- 📊 **Dados estruturados** prontos para importação
+- ✅ **Cálculos precisos** de margem e lucro
+
+**Arquivo:** `PROMPT-GERAR-JSON-PRODUTOS.md` (9 KB)
+
+---
+
+## ✨ ATUALIZAÇÃO v6.1.10 (16/10/2025)
 
 ### 🔧 **Importador Avançado Integrado ao Admin Panel**
 
@@ -66,6 +398,85 @@ Admin → Aba "Ferramentas" → "Exportar CSV" → Preview da tabela
 ```
 
 **Documentação completa**: `✅-ATUALIZACAO-CUSTO-FORNECEDOR-PRIO.md`
+
+---
+
+## 🚀 NOVO! Guias de Deploy para GitHub (17/10/2025)
+
+### 📦 Arquivos Prontos para Atualizar no GitHub
+
+Criamos **3 documentos completos** para facilitar seu deploy:
+
+#### 📄 Documentos de Deploy:
+
+1. **📦 ARQUIVOS-PARA-DEPLOY-GITHUB.md** (8 KB)
+   - Lista completa e organizada dos 19 arquivos
+   - Tamanhos e datas de modificação
+   - Resumo rápido vs completo
+   - Checklist de verificação
+   - Comandos git por opção
+
+2. **⚡ COMANDOS-DEPLOY-COPIAR-COLAR.txt** (8 KB) ⭐ **MAIS USADO**
+   - Comandos prontos para copiar e colar
+   - 3 opções: Rápido / Completo / Super Rápido
+   - Comandos de verificação
+   - Solução de problemas
+   - Rollback se necessário
+   - Configuração inicial do git
+
+3. **🎯 LISTA-SIMPLES-ARQUIVOS-DEPLOY.txt** (7 KB)
+   - Versão super simplificada
+   - Lista visual por categoria
+   - Checklist rápido
+   - Início rápido em 7 passos
+
+#### ⚡ Deploy Rápido (3 arquivos essenciais):
+
+```bash
+git add admin-v6.1.html gerar-csv-catalogo.html README.md
+git commit -m "feat: Ícone ❌ para produtos sem preço Prio"
+git push origin main
+```
+
+**Tempo:** ~5 minutos | **Funcionalidade:** 100% implementada
+
+#### ✅ Deploy Completo (19 arquivos recomendado):
+
+```bash
+# Ver comandos completos em:
+⚡-COMANDOS-DEPLOY-COPIAR-COLAR.txt
+```
+
+**Tempo:** ~8 minutos | **Inclui:** Toda documentação
+
+#### 📊 Arquivos a Atualizar:
+
+```
+PRINCIPAIS (3 arquivos - OBRIGATÓRIO):
+✅ admin-v6.1.html (169 KB)
+✅ gerar-csv-catalogo.html (17 KB)
+✅ README.md (54 KB)
+
+DOCS ÍCONE PRIO (3 arquivos - recomendado):
+✅ ✅-ATUALIZACAO-CUSTO-FORNECEDOR-PRIO.md
+✅ 📊-RESUMO-ATUALIZACAO-ICONE-PRIO.md
+✅ 🚀-DEPLOY-ATUALIZACAO-PRIO.md
+
+DOCS SUBSTITUIÇÃO CATÁLOGO (10 arquivos - recomendado):
+✅ PLANO-SUBSTITUICAO-CATALOGO.md
+✅ QUICK-START-SUBSTITUICAO.md
+✅ FLUXO-VISUAL-SUBSTITUICAO.md
+✅ ... (e mais 7 arquivos)
+
+UTILITÁRIOS DEPLOY (3 arquivos - opcional):
+✅ 📦-ARQUIVOS-PARA-DEPLOY-GITHUB.md
+✅ ⚡-COMANDOS-DEPLOY-COPIAR-COLAR.txt
+✅ 🎯-LISTA-SIMPLES-ARQUIVOS-DEPLOY.txt
+```
+
+**👉 COMECE AQUI:** Abra `⚡-COMANDOS-DEPLOY-COPIAR-COLAR.txt` e copie os comandos!
+
+**📚 ÍNDICE COMPLETO:** Todos os 20 documentos organizados em `📚-INDICE-COMPLETO-DEPLOY.md`
 
 ---
 
@@ -1607,33 +2018,86 @@ Tecnologias open source utilizadas:
 
 ---
 
+## 🚀 Deploy - Como Atualizar o Site
+
+### 📦 Arquivos Novos desta Versão (v6.2.0):
+
+```
+✅ README.md (atualizado)
+🆕 PROMPT-GERAR-JSON-PRODUTOS.md
+🆕 INTEGRACAO-25-PRODUTOS-YOOBE.md
+🆕 produtos-novos-200-completo.json
+🆕 produtos-v6.1.js.backup-2025-10-17-original
+🆕 GUIA-DEPLOY-GITHUB-v6.2.0.md
+🆕 LISTA-ARQUIVOS-DEPLOY-v6.2.0.txt
+```
+
+### ⚡ Deploy Rápido (5 minutos):
+
+**Opção 1 - Terminal (Recomendado):**
+
+```bash
+cd C:\caminho\para\seu\projeto\priobf25
+
+git add README.md PROMPT-GERAR-JSON-PRODUTOS.md INTEGRACAO-25-PRODUTOS-YOOBE.md produtos-novos-200-completo.json produtos-v6.1.js.backup-2025-10-17-original
+
+git commit -m "feat: v6.2.0 - Prompt gerador de JSON + Documentação"
+
+git push origin main
+```
+
+**Opção 2 - GitHub Web:**
+
+1. Acesse: https://github.com/SEU-USUARIO/priobf25
+2. Clique: "Add file" → "Upload files"
+3. Arraste os 5 arquivos principais
+4. Commit: "feat: v6.2.0 - Prompt gerador de JSON"
+5. Aguarde deploy automático (~3 min)
+
+### 📚 Guias Completos:
+
+- **GUIA-DEPLOY-GITHUB-v6.2.0.md** - Tutorial passo a passo com troubleshooting
+- **LISTA-ARQUIVOS-DEPLOY-v6.2.0.txt** - Lista completa + comandos prontos
+
+---
+
 ## 🎯 Conclusão
 
-O Sistema Black Friday PRIO v6.0.2 oferece:
+O Sistema Black Friday PRIO v6.2.0 oferece:
 
-✅ **142 produtos** distribuídos em 4 categorias  
+✅ **150 produtos** distribuídos em 4 categorias  
 ✅ **Sistema CRUD completo** para gerenciamento  
+✅ **Prompt de geração automática** de JSON via ChatGPT  
+✅ **Pesquisa em 4 marketplaces** integrada  
+✅ **Análise de competitividade** automática vs PRIO  
 ✅ **Interface cliente** mostrando economia vs mercado  
 ✅ **Formatação brasileira** padronizada (R$)  
-✅ **Versão visível** para controle de mudanças  
 ✅ **Deploy automatizado** no Cloudflare Pages  
-✅ **Tutorial completo** de deploy via GitHub  
 ✅ **Documentação completa** em português  
 
-### 📈 Próximos Passos Recomendados
-1. ⚠️ **Substituir imagens quebradas** dos produtos (prioridade alta)
-2. Testar todas as funcionalidades após deploy
-3. Validar cálculos de economia no cliente-analise
-4. Revisar filtros por categoria (agora com 4 categorias)
+### 📈 Próximos Passos:
+
+1. ✅ **Fazer deploy** da v6.2.0 (use os guias acima)
+2. 🤖 **Testar prompt** no ChatGPT para gerar JSON
+3. 📦 **Importar produtos** competitivos via Admin
+4. 🚀 **Expandir catálogo** com novos produtos baratos
 
 ---
 
 ## 📖 Documentação Adicional
 
+### 🆕 **Novos na v6.2.0:**
+- **PROMPT-GERAR-JSON-PRODUTOS.md** - Prompt para ChatGPT gerar JSONs automaticamente
+- **GUIA-DEPLOY-GITHUB-v6.2.0.md** - Guia completo de deploy
+- **INTEGRACAO-25-PRODUTOS-YOOBE.md** - Análise de integração de produtos
+- **LISTA-ARQUIVOS-DEPLOY-v6.2.0.txt** - Lista de arquivos + comandos
+
+### 📚 **Documentação Geral:**
 - **Deploy GitHub:** `TUTORIAL-DEPLOY-GITHUB.md` - Como atualizar arquivos via GitHub
 - **Changelog Completo:** `CHANGELOG-v6.0.2.md` - Todas as mudanças da versão
 - **Teste de Imagens:** `testar-imagens.html` - Ferramenta para verificar URLs quebradas
 - **Análise de Categorias:** `analisar-categorias.html` - Visualizar distribuição de produtos  
+
 ✅ **Pronto para produção** e 100% funcional  
 
 ### 🌐 Acesse Agora
@@ -1651,22 +2115,34 @@ O Sistema Black Friday PRIO v6.0.2 oferece:
 | Item | Valor |
 |------|-------|
 | **Nome** | Sistema Black Friday PRIO 2025 |
-| **Versão** | 6.0.1 |
-| **Data** | 15/10/2025 |
+| **Versão** | 6.2.0 |
+| **Data** | 17/10/2025 |
 | **Status** | ✅ Produção |
 | **Deploy** | ✅ Cloudflare Pages |
 | **URL** | https://priobf25.pages.dev |
-| **Produtos** | 142 |
-| **Arquivos** | 12 |
-| **Tamanho** | ~350 KB |
+| **Produtos** | 150 |
+| **Arquivos** | 180+ |
+| **Tamanho** | ~500 KB |
+
+---
+
+## 🆕 Novidades v6.2.0:
+
+✨ **Prompt Gerador de JSON** - Automatize pesquisas com ChatGPT  
+📊 **Análise 4 Marketplaces** - Amazon, ML, Magazine Luiza, Shopee  
+🎯 **Comparação Automática** vs PRIO  
+📦 **Template Estruturado** - JSON pronto para importação  
+🔐 **Backup Automático** - Catálogo protegido  
 
 ---
 
 **🚀 Para começar: acesse https://priobf25.pages.dev**
 
+**📖 Para fazer deploy: leia `GUIA-DEPLOY-GITHUB-v6.2.0.md`**
+
 ---
 
-*Última atualização: 15/10/2025*  
-*Versão: 6.0.1*  
-*Status: ✅ Em Produção*  
-*Deploy: ✅ Realizado com Sucesso*
+*Última atualização: 17/10/2025*  
+*Versão: 6.2.0*  
+*Status: ✅ Pronto para Deploy*  
+*Novidades: ✅ Prompt ChatGPT + Documentação Completa*

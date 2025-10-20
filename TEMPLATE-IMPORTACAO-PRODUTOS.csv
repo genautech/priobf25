@@ -1,0 +1,4 @@
+sku,nome,categoria,subcategoria,fornecedor,quantidade,custoBase,precoMercado,margem,estoque,imagem,linkCompra,descricao,marca,modelo,garantia
+ELE-0001,Exemplo Smartphone,Eletrônicos,Smartphones,Amazon.com.br,10,2000,2500,25,Para Compra,https://exemplo.com/imagem.jpg,https://www.amazon.com.br/s?k=smartphone,Smartphone exemplo com 128GB,Samsung,Galaxy,1 ano
+CASA-0001,Exemplo Cafeteira,Casa e Cozinha,Cafeteiras,Magazine Luiza,5,500,699,30,Em Estoque,https://exemplo.com/cafeteira.jpg,https://www.magazineluiza.com.br/cafeteira,Cafeteira Nespresso,Nespresso,Vertuo,2 anos
+ELE-0002,Exemplo Fone de Ouvido,Eletrônicos,Áudio,JBL Brasil,20,150,299,35,Para Compra,https://exemplo.com/fone.jpg,https://www.amazon.com.br/s?k=jbl+fone,Fone sem fio com bluetooth,JBL,Wave,1 ano

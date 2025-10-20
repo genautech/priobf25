@@ -1,0 +1,130 @@
+═══════════════════════════════════════════════════════════════════
+🚀 COMECE AQUI - DEPLOY v6.2.0
+═══════════════════════════════════════════════════════════════════
+
+📍 VOCÊ ESTÁ PRONTO PARA FAZER O DEPLOY!
+
+═══════════════════════════════════════════════════════════════════
+⚡ OPÇÃO MAIS FÁCIL (10 MINUTOS)
+═══════════════════════════════════════════════════════════════════
+
+1. Abra seu navegador
+2. Acesse: https://github.com/SEU-USUARIO/priobf25
+3. Clique em: "Add file" → "Upload files"
+4. Arraste ESTES 5 ARQUIVOS:
+
+   ✅ README.md
+   ✅ PROMPT-GERAR-JSON-PRODUTOS.md
+   ✅ INTEGRACAO-25-PRODUTOS-YOOBE.md
+   ✅ produtos-novos-200-completo.json
+   ✅ produtos-v6.1.js.backup-2025-10-17-original
+
+5. Na caixa de commit, escreva:
+   
+   feat: v6.2.0 - Prompt gerador de JSON + Documentação
+
+6. Clique: "Commit changes"
+
+7. PRONTO! Aguarde 2-3 minutos
+
+8. Acesse: https://priobf25.pages.dev
+
+═══════════════════════════════════════════════════════════════════
+⚡ OPÇÃO TERMINAL (5 MINUTOS) - SE VOCÊ SABE USAR GIT
+═══════════════════════════════════════════════════════════════════
+
+Abra o terminal e cole TUDO de uma vez:
+
+───────────────────────────────────────────────────────────────────
+WINDOWS (Git Bash ou PowerShell):
+───────────────────────────────────────────────────────────────────
+
+cd C:\Users\SEU-USUARIO\Documents\priobf25
+git add README.md PROMPT-GERAR-JSON-PRODUTOS.md INTEGRACAO-25-PRODUTOS-YOOBE.md produtos-novos-200-completo.json produtos-v6.1.js.backup-2025-10-17-original
+git commit -m "feat: v6.2.0 - Prompt gerador de JSON + Documentação"
+git push origin main
+
+───────────────────────────────────────────────────────────────────
+MAC/LINUX:
+───────────────────────────────────────────────────────────────────
+
+cd ~/Documents/priobf25
+git add README.md PROMPT-GERAR-JSON-PRODUTOS.md INTEGRACAO-25-PRODUTOS-YOOBE.md produtos-novos-200-completo.json produtos-v6.1.js.backup-2025-10-17-original
+git commit -m "feat: v6.2.0 - Prompt gerador de JSON + Documentação"
+git push origin main
+
+═══════════════════════════════════════════════════════════════════
+❓ TEM DÚVIDAS? LEIA ESTES ARQUIVOS:
+═══════════════════════════════════════════════════════════════════
+
+📖 GUIA-DEPLOY-GITHUB-v6.2.0.md
+   └─ Tutorial COMPLETO com imagens e troubleshooting
+
+📋 LISTA-ARQUIVOS-DEPLOY-v6.2.0.txt
+   └─ Lista detalhada + todos os comandos
+
+📊 RESUMO-DEPLOY-v6.2.0.md
+   └─ Overview geral de tudo que foi feito
+
+═══════════════════════════════════════════════════════════════════
+🎯 DEPOIS DO DEPLOY - TESTE O PROMPT!
+═══════════════════════════════════════════════════════════════════
+
+1. Abra: PROMPT-GERAR-JSON-PRODUTOS.md
+2. Copie TODO o conteúdo
+3. Cole no ChatGPT
+4. Envie: "Pesquise 5 produtos baratos de fones JBL na Amazon"
+5. ChatGPT vai gerar JSON completo!
+6. Importe no Admin Panel
+
+═══════════════════════════════════════════════════════════════════
+✅ CHECKLIST RÁPIDO
+═══════════════════════════════════════════════════════════════════
+
+Antes de começar:
+[ ] Git instalado (ou vai usar GitHub Web)
+[ ] Arquivos salvos no computador
+[ ] Conexão com internet
+[ ] GitHub aberto e logado
+
+Durante o deploy:
+[ ] Arquivos adicionados ao Git
+[ ] Commit criado
+[ ] Push executado
+[ ] GitHub mostra commit novo
+
+Depois do deploy:
+[ ] Cloudflare iniciou build
+[ ] Site atualizou (2-3 min)
+[ ] README mostra v6.2.0
+[ ] Tudo funcionando
+
+═══════════════════════════════════════════════════════════════════
+🆘 PROBLEMAS? SOLUÇÕES RÁPIDAS:
+═══════════════════════════════════════════════════════════════════
+
+🔴 "Git não reconhecido"
+   → Instale: https://git-scm.com/downloads
+
+🔴 "Permission denied"
+   → Use GitHub Web (opção mais fácil acima)
+
+🔴 "Failed to push"
+   → git pull origin main
+   → git push origin main
+
+🔴 Deploy não inicia
+   → Cloudflare Dashboard → Retry deployment
+
+═══════════════════════════════════════════════════════════════════
+🎉 É ISSO! SIMPLES E RÁPIDO!
+═══════════════════════════════════════════════════════════════════
+
+Escolha uma das duas opções acima e execute.
+
+Tempo: 5-10 minutos
+Dificuldade: ⭐⭐ Fácil
+
+BOA SORTE! 🚀
+
+═══════════════════════════════════════════════════════════════════

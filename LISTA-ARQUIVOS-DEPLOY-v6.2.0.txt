@@ -1,0 +1,190 @@
+═══════════════════════════════════════════════════════════════════
+📦 LISTA DE ARQUIVOS PARA DEPLOY - v6.2.0
+═══════════════════════════════════════════════════════════════════
+
+🗓️ Data: 17/10/2025
+📌 Versão: 6.2.0
+🎯 Objetivo: Adicionar prompt gerador de JSON + Documentação
+
+───────────────────────────────────────────────────────────────────
+✅ ARQUIVOS PRINCIPAIS (DEPLOY OBRIGATÓRIO)
+───────────────────────────────────────────────────────────────────
+
+1. README.md                                    (57 KB) ✅ ATUALIZADO
+   └─ Adicionado seção v6.2.0 com prompt gerador
+
+2. PROMPT-GERAR-JSON-PRODUTOS.md                (9 KB) 🆕 NOVO
+   └─ Prompt completo para ChatGPT
+
+3. INTEGRACAO-25-PRODUTOS-YOOBE.md              (8 KB) 🆕 NOVO
+   └─ Análise dos 25 produtos para integração
+
+4. produtos-novos-200-completo.json            (14 KB) 🆕 NOVO
+   └─ JSON com 25 produtos formatados
+
+5. produtos-v6.1.js.backup-2025-10-17-original (123 KB) 🆕 BACKUP
+   └─ Backup de segurança do catálogo
+
+───────────────────────────────────────────────────────────────────
+📄 ARQUIVOS OPCIONAIS (DEPLOY RECOMENDADO)
+───────────────────────────────────────────────────────────────────
+
+6. produtos-competitivos-etapa1-uploaded.json  (18 KB) 🆕 NOVO
+   └─ JSON original enviado pelo usuário
+
+7. GUIA-DEPLOY-GITHUB-v6.2.0.md                (8 KB) 🆕 NOVO
+   └─ Guia completo de deploy
+
+8. LISTA-ARQUIVOS-DEPLOY-v6.2.0.txt            (Este arquivo)
+   └─ Lista de arquivos para deploy
+
+───────────────────────────────────────────────────────────────────
+📊 ESTATÍSTICAS
+───────────────────────────────────────────────────────────────────
+
+Total de arquivos: 8
+Arquivos obrigatórios: 5
+Arquivos opcionais: 3
+Tamanho total: ~237 KB
+
+───────────────────────────────────────────────────────────────────
+⚡ COMANDOS RÁPIDOS (COPIAR E COLAR)
+───────────────────────────────────────────────────────────────────
+
+═══ OPÇÃO 1: DEPLOY ESSENCIAL (5 arquivos) ═══
+
+cd C:\caminho\para\seu\projeto\priobf25
+git add README.md PROMPT-GERAR-JSON-PRODUTOS.md INTEGRACAO-25-PRODUTOS-YOOBE.md produtos-novos-200-completo.json produtos-v6.1.js.backup-2025-10-17-original
+git commit -m "feat: v6.2.0 - Prompt gerador de JSON + Documentação"
+git push origin main
+
+Tempo: ~5 minutos
+Tamanho: ~211 KB
+
+
+═══ OPÇÃO 2: DEPLOY COMPLETO (8 arquivos) ═══
+
+cd C:\caminho\para\seu\projeto\priobf25
+git add README.md PROMPT-GERAR-JSON-PRODUTOS.md INTEGRACAO-25-PRODUTOS-YOOBE.md produtos-novos-200-completo.json produtos-v6.1.js.backup-2025-10-17-original produtos-competitivos-etapa1-uploaded.json GUIA-DEPLOY-GITHUB-v6.2.0.md LISTA-ARQUIVOS-DEPLOY-v6.2.0.txt
+git commit -m "feat: v6.2.0 - Sistema completo de geração automática de JSON"
+git push origin main
+
+Tempo: ~8 minutos
+Tamanho: ~237 KB
+
+
+═══ OPÇÃO 3: DEPLOY VIA GITHUB WEB ═══
+
+1. Acesse: https://github.com/SEU-USUARIO/priobf25
+2. Clique: "Add file" → "Upload files"
+3. Arraste os 5 arquivos obrigatórios
+4. Commit: "feat: v6.2.0 - Prompt gerador de JSON"
+5. Clique: "Commit changes"
+
+Tempo: ~10 minutos (interface visual)
+
+───────────────────────────────────────────────────────────────────
+🎯 CHECKLIST PRÉ-DEPLOY
+───────────────────────────────────────────────────────────────────
+
+Antes de fazer o deploy, verifique:
+
+[ ] ✅ Git instalado e configurado
+[ ] ✅ Terminal aberto na pasta do projeto
+[ ] ✅ Arquivos salvos localmente
+[ ] ✅ README.md atualizado com v6.2.0
+[ ] ✅ Prompt gerador criado
+[ ] ✅ Documentação de integração completa
+[ ] ✅ Backup do catálogo salvo
+[ ] ✅ Conexão com internet estável
+
+───────────────────────────────────────────────────────────────────
+🔍 VERIFICAÇÃO PÓS-DEPLOY
+───────────────────────────────────────────────────────────────────
+
+Após o deploy, verifique:
+
+[ ] ✅ GitHub mostra commit mais recente
+[ ] ✅ Cloudflare Pages iniciou build
+[ ] ✅ Deploy concluído (status "Success")
+[ ] ✅ Site acessível: https://priobf25.pages.dev
+[ ] ✅ README.md mostra versão 6.2.0
+[ ] ✅ Prompt gerador disponível no repo
+
+───────────────────────────────────────────────────────────────────
+📍 ARQUIVOS QUE **NÃO** DEVEM SER ENVIADOS
+───────────────────────────────────────────────────────────────────
+
+❌ node_modules/
+❌ .env
+❌ .DS_Store
+❌ *.log
+❌ *.tmp
+❌ .vscode/
+❌ .idea/
+
+───────────────────────────────────────────────────────────────────
+🌐 LINKS IMPORTANTES
+───────────────────────────────────────────────────────────────────
+
+📦 Repositório GitHub:
+   https://github.com/SEU-USUARIO/priobf25
+
+🚀 Site em Produção:
+   https://priobf25.pages.dev
+
+⚙️ Cloudflare Dashboard:
+   https://dash.cloudflare.com → Pages → priobf25
+
+📚 Documentação Git:
+   https://git-scm.com/docs
+
+───────────────────────────────────────────────────────────────────
+💡 DICAS RÁPIDAS
+───────────────────────────────────────────────────────────────────
+
+1. Use "git status" antes de adicionar arquivos
+2. Escreva mensagens de commit claras e descritivas
+3. Faça commit de arquivos relacionados juntos
+4. Sempre teste localmente antes do deploy
+5. Mantenha backups importantes (como fizemos!)
+
+───────────────────────────────────────────────────────────────────
+🆘 PROBLEMAS COMUNS
+───────────────────────────────────────────────────────────────────
+
+🔴 "Git não reconhecido"
+   → Instale: https://git-scm.com/downloads
+
+🔴 "Permission denied"
+   → Use HTTPS: git remote set-url origin https://github.com/...
+
+🔴 "Failed to push"
+   → git pull origin main --rebase
+   → git push origin main
+
+🔴 "Deploy não inicia"
+   → Cloudflare Dashboard → Retry deployment
+
+───────────────────────────────────────────────────────────────────
+✅ ARQUIVO ATUALIZADO
+───────────────────────────────────────────────────────────────────
+
+Este arquivo foi criado automaticamente durante a sessão de trabalho.
+
+📅 Data: 17/10/2025
+👤 Criado por: AI Assistant
+🎯 Versão: 6.2.0
+📌 Status: ✅ Pronto para Deploy
+
+───────────────────────────────────────────────────────────────────
+🚀 PRONTO! FAÇA O DEPLOY AGORA!
+───────────────────────────────────────────────────────────────────
+
+Escolha uma das opções acima e execute os comandos.
+O deploy será automático via Cloudflare Pages.
+
+Tempo estimado total: 5-10 minutos
+Dificuldade: ⭐⭐ Fácil
+
+═══════════════════════════════════════════════════════════════════

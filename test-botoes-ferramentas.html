@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Botões Ferramentas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">🧪 Teste de Botões das Ferramentas</h1>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-bold mb-4">Instruções:</h2>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                <li>Abra o <strong>Console</strong> (F12)</li>
+                <li>Clique em cada botão abaixo</li>
+                <li>Verifique se aparece uma mensagem no console</li>
+                <li>Se aparecer "✅ Função chamada", o botão funciona</li>
+                <li>Se aparecer erro, copie e me envie</li>
+            </ol>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Teste 1: Exportar Template -->
+            <div class="bg-white rounded-lg shadow p-4">
+                <h3 class="font-bold mb-2">1. Exportar Template</h3>
+                <button onclick="testarExportarTemplate()" 
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+                    <i class="fas fa-download mr-2"></i>Testar
+                </button>
+                <div id="result1" class="mt-2 text-sm"></div>
+            </div>
+
+            <!-- Teste 2: Importar Catálogo -->
+            <div class="bg-white rounded-lg shadow p-4">
+                <h3 class="font-bold mb-2">2. Importar Catálogo</h3>
+                <button onclick="testarAbrirImportador()" 
+                        class="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700">
+                    <i class="fas fa-upload mr-2"></i>Testar
+                </button>
+                <div id="result2" class="mt-2 text-sm"></div>
+            </div>
+
+            <!-- Teste 3: Corrigir Links -->
+            <div class="bg-white rounded-lg shadow p-4">
+                <h3 class="font-bold mb-2">3. Corrigir Links</h3>
+                <button onclick="testarCorrigirLinks()" 
+                        class="w-full bg-orange-600 text-white py-2 px-4 rounded hover:bg-orange-700">
+                    <i class="fas fa-link mr-2"></i>Testar
+                </button>
+                <div id="result3" class="mt-2 text-sm"></div>
+            </div>
+
+            <!-- Teste 4: Atualizar Imagens -->
+            <div class="bg-white rounded-lg shadow p-4">
+                <h3 class="font-bold mb-2">4. Atualizar Imagens</h3>
+                <button onclick="testarAtualizarImagens()" 
+                        class="w-full bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700">
+                    <i class="fas fa-images mr-2"></i>Testar
+                </button>
+                <div id="result4" class="mt-2 text-sm"></div>
+            </div>
+
+            <!-- Teste 5: Buscar Produtos -->
+            <div class="bg-white rounded-lg shadow p-4">
+                <h3 class="font-bold mb-2">5. Buscar Produtos</h3>
+                <button onclick="testarAbrirBuscador()" 
+                        class="w-full bg-pink-600 text-white py-2 px-4 rounded hover:bg-pink-700">
+                    <i class="fas fa-search mr-2"></i>Testar
+                </button>
+                <div id="result5" class="mt-2 text-sm"></div>
+            </div>
+
+            <!-- Teste 6: Adicionar Produto -->
+            <div class="bg-white rounded-lg shadow p-4">
+                <h3 class="font-bold mb-2">6. Adicionar Produto (CRUD)</h3>
+                <button onclick="testarOpenCrudModal()" 
+                        class="w-full bg-emerald-600 text-white py-2 px-4 rounded hover:bg-emerald-700">
+                    <i class="fas fa-plus mr-2"></i>Testar
+                </button>
+                <div id="result6" class="mt-2 text-sm"></div>
+            </div>
+        </div>
+
+        <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <p class="text-sm text-yellow-800">
+                <strong>⚠️ Importante:</strong> Este é um teste isolado. As funções precisam ser importadas do admin-v6.3.html para funcionar.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Funções de teste
+        function testarExportarTemplate() {
+            const result = document.getElementById('result1');
+            try {
+                console.log('✅ Testando exportarTemplate()');
+                if (typeof exportarTemplate === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe</span>';
+                    exportarTemplate();
+                } else if (typeof window.exportarTemplate === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe em window</span>';
+                    window.exportarTemplate();
+                } else {
+                    result.innerHTML = '<span class="text-red-600">❌ Função não encontrada</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="text-red-600">❌ Erro: ' + error.message + '</span>';
+                console.error('Erro:', error);
+            }
+        }
+
+        function testarAbrirImportador() {
+            const result = document.getElementById('result2');
+            try {
+                console.log('✅ Testando abrirImportador()');
+                if (typeof abrirImportador === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe</span>';
+                    abrirImportador();
+                } else if (typeof window.abrirImportador === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe em window</span>';
+                    window.abrirImportador();
+                } else {
+                    result.innerHTML = '<span class="text-red-600">❌ Função não encontrada</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="text-red-600">❌ Erro: ' + error.message + '</span>';
+                console.error('Erro:', error);
+            }
+        }
+
+        function testarCorrigirLinks() {
+            const result = document.getElementById('result3');
+            try {
+                console.log('✅ Testando corrigirLinks()');
+                if (typeof corrigirLinks === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe</span>';
+                    // Não chamar para não executar sem dados
+                    result.innerHTML += '<br><span class="text-blue-600">→ Precisa de allProducts para funcionar</span>';
+                } else if (typeof window.corrigirLinks === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe em window</span>';
+                    result.innerHTML += '<br><span class="text-blue-600">→ Precisa de allProducts para funcionar</span>';
+                } else {
+                    result.innerHTML = '<span class="text-red-600">❌ Função não encontrada</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="text-red-600">❌ Erro: ' + error.message + '</span>';
+                console.error('Erro:', error);
+            }
+        }
+
+        function testarAtualizarImagens() {
+            const result = document.getElementById('result4');
+            try {
+                console.log('✅ Testando atualizarImagens()');
+                if (typeof atualizarImagens === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe</span>';
+                } else if (typeof window.atualizarImagens === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe em window</span>';
+                } else {
+                    result.innerHTML = '<span class="text-red-600">❌ Função não encontrada</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="text-red-600">❌ Erro: ' + error.message + '</span>';
+                console.error('Erro:', error);
+            }
+        }
+
+        function testarAbrirBuscador() {
+            const result = document.getElementById('result5');
+            try {
+                console.log('✅ Testando abrirBuscador()');
+                if (typeof abrirBuscador === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe</span>';
+                } else if (typeof window.abrirBuscador === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe em window</span>';
+                } else {
+                    result.innerHTML = '<span class="text-red-600">❌ Função não encontrada</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="text-red-600">❌ Erro: ' + error.message + '</span>';
+                console.error('Erro:', error);
+            }
+        }
+
+        function testarOpenCrudModal() {
+            const result = document.getElementById('result6');
+            try {
+                console.log('✅ Testando openCrudModal()');
+                if (typeof openCrudModal === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe</span>';
+                } else if (typeof window.openCrudModal === 'function') {
+                    result.innerHTML = '<span class="text-green-600">✅ Função existe em window</span>';
+                } else {
+                    result.innerHTML = '<span class="text-red-600">❌ Função não encontrada</span>';
+                }
+            } catch (error) {
+                result.innerHTML = '<span class="text-red-600">❌ Erro: ' + error.message + '</span>';
+                console.error('Erro:', error);
+            }
+        }
+
+        // Teste automático ao carregar
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 Página de teste carregada');
+            console.log('📋 Para testar no admin-v6.3.html, cole isto no console:');
+            console.log('');
+            console.log('// Teste rápido de todas as funções:');
+            console.log('console.log("exportarTemplate:", typeof window.exportarTemplate);');
+            console.log('console.log("abrirImportador:", typeof window.abrirImportador);');
+            console.log('console.log("corrigirLinks:", typeof window.corrigirLinks);');
+            console.log('console.log("atualizarImagens:", typeof window.atualizarImagens);');
+            console.log('console.log("abrirBuscador:", typeof window.abrirBuscador);');
+            console.log('console.log("openCrudModal:", typeof window.openCrudModal);');
+        });
+    </script>
+</body>
+</html>

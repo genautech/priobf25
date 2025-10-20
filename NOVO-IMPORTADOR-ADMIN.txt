@@ -1,0 +1,235 @@
+═══════════════════════════════════════════════════════════════════
+  ✨ NOVA FUNCIONALIDADE ADICIONADA AO ADMIN PANEL! ✨
+═══════════════════════════════════════════════════════════════════
+
+📋 O QUE FOI ADICIONADO:
+───────────────────────────────────────────────────────────────────
+
+✅ Sistema de Importação Avançado v2.0 agora integrado ao Admin!
+
+ANTES:
+  - 6 ferramentas na aba "Ferramentas"
+  - Importador avançado era arquivo separado
+
+AGORA:
+  - 7 ferramentas na aba "Ferramentas"
+  - Importador avançado acessível com 1 clique
+  - Banner de destaque no topo
+  - Instruções automáticas ao usar
+
+═══════════════════════════════════════════════════════════════════
+  📍 ONDE ENCONTRAR
+═══════════════════════════════════════════════════════════════════
+
+1. Abrir: admin-v6.1.html
+2. Clicar na aba: "Ferramentas"
+3. Ver o banner no topo: "NOVO: Sistema de Importação Avançado v2.0"
+4. Localizar o 3º card (cor índigo):
+
+   ┌─────────────────────────────────────────┐
+   │  🪄 NOVO v2.0 (pulsando)                │
+   │  ═══════════════════════════════════    │
+   │                                          │
+   │  Importador Inteligente                 │
+   │                                          │
+   │  Sistema avançado de importação com     │
+   │  conversão automática e preview         │
+   │                                          │
+   │  [Importador Avançado]                  │
+   └─────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════
+  🎯 COMO USAR
+═══════════════════════════════════════════════════════════════════
+
+PASSO 1: Acessar Admin
+  → Abrir admin-v6.1.html
+  → Clicar na aba "Ferramentas"
+
+PASSO 2: Abrir Importador
+  → Clicar no botão "Importador Avançado"
+  → Nova aba abre automaticamente
+
+PASSO 3: Ver Instruções
+  → Notificação aparece com guia completo
+  → Lista todos os recursos
+  → Explica passo a passo
+
+PASSO 4: Usar o Importador
+  → Cole seu JSON na área de texto
+  → Clique em "Converter JSON"
+  → Revise o preview
+  → Copie o código gerado
+  → Cole no produtos-v6.1.js
+
+═══════════════════════════════════════════════════════════════════
+  ✨ RECURSOS DO IMPORTADOR AVANÇADO
+═══════════════════════════════════════════════════════════════════
+
+✅ Conversão automática de JSON complexo
+✅ Cálculo automático de margens
+✅ Preview visual dos produtos
+✅ Código JavaScript pronto
+✅ Suporte para múltiplos formatos
+
+═══════════════════════════════════════════════════════════════════
+  📊 FERRAMENTAS DISPONÍVEIS (TOTAL: 7)
+═══════════════════════════════════════════════════════════════════
+
+1. 📤 Exportar Template
+   → Exporta produtos atuais em JSON
+
+2. 📥 Importar Catálogo
+   → Importação básica de JSON
+
+3. 🪄 Importador Inteligente ⭐ NOVO v2.0
+   → Conversão automática avançada
+
+4. 🔗 Corrigir Links
+   → Gera links Amazon automaticamente
+
+5. 🖼️  Atualizar Imagens
+   → Carrega imagens do catalog_images.json
+
+6. 🔍 Buscar Produtos
+   → Pesquisa produtos online
+
+7. 📊 Exportar CSV
+   → Exporta análise completa
+
+═══════════════════════════════════════════════════════════════════
+  🎨 VISUAL ATUALIZADO
+═══════════════════════════════════════════════════════════════════
+
+BANNER NO TOPO:
+┌──────────────────────────────────────────────────────┐
+│  ⭐ NOVO: Sistema de Importação Avançado v2.0       │
+│                                                       │
+│  Converta JSON complexo automaticamente com          │
+│  preview e cálculo de margens!                       │
+└──────────────────────────────────────────────────────┘
+
+CARD DA FERRAMENTA:
+┌─────────────────────────────────────────┐
+│  🪄                         NOVO v2.0    │ (badge pulsando)
+│                                          │
+│  Importador Inteligente                 │
+│                                          │
+│  Sistema avançado de importação         │
+│  com conversão automática e preview     │
+│                                          │
+│  [Importador Avançado]                  │
+└─────────────────────────────────────────┘
+     ↑
+   Cor índigo (diferente das outras)
+
+═══════════════════════════════════════════════════════════════════
+  💡 QUANDO USAR CADA IMPORTADOR
+═══════════════════════════════════════════════════════════════════
+
+IMPORTADOR BÁSICO (Ferramenta 2):
+  ✅ Produtos já no formato correto
+  ✅ Atualização rápida
+  ✅ JSON simples
+
+IMPORTADOR AVANÇADO (Ferramenta 3) ⭐ NOVO:
+  ✅ JSON complexo de APIs
+  ✅ Conversão de estruturas
+  ✅ Cálculo automático de campos
+  ✅ Preview antes de aplicar
+  ✅ Primeiro uso/importações grandes
+
+═══════════════════════════════════════════════════════════════════
+  📸 NOTIFICAÇÃO EXIBIDA
+═══════════════════════════════════════════════════════════────════
+
+Quando você clica em "Importador Avançado", vê isto:
+
+┌───────────────────────────────────────────────────────┐
+│ ℹ️  Sistema de Importação Avançado v2.0              │
+│                                                        │
+│ Recursos:                                             │
+│   ✅ Conversão automática de JSON complexo           │
+│   ✅ Cálculo automático de margens                   │
+│   ✅ Preview visual antes de importar                │
+│   ✅ Código JavaScript pronto para copiar            │
+│   ✅ Suporte para múltiplos formatos                 │
+│                                                        │
+│ Como usar:                                            │
+│   1. Cole seu JSON na área de texto                  │
+│   2. Clique em "Converter JSON"                      │
+│   3. Revise o preview dos produtos                   │
+│   4. Clique em "Copiar Código JavaScript"            │
+│   5. Cole no arquivo produtos-v6.1.js                │
+└───────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════
+  ✅ BENEFÍCIOS
+═══════════════════════════════════════════════════════════════════
+
+PARA VOCÊ:
+  ✅ Acesso mais rápido ao importador avançado
+  ✅ Tudo integrado em um só lugar
+  ✅ Instruções claras sempre visíveis
+  ✅ Workflow mais eficiente
+
+PARA SEU TRABALHO:
+  ✅ Importações mais rápidas
+  ✅ Menos erros de conversão
+  ✅ Preview antes de aplicar mudanças
+  ✅ Cálculos automáticos
+
+═══════════════════════════════════════════════════════════════════
+  📂 ARQUIVOS
+═══════════════════════════════════════════════════════════════════
+
+MODIFICADO:
+  ✅ admin-v6.1.html
+     → Adicionado card da ferramenta
+     → Adicionado banner de destaque
+     → Adicionada função JavaScript
+
+DOCUMENTAÇÃO:
+  ✅ ATUALIZACAO-ADMIN-FERRAMENTAS-v6.1.10.md
+     → Documentação completa técnica
+  
+  ✅ NOVO-IMPORTADOR-ADMIN.txt
+     → Este guia visual rápido
+  
+  ✅ README.md
+     → Atualizado com nova funcionalidade
+
+═══════════════════════════════════════════════════════════════════
+  🚀 COMO COMEÇAR
+═══════════════════════════════════════════════════════════════════
+
+1. Abrir admin-v6.1.html
+2. Ir para aba "Ferramentas"
+3. Clicar em "Importador Avançado"
+4. Seguir as instruções na notificação
+5. Começar a importar seus produtos!
+
+═══════════════════════════════════════════════════════════════════
+  ✅ STATUS
+═══════════════════════════════════════════════════════════════════
+
+Versão: v6.1.10
+Data: 16/10/2025
+Status: ✅ PRONTO PARA USO
+
+FUNCIONALIDADE:
+  ✅ Card adicionado ao admin
+  ✅ Botão abre nova aba
+  ✅ Notificação com instruções
+  ✅ Banner de destaque
+  ✅ Visual diferenciado
+  ✅ Documentação completa
+
+═══════════════════════════════════════════════════════════════════
+
+🎉 SISTEMA ADMIN ATUALIZADO COM SUCESSO!
+
+Agora você tem acesso rápido ao Importador Avançado direto do
+Admin Panel - tudo integrado e fácil de usar!
+
+═══════════════════════════════════════════════════════════════════

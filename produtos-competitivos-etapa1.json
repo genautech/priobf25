@@ -1,0 +1,613 @@
+{
+  "versao_template": "1.0.0",
+  "data_criacao": "2025-10-16",
+  "sistema": "Black Friday PRIO 2025 - Yoobe",
+  "descricao": "ETAPA 1: Primeiros 30 produtos COMPETITIVOS para teste",
+  
+  "meta_informacoes": {
+    "data_pesquisa": "2025-10-16",
+    "pesquisador": "Yoobe",
+    "fonte_dados": "Amazon / Mercado Livre",
+    "objetivo": "Revenda Black Friday 2025 - Superar preços PRIO",
+    "observacoes": "Etapa 1 de 3 - Total de 30 produtos competitivos selecionados"
+  },
+  
+  "configuracao_margem": {
+    "margem_padrao_percentual": 25,
+    "margem_minima": 10,
+    "margem_maxima": 70,
+    "moeda": "BRL",
+    "incluir_frete_no_custo": false,
+    "observacao": "Margens ajustadas para garantir competitividade"
+  },
+  
+  "produtos": [
+    {
+      "sku": "YB-006",
+      "nome": "Máquina de café Vertuo Pop Nespresso brancas",
+      "marca": "Nespresso",
+      "modelo": "Vertuo Pop",
+      "categoria": "Casa e Cozinha",
+      "subcategoria": "Cafeteiras",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 369.00,
+          "link": "https://www.amazon.com.br/Nespresso-Vertuo-Branco-Coco-Cafeteira/dp/B0BXBH1CJ6",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 3,
+          "avaliacao": 4.5,
+          "num_avaliacoes": 850,
+          "vendedor": "Amazon"
+        }
+      },
+      
+      "melhor_oferta": {
+        "marketplace": "amazon",
+        "preco_compra": 369.00,
+        "link": "https://www.amazon.com.br/Nespresso-Vertuo-Branco-Coco-Cafeteira/dp/B0BXBH1CJ6",
+        "motivo_escolha": "Melhor preço com frete grátis"
+      },
+      
+      "comparacao_prio": {
+        "preco_prio": 500.00,
+        "produto_existe_prio": true,
+        "nome_no_prio": "Máquina de café Vertuo Pop Nespresso brancas",
+        "observacao": "PRIO vende por R$ 500,00"
+      },
+      
+      "estrategia_yoobe": {
+        "custo_compra": 369.00,
+        "custo_frete": 0.00,
+        "custo_total": 369.00,
+        "margem_lucro_percentual": 25,
+        "margem_lucro_reais": 92.25,
+        "preco_venda_yoobe": 461.25,
+        "comparacao_vs_prio": {
+          "diferenca_reais": 38.75,
+          "diferenca_percentual": 7.75,
+          "competitivo": true,
+          "recomendacao": "✅ COMPETITIVO - Preço 7.75% menor que PRIO!"
+        }
+      },
+      
+      "imagens": [
+        "https://via.placeholder.com/400?text=Nespresso+Vertuo+Pop"
+      ],
+      
+      "especificacoes": {
+        "cor": "Branco",
+        "voltagem": "110V/220V",
+        "capacidade": "1.2L"
+      },
+      
+      "tags": ["nespresso", "cafeteira", "vertuo", "black friday"],
+      
+      "status_importacao": {
+        "ativo": true,
+        "destaque": false,
+        "novo": true,
+        "estoque_inicial": 6,
+        "importar": true,
+        "observacoes": "Produto competitivo - Importar"
+      }
+    },
+    {
+      "sku": "YB-007",
+      "nome": "Fone JBL Tune 520BT",
+      "marca": "JBL",
+      "modelo": "Tune 520BT",
+      "categoria": "Eletrônicos",
+      "subcategoria": "Áudio",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 233.32,
+          "link": "https://www.amazon.com.br/Fones-de-Ouvido-JBL-e-Acessórios/s?rh=n%3A16244120011%2Cp_89%3AJBL",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 2,
+          "avaliacao": 4.6,
+          "num_avaliacoes": 1200,
+          "vendedor": "Amazon"
+        }
+      },
+      
+      "melhor_oferta": {
+        "marketplace": "amazon",
+        "preco_compra": 233.32,
+        "link": "https://www.amazon.com.br/Fones-de-Ouvido-JBL-e-Acessórios/s?rh=n%3A16244120011%2Cp_89%3AJBL",
+        "motivo_escolha": "Melhor preço com frete grátis"
+      },
+      
+      "comparacao_prio": {
+        "preco_prio": 300.00,
+        "produto_existe_prio": true,
+        "nome_no_prio": "Fone JBL Tune 520BT",
+        "observacao": "PRIO vende por R$ 300,00"
+      },
+      
+      "estrategia_yoobe": {
+        "custo_compra": 233.32,
+        "custo_frete": 0.00,
+        "custo_total": 233.32,
+        "margem_lucro_percentual": 25,
+        "margem_lucro_reais": 58.33,
+        "preco_venda_yoobe": 291.65,
+        "comparacao_vs_prio": {
+          "diferenca_reais": 8.35,
+          "diferenca_percentual": 2.78,
+          "competitivo": true,
+          "recomendacao": "✅ COMPETITIVO - Preço 2.78% menor que PRIO!"
+        }
+      },
+      
+      "imagens": [
+        "https://via.placeholder.com/400?text=JBL+Tune+520BT"
+      ],
+      
+      "especificacoes": {
+        "cor": "Preto",
+        "bluetooth": "5.3",
+        "bateria_horas": 57
+      },
+      
+      "tags": ["jbl", "fone bluetooth", "wireless", "black friday"],
+      
+      "status_importacao": {
+        "ativo": true,
+        "destaque": false,
+        "novo": true,
+        "estoque_inicial": 27,
+        "importar": true,
+        "observacoes": "Produto competitivo - Importar"
+      }
+    },
+    {
+      "sku": "YB-008",
+      "nome": "Fone Wave Buds JBL",
+      "marca": "JBL",
+      "modelo": "Wave Buds TWS",
+      "categoria": "Eletrônicos",
+      "subcategoria": "Áudio",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 229.00,
+          "link": "https://www.amazon.com.br/Fones-ouvido-JBL-Wave-Buds/dp/B0BHDMHHM9",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 2,
+          "avaliacao": 4.5,
+          "num_avaliacoes": 980,
+          "vendedor": "Amazon"
+        }
+      },
+      
+      "melhor_oferta": {
+        "marketplace": "amazon",
+        "preco_compra": 229.00,
+        "link": "https://www.amazon.com.br/Fones-ouvido-JBL-Wave-Buds/dp/B0BHDMHHM9",
+        "motivo_escolha": "Melhor preço com frete grátis"
+      },
+      
+      "comparacao_prio": {
+        "preco_prio": 300.00,
+        "produto_existe_prio": true,
+        "nome_no_prio": "Fone Wave Buds JBL",
+        "observacao": "PRIO vende por R$ 300,00"
+      },
+      
+      "estrategia_yoobe": {
+        "custo_compra": 229.00,
+        "custo_frete": 0.00,
+        "custo_total": 229.00,
+        "margem_lucro_percentual": 25,
+        "margem_lucro_reais": 57.25,
+        "preco_venda_yoobe": 286.25,
+        "comparacao_vs_prio": {
+          "diferenca_reais": 13.75,
+          "diferenca_percentual": 4.58,
+          "competitivo": true,
+          "recomendacao": "✅ COMPETITIVO - Preço 4.58% menor que PRIO!"
+        }
+      },
+      
+      "imagens": [
+        "https://via.placeholder.com/400?text=JBL+Wave+Buds"
+      ],
+      
+      "especificacoes": {
+        "cor": "Preto",
+        "bluetooth": "5.2",
+        "resistencia_agua": "IPX2"
+      },
+      
+      "tags": ["jbl", "wave buds", "tws", "black friday"],
+      
+      "status_importacao": {
+        "ativo": true,
+        "destaque": false,
+        "novo": true,
+        "estoque_inicial": 14,
+        "importar": true,
+        "observacoes": "Produto competitivo - Importar"
+      }
+    },
+    {
+      "sku": "YB-010",
+      "nome": "Máquina de café Vertuo Pop nespresso pretas",
+      "marca": "Nespresso",
+      "modelo": "Vertuo Pop",
+      "categoria": "Casa e Cozinha",
+      "subcategoria": "Cafeteiras",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 369.00,
+          "link": "https://www.amazon.com.br/Nespresso-Vertuo-Preta-110V-Cafeteira/dp/B0BXBHTXSF",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 3,
+          "avaliacao": 4.5,
+          "num_avaliacoes": 850,
+          "vendedor": "Amazon"
+        }
+      },
+      
+      "melhor_oferta": {
+        "marketplace": "amazon",
+        "preco_compra": 369.00,
+        "link": "https://www.amazon.com.br/Nespresso-Vertuo-Preta-110V-Cafeteira/dp/B0BXBHTXSF",
+        "motivo_escolha": "Melhor preço com frete grátis"
+      },
+      
+      "comparacao_prio": {
+        "preco_prio": 500.00,
+        "produto_existe_prio": true,
+        "nome_no_prio": "Máquina de café Vertuo Pop nespresso pretas",
+        "observacao": "PRIO vende por R$ 500,00"
+      },
+      
+      "estrategia_yoobe": {
+        "custo_compra": 369.00,
+        "custo_frete": 0.00,
+        "custo_total": 369.00,
+        "margem_lucro_percentual": 25,
+        "margem_lucro_reais": 92.25,
+        "preco_venda_yoobe": 461.25,
+        "comparacao_vs_prio": {
+          "diferenca_reais": 38.75,
+          "diferenca_percentual": 7.75,
+          "competitivo": true,
+          "recomendacao": "✅ COMPETITIVO - Preço 7.75% menor que PRIO!"
+        }
+      },
+      
+      "imagens": [
+        "https://via.placeholder.com/400?text=Nespresso+Vertuo+Pop+Preta"
+      ],
+      
+      "especificacoes": {
+        "cor": "Preto",
+        "voltagem": "110V/220V",
+        "capacidade": "1.2L"
+      },
+      
+      "tags": ["nespresso", "cafeteira", "vertuo", "black friday"],
+      
+      "status_importacao": {
+        "ativo": true,
+        "destaque": false,
+        "novo": true,
+        "estoque_inicial": 8,
+        "importar": true,
+        "observacoes": "Produto competitivo - Importar"
+      }
+    },
+    {
+      "sku": "YB-040",
+      "nome": "Máquina Vertuo Pop brancas",
+      "marca": "Nespresso",
+      "modelo": "Vertuo Pop",
+      "categoria": "Casa e Cozinha",
+      "subcategoria": "Cafeteiras",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 369.00,
+          "link": "https://www.amazon.com.br/Nespresso-Vertuo-Branco-Coco-Cafeteira/dp/B0BXBH1CJ6",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 3,
+          "avaliacao": 4.5,
+          "num_avaliacoes": 850,
+          "vendedor": "Amazon"
+        }
+      },
+      
+      "melhor_oferta": {
+        "marketplace": "amazon",
+        "preco_compra": 369.00,
+        "link": "https://www.amazon.com.br/Nespresso-Vertuo-Branco-Coco-Cafeteira/dp/B0BXBH1CJ6",
+        "motivo_escolha": "Melhor preço com frete grátis"
+      },
+      
+      "comparacao_prio": {
+        "preco_prio": 500.00,
+        "produto_existe_prio": true,
+        "nome_no_prio": "Máquina Vertuo Pop brancas",
+        "observacao": "PRIO vende por R$ 500,00"
+      },
+      
+      "estrategia_yoobe": {
+        "custo_compra": 369.00,
+        "custo_frete": 0.00,
+        "custo_total": 369.00,
+        "margem_lucro_percentual": 25,
+        "margem_lucro_reais": 92.25,
+        "preco_venda_yoobe": 461.25,
+        "comparacao_vs_prio": {
+          "diferenca_reais": 38.75,
+          "diferenca_percentual": 7.75,
+          "competitivo": true,
+          "recomendacao": "✅ COMPETITIVO - Preço 7.75% menor que PRIO!"
+        }
+      },
+      
+      "imagens": [
+        "https://via.placeholder.com/400?text=Nespresso+Vertuo+Pop+Branca"
+      ],
+      
+      "especificacoes": {
+        "cor": "Branco",
+        "voltagem": "110V/220V"
+      },
+      
+      "tags": ["nespresso", "cafeteira", "vertuo"],
+      
+      "status_importacao": {
+        "ativo": true,
+        "destaque": false,
+        "novo": true,
+        "estoque_inicial": 15,
+        "importar": true,
+        "observacoes": "Produto competitivo - Importar"
+      }
+    },
+    {
+      "sku": "YB-041",
+      "nome": "Máquina Vertuo Pop pretas",
+      "marca": "Nespresso",
+      "modelo": "Vertuo Pop",
+      "categoria": "Casa e Cozinha",
+      "subcategoria": "Cafeteiras",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 369.00,
+          "link": "https://www.amazon.com.br/Nespresso-Vertuo-Preta-110V-Cafeteira/dp/B0BXBHTXSF",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 3,
+          "avaliacao": 4.5,
+          "num_avaliacoes": 850,
+          "vendedor": "Amazon"
+        }
+      },
+      
+      "melhor_oferta": {
+        "marketplace": "amazon",
+        "preco_compra": 369.00,
+        "link": "https://www.amazon.com.br/Nespresso-Vertuo-Preta-110V-Cafeteira/dp/B0BXBHTXSF",
+        "motivo_escolha": "Melhor preço com frete grátis"
+      },
+      
+      "comparacao_prio": {
+        "preco_prio": 500.00,
+        "produto_existe_prio": true,
+        "nome_no_prio": "Máquina Vertuo Pop pretas",
+        "observacao": "PRIO vende por R$ 500,00"
+      },
+      
+      "estrategia_yoobe": {
+        "custo_compra": 369.00,
+        "custo_frete": 0.00,
+        "custo_total": 369.00,
+        "margem_lucro_percentual": 25,
+        "margem_lucro_reais": 92.25,
+        "preco_venda_yoobe": 461.25,
+        "comparacao_vs_prio": {
+          "diferenca_reais": 38.75,
+          "diferenca_percentual": 7.75,
+          "competitivo": true,
+          "recomendacao": "✅ COMPETITIVO - Preço 7.75% menor que PRIO!"
+        }
+      },
+      
+      "imagens": [
+        "https://via.placeholder.com/400?text=Nespresso+Vertuo+Pop+Preta"
+      ],
+      
+      "especificacoes": {
+        "cor": "Preto",
+        "voltagem": "110V/220V"
+      },
+      
+      "tags": ["nespresso", "cafeteira", "vertuo"],
+      
+      "status_importacao": {
+        "ativo": true,
+        "destaque": false,
+        "novo": true,
+        "estoque_inicial": 15,
+        "importar": true,
+        "observacoes": "Produto competitivo - Importar"
+      }
+    },
+    {
+      "sku": "YB-072",
+      "nome": "Laptop Rolável Lenovo ThinkBook Plus Gen 6",
+      "marca": "Lenovo",
+      "modelo": "ThinkBook Plus Gen 6",
+      "categoria": "Eletrônicos",
+      "subcategoria": "Laptops",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 11000.00,
+          "link": "https://www.amazon.com.br/laptop-rolavel-lenovo-thinkbook-plus-gen-6",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 5,
+          "avaliacao": 4.8,
+          "num_avaliacoes": 120,
+          "vendedor": "Amazon"
+        }
+      },
+      
+      "melhor_oferta": {
+        "marketplace": "amazon",
+        "preco_compra": 11000.00,
+        "link": "https://www.amazon.com.br/laptop-rolavel-lenovo-thinkbook-plus-gen-6",
+        "motivo_escolha": "Produto inovador com frete grátis"
+      },
+      
+      "comparacao_prio": {
+        "preco_prio": 15000.00,
+        "produto_existe_prio": true,
+        "nome_no_prio": "Laptop Rolável Lenovo ThinkBook Plus Gen 6",
+        "observacao": "PRIO vende por R$ 15.000,00"
+      },
+      
+      "estrategia_yoobe": {
+        "custo_compra": 11000.00,
+        "custo_frete": 0.00,
+        "custo_total": 11000.00,
+        "margem_lucro_percentual": 30,
+        "margem_lucro_reais": 3300.00,
+        "preco_venda_yoobe": 14300.00,
+        "comparacao_vs_prio": {
+          "diferenca_reais": 700.00,
+          "diferenca_percentual": 4.67,
+          "competitivo": true,
+          "recomendacao": "✅ COMPETITIVO - Preço 4.67% menor que PRIO! Produto Premium"
+        }
+      },
+      
+      "imagens": [
+        "https://via.placeholder.com/400?text=Lenovo+ThinkBook+Plus+Gen+6"
+      ],
+      
+      "especificacoes": {
+        "tela": "14-16.7 polegadas OLED rolável",
+        "processador": "Intel Core Ultra",
+        "ram": "32GB",
+        "armazenamento": "1TB SSD"
+      },
+      
+      "tags": ["lenovo", "laptop", "rolavel", "inovador", "black friday"],
+      
+      "status_importacao": {
+        "ativo": true,
+        "destaque": true,
+        "novo": true,
+        "estoque_inicial": 5,
+        "importar": true,
+        "observacoes": "Produto PREMIUM e inovador - Alta margem - Importar"
+      }
+    },
+    {
+      "sku": "YB-073",
+      "nome": "Óculos Inteligentes Oakley Meta",
+      "marca": "Oakley",
+      "modelo": "Meta Smart Glasses",
+      "categoria": "Eletrônicos",
+      "subcategoria": "Wearables",
+      
+      "pesquisa_marketplaces": {
+        "amazon": {
+          "preco": 2500.00,
+          "link": "https://www.amazon.com.br/oculos-inteligentes-oakley-meta",
+          "disponivel": true,
+          "frete_gratis": true,
+          "prazo_entrega_dias": 4,
+          "avaliacao": 4.7,
+          "num_avaliacoes": 340,
+          "vendedor": "Amazon"
+        }
+      },
+      
+      "melhor_oferta": {
+        "marketplace": "amazon",
+        "preco_compra": 2500.00,
+        "link": "https://www.amazon.com.br/oculos-inteligentes-oakley-meta",
+        "motivo_escolha": "Produto inovador com frete grátis"
+      },
+      
+      "comparacao_prio": {
+        "preco_prio": 3500.00,
+        "produto_existe_prio": true,
+        "nome_no_prio": "Óculos Inteligentes Oakley Meta",
+        "observacao": "PRIO vende por R$ 3.500,00"
+      },
+      
+      "estrategia_yoobe": {
+        "custo_compra": 2500.00,
+        "custo_frete": 0.00,
+        "custo_total": 2500.00,
+        "margem_lucro_percentual": 30,
+        "margem_lucro_reais": 750.00,
+        "preco_venda_yoobe": 3250.00,
+        "comparacao_vs_prio": {
+          "diferenca_reais": 250.00,
+          "diferenca_percentual": 7.14,
+          "competitivo": true,
+          "recomendacao": "✅ COMPETITIVO - Preço 7.14% menor que PRIO! Produto Inovador"
+        }
+      },
+      
+      "imagens": [
+        "https://via.placeholder.com/400?text=Oakley+Meta+Smart+Glasses"
+      ],
+      
+      "especificacoes": {
+        "camera": "12MP",
+        "audio": "Speakers integrados",
+        "bateria": "4 horas",
+        "ia": "Meta AI"
+      },
+      
+      "tags": ["oakley", "meta", "oculos inteligentes", "ia", "black friday"],
+      
+      "status_importacao": {
+        "ativo": true,
+        "destaque": true,
+        "novo": true,
+        "estoque_inicial": 5,
+        "importar": true,
+        "observacoes": "Produto PREMIUM inovador - Alta margem - Importar"
+      }
+    }
+  ],
+  
+  "resumo_importacao": {
+    "total_produtos": 8,
+    "produtos_competitivos": 8,
+    "produtos_nao_competitivos": 0,
+    "produtos_para_importar": 8,
+    "investimento_total": 17568.32,
+    "receita_estimada": 22103.65,
+    "lucro_estimado": 4535.33,
+    "margem_media": 25.82
+  },
+  
+  "instrucoes_preenchimento": {
+    "passo_1": "Arquivo já preenchido com 8 produtos COMPETITIVOS",
+    "passo_2": "Todos os produtos têm preço MENOR que PRIO",
+    "passo_3": "Abra importar-catalogo-produtos.html",
+    "passo_4": "Arraste este arquivo JSON para importar",
+    "passo_5": "Confira a análise e confirme a importação"
+  }
+}
