@@ -1,6 +1,6 @@
 // ============================================
 // VERSÃO 6.3.0 - PRODUTOS BLACK FRIDAY PRIO 2025
-// Total: 143 produtos (32 planilha + 111 sugestões)
+// Total: 142 produtos (32 planilha + 110 sugestões)
 // Atualizado: 2025-10-20
 // Salvo automaticamente pelo sistema de persistência local
 // ============================================
@@ -1054,10 +1054,10 @@ const produtosSugeridos = [
         "categoria": "Eletrônicos",
         "subcategoria": "Smartphones",
         "quantidade": 5,
-        "custoBase": 9999,
-        "precoMercado": 12999,
-        "margem": 30,
-        "precoVenda": 12999,
+        "custoBase": 1,
+        "precoMercado": 1,
+        "margem": 1,
+        "precoVenda": 1.01,
         "badge": "🔥 NOVO!",
         "fornecedor": "Apple Store",
         "imagem": "https://m.media-amazon.com/images/I/81IJSYW-VvL._AC_SL1500_.jpg",
@@ -1067,9 +1067,11 @@ const produtosSugeridos = [
             "modelo": "16 Pro Max",
             "armazenamento": "256GB",
             "camera": "48MP tripla",
-            "tela": "6.7\" Super Retina XDR"
+            "tela": "6.7"
         },
-        "linkCompra": "https://www.amazon.com.br/s?k=iPhone+16+Pro+Max+256GB"
+        "linkCompra": "https://www.amazon.com.br/s?k=iPhone+16+Pro+Max+256GB",
+        "estoque": "Para Compra",
+        "dataAtualizacao": "2025-10-20T22:14:16.051Z"
     },
     {
         "id": 2002,
@@ -3623,28 +3625,6 @@ const produtosSugeridos = [
             "androidtv": "Built-in"
         },
         "linkCompra": "https://www.amazon.com.br/s?k=Epson+Home+Cinema+2250+3LCD"
-    },
-    {
-        "id": 2111,
-        "sku": "teste",
-        "nome": "teste novo",
-        "categoria": "Informática",
-        "subcategoria": "Smart Home",
-        "quantidade": 1,
-        "custoBase": 1,
-        "precoMercado": 1,
-        "margem": 1,
-        "precoVenda": 1.01,
-        "estoque": "Para Compra",
-        "fornecedor": "teste",
-        "imagem": "https://m.media-amazon.com/images/I/71yRY8YlAbL._UF1000,1000_QL80_.jpg",
-        "linkCompra": "https://www.amazon.com.br/s?k=teste+novo",
-        "descricao": "1111",
-        "especificacoes": {
-            "111": "111"
-        },
-        "dataCriacao": "2025-10-20T22:11:57.036Z",
-        "dataAtualizacao": "2025-10-20T22:11:57.036Z"
     }
 ];
 
