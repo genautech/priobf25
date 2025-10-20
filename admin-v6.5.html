@@ -1105,18 +1105,34 @@
         // Função helper para SEMPRE pegar produtos atualizados do CRUD
         function getProdutosAtualizados() {
             if (window.produtoCRUD && typeof window.produtoCRUD.listarProdutos === 'function') {
-                return window.produtoCRUD.listarProdutos();
+                const produtos = window.produtoCRUD.listarProdutos();
+                console.log('📦 getProdutosAtualizados via CRUD:', produtos.length, 'produtos');
+                return produtos;
             } else if (typeof obterTodosProdutos === 'function') {
-                return obterTodosProdutos();
+                const produtos = obterTodosProdutos();
+                console.log('📦 getProdutosAtualizados via obterTodosProdutos:', produtos.length, 'produtos');
+                return produtos;
             } else {
+                console.log('📦 getProdutosAtualizados via allProducts (fallback):', allProducts.length, 'produtos');
                 return allProducts; // fallback
             }
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOMContentLoaded - Iniciando aplicação...');
+            
+            // 1. Carregar produtos primeiro
             loadProducts();
+            
+            // 2. Inicializar CRUD com os produtos carregados
+            inicializarCRUDSync();
+            
+            // 3. Inicializar filtros
             initializeFilters();
+            
+            // 4. Renderizar todas as abas (agora com CRUD inicializado)
+            console.log('🎨 Renderizando interface...');
             renderDashboard();
             renderSugestoes();
             renderCatalogo();
@@ -1124,6 +1140,8 @@
             renderComparativo();
             renderCupons();
             updateStats();
+            
+            console.log('✅ Aplicação inicializada com sucesso!');
         });
 
         // Load Products
@@ -1185,7 +1203,28 @@
         }
 
         function loadProducts() {
-            allProducts = [...produtosPlanilha, ...produtosSugeridos];
+            // Processar window.todosOsProdutosV6 primeiro
+            if (typeof window.todosOsProdutosV6 !== 'undefined' && Array.isArray(window.todosOsProdutosV6)) {
+                // Separar produtos em planilha e sugeridos
+                window.produtosPlanilha = window.todosOsProdutosV6.filter(p => p.id < 2000 || p.origem === 'planilha');
+                window.produtosSugeridos = window.todosOsProdutosV6.filter(p => p.id >= 2000 || p.origem === 'sugerido');
+                
+                console.log('✅ Produtos carregados do todosOsProdutosV6:');
+                console.log('   📦 Planilha:', window.produtosPlanilha.length);
+                console.log('   💡 Sugeridos:', window.produtosSugeridos.length);
+            } else if (typeof produtosPlanilha === 'undefined' || typeof produtosSugeridos === 'undefined') {
+                console.error('❌ ERRO: Nenhuma fonte de produtos disponível!');
+                console.error('   - window.todosOsProdutosV6:', typeof window.todosOsProdutosV6);
+                console.error('   - produtosPlanilha:', typeof produtosPlanilha);
+                console.error('   - produtosSugeridos:', typeof produtosSugeridos);
+                
+                // Fallback: inicializar arrays vazios
+                window.produtosPlanilha = [];
+                window.produtosSugeridos = [];
+            }
+            
+            // Agora podemos usar as variáveis globais
+            allProducts = [...window.produtosPlanilha, ...window.produtosSugeridos];
             
             // Adicionar precoConcorrente do mapeamento se disponível
             if (typeof window.precosConcorrente !== 'undefined') {
@@ -3809,12 +3848,24 @@ Arquivo disponível no projeto!
         
         // Inicializar sistema CRUD quando produtos carregarem
         function inicializarCRUDSync() {
-            if (window.produtoCRUD && allProducts.length > 0) {
-                // Separar produtos planilha e sugeridos
-                const planilha = allProducts.filter(p => p.id < 2000);
-                const sugeridos = allProducts.filter(p => p.id >= 2000);
+            if (window.produtoCRUD) {
+                // Usar os arrays já processados em loadProducts
+                const planilha = window.produtosPlanilha || [];
+                const sugeridos = window.produtosSugeridos || [];
+                
+                if (planilha.length === 0 && sugeridos.length === 0) {
+                    console.warn('⚠️ Nenhum produto disponível para inicializar CRUD');
+                    return;
+                }
+                
+                console.log('🔄 Inicializando CRUD com:');
+                console.log('   📦 Planilha:', planilha.length, 'produtos');
+                console.log('   💡 Sugeridos:', sugeridos.length, 'produtos');
                 
                 window.produtoCRUD.init(planilha, sugeridos);
+                
+                // Marcar como inicializado
+                window.produtoCRUD._initialized = true;
                 
                 // Adicionar listener para sincronização
                 window.produtoCRUD.addListener((acao, dados) => {
@@ -3836,6 +3887,11 @@ Arquivo disponível no projeto!
                 });
                 
                 console.log('✅ CRUD Sync integrado ao Admin');
+                console.log('📊 Total de produtos no sistema:', window.produtoCRUD.listarProdutos().length);
+            } else {
+                if (!window.produtoCRUD) {
+                    console.error('❌ window.produtoCRUD não está disponível!');
+                }
             }
         }
 
@@ -4234,8 +4290,13 @@ Arquivo disponível no projeto!
         }
 
         // Inicializar CRUD Sync quando o DOM carregar
+        // NOTA: Agora é chamado diretamente no DOMContentLoaded
+        // Mantendo este setTimeout apenas como fallback de segurança
         setTimeout(() => {
-            inicializarCRUDSync();
+            if (window.produtoCRUD && !window.produtoCRUD._initialized) {
+                console.warn('⚠️ Fallback: Inicializando CRUD via setTimeout');
+                inicializarCRUDSync();
+            }
         }, 1000);
 
         // ============================================
@@ -4767,28 +4828,44 @@ Arquivo disponível no projeto!
                 const { token, owner, repo, branch } = githubConfig;
                 const path = 'produtos-v6.1.js';
                 
-                // 1. Buscar SHA do arquivo atual (se existir)
+                // 1. Buscar SHA do arquivo atual (OBRIGATÓRIO para updates)
                 let sha = null;
+                console.log('📥 Buscando SHA do arquivo...');
+                
                 try {
                     const getResponse = await fetch(
-                        `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`,
+                        `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}&_=${Date.now()}`,
                         {
                             headers: {
                                 'Authorization': `token ${token}`,
-                                'Accept': 'application/vnd.github.v3+json'
-                            }
+                                'Accept': 'application/vnd.github.v3+json',
+                                'Cache-Control': 'no-cache'
+                            },
+                            mode: 'cors'
                         }
                     );
                     
                     if (getResponse.ok) {
                         const data = await getResponse.json();
                         sha = data.sha;
+                        console.log('✅ SHA obtido:', sha.substring(0, 8) + '...');
+                    } else {
+                        const errorText = await getResponse.text();
+                        console.warn('⚠️ Erro HTTP ao buscar SHA:', getResponse.status, errorText);
+                        throw new Error(`HTTP ${getResponse.status}: ${errorText}`);
                     }
                 } catch (e) {
-                    console.log('ℹ️ Arquivo não existe ainda, será criado');
+                    console.error('❌ Erro ao buscar SHA:', e.message);
+                    throw new Error(`Não foi possível buscar SHA do arquivo: ${e.message}. Verifique o token e as permissões.`);
                 }
                 
-                // 2. Criar/atualizar arquivo
+                // 2. Validação: SHA é OBRIGATÓRIO
+                if (!sha) {
+                    throw new Error('SHA não disponível. Não é possível atualizar o arquivo.');
+                }
+                
+                // 3. Criar/atualizar arquivo COM SHA
+                console.log('📤 Enviando arquivo para GitHub...');
                 const content = btoa(unescape(encodeURIComponent(conteudo)));
                 
                 const putResponse = await fetch(
@@ -4800,11 +4877,12 @@ Arquivo disponível no projeto!
                             'Accept': 'application/vnd.github.v3+json',
                             'Content-Type': 'application/json'
                         },
+                        mode: 'cors',
                         body: JSON.stringify({
                             message: `Atualizar produtos-v6.1.js via Admin Panel (${allProducts.length} produtos) - ${new Date().toLocaleString('pt-BR')}`,
                             content: content,
                             branch: branch,
-                            ...(sha && { sha: sha })
+                            sha: sha  // SHA agora é obrigatório (não opcional)
                         })
                     }
                 );
@@ -5044,8 +5122,9 @@ Arquivo disponível no projeto!
         
         /**
          * Salvar no GitHub silenciosamente (sem modal)
+         * Com retry automático em caso de SHA mismatch
          */
-        async function salvarProdutosNoGitHubSilencioso() {
+        async function salvarProdutosNoGitHubSilencioso(tentativa = 1) {
             const conteudo = gerarArquivoProdutosJS();
             
             if (!conteudo) {
@@ -5055,28 +5134,63 @@ Arquivo disponível no projeto!
             const { token, owner, repo, branch } = githubConfig;
             const path = 'produtos-v6.1.js';
             
-            // 1. Buscar SHA do arquivo atual
+            console.log(`🔄 Tentativa ${tentativa} de salvar no GitHub...`);
+            
+            // 1. SEMPRE buscar SHA mais recente do arquivo (OBRIGATÓRIO para updates)
             let sha = null;
             try {
+                console.log('📥 Buscando SHA mais recente do arquivo...');
                 const getResponse = await fetch(
-                    `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`,
+                    `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}&_=${Date.now()}`, // Cache bust
                     {
                         headers: {
                             'Authorization': `token ${token}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Cache-Control': 'no-cache'
+                        },
+                        mode: 'cors' // Explicitamente definir modo CORS
                     }
                 );
                 
                 if (getResponse.ok) {
                     const data = await getResponse.json();
                     sha = data.sha;
+                    console.log(`✅ SHA obtido com sucesso: ${sha.substring(0, 8)}...`);
+                } else {
+                    const errorText = await getResponse.text();
+                    console.warn(`⚠️ Erro HTTP ${getResponse.status} ao buscar SHA:`, errorText);
+                    
+                    // Se não conseguir buscar SHA e for tentativa < 3, tentar novamente
+                    if (tentativa < 3) {
+                        console.log(`🔄 Tentando novamente buscar SHA (tentativa ${tentativa + 1})...`);
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        return await salvarProdutosNoGitHubSilencioso(tentativa + 1);
+                    }
+                    
+                    throw new Error(`Não foi possível obter SHA do arquivo após ${tentativa} tentativas`);
                 }
             } catch (e) {
-                console.log('ℹ️ Arquivo não existe, será criado');
+                console.error('❌ ERRO CRÍTICO ao buscar SHA:', e.message);
+                
+                // Se falhar ao buscar SHA e for tentativa < 3, tentar novamente
+                if (tentativa < 3) {
+                    console.log(`🔄 Tentando novamente buscar SHA (tentativa ${tentativa + 1})...`);
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    return await salvarProdutosNoGitHubSilencioso(tentativa + 1);
+                }
+                
+                // Se falhar após 3 tentativas, abortar
+                throw new Error(`Não foi possível buscar SHA: ${e.message}. Verifique: 1) Token GitHub válido, 2) Permissões CORS, 3) Conexão de rede`);
             }
             
-            // 2. Criar/atualizar arquivo
+            // 2. VALIDAÇÃO: SHA é OBRIGATÓRIO para atualizar arquivo existente
+            if (!sha) {
+                console.error('❌ SHA não foi obtido. Impossível atualizar arquivo no GitHub.');
+                throw new Error('SHA não disponível. Não é possível atualizar o arquivo.');
+            }
+            
+            // 3. Criar/atualizar arquivo COM SHA
+            console.log('📤 Enviando arquivo para GitHub com SHA:', sha.substring(0, 8) + '...');
             const content = btoa(unescape(encodeURIComponent(conteudo)));
             
             const putResponse = await fetch(
@@ -5088,21 +5202,40 @@ Arquivo disponível no projeto!
                         'Accept': 'application/vnd.github.v3+json',
                         'Content-Type': 'application/json'
                     },
+                    mode: 'cors',
                     body: JSON.stringify({
                         message: `[Auto-Sync] Atualizar produtos (${allProducts.length}) - ${new Date().toLocaleString('pt-BR')}`,
                         content: content,
                         branch: branch,
-                        ...(sha && { sha: sha })
+                        sha: sha // SHA agora é OBRIGATÓRIO (não mais opcional)
                     })
                 }
             );
             
             if (!putResponse.ok) {
                 const error = await putResponse.json();
+                
+                // Se for erro de SHA mismatch (arquivo mudou durante a operação)
+                if (error.message && error.message.includes('does not match') && tentativa < 3) {
+                    console.warn(`⚠️ SHA mismatch detectado! Arquivo foi modificado durante a operação.`);
+                    console.log(`🔄 Tentando novamente com SHA atualizado (tentativa ${tentativa + 1})...`);
+                    
+                    // Aguardar 1 segundo antes de tentar novamente
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    // Tentar novamente (recursivo) - vai buscar SHA novo
+                    return await salvarProdutosNoGitHubSilencioso(tentativa + 1);
+                }
+                
+                // Outros erros
+                console.error('❌ Erro ao salvar no GitHub:', error);
                 throw new Error(error.message || 'Erro ao salvar no GitHub');
             }
             
             const result = await putResponse.json();
+            console.log(`✅ Arquivo salvo com sucesso no GitHub!`);
+            console.log(`   📝 SHA antigo: ${sha.substring(0, 8)}...`);
+            console.log(`   📝 SHA novo: ${result.content.sha.substring(0, 8)}...`);
             return result;
         }
         
