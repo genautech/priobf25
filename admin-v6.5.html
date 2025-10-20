@@ -125,14 +125,20 @@
                     <div id="totalBudget" class="text-3xl font-bold text-purple-600">R$ 0</div>
                     <div class="text-sm text-gray-500 mt-1"><span id="totalProducts">0</span> produtos</div>
                     
-                    <!-- NOVO: Badge Auto-Sync -->
-                    <div class="mt-3">
-                        <span id="auto-sync-badge" 
-                              onclick="toggleAutoSync()"
-                              class="px-3 py-1 bg-gray-400 text-white text-xs font-bold rounded-full cursor-pointer hover:opacity-80 transition-all inline-block">
-                            🔄 Auto-Sync: OFF
-                        </span>
-                        <p class="text-xs text-gray-500 mt-1">Clique para ativar/desativar</p>
+                    <!-- NOVO: Auto-Sync Toggle v6.5 -->
+                    <div class="mt-3 flex items-center justify-center md:justify-end gap-2">
+                        <div id="auto-sync-toggle" 
+                             class="relative inline-block w-14 h-7 bg-gray-400 rounded-full cursor-pointer transition-colors duration-300"
+                             onclick="toggleAutoSync()">
+                            <span class="absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition-transform duration-300"></span>
+                        </div>
+                        <div class="text-left">
+                            <div class="flex items-center gap-2">
+                                <i id="auto-sync-icon" class="fas fa-sync-alt" style="color: #9ca3af;"></i>
+                                <span id="auto-sync-badge" class="text-sm font-semibold text-gray-600">OFF</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Auto-Sync</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1095,6 +1101,17 @@
         let currentTab = 'dashboard';
         let allProducts = [];
         let charts = {};
+        
+        // Função helper para SEMPRE pegar produtos atualizados do CRUD
+        function getProdutosAtualizados() {
+            if (window.produtoCRUD && typeof window.produtoCRUD.listar === 'function') {
+                return window.produtoCRUD.listar();
+            } else if (typeof obterTodosProdutos === 'function') {
+                return obterTodosProdutos();
+            } else {
+                return allProducts; // fallback
+            }
+        }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -1343,7 +1360,9 @@
 
         // Preencher formulário para edição
         function preencherFormularioCrud(productId) {
-            const produto = allProducts.find(p => p.id === productId);
+            // SEMPRE buscar produto atualizado do CRUD
+            const produtosAtuais = getProdutosAtualizados();
+            const produto = produtosAtuais.find(p => p.id === productId);
             if (!produto) return;
 
             document.getElementById('crud_sku').value = produto.sku || '';
@@ -1415,6 +1434,10 @@
         }
 
         // Submeter formulário CRUD
+        // ============================================
+        // HANDLER PRINCIPAL DO FORMULÁRIO CRUD
+        // Usa window.produtoCRUD para todas as operações
+        // ============================================
         document.getElementById('crudForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -1422,11 +1445,11 @@
             const margem = parseFloat(document.getElementById('crud_margem').value);
             const precoVenda = custoBase * (1 + margem / 100);
 
-            // Coletar especificações
+            // Coletar especificações (usando mesma lógica do handler correto)
             const especificacoes = {};
             document.querySelectorAll('#especificacoesContainer > div').forEach(div => {
-                const key = div.querySelector('.spec-key').value.trim();
-                const value = div.querySelector('.spec-value').value.trim();
+                const key = div.querySelector('.spec-key')?.value.trim();
+                const value = div.querySelector('.spec-value')?.value.trim();
                 if (key && value) {
                     especificacoes[key] = value;
                 }
@@ -1449,83 +1472,69 @@
                 estoque: "Para Compra"
             };
 
-            if (currentCrudMode === 'create') {
-                // Criar novo produto
-                const newId = Math.max(...allProducts.map(p => p.id)) + 1;
-                produtoData.id = newId;
-                produtoData.badge = "NOVO 2025";
-                
-                produtosSugeridos.push(produtoData);
-                allProducts.push(produtoData);
-                
-                showNotification('✅ Produto adicionado com sucesso!', 'success');
-            } else if (currentCrudMode === 'edit') {
-                // Atualizar produto existente
-                const index = allProducts.findIndex(p => p.id === currentEditingProductId);
-                if (index !== -1) {
-                    produtoData.id = currentEditingProductId;
-                    produtoData.badge = allProducts[index].badge; // Manter badge original
-                    allProducts[index] = { ...allProducts[index], ...produtoData };
+            // USAR WINDOW.PRODUTOCRUD (sistema correto com sync integrado)
+            if (window.produtoCRUD) {
+                if (currentCrudMode === 'create') {
+                    const resultado = window.produtoCRUD.criarProduto(produtoData, 'sugerido');
                     
-                    // Atualizar também no array original
-                    const sugIndex = produtosSugeridos.findIndex(p => p.id === currentEditingProductId);
-                    if (sugIndex !== -1) {
-                        produtosSugeridos[sugIndex] = allProducts[index];
+                    if (resultado.sucesso) {
+                        mostrarNotificacao('✅ Produto criado com sucesso!', 'success');
+                        closeCrudModal();
+                        atualizarInterfaceCompleta(); // Dispara renderização + auto-sync
                     } else {
-                        const planIndex = produtosPlanilha.findIndex(p => p.id === currentEditingProductId);
-                        if (planIndex !== -1) {
-                            produtosPlanilha[planIndex] = allProducts[index];
-                        }
+                        mostrarNotificacao('❌ Erro ao criar produto: ' + resultado.erro, 'error');
                     }
+                } else if (currentCrudMode === 'edit') {
+                    const resultado = window.produtoCRUD.atualizarProduto(currentEditingProductId, produtoData);
                     
-                    showNotification('✅ Produto atualizado com sucesso!', 'success');
+                    if (resultado.sucesso) {
+                        mostrarNotificacao('✅ Produto atualizado com sucesso!', 'success');
+                        closeCrudModal();
+                        atualizarInterfaceCompleta(); // Dispara renderização + auto-sync
+                    } else {
+                        mostrarNotificacao('❌ Erro ao atualizar produto: ' + resultado.erro, 'error');
+                    }
                 }
+            } else {
+                // Fallback se produtoCRUD não estiver carregado
+                mostrarNotificacao('❌ Sistema CRUD não está disponível. Recarregue a página.', 'error');
+                console.error('window.produtoCRUD não está disponível!');
             }
-
-            // Atualizar displays
-            renderDashboard();
-            renderSugestoes();
-            renderCatalogo();
-            renderAnalise();
-            updateStats();
-
-            closeCrudModal();
         });
 
-        // Deletar produto
+        // ============================================
+        // DELETAR PRODUTO - Usa window.produtoCRUD
+        // ============================================
         function deletarProduto(productId) {
-            const produto = allProducts.find(p => p.id === productId);
-            if (!produto) return;
+            // Buscar produto atualizado do CRUD
+            const produtosAtuais = getProdutosAtualizados();
+            const produto = produtosAtuais.find(p => p.id === productId);
+            
+            if (!produto) {
+                mostrarNotificacao('❌ Produto não encontrado!', 'error');
+                return;
+            }
 
             if (confirm(`⚠️ Tem certeza que deseja deletar o produto:\n\n"${produto.nome}"\n\nEsta ação não pode ser desfeita!`)) {
-                // Remover de allProducts
-                const indexAll = allProducts.findIndex(p => p.id === productId);
-                if (indexAll !== -1) {
-                    allProducts.splice(indexAll, 1);
-                }
-
-                // Remover do array original
-                const sugIndex = produtosSugeridos.findIndex(p => p.id === productId);
-                if (sugIndex !== -1) {
-                    produtosSugeridos.splice(sugIndex, 1);
-                } else {
-                    const planIndex = produtosPlanilha.findIndex(p => p.id === productId);
-                    if (planIndex !== -1) {
-                        produtosPlanilha.splice(planIndex, 1);
+                // USAR WINDOW.PRODUTOCRUD (sistema correto com sync integrado)
+                if (window.produtoCRUD) {
+                    const resultado = window.produtoCRUD.excluirProduto(productId, true);
+                    
+                    if (resultado.sucesso) {
+                        mostrarNotificacao('🗑️ Produto deletado com sucesso!', 'success');
+                        atualizarInterfaceCompleta(); // Dispara renderização + auto-sync
+                        
+                        // Fechar modal se estiver aberto
+                        if (typeof closeModal === 'function') {
+                            closeModal();
+                        }
+                    } else {
+                        mostrarNotificacao('❌ Erro ao deletar produto: ' + resultado.erro, 'error');
                     }
+                } else {
+                    mostrarNotificacao('❌ Sistema CRUD não está disponível. Recarregue a página.', 'error');
+                    console.error('window.produtoCRUD não está disponível!');
                 }
-
-                showNotification('🗑️ Produto deletado com sucesso!', 'success');
-
-                // Atualizar displays
-                renderDashboard();
-                renderSugestoes();
-                renderCatalogo();
-                renderAnalise();
-                updateStats();
-
-                // Fechar modal se estiver aberto
-                closeModal();
             }
         }
 
@@ -1553,6 +1562,25 @@
                 content.classList.add('hidden');
             });
             document.getElementById('content-' + tabName).classList.remove('hidden');
+            
+            // Atualizar dados ao mudar de aba
+            if (tabName === 'comparativo') {
+                // Recarregar comparativo com produtos atualizados
+                console.log('🔄 Atualizando aba comparativo com produtos mais recentes...');
+                renderComparativo();
+            } else if (tabName === 'dashboard') {
+                // Atualizar dashboard
+                renderDashboard();
+            } else if (tabName === 'sugestoes') {
+                // Atualizar sugestões
+                renderSugestoes();
+            } else if (tabName === 'catalogo') {
+                // Atualizar catálogo
+                renderCatalogo();
+            } else if (tabName === 'analise') {
+                // Atualizar análise
+                renderAnalise();
+            }
             
             // Limpar status de ferramentas ao mudar de aba
             if (tabName !== 'ferramentas') {
@@ -1603,15 +1631,20 @@
 
         // Update Stats
         function updateStats() {
-            const totalBudget = allProducts.reduce((sum, p) => sum + (p.custoBase * p.quantidade), 0);
+            // Sempre usar produtos atualizados do CRUD
+            const produtosAtuais = getProdutosAtualizados();
+            const produtosPlanilhaAtuais = produtosAtuais.filter(p => p.origem === 'planilha' || p.id < 2000);
+            const produtosSugeridosAtuais = produtosAtuais.filter(p => p.origem === 'sugerido' || p.id >= 2000);
+            
+            const totalBudget = produtosAtuais.reduce((sum, p) => sum + (p.custoBase * p.quantidade), 0);
             document.getElementById('totalBudget').textContent = formatarPreco(totalBudget);
-            document.getElementById('totalProducts').textContent = allProducts.length;
+            document.getElementById('totalProducts').textContent = produtosAtuais.length;
             
-            document.getElementById('stat-total').textContent = allProducts.length;
-            document.getElementById('stat-planilha').textContent = produtosPlanilha.length;
-            document.getElementById('stat-sugestoes').textContent = produtosSugeridos.length;
+            document.getElementById('stat-total').textContent = produtosAtuais.length;
+            document.getElementById('stat-planilha').textContent = produtosPlanilhaAtuais.length;
+            document.getElementById('stat-sugestoes').textContent = produtosSugeridosAtuais.length;
             
-            const uniqueSubcategories = [...new Set(allProducts.map(p => p.subcategoria))];
+            const uniqueSubcategories = [...new Set(produtosAtuais.map(p => p.subcategoria))];
             document.getElementById('stat-categorias').textContent = uniqueSubcategories.length;
         }
 
@@ -1620,7 +1653,10 @@
             const search = document.getElementById('searchDashboard').value.toLowerCase();
             const categoryFilter = document.getElementById('filterCategory').value;
             
-            let filtered = allProducts.filter(p => {
+            // Sempre usar produtos atualizados do CRUD
+            const produtosAtuais = getProdutosAtualizados();
+            
+            let filtered = produtosAtuais.filter(p => {
                 const matchSearch = p.nome.toLowerCase().includes(search) || 
                                    p.sku.toLowerCase().includes(search);
                 const matchCategory = !categoryFilter || p.categoria === categoryFilter;
@@ -1710,7 +1746,11 @@
             const subcategoryFilter = document.getElementById('filterSubcategory').value;
             const novosOnly = document.getElementById('filterNovos').checked;
             
-            let filtered = produtosSugeridos.filter(p => {
+            // Sempre usar produtos atualizados do CRUD (apenas sugeridos)
+            const produtosAtuais = getProdutosAtualizados();
+            const produtosSugeridosAtuais = produtosAtuais.filter(p => p.origem === 'sugerido' || p.id >= 2000);
+            
+            let filtered = produtosSugeridosAtuais.filter(p => {
                 const matchSearch = p.nome.toLowerCase().includes(search) || 
                                    p.sku.toLowerCase().includes(search);
                 const matchSubcategory = !subcategoryFilter || p.subcategoria === subcategoryFilter;
@@ -1786,7 +1826,10 @@
             const categoryFilter = document.getElementById('filterCatalogoCategory').value;
             const sortBy = document.getElementById('sortCatalogo').value;
             
-            let filtered = allProducts.filter(p => {
+            // Sempre usar produtos atualizados do CRUD
+            const produtosAtuais = getProdutosAtualizados();
+            
+            let filtered = produtosAtuais.filter(p => {
                 const matchSearch = p.nome.toLowerCase().includes(search);
                 const matchCategory = !categoryFilter || p.categoria === categoryFilter;
                 return matchSearch && matchCategory;
@@ -1842,8 +1885,11 @@
 
         // Render Análise
         function renderAnalise() {
+            // Sempre usar produtos atualizados do CRUD
+            const produtosAtuais = getProdutosAtualizados();
+            
             // Top 10 por Margem
-            const topMargem = [...allProducts]
+            const topMargem = [...produtosAtuais]
                 .sort((a, b) => b.margem - a.margem)
                 .slice(0, 10);
             
@@ -1863,9 +1909,9 @@
             `).join('');
 
             // Stock Analysis
-            const totalEstoque = allProducts.reduce((sum, p) => sum + p.quantidade, 0);
-            const estoqueValor = allProducts.reduce((sum, p) => sum + (p.custoBase * p.quantidade), 0);
-            const baixoEstoque = allProducts.filter(p => p.quantidade < 10).length;
+            const totalEstoque = produtosAtuais.reduce((sum, p) => sum + p.quantidade, 0);
+            const estoqueValor = produtosAtuais.reduce((sum, p) => sum + (p.custoBase * p.quantidade), 0);
+            const baixoEstoque = produtosAtuais.filter(p => p.quantidade < 10).length;
             
             document.getElementById('stockAnalysis').innerHTML = `
                 <div class="space-y-4">
@@ -2332,8 +2378,11 @@
             const ctx = document.getElementById('categoryChart');
             if (!ctx) return;
 
+            // Sempre usar produtos atualizados do CRUD
+            const produtosAtuais = getProdutosAtualizados();
+            
             const subcategories = {};
-            allProducts.forEach(p => {
+            produtosAtuais.forEach(p => {
                 subcategories[p.subcategoria] = (subcategories[p.subcategoria] || 0) + 1;
             });
 
@@ -2373,6 +2422,9 @@
             const ctx = document.getElementById('priceChart');
             if (!ctx) return;
 
+            // Sempre usar produtos atualizados do CRUD
+            const produtosAtuais = getProdutosAtualizados();
+            
             const ranges = {
                 '< R$ 500': 0,
                 'R$ 500-1000': 0,
@@ -2381,7 +2433,7 @@
                 '> R$ 5000': 0
             };
 
-            allProducts.forEach(p => {
+            produtosAtuais.forEach(p => {
                 if (p.precoVenda < 500) ranges['< R$ 500']++;
                 else if (p.precoVenda < 1000) ranges['R$ 500-1000']++;
                 else if (p.precoVenda < 2000) ranges['R$ 1000-2000']++;
@@ -2831,9 +2883,26 @@
         let comparativoFiltered = [];
         
         function renderComparativo() {
-            // Usar allProducts que já tem linkCompra carregado
-            // Mostrar TODOS os produtos, não apenas os que têm concorrente
-            comparativoFiltered = [...allProducts];
+            // SEMPRE pegar produtos atualizados do CRUD (não usar allProducts estático)
+            const produtosAtualizados = window.produtoCRUD ? window.produtoCRUD.listar() : obterTodosProdutos();
+            
+            // Adicionar linkCompra se não existir
+            produtosAtualizados.forEach(produto => {
+                if (!produto.linkCompra) {
+                    const nomeParaURL = produto.nome
+                        .replace(/\s+/g, '+')
+                        .replace(/[áàãâä]/gi, 'a')
+                        .replace(/[éèêë]/gi, 'e')
+                        .replace(/[íìîï]/gi, 'i')
+                        .replace(/[óòõôö]/gi, 'o')
+                        .replace(/[úùûü]/gi, 'u')
+                        .replace(/ç/gi, 'c')
+                        .replace(/[^a-zA-Z0-9+]/g, '');
+                    produto.linkCompra = `https://www.amazon.com.br/s?k=${nomeParaURL}`;
+                }
+            });
+            
+            comparativoFiltered = [...produtosAtualizados];
             
             // Debug: verificar se precoConcorrente está presente
             console.log('Produtos com precoConcorrente:', comparativoFiltered.filter(p => p.precoConcorrente).length);
@@ -3152,8 +3221,11 @@
                     csv += 'Custo Fornecedor Prio (R$),Margem (%),Preço Venda Yoobe (R$),Preço Mercado (R$),';
                     csv += 'Link de Compra,Tem Preço Prio,Diferença Yoobe vs Prio (R$),Status Competitividade\n';
                     
+                    // Sempre usar produtos atualizados do CRUD
+                    const produtosAtuais = getProdutosAtualizados();
+                    
                     // Dados
-                    allProducts.forEach(p => {
+                    produtosAtuais.forEach(p => {
                         const precoPrio = p.precoConcorrente || p.custoBase;
                         const temPrecoPrio = p.precoConcorrente ? 'Sim' : 'Não';
                         const diferenca = p.precoConcorrente ? (p.precoVenda - p.precoConcorrente) : 0;
@@ -3769,13 +3841,10 @@ Arquivo disponível no projeto!
 
         // Atualizar toda a interface após mudanças
         function atualizarInterfaceCompleta() {
-            // Atualizar produtos do sistema
-            if (window.produtoCRUD) {
-                allProducts = window.produtoCRUD.produtos;
-            }
+            // NÃO precisa atualizar allProducts - os renders usam getProdutosAtualizados()
+            // NÃO precisa chamar loadProducts() - ela só deve rodar na inicialização
             
-            // Recarregar todas as áreas
-            loadProducts();
+            // Recarregar todas as áreas (elas pegam dados frescos via getProdutosAtualizados)
             renderDashboard();
             renderSugestoes();
             renderCatalogo();
