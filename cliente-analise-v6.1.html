@@ -7,7 +7,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <script src="produtos-v6.1.js"></script>
+    <script src="produtos-v6.1.js?v=__TIMESTAMP__"></script>
+    <script>
+        // Cache busting - força reload do arquivo de produtos
+        const timestamp = new Date().getTime();
+        const scripts = document.getElementsByTagName('script');
+        for (let script of scripts) {
+            if (script.src.includes('produtos-v6.1.js')) {
+                script.src = script.src.replace('__TIMESTAMP__', timestamp);
+            }
+        }
+    </script>
     <style>
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
