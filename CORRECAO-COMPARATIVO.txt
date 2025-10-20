@@ -1,0 +1,61 @@
+═══════════════════════════════════════════════════════════
+   🔧 CORREÇÃO CRÍTICA: Aba Comparativo Vazia
+═══════════════════════════════════════════════════════════
+
+📅 Data: 2025-10-20
+🎯 Problema: Aba Comparativo não mostrava nenhum produto
+✅ Status: CORRIGIDO
+
+---
+
+🔍 CAUSA DO PROBLEMA:
+───────────────────────────────────────────────────────────
+
+O método usado era INCORRETO:
+❌ window.produtoCRUD.listar()  → NÃO EXISTE!
+✅ window.produtoCRUD.listarProdutos()  → CORRETO!
+
+Resultado: getProdutosAtualizados() retornava array vazio
+
+---
+
+🔧 CORREÇÃO APLICADA:
+───────────────────────────────────────────────────────────
+
+Arquivo: admin-v6.5.html (linha 1107)
+
+ANTES:
+if (window.produtoCRUD && typeof window.produtoCRUD.listar === 'function') {
+    return window.produtoCRUD.listar();
+
+DEPOIS:
+if (window.produtoCRUD && typeof window.produtoCRUD.listarProdutos === 'function') {
+    return window.produtoCRUD.listarProdutos();
+
+---
+
+✅ IMPACTO:
+───────────────────────────────────────────────────────────
+
+Agora TODAS as funções que usam getProdutosAtualizados() 
+funcionam corretamente:
+
+✅ Dashboard
+✅ Sugestões  
+✅ Catálogo
+✅ Análise
+✅ Comparativo ⭐ PRINCIPAL
+✅ Estatísticas
+✅ Gráficos
+✅ Exportar CSV
+
+---
+
+🚀 PRÓXIMO PASSO:
+───────────────────────────────────────────────────────────
+
+git add admin-v6.5.html CORRECAO-COMPARATIVO.txt
+git commit -m "fix: corrigir método listar() → listarProdutos() no CRUD"
+git push origin main --force
+
+═══════════════════════════════════════════════════════════

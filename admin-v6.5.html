@@ -1104,8 +1104,8 @@
         
         // Função helper para SEMPRE pegar produtos atualizados do CRUD
         function getProdutosAtualizados() {
-            if (window.produtoCRUD && typeof window.produtoCRUD.listar === 'function') {
-                return window.produtoCRUD.listar();
+            if (window.produtoCRUD && typeof window.produtoCRUD.listarProdutos === 'function') {
+                return window.produtoCRUD.listarProdutos();
             } else if (typeof obterTodosProdutos === 'function') {
                 return obterTodosProdutos();
             } else {
@@ -2884,7 +2884,7 @@
         
         function renderComparativo() {
             // SEMPRE pegar produtos atualizados do CRUD (não usar allProducts estático)
-            const produtosAtualizados = window.produtoCRUD ? window.produtoCRUD.listar() : obterTodosProdutos();
+            const produtosAtualizados = getProdutosAtualizados();
             
             // Adicionar linkCompra se não existir
             produtosAtualizados.forEach(produto => {
