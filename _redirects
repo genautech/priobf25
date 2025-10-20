@@ -8,10 +8,15 @@
 /admin /admin-v6.5.html 200
 
 # Redirect cliente sem extensão  
-/cliente /cliente-analise-v6.html 200
+/cliente /cliente-analise-v6.1.html 200
 
-# Redirect catalogo sem extensão
-/catalogo /catalogo-v5.2.html 200
+# Redirect catalogo sem extensão (mesmo que cliente)
+/catalogo /cliente-analise-v6.1.html 200
+
+# Atalhos úteis
+/painel /admin-v6.5.html 200
+/dashboard /admin-v6.5.html 200
+/produtos /cliente-analise-v6.1.html 200
 
 # 404 personalizado (futuro)
 # /* /404.html 404
