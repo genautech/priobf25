@@ -1,11 +1,11 @@
 # Configuração de Redirects para Cloudflare Pages
-# Sistema Black Friday Prio 2025 v6.0.1
+# Sistema Black Friday Prio 2025 v6.5.0
 
 # Redirect root para index
 / /index.html 200
 
 # Redirect admin sem extensão
-/admin /admin-v6.html 200
+/admin /admin-v6.5.html 200
 
 # Redirect cliente sem extensão  
 /cliente /cliente-analise-v6.html 200
