@@ -1055,10 +1055,10 @@ const produtosSugeridos = [
         "categoria": "Eletrônicos",
         "subcategoria": "Smartphones",
         "quantidade": 5,
-        "custoBase": 9999,
-        "precoMercado": 12999,
+        "custoBase": 1,
+        "precoMercado": 1,
         "margem": 30,
-        "precoVenda": 12999,
+        "precoVenda": 1.3,
         "badge": "🔥 NOVO!",
         "fornecedor": "Apple Store",
         "imagem": "https://m.media-amazon.com/images/I/81IJSYW-VvL._AC_SL1500_.jpg",
@@ -1068,9 +1068,11 @@ const produtosSugeridos = [
             "modelo": "16 Pro Max",
             "armazenamento": "256GB",
             "camera": "48MP tripla",
-            "tela": "6.7\" Super Retina XDR"
+            "tela": "6.7"
         },
-        "linkCompra": "https://www.amazon.com.br/s?k=iPhone+16+Pro+Max+256GB"
+        "linkCompra": "https://www.amazon.com.br/s?k=iPhone+16+Pro+Max+256GB",
+        "estoque": "Para Compra",
+        "dataAtualizacao": "2025-10-20T22:40:08.676Z"
     },
     {
         "id": 2002,
