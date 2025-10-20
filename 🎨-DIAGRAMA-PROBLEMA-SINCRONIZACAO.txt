@@ -1,0 +1,247 @@
+═══════════════════════════════════════════════════════════════════════════
+         🎨 DIAGRAMA: POR QUE PRODUTO NÃO APARECE NO CATÁLOGO
+═══════════════════════════════════════════════════════════════════════════
+
+❌ SITUAÇÃO ATUAL (PROBLEMA)
+═══════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        VOCÊ NO ADMIN                                    │
+│  https://genautech.github.io/priobf25/admin-v6.3.html                 │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+                    Cria produto "Produto Novo X"
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│                   💾 LOCALSTORAGE (SEU NAVEGADOR)                       │
+│                                                                         │
+│  Produtos armazenados:                                                  │
+│  • Produto 1                                                            │
+│  • Produto 2                                                            │
+│  • Produto Novo X ← SALVOU AQUI!                                       │
+│                                                                         │
+│  ⚠️ IMPORTANTE: LocalStorage é APENAS no SEU navegador!                │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+                    ❌ NÃO SINCRONIZA automaticamente
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│              📦 GITHUB (SERVIDOR)                                       │
+│  https://github.com/genautech/priobf25                                 │
+│                                                                         │
+│  produtos-v6.1.js (AINDA O ANTIGO):                                    │
+│  • Produto 1                                                            │
+│  • Produto 2                                                            │
+│  ❌ SEM "Produto Novo X"                                               │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+                    Catálogo lê deste arquivo
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│                   📦 CATÁLOGO CLIENTE                                   │
+│  https://genautech.github.io/priobf25/catalogo-v5.2.html              │
+│                                                                         │
+│  Produtos mostrados:                                                    │
+│  • Produto 1                                                            │
+│  • Produto 2                                                            │
+│  ❌ "Produto Novo X" NÃO APARECE!                                      │
+│                                                                         │
+│  Por quê? Porque lê produtos-v6.1.js do servidor,                      │
+│  que NÃO foi atualizado!                                               │
+└─────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════
+
+✅ SOLUÇÃO: EXPORTAR E SINCRONIZAR
+═══════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        VOCÊ NO ADMIN                                    │
+│  https://genautech.github.io/priobf25/admin-v6.3.html                 │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+                    Cria produto "Produto Novo X"
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│                   💾 LOCALSTORAGE (SEU NAVEGADOR)                       │
+│  • Produto 1                                                            │
+│  • Produto 2                                                            │
+│  • Produto Novo X ← SALVOU!                                            │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+              ✅ PASSO EXTRA: Exportar Template
+                  (Ferramentas → Exportar Template)
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│                   💾 ARQUIVO BAIXADO                                    │
+│  produtos-template-2025-10-20.json                                     │
+│                                                                         │
+│  Conteúdo:                                                              │
+│  • Produto 1                                                            │
+│  • Produto 2                                                            │
+│  • Produto Novo X ← INCLUÍDO!                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+               Renomear para: produtos-v6.1.js
+                                    ↓
+           Substituir no GitHub (upload ou git push)
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│              📦 GITHUB (SERVIDOR) - ATUALIZADO!                         │
+│  https://github.com/genautech/priobf25                                 │
+│                                                                         │
+│  produtos-v6.1.js (AGORA ATUALIZADO):                                  │
+│  • Produto 1                                                            │
+│  • Produto 2                                                            │
+│  • Produto Novo X ← ✅ AGORA TEM!                                      │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+              Aguardar 2 minutos (GitHub Pages deploy)
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│                   📦 CATÁLOGO CLIENTE - ATUALIZADO!                     │
+│  https://genautech.github.io/priobf25/catalogo-v5.2.html              │
+│                                                                         │
+│  Produtos mostrados:                                                    │
+│  • Produto 1                                                            │
+│  • Produto 2                                                            │
+│  • Produto Novo X ← ✅ APARECE AGORA!                                  │
+│                                                                         │
+│  Por quê? Porque lê produtos-v6.1.js ATUALIZADO do servidor!          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════
+
+🚀 SOLUÇÃO AUTOMÁTICA: GITHUB API
+═══════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        VOCÊ NO ADMIN                                    │
+│  Ferramentas → Ativar Persistência GitHub API                          │
+│  Configurar token uma vez                                               │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+                    Cria produto "Produto Novo X"
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│                   💾 LOCALSTORAGE + 🔄 GITHUB API                       │
+│                                                                         │
+│  Salva em 2 lugares AUTOMATICAMENTE:                                   │
+│  1. LocalStorage (navegador) ← Para uso imediato                       │
+│  2. GitHub via API ← Para persistência                                 │
+│                                                                         │
+│  ✅ SINCRONIZAÇÃO AUTOMÁTICA!                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+              ✅ Atualiza produtos-v6.1.js SOZINHO!
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│              📦 GITHUB (SERVIDOR) - AUTO-ATUALIZADO!                    │
+│  produtos-v6.1.js atualizado automaticamente via API                   │
+│  • Produto 1                                                            │
+│  • Produto 2                                                            │
+│  • Produto Novo X ← ✅ SINCRONIZOU SOZINHO!                            │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+              Aguardar 2 minutos (GitHub Pages deploy)
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│                   📦 CATÁLOGO CLIENTE - AUTO-ATUALIZADO!                │
+│  • Produto 1                                                            │
+│  • Produto 2                                                            │
+│  • Produto Novo X ← ✅ APARECE AUTOMATICAMENTE!                        │
+└─────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════
+
+📊 COMPARAÇÃO: MANUAL vs AUTOMÁTICO
+═══════════════════════════════════════════════════════════════════════════
+
+SINCRONIZAÇÃO MANUAL:
+┌────────────────────────────────────────────────────────────────────┐
+│ Criar produto → LocalStorage → Exportar → Substituir → Git Push   │
+│                                                                    │
+│ Passos: 5                                                          │
+│ Tempo: 5 minutos                                                   │
+│ Automático: ❌ Não                                                │
+└────────────────────────────────────────────────────────────────────┘
+
+SINCRONIZAÇÃO AUTOMÁTICA (GitHub API):
+┌────────────────────────────────────────────────────────────────────┐
+│ Criar produto → LocalStorage + GitHub API (automático)            │
+│                                                                    │
+│ Passos: 1                                                          │
+│ Tempo: Instantâneo + 2 min deploy                                 │
+│ Automático: ✅ Sim                                                │
+└────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════
+
+🎯 ENTENDA AS FONTES DE DADOS
+═══════════════════════════════════════════════════════════════════════════
+
+ADMIN (admin-v6.3.html):
+┌────────────────────────────────────────────────────────────────────┐
+│ Lê de: LocalStorage (navegador)                                   │
+│ Escreve em: LocalStorage                                           │
+│ Sincroniza com: ❌ Nada (sem configurar API)                      │
+└────────────────────────────────────────────────────────────────────┘
+
+CATÁLOGO CLIENTE (catalogo-v5.2.html):
+┌────────────────────────────────────────────────────────────────────┐
+│ Lê de: produtos-v6.1.js (servidor GitHub)                         │
+│ Escreve em: ❌ Nada (só leitura)                                  │
+│ Sincroniza com: ❌ Nada                                           │
+└────────────────────────────────────────────────────────────────────┘
+
+ANÁLISE COMPARATIVA (cliente-analise-v6.1.html):
+┌────────────────────────────────────────────────────────────────────┐
+│ Lê de: produtos-v6.1.js (servidor GitHub)                         │
+│ Escreve em: ❌ Nada (só leitura)                                  │
+│ Sincroniza com: ❌ Nada                                           │
+└────────────────────────────────────────────────────────────────────┘
+
+PROBLEMA:
+┌────────────────────────────────────────────────────────────────────┐
+│ Admin cria produto → LocalStorage                                  │
+│ Catálogo lê produto → produtos-v6.1.js                            │
+│                                                                    │
+│ ⚠️ SÃO FONTES DIFERENTES!                                         │
+│ ❌ Sem sincronização = produto não aparece!                       │
+└────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════
+
+✅ SOLUÇÃO RÁPIDA AGORA (5 MINUTOS)
+═══════════════════════════════════════════════════════════════════════════
+
+1. EXPORTAR:
+   Admin → Ferramentas → Exportar Template
+   ↓ Baixa: produtos-template-2025-10-20.json
+
+2. RENOMEAR:
+   produtos-template-2025-10-20.json → produtos-v6.1.js
+
+3. SUBSTITUIR NO GITHUB:
+   https://github.com/genautech/priobf25/edit/main/produtos-v6.1.js
+   → Apague tudo
+   → Cole conteúdo do exportado
+   → Commit changes
+
+4. AGUARDAR:
+   2 minutos para GitHub Pages atualizar
+
+5. TESTAR:
+   https://genautech.github.io/priobf25/catalogo-v5.2.html
+   → Force refresh (Ctrl+F5)
+   → ✅ Produto aparece!
+
+═══════════════════════════════════════════════════════════════════════════
+
+📝 Arquivo: 🎨-DIAGRAMA-PROBLEMA-SINCRONIZACAO.txt
+📅 Data: 2025-10-20
+🎯 Problema: Produto não aparece no catálogo
+✅ Causa: Falta sincronizar LocalStorage com arquivo no servidor
+🚀 Solução: Exportar e fazer deploy OU ativar GitHub API
+
+═══════════════════════════════════════════════════════════════════════════

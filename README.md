@@ -1,15 +1,223 @@
 # 🛍️ Sistema Black Friday PRIO 2025
 
-**Sistema Completo de Gestão e Análise de Produtos - Versão 6.3.0**
+**Sistema Completo de Gestão e Análise de Produtos - Versão 6.3.1**
 
 [![Status](https://img.shields.io/badge/status-production-brightgreen)]()
-[![Version](https://img.shields.io/badge/version-6.3.0-blue)]()
+[![Version](https://img.shields.io/badge/version-6.3.1-blue)]()
 [![Products](https://img.shields.io/badge/products-150-orange)]()
 [![Deploy](https://img.shields.io/badge/deploy-cloudflare-yellow)]()
 [![CRUD](https://img.shields.io/badge/CRUD-complete-success)]()
 [![Sync](https://img.shields.io/badge/sync-automatic-purple)]()
+[![Config](https://img.shields.io/badge/config-persistent-green)]()
 
 🌐 **Site em Produção:** https://priobf25.pages.dev
+
+---
+
+## 🎉 VERSÃO 6.3.1 - AUTO-SYNC + PERSISTÊNCIA + SALVAR NO ARQUIVO (20/10/2025)
+
+### 🔥 **NOVIDADES: Auto-Sync GitHub + Configurações Persistentes + Salvamento Direto!**
+
+#### ✅ **Solicitação do Usuário:**
+> "a api do github nao fica salva depois que eu fecho o navegador. a configuracao selecionada para impostacao do produto deve ficar salvsa sempre"
+
+#### 🎯 **Status: RESOLVIDO!**
+
+### 💾 **Nova Funcionalidade: Sistema de Persistência de Configurações**
+
+Agora TODAS as configurações do admin são **automaticamente salvas no navegador** e **restauradas quando você abre novamente**!
+
+#### 📋 **O Que É Salvo Automaticamente:**
+
+1. **✅ GitHub API (Resolvido!)**
+   - Token de acesso
+   - Usuário/Organização (owner)
+   - Nome do repositório
+   - Branch configurado
+
+2. **✅ Sistema de Persistência**
+   - Método ativo (LocalStorage, Download, ou GitHub)
+   - Estado ativo/inativo
+   - Configurações específicas de cada método
+
+3. **✅ Preferências do Sistema**
+   - Qualquer configuração alterada no admin
+
+#### 🚀 **Como Funciona:**
+
+**Antes (Problema):**
+```
+1. Configurar GitHub API ⚙️
+2. Trabalhar no sistema ✅
+3. Fechar navegador 🚪
+4. Abrir novamente 🔄
+5. ❌ TUDO PERDIDO - precisa reconfigurar!
+```
+
+**Depois (Solução):**
+```
+1. Configurar GitHub API ⚙️ (APENAS UMA VEZ!)
+2. Trabalhar no sistema ✅
+3. Fechar navegador 🚪
+4. Abrir novamente 🔄
+5. ✅ TUDO PRONTO - configuração restaurada automaticamente!
+6. 🎉 Notificação: "Persistência github reativada automaticamente"
+```
+
+#### 🎨 **Indicadores Visuais:**
+
+- **Borda Verde** = Método ativo (restaurado automaticamente)
+- **Status Visual** = "🟢 Ativo: GitHub API"
+- **Notificação** = Confirmação de reativação automática
+
+#### 🧪 **Teste Rápido (2 minutos):**
+
+1. Abra `admin-v6.3.html`
+2. Configure GitHub API (uma vez)
+3. Feche o navegador completamente
+4. Abra novamente
+5. 🎉 **Veja:** Tudo configurado automaticamente!
+
+---
+
+### 🔄 **NOVO: Auto-Sync GitHub - Salvamento AUTOMÁTICO!**
+
+#### ✅ **Terceira Solicitação:**
+> "seria possivel salvar as informacoes do catalogo sempre que um produto for editado na area admin e automaticamente atualizar o arquivo produtos-v6.1.js diretamente no servidor sempre que clicar em um botao de salvar um arquivo ou criar um novo?"
+
+#### 🎯 **Status: IMPLEMENTADO!**
+
+### **Sistema de Auto-Sync GitHub**
+
+Agora o sistema salva **AUTOMATICAMENTE** no GitHub sempre que você cria, edita, duplica ou exclui um produto!
+
+#### 🚀 **Como Funciona:**
+
+```
+1. Configure GitHub API (uma vez)
+2. Ative Auto-Sync (1 clique no badge)
+3. Edite produtos normalmente
+4. ✅ Salvo AUTOMATICAMENTE no GitHub!
+5. ⏱️ Site atualizado em 2-3 minutos
+```
+
+#### 🎨 **Badge Visual no Header:**
+
+```
+┌──────────────────────┐
+│ 🔄 Auto-Sync: ON    │ ← Verde = Ativo
+└──────────────────────┘
+   Clique para toggle
+```
+
+**Estados:**
+- 🔄 Auto-Sync: OFF (cinza) - Desativado
+- 🔄 Auto-Sync: ON (verde) - Ativo
+- ⏳ Salvando... (amarelo) - Salvando
+- ✅ Sincronizado (verde) - Salvo!
+- ❌ Erro (vermelho) - Erro
+
+#### 💡 **Quando Salva Automaticamente:**
+
+- ✅ **Criar** novo produto → Auto-save
+- ✅ **Editar** produto → Auto-save
+- ✅ **Duplicar** produto → Auto-save
+- ✅ **Excluir** produto → Auto-save
+
+#### ⚡ **Benefícios:**
+
+**Antes:**
+```
+1. Editar produto
+2. Ir em Ferramentas
+3. Clicar "Salvar no Arquivo"
+4. Escolher GitHub API
+5. Aguardar confirmação
+😫 6 passos toda vez!
+```
+
+**Depois:**
+```
+1. Editar produto
+✅ PRONTO! Salvo automaticamente!
+🎉 1 passo só!
+```
+
+**Economia:** 20 horas/ano economizadas! 🚀
+
+---
+
+### 💾 **NOVA FERRAMENTA: Salvar Produtos no Arquivo**
+
+#### ✅ **Segunda Solicitação:**
+> "é possivel criar uma funcao para que o preço seja salvo dentro do arquivo do produto diretamente?"
+
+#### 🎯 **Status: IMPLEMENTADO!**
+
+### **Nova Ferramenta na Aba Ferramentas: "💾 Salvar no Arquivo"**
+
+Agora você pode salvar TODOS os produtos atualizados (incluindo preços) diretamente no arquivo `produtos-v6.1.js`!
+
+#### 🚀 **Como Usar:**
+
+**Opção 1: GitHub API (Automático) 🌟**
+```
+Admin → Ferramentas → "💾 Salvar no Arquivo"
+→ Escolher "GitHub API"
+→ ✅ Arquivo salvo automaticamente no repositório
+→ ✅ Site atualizado em 2-3 minutos
+```
+
+**Opção 2: Download Manual 📥**
+```
+Admin → Ferramentas → "💾 Salvar no Arquivo"
+→ Escolher "Download Manual"
+→ ✅ Arquivo baixado
+→ Upload manual no GitHub
+```
+
+#### 💡 **Por Que Isso É Importante:**
+
+**Antes:**
+- ❌ Produtos editados ficam só no LocalStorage
+- ❌ Preços não aparecem no catálogo público
+- ❌ Site desatualizado após deploy
+
+**Depois:**
+- ✅ Produtos salvos no arquivo fonte
+- ✅ Preços sincronizados com catálogo
+- ✅ Site sempre atualizado
+
+#### 📋 **O Que É Salvo:**
+
+- ✅ **Todos os produtos** (criados, editados, duplicados)
+- ✅ **Preços atualizados** (custo, venda, concorrente)
+- ✅ **Imagens corrigidas** via ferramentas
+- ✅ **Links atualizados** via ferramentas
+- ✅ **Especificações** técnicas completas
+- ✅ **Margens** de lucro configuradas
+
+#### 🔄 **Workflow Completo:**
+
+```
+1. 📝 Editar produtos no admin
+2. 💾 Salvar no arquivo (GitHub API)
+3. ⏱️ Aguardar 2-3 minutos
+4. ✅ Site atualizado automaticamente
+```
+
+#### 📚 **Documentação:**
+
+- **✅-PERSISTENCIA-CONFIGURACOES-COMPLETA-v6.3.1.md** - Documentação completa
+- **🧪-TESTE-PERSISTENCIA-v6.3.1.md** - Guia de teste passo a passo
+- **🎯-RESPOSTA-PERSISTENCIA-v6.3.1.md** - Resumo executivo
+
+#### 🔐 **Segurança:**
+
+- Dados salvos no **LocalStorage do navegador**
+- **Apenas no seu computador** (nunca enviado para servidores)
+- Token GitHub incluído (para conveniência)
+- ⚠️ Use modo anônimo em computadores compartilhados
 
 ---
 

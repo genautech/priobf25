@@ -119,6 +119,16 @@
                     <div class="text-sm text-gray-500">Orçamento Total</div>
                     <div id="totalBudget" class="text-3xl font-bold text-purple-600">R$ 0</div>
                     <div class="text-sm text-gray-500 mt-1"><span id="totalProducts">0</span> produtos</div>
+                    
+                    <!-- NOVO: Badge Auto-Sync -->
+                    <div class="mt-3">
+                        <span id="auto-sync-badge" 
+                              onclick="toggleAutoSync()"
+                              class="px-3 py-1 bg-gray-400 text-white text-xs font-bold rounded-full cursor-pointer hover:opacity-80 transition-all inline-block">
+                            🔄 Auto-Sync: OFF
+                        </span>
+                        <p class="text-xs text-gray-500 mt-1">Clique para ativar/desativar</p>
+                    </div>
                 </div>
             </div>
         </header>
@@ -692,6 +702,38 @@
                         <button onclick="exportarCSV()" 
                                 class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-4 rounded-lg transition-all">
                             <i class="fas fa-table mr-2"></i>Exportar CSV
+                        </button>
+                    </div>
+
+                    <!-- 7B. NOVO v6.3.1: Salvar Produtos no Arquivo -->
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 border-2 border-red-300 hover:shadow-xl transition-all">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="bg-red-600 text-white p-3 rounded-lg">
+                                <i class="fas fa-save text-2xl"></i>
+                            </div>
+                            <span class="px-2 py-1 bg-red-600 text-white text-xs font-bold rounded-full animate-pulse">NOVO v6.3.1</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">💾 Salvar no Arquivo</h4>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Salvar todos os produtos atualizados no arquivo produtos-v6.1.js
+                        </p>
+                        <div class="bg-white rounded-lg p-3 mb-3 text-xs">
+                            <div class="flex items-start mb-1">
+                                <i class="fas fa-check text-green-600 mr-2 mt-0.5"></i>
+                                <span class="text-gray-700">Preços ficam permanentes</span>
+                            </div>
+                            <div class="flex items-start mb-1">
+                                <i class="fas fa-check text-green-600 mr-2 mt-0.5"></i>
+                                <span class="text-gray-700">Funciona após deploy</span>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check text-green-600 mr-2 mt-0.5"></i>
+                                <span class="text-gray-700">Sincroniza admin e catálogo</span>
+                            </div>
+                        </div>
+                        <button onclick="abrirModalSalvarProdutos()" 
+                                class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-all">
+                            <i class="fas fa-save mr-2"></i>Salvar Produtos
                         </button>
                     </div>
 
@@ -3671,6 +3713,9 @@ Arquivo disponível no projeto!
         window.onload = function() {
             if (originalInit) originalInit();
             
+            // Carregar configurações salvas (GitHub API, persistência)
+            carregarConfiguracoesAdmin();
+            
             // Renderizar novas abas
             if (typeof window.cuponsDesconto !== 'undefined') {
                 renderCupons();
@@ -3701,6 +3746,15 @@ Arquivo disponível no projeto!
                     // Atualizar interface quando dados mudarem
                     if (['create', 'update', 'delete'].includes(acao)) {
                         atualizarInterfaceCompleta();
+                        
+                        // NOVO: Disparar auto-sync no GitHub
+                        if (acao === 'create') {
+                            dispararAutoSync('criação de produto');
+                        } else if (acao === 'update') {
+                            dispararAutoSync('edição de produto');
+                        } else if (acao === 'delete') {
+                            dispararAutoSync('exclusão de produto');
+                        }
                     }
                 });
                 
@@ -4119,6 +4173,93 @@ Arquivo disponível no projeto!
         let githubConfig = null;
 
         /**
+         * Salvar configurações no localStorage
+         */
+        function salvarConfiguracoesAdmin() {
+            const config = {
+                persistenciaAtiva: persistenciaAtiva,
+                metodoAtivo: metodoAtivo,
+                githubConfig: githubConfig,
+                autoSyncAtivo: autoSyncAtivo  // NOVO: Salvar estado do auto-sync
+            };
+            
+            try {
+                localStorage.setItem('adminConfig_priobf25', JSON.stringify(config));
+                console.log('✅ Configurações salvas:', config);
+            } catch (e) {
+                console.error('❌ Erro ao salvar configurações:', e);
+            }
+        }
+        
+        /**
+         * Carregar configurações do localStorage
+         */
+        function carregarConfiguracoesAdmin() {
+            try {
+                const configSalva = localStorage.getItem('adminConfig_priobf25');
+                if (configSalva) {
+                    const config = JSON.parse(configSalva);
+                    
+                    persistenciaAtiva = config.persistenciaAtiva || false;
+                    metodoAtivo = config.metodoAtivo || null;
+                    githubConfig = config.githubConfig || null;
+                    autoSyncAtivo = config.autoSyncAtivo || false;  // NOVO: Restaurar auto-sync
+                    
+                    console.log('✅ Configurações carregadas:', config);
+                    
+                    // Reativar auto-sync se estava ativo
+                    if (autoSyncAtivo && githubConfig && githubConfig.token) {
+                        console.log('🔄 Auto-Sync GitHub reativado automaticamente');
+                        mostrarNotificacao('✅ Auto-Sync GitHub ativado! Produtos serão salvos automaticamente.', 'success');
+                        
+                        // Atualizar badge após um delay (aguardar DOM carregar)
+                        setTimeout(() => {
+                            atualizarBadgeAutoSync();
+                        }, 500);
+                    }
+                    
+                    // Reativar persistência se estava ativa
+                    if (persistenciaAtiva && metodoAtivo) {
+                        console.log(`🔄 Reativando persistência: ${metodoAtivo}`);
+                        
+                        if (window.produtoPersistencia && window.produtoCRUD) {
+                            window.produtoPersistencia.inicializar(window.produtoCRUD, {
+                                metodo: metodoAtivo,
+                                autoSave: true,
+                                autoLoad: metodoAtivo === 'localStorage',
+                                githubConfig: githubConfig
+                            });
+                            
+                            atualizarStatusPersistencia();
+                            
+                            // Marcar visualmente opção ativa
+                            setTimeout(() => {
+                                const optionEl = document.getElementById(`option-${metodoAtivo}`);
+                                if (optionEl) {
+                                    document.querySelectorAll('[id^="option-"]').forEach(el => {
+                                        el.classList.remove('border-green-500');
+                                        el.classList.add('border-gray-200');
+                                    });
+                                    
+                                    optionEl.classList.remove('border-gray-200');
+                                    optionEl.classList.add('border-green-500');
+                                }
+                            }, 100);
+                            
+                            mostrarNotificacao(`✅ Persistência ${metodoAtivo} reativada automaticamente`, 'success');
+                        }
+                    }
+                    
+                    return true;
+                }
+            } catch (e) {
+                console.error('❌ Erro ao carregar configurações:', e);
+            }
+            
+            return false;
+        }
+        
+        /**
          * Ativar persistência automática
          */
         function ativarPersistencia(metodo) {
@@ -4162,6 +4303,9 @@ Arquivo disponível no projeto!
             
             persistenciaAtiva = true;
             metodoAtivo = metodo;
+            
+            // Salvar configurações
+            salvarConfiguracoesAdmin();
             
             atualizarStatusPersistencia();
             mostrarNotificacao(`✅ Salvamento automático ativado: ${metodo}`, 'success');
@@ -4352,6 +4496,9 @@ Arquivo disponível no projeto!
                 persistenciaAtiva = true;
                 metodoAtivo = 'github';
                 
+                // Salvar configurações incluindo GitHub config
+                salvarConfiguracoesAdmin();
+                
                 atualizarStatusPersistencia();
                 mostrarNotificacao('✅ GitHub API configurado e ativado!', 'success');
                 
@@ -4363,6 +4510,25 @@ Arquivo disponível no projeto!
                 
                 document.getElementById('option-github').classList.remove('border-gray-200');
                 document.getElementById('option-github').classList.add('border-green-500');
+                
+                // NOVO: Perguntar sobre Auto-Sync
+                setTimeout(() => {
+                    const ativar = confirm(
+                        '🔄 Ativar Auto-Sync no GitHub?\n\n' +
+                        '✅ Produtos serão salvos AUTOMATICAMENTE no GitHub após:\n' +
+                        '   • Criar novo produto\n' +
+                        '   • Editar produto existente\n' +
+                        '   • Duplicar produto\n' +
+                        '   • Excluir produto\n\n' +
+                        '⚡ O arquivo produtos-v6.1.js será atualizado automaticamente\n' +
+                        '🌐 O site será atualizado em 2-3 minutos\n\n' +
+                        'Deseja ativar o Auto-Sync?'
+                    );
+                    
+                    if (ativar) {
+                        ativarAutoSync();
+                    }
+                }, 500);
             });
         }
 
@@ -4426,6 +4592,560 @@ Arquivo disponível no projeto!
         window.testarSalvamento = testarSalvamento;
 
         // ============================================
+        // NOVA FUNCIONALIDADE v6.3.1: SALVAR PREÇOS NO ARQUIVO
+        // ============================================
+        
+        /**
+         * Gerar conteúdo atualizado do arquivo produtos-v6.1.js
+         * com todos os produtos atuais (incluindo preços atualizados)
+         */
+        function gerarArquivoProdutosJS() {
+            try {
+                // Pegar todos os produtos atuais
+                const produtosAtualizados = allProducts;
+                
+                // Gerar o conteúdo do arquivo JS
+                let conteudo = `// ============================================\n`;
+                conteudo += `// ARQUIVO DE PRODUTOS - Black Friday PRIO 2025\n`;
+                conteudo += `// Atualizado automaticamente via Admin Panel\n`;
+                conteudo += `// Data: ${new Date().toLocaleString('pt-BR')}\n`;
+                conteudo += `// Total de produtos: ${produtosAtualizados.length}\n`;
+                conteudo += `// ============================================\n\n`;
+                
+                conteudo += `// Array principal de produtos\n`;
+                conteudo += `const todosOsProdutosV6 = ${JSON.stringify(produtosAtualizados, null, 2)};\n\n`;
+                
+                conteudo += `// Exportar para uso global\n`;
+                conteudo += `if (typeof window !== 'undefined') {\n`;
+                conteudo += `    window.todosOsProdutosV6 = todosOsProdutosV6;\n`;
+                conteudo += `}\n`;
+                
+                return conteudo;
+                
+            } catch (error) {
+                console.error('❌ Erro ao gerar arquivo:', error);
+                return null;
+            }
+        }
+        
+        /**
+         * Baixar arquivo produtos-v6.1.js atualizado
+         */
+        function baixarArquivoProdutosAtualizado() {
+            const conteudo = gerarArquivoProdutosJS();
+            
+            if (!conteudo) {
+                alert('❌ Erro ao gerar arquivo!');
+                return;
+            }
+            
+            // Criar blob e fazer download
+            const blob = new Blob([conteudo], { type: 'text/javascript;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'produtos-v6.1.js';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            mostrarNotificacao('✅ Arquivo produtos-v6.1.js baixado! Substitua o arquivo antigo.', 'success');
+            
+            console.log('✅ Arquivo produtos-v6.1.js gerado e baixado');
+            console.log(`📦 Total de produtos: ${allProducts.length}`);
+        }
+        
+        /**
+         * Salvar produtos no GitHub via API
+         */
+        async function salvarProdutosNoGitHub() {
+            if (!githubConfig || !githubConfig.token) {
+                alert('❌ Configure o GitHub API primeiro!\n\nVá em: Persistência → GitHub API');
+                return;
+            }
+            
+            const conteudo = gerarArquivoProdutosJS();
+            
+            if (!conteudo) {
+                alert('❌ Erro ao gerar conteúdo!');
+                return;
+            }
+            
+            try {
+                mostrarNotificacao('🔄 Salvando produtos-v6.1.js no GitHub...', 'info');
+                
+                const { token, owner, repo, branch } = githubConfig;
+                const path = 'produtos-v6.1.js';
+                
+                // 1. Buscar SHA do arquivo atual (se existir)
+                let sha = null;
+                try {
+                    const getResponse = await fetch(
+                        `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`,
+                        {
+                            headers: {
+                                'Authorization': `token ${token}`,
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
+                        }
+                    );
+                    
+                    if (getResponse.ok) {
+                        const data = await getResponse.json();
+                        sha = data.sha;
+                    }
+                } catch (e) {
+                    console.log('ℹ️ Arquivo não existe ainda, será criado');
+                }
+                
+                // 2. Criar/atualizar arquivo
+                const content = btoa(unescape(encodeURIComponent(conteudo)));
+                
+                const putResponse = await fetch(
+                    `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Atualizar produtos-v6.1.js via Admin Panel (${allProducts.length} produtos) - ${new Date().toLocaleString('pt-BR')}`,
+                            content: content,
+                            branch: branch,
+                            ...(sha && { sha: sha })
+                        })
+                    }
+                );
+                
+                if (!putResponse.ok) {
+                    const error = await putResponse.json();
+                    throw new Error(error.message || 'Erro ao salvar no GitHub');
+                }
+                
+                const result = await putResponse.json();
+                
+                mostrarNotificacao('✅ produtos-v6.1.js salvo no GitHub com sucesso!', 'success');
+                
+                console.log('✅ Arquivo salvo no GitHub:', result.content.html_url);
+                console.log(`📦 Total de produtos: ${allProducts.length}`);
+                
+                // Mostrar modal de sucesso com detalhes
+                const modal = document.createElement('div');
+                modal.className = 'modal active';
+                modal.innerHTML = `
+                    <div class="modal-content max-w-2xl mx-4">
+                        <div class="p-8">
+                            <div class="text-center mb-6">
+                                <div class="text-6xl mb-4">✅</div>
+                                <h2 class="text-3xl font-bold text-green-600 mb-2">
+                                    Arquivo Salvo no GitHub!
+                                </h2>
+                                <p class="text-gray-600">produtos-v6.1.js atualizado com sucesso</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-lg p-6 mb-6 space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="font-semibold">📦 Total de produtos:</span>
+                                    <span class="text-blue-600">${allProducts.length}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-semibold">📁 Repositório:</span>
+                                    <span class="text-blue-600">${owner}/${repo}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-semibold">🌿 Branch:</span>
+                                    <span class="text-blue-600">${branch}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-semibold">📅 Data:</span>
+                                    <span class="text-gray-600">${new Date().toLocaleString('pt-BR')}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                                <p class="text-sm text-blue-800">
+                                    <strong>ℹ️ Próximo passo:</strong><br>
+                                    O arquivo será atualizado no site automaticamente após o próximo deploy do GitHub Pages (2-3 minutos).
+                                </p>
+                            </div>
+                            
+                            <div class="flex gap-3">
+                                <a href="${result.content.html_url}" target="_blank"
+                                   class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-center transition-all">
+                                    <i class="fab fa-github mr-2"></i>Ver no GitHub
+                                </a>
+                                <button onclick="this.closest('.modal').remove()" 
+                                        class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-all">
+                                    Fechar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+            } catch (error) {
+                console.error('❌ Erro ao salvar no GitHub:', error);
+                mostrarNotificacao(`❌ Erro ao salvar no GitHub: ${error.message}`, 'error');
+                
+                alert(`❌ Erro ao salvar no GitHub!\n\n${error.message}\n\nVerifique:\n- Token tem permissão 'repo'\n- Repositório existe\n- Branch está correto`);
+            }
+        }
+        
+        // ============================================
+        // AUTO-SYNC: SALVAMENTO AUTOMÁTICO NO GITHUB
+        // ============================================
+        
+        let autoSyncAtivo = false;
+        let autoSyncPendente = false;
+        let autoSyncTimeout = null;
+        
+        /**
+         * Verificar se auto-sync está configurado
+         */
+        function verificarAutoSync() {
+            return autoSyncAtivo && githubConfig && githubConfig.token;
+        }
+        
+        /**
+         * Ativar auto-sync no GitHub
+         */
+        function ativarAutoSync() {
+            if (!githubConfig || !githubConfig.token) {
+                alert('❌ Configure o GitHub API primeiro!\n\nVá em: Persistência → GitHub API');
+                return false;
+            }
+            
+            autoSyncAtivo = true;
+            salvarConfiguracoesAdmin(); // Salvar preferência
+            
+            // Atualizar badge
+            atualizarBadgeAutoSync();
+            
+            mostrarNotificacao('✅ Auto-Sync GitHub ativado! Produtos serão salvos automaticamente.', 'success');
+            
+            console.log('✅ Auto-Sync GitHub ATIVADO');
+            console.log('📝 Produtos serão salvos automaticamente após criar/editar/duplicar');
+            
+            return true;
+        }
+        
+        /**
+         * Desativar auto-sync
+         */
+        function desativarAutoSync() {
+            autoSyncAtivo = false;
+            salvarConfiguracoesAdmin();
+            
+            // Atualizar badge
+            atualizarBadgeAutoSync();
+            
+            mostrarNotificacao('⚠️ Auto-Sync GitHub desativado', 'info');
+            console.log('⚠️ Auto-Sync GitHub DESATIVADO');
+        }
+        
+        /**
+         * Toggle auto-sync (ativar/desativar)
+         */
+        function toggleAutoSync() {
+            if (autoSyncAtivo) {
+                if (confirm('Desativar Auto-Sync no GitHub?\n\nVocê precisará salvar manualmente usando o botão "💾 Salvar no Arquivo".')) {
+                    desativarAutoSync();
+                }
+            } else {
+                if (!githubConfig || !githubConfig.token) {
+                    if (confirm('Auto-Sync requer GitHub API configurado.\n\nDeseja configurar agora?')) {
+                        abrirConfigGitHub();
+                    }
+                } else {
+                    if (confirm(
+                        '🔄 Ativar Auto-Sync no GitHub?\n\n' +
+                        '✅ Produtos serão salvos AUTOMATICAMENTE no GitHub após:\n' +
+                        '   • Criar novo produto\n' +
+                        '   • Editar produto existente\n' +
+                        '   • Duplicar produto\n' +
+                        '   • Excluir produto\n\n' +
+                        '⚡ O arquivo produtos-v6.1.js será atualizado automaticamente\n' +
+                        '🌐 O site será atualizado em 2-3 minutos\n\n' +
+                        'Deseja ativar o Auto-Sync?'
+                    )) {
+                        ativarAutoSync();
+                    }
+                }
+            }
+        }
+        
+        /**
+         * Atualizar badge visual do auto-sync
+         */
+        function atualizarBadgeAutoSync() {
+            const badge = document.getElementById('auto-sync-badge');
+            if (!badge) return;
+            
+            if (autoSyncAtivo) {
+                badge.textContent = '🔄 Auto-Sync: ON';
+                badge.className = 'px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full cursor-pointer hover:opacity-80 transition-all inline-block animate-pulse';
+            } else {
+                badge.textContent = '🔄 Auto-Sync: OFF';
+                badge.className = 'px-3 py-1 bg-gray-400 text-white text-xs font-bold rounded-full cursor-pointer hover:opacity-80 transition-all inline-block';
+            }
+        }
+        
+        /**
+         * Disparar salvamento automático (debounced)
+         */
+        function dispararAutoSync(operacao = 'edição') {
+            if (!verificarAutoSync()) {
+                console.log('ℹ️ Auto-sync não está ativo');
+                return;
+            }
+            
+            // Limpar timeout anterior
+            if (autoSyncTimeout) {
+                clearTimeout(autoSyncTimeout);
+            }
+            
+            // Marcar como pendente
+            autoSyncPendente = true;
+            
+            // Mostrar notificação visual
+            const badge = document.getElementById('auto-sync-badge');
+            if (badge) {
+                badge.textContent = '⏳ Salvando...';
+                badge.className = 'px-2 py-1 bg-yellow-500 text-white text-xs font-bold rounded-full animate-pulse';
+            }
+            
+            // Aguardar 2 segundos antes de salvar (debounce)
+            autoSyncTimeout = setTimeout(async () => {
+                console.log(`🔄 Auto-sync disparado após ${operacao}`);
+                
+                try {
+                    await salvarProdutosNoGitHubSilencioso();
+                    
+                    autoSyncPendente = false;
+                    
+                    // Atualizar badge
+                    if (badge) {
+                        badge.textContent = '✅ Sincronizado';
+                        badge.className = 'px-2 py-1 bg-green-500 text-white text-xs font-bold rounded-full';
+                        
+                        // Voltar ao normal após 3 segundos
+                        setTimeout(() => {
+                            badge.textContent = '🔄 Auto-Sync';
+                            badge.className = 'px-2 py-1 bg-blue-500 text-white text-xs font-bold rounded-full';
+                        }, 3000);
+                    }
+                    
+                    console.log(`✅ Auto-sync concluído (${operacao})`);
+                    
+                } catch (error) {
+                    console.error('❌ Erro no auto-sync:', error);
+                    
+                    if (badge) {
+                        badge.textContent = '❌ Erro';
+                        badge.className = 'px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full';
+                    }
+                }
+            }, 2000);
+        }
+        
+        /**
+         * Salvar no GitHub silenciosamente (sem modal)
+         */
+        async function salvarProdutosNoGitHubSilencioso() {
+            const conteudo = gerarArquivoProdutosJS();
+            
+            if (!conteudo) {
+                throw new Error('Erro ao gerar conteúdo');
+            }
+            
+            const { token, owner, repo, branch } = githubConfig;
+            const path = 'produtos-v6.1.js';
+            
+            // 1. Buscar SHA do arquivo atual
+            let sha = null;
+            try {
+                const getResponse = await fetch(
+                    `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`,
+                    {
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    }
+                );
+                
+                if (getResponse.ok) {
+                    const data = await getResponse.json();
+                    sha = data.sha;
+                }
+            } catch (e) {
+                console.log('ℹ️ Arquivo não existe, será criado');
+            }
+            
+            // 2. Criar/atualizar arquivo
+            const content = btoa(unescape(encodeURIComponent(conteudo)));
+            
+            const putResponse = await fetch(
+                `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `[Auto-Sync] Atualizar produtos (${allProducts.length}) - ${new Date().toLocaleString('pt-BR')}`,
+                        content: content,
+                        branch: branch,
+                        ...(sha && { sha: sha })
+                    })
+                }
+            );
+            
+            if (!putResponse.ok) {
+                const error = await putResponse.json();
+                throw new Error(error.message || 'Erro ao salvar no GitHub');
+            }
+            
+            const result = await putResponse.json();
+            return result;
+        }
+        
+        /**
+         * Abrir modal com opções de salvamento
+         */
+        function abrirModalSalvarProdutos() {
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content max-w-2xl mx-4">
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-800">
+                                    <i class="fas fa-save mr-2"></i>
+                                    Salvar Produtos no Arquivo
+                                </h2>
+                                <p class="text-gray-600 mt-2">
+                                    Atualizar produtos-v6.1.js com todos os dados atuais
+                                </p>
+                            </div>
+                            <button onclick="this.closest('.modal').remove()" class="text-gray-400 hover:text-gray-600 text-2xl">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                            <p class="text-sm text-blue-800">
+                                <strong>💡 Por que salvar no arquivo?</strong><br>
+                                • Preços e dados ficam permanentes<br>
+                                • Funciona após deploy (site publicado)<br>
+                                • Backup dos dados atualizados<br>
+                                • Sincronização entre admin e catálogo
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <!-- Opção 1: GitHub API -->
+                            <div class="border-2 ${githubConfig && githubConfig.token ? 'border-green-500 bg-green-50' : 'border-gray-200 bg-white'} rounded-lg p-6 hover:shadow-lg transition-all cursor-pointer"
+                                 onclick="this.closest('.modal').remove(); salvarProdutosNoGitHub();">
+                                <div class="flex items-start">
+                                    <div class="text-4xl mr-4">
+                                        <i class="fab fa-github ${githubConfig && githubConfig.token ? 'text-green-600' : 'text-gray-400'}"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-lg font-bold text-gray-800 mb-2">
+                                            GitHub API (Recomendado)
+                                            ${githubConfig && githubConfig.token ? '<span class="text-green-600 text-sm ml-2">✓ Configurado</span>' : ''}
+                                        </h3>
+                                        <p class="text-sm text-gray-600 mb-3">
+                                            Salva diretamente no repositório via API. Atualização automática no site após 2-3 minutos.
+                                        </p>
+                                        <div class="text-xs space-y-1">
+                                            <div class="flex items-center text-green-600">
+                                                <i class="fas fa-check mr-2"></i>
+                                                <span>Mais rápido e automático</span>
+                                            </div>
+                                            <div class="flex items-center text-green-600">
+                                                <i class="fas fa-check mr-2"></i>
+                                                <span>Atualiza site automaticamente</span>
+                                            </div>
+                                            <div class="flex items-center text-green-600">
+                                                <i class="fas fa-check mr-2"></i>
+                                                <span>Sem necessidade de upload manual</span>
+                                            </div>
+                                        </div>
+                                        ${!githubConfig || !githubConfig.token ? `
+                                        <div class="mt-3 text-xs text-orange-600">
+                                            ⚠️ Configure GitHub API primeiro em: Persistência → GitHub API
+                                        </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Opção 2: Download -->
+                            <div class="border-2 border-gray-200 bg-white rounded-lg p-6 hover:shadow-lg transition-all cursor-pointer"
+                                 onclick="this.closest('.modal').remove(); baixarArquivoProdutosAtualizado();">
+                                <div class="flex items-start">
+                                    <div class="text-4xl mr-4">
+                                        <i class="fas fa-download text-blue-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-lg font-bold text-gray-800 mb-2">
+                                            Download Manual
+                                        </h3>
+                                        <p class="text-sm text-gray-600 mb-3">
+                                            Baixa o arquivo e você faz upload manual no GitHub ou servidor.
+                                        </p>
+                                        <div class="text-xs space-y-1">
+                                            <div class="flex items-center text-blue-600">
+                                                <i class="fas fa-check mr-2"></i>
+                                                <span>Controle total do processo</span>
+                                            </div>
+                                            <div class="flex items-center text-blue-600">
+                                                <i class="fas fa-check mr-2"></i>
+                                                <span>Backup local garantido</span>
+                                            </div>
+                                            <div class="flex items-center text-orange-600">
+                                                <i class="fas fa-exclamation mr-2"></i>
+                                                <span>Requer upload manual depois</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <p class="text-sm text-gray-600">
+                                <strong>📊 Estatísticas atuais:</strong><br>
+                                • <strong>${allProducts.length}</strong> produtos no total<br>
+                                • <strong>${allProducts.filter(p => p.precoConcorrente).length}</strong> produtos com preço concorrente<br>
+                                • Última atualização: ${new Date().toLocaleString('pt-BR')}
+                            </p>
+                        </div>
+                        
+                        <div class="mt-6 flex gap-3">
+                            <button onclick="this.closest('.modal').remove()" 
+                                    class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-all">
+                                <i class="fas fa-times mr-2"></i>Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        // ============================================
         // EXPOR FUNÇÕES DE FERRAMENTAS PARA ESCOPO GLOBAL
         // ============================================
         window.exportarTemplate = exportarTemplate;
@@ -4470,6 +5190,17 @@ Arquivo disponível no projeto!
         window.copiarCodigo = copiarCodigo;
         window.filterComparativo = filterComparativo;
         window.mostrarAlternativas = mostrarAlternativas;
+        window.salvarConfiguracoesAdmin = salvarConfiguracoesAdmin;
+        window.carregarConfiguracoesAdmin = carregarConfiguracoesAdmin;
+        window.gerarArquivoProdutosJS = gerarArquivoProdutosJS;
+        window.baixarArquivoProdutosAtualizado = baixarArquivoProdutosAtualizado;
+        window.salvarProdutosNoGitHub = salvarProdutosNoGitHub;
+        window.abrirModalSalvarProdutos = abrirModalSalvarProdutos;
+        window.ativarAutoSync = ativarAutoSync;
+        window.desativarAutoSync = desativarAutoSync;
+        window.toggleAutoSync = toggleAutoSync;
+        window.verificarAutoSync = verificarAutoSync;
+        window.dispararAutoSync = dispararAutoSync;
 
     </script>
 </body>
