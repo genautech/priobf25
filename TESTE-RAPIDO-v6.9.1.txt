@@ -1,0 +1,217 @@
+════════════════════════════════════════════════════════════
+  🧪 TESTE RÁPIDO - v6.9.1 (CORREÇÃO)
+════════════════════════════════════════════════════════════
+
+🐛 BUG CORRIGIDO: Re-sincronização de Preços
+
+📅 Data: 2025-10-21
+⏱️ Tempo de teste: 2 minutos
+
+════════════════════════════════════════════════════════════
+
+✅ TESTE EM 5 PASSOS:
+
+════════════════════════════════════════════════════════════
+
+PASSO 1: ABRIR CONSOLE
+────────────────────────────────────────────────────────────
+1. Abra admin-v6.9.html no navegador
+2. Pressione F12 (abrir console)
+3. Mantenha o console aberto durante o teste
+
+PASSO 2: ACESSAR FERRAMENTA
+────────────────────────────────────────────────────────────
+1. Clique na aba "Ferramentas"
+2. Role até o card "Re-sincronizar Preços" (verde)
+3. Clique no botão "Re-sincronizar Preços"
+4. Modal deve abrir com lista de produtos
+
+PASSO 3: SELECIONAR PRODUTO
+────────────────────────────────────────────────────────────
+1. Marque o checkbox de 1 produto (qualquer um)
+2. Digite um novo valor no campo "Novo Custo Base"
+   Exemplo: 150.00
+3. OU digite no campo "Novo Preço Mercado"
+   Exemplo: 200.00
+4. OU preencha ambos
+
+PASSO 4: APLICAR E VERIFICAR LOGS
+────────────────────────────────────────────────────────────
+1. Clique em "Aplicar Atualizações"
+2. Confirme a ação
+3. OBSERVE O CONSOLE (IMPORTANTE!)
+   
+   Você deve ver logs assim:
+   ✅ 🔄 Atualizando produto: [nome do produto]
+   ✅   → Novo Custo Base: [valor]
+   ✅   → Chamando atualizarProduto com: {...}
+   ✅   ✅ Produto atualizado com sucesso!
+   ✅ 📊 Resultado final:
+   ✅   ✅ Sucessos: 1
+   ✅   ❌ Erros: 0
+
+4. Notificação verde deve aparecer:
+   "✅ 1 produto(s) atualizado(s) com sucesso!"
+
+PASSO 5: CONFIRMAR ATUALIZAÇÃO
+────────────────────────────────────────────────────────────
+1. Vá para a aba "Dashboard"
+2. Procure o produto que você atualizou
+3. Verifique se o preço mudou
+4. ✅ Se mudou: TESTE PASSOU!
+   ❌ Se não mudou: Veja seção de problemas abaixo
+
+════════════════════════════════════════════════════════════
+
+🔍 O QUE VERIFICAR NO CONSOLE:
+
+════════════════════════════════════════════════════════════
+
+LOGS ESPERADOS (SUCESSO):
+──────────────────────────────────────────────────────────
+🔄 Atualizando produto: Echo Dot 5ª Geração
+  → Novo Custo Base: 150
+  → Chamando atualizarProduto com: {custoBase: 150}
+  ✅ Produto atualizado com sucesso!
+📊 Resultado final:
+  ✅ Sucessos: 1
+  ❌ Erros: 0
+🔄 Atualizando interface completa...
+
+RESULTADO: ✅ PASSOU!
+
+LOGS DE ERRO (PROBLEMA):
+──────────────────────────────────────────────────────────
+❌ Produto não encontrado: 1001
+  ❌ Erro ao atualizar: [mensagem]
+
+RESULTADO: ❌ FALHOU - Veja seção de problemas
+
+════════════════════════════════════════════════════════════
+
+❓ PROBLEMAS POSSÍVEIS:
+
+════════════════════════════════════════════════════════════
+
+PROBLEMA 1: Erro "Produto não encontrado"
+─────────────────────────────────────────
+CAUSA: Produto não existe no sistema
+SOLUÇÃO: 
+  1. Recarregue a página (F5)
+  2. Tente com outro produto
+  3. Verifique Dashboard se produto existe
+
+PROBLEMA 2: Erro "window.produtoCRUD is undefined"
+──────────────────────────────────────────────────
+CAUSA: CRUD não foi inicializado
+SOLUÇÃO:
+  1. Recarregue a página (Ctrl+F5)
+  2. Aguarde carregar completamente
+  3. Verifique se não há erros no console ao carregar
+
+PROBLEMA 3: Modal não abre
+───────────────────────────
+CAUSA: Nenhum produto com link cadastrado
+SOLUÇÃO:
+  1. Isso é normal se produtos não têm links
+  2. Mensagem deve aparecer: "Nenhum produto com link..."
+  3. Cadastre links para produtos primeiro
+
+PROBLEMA 4: Preço não muda
+──────────────────────────
+CAUSA: Deixou campos vazios
+SOLUÇÃO:
+  1. Certifique-se de digitar valores nos campos
+  2. Não deixe campos vazios se o checkbox está marcado
+  3. Digite pelo menos um dos valores (Custo ou Preço)
+
+════════════════════════════════════════════════════════════
+
+✅ TESTE ADICIONAL: MÚLTIPLOS PRODUTOS
+
+════════════════════════════════════════════════════════════
+
+1. Selecione 3 produtos
+2. Digite valores diferentes para cada um:
+   Produto 1: Custo Base = 100
+   Produto 2: Preço Mercado = 200
+   Produto 3: Ambos (Custo = 150, Preço = 250)
+3. Clique "Aplicar Atualizações"
+4. Verifique console:
+   Deve mostrar 3 atualizações bem-sucedidas
+5. Confira Dashboard: todos 3 devem estar atualizados
+
+RESULTADO ESPERADO:
+📊 Resultado final:
+  ✅ Sucessos: 3
+  ❌ Erros: 0
+
+════════════════════════════════════════════════════════════
+
+📋 CHECKLIST DE TESTE:
+
+════════════════════════════════════════════════════════════
+
+[ ] Abri o console (F12)
+[ ] Acessei Ferramentas → Re-sincronizar Preços
+[ ] Modal abriu com produtos
+[ ] Selecionei 1 produto
+[ ] Digitei novo valor no campo
+[ ] Cliquei "Aplicar Atualizações"
+[ ] Confirmei a ação
+[ ] Vi logs no console mostrando sucesso
+[ ] Notificação verde apareceu
+[ ] Fui no Dashboard confirmar
+[ ] Preço do produto mudou ✅
+
+SE TODOS MARCADOS: ✅ TESTE PASSOU!
+
+════════════════════════════════════════════════════════════
+
+🎯 RESULTADO ESPERADO:
+
+════════════════════════════════════════════════════════════
+
+CONSOLE:
+✅ Logs detalhados mostrando cada etapa
+✅ Nenhum erro em vermelho
+✅ Mensagem "Produto atualizado com sucesso!"
+✅ Contador: Sucessos: X, Erros: 0
+
+INTERFACE:
+✅ Notificação verde de sucesso
+✅ Modal fecha automaticamente
+✅ Dashboard mostra novos preços
+✅ Histórico de Atualizações registra a mudança
+
+════════════════════════════════════════════════════════════
+
+📞 SE O TESTE FALHAR:
+
+════════════════════════════════════════════════════════════
+
+1. Copie os logs de erro do console
+2. Tire screenshot da tela
+3. Anote qual passo falhou
+4. Consulte CORRECAO-v6.9.1.md para mais detalhes
+
+════════════════════════════════════════════════════════════
+
+🎉 TESTE PASSOU? PRÓXIMOS PASSOS:
+
+════════════════════════════════════════════════════════════
+
+1. ✅ Teste com mais produtos
+2. ✅ Teste só Custo Base
+3. ✅ Teste só Preço Mercado
+4. ✅ Teste ambos campos
+5. ✅ Verifique sincronização com GitHub (se ativa)
+6. ✅ Pronto para usar em produção!
+
+════════════════════════════════════════════════════════════
+
+ARQUIVO: admin-v6.9.html
+VERSÃO: 6.9.1 (Bug Fix)
+STATUS: ✅ CORRIGIDO E PRONTO PARA TESTE
+
+════════════════════════════════════════════════════════════

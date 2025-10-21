@@ -1,0 +1,196 @@
+═══════════════════════════════════════════════════════════════════
+🔧 RESOLVER ERRO: Authentication failed
+═══════════════════════════════════════════════════════════════════
+
+ERRO:
+remote: Invalid username or token. Password authentication is not 
+supported for Git operations.
+fatal: Authentication failed for 'https://github.com/genautech/priobf25.git/'
+
+CAUSA:
+GitHub não aceita mais senha, precisa usar Personal Access Token (PAT)
+
+───────────────────────────────────────────────────────────────────
+✅ SOLUÇÃO 1: CRIAR NOVO TOKEN (RECOMENDADO)
+───────────────────────────────────────────────────────────────────
+
+PASSO 1: Criar Personal Access Token
+
+1. Abrir: https://github.com/settings/tokens
+
+2. Clicar em "Generate new token" → "Generate new token (classic)"
+
+3. Configurar:
+   Nome: "priobf25-deploy"
+   Expiração: 90 days (ou No expiration)
+   
+4. Marcar APENAS estes scopes:
+   ✅ repo (todos os sub-itens)
+   
+5. Clicar em "Generate token"
+
+6. COPIAR O TOKEN (guarde em local seguro!)
+   Exemplo: ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+───────────────────────────────────────────────────────────────────
+PASSO 2: Configurar o Token no Mac
+───────────────────────────────────────────────────────────────────
+
+OPÇÃO A: Atualizar credencial no Keychain (Mac)
+
+1. Abrir "Keychain Access" (Acesso ao Chaveiro)
+   Spotlight → digite "Keychain Access"
+
+2. Buscar por "github.com"
+
+3. Deletar todas as entradas antigas do GitHub
+
+4. Tentar push novamente:
+   git push origin main
+   
+5. Quando pedir credenciais:
+   Username: genautech
+   Password: [COLAR O TOKEN AQUI]
+
+───────────────────────────────────────────────────────────────────
+OPÇÃO B: Usar SSH em vez de HTTPS (mais seguro)
+───────────────────────────────────────────────────────────────────
+
+1. Verificar se já tem SSH key:
+   ls -al ~/.ssh
+   
+2. Se não tiver, criar nova:
+   ssh-keygen -t ed25519 -C "seu-email@example.com"
+   (Pressionar Enter em tudo)
+   
+3. Copiar a chave pública:
+   cat ~/.ssh/id_ed25519.pub | pbcopy
+   
+4. Adicionar no GitHub:
+   https://github.com/settings/keys
+   → New SSH key
+   → Colar a chave
+   → Add SSH key
+   
+5. Mudar remote para SSH:
+   git remote set-url origin git@github.com:genautech/priobf25.git
+   
+6. Testar:
+   git push origin main
+
+───────────────────────────────────────────────────────────────────
+✅ SOLUÇÃO 2: USAR GITHUB DESKTOP (MAIS FÁCIL)
+───────────────────────────────────────────────────────────────────
+
+1. Baixar GitHub Desktop:
+   https://desktop.github.com/
+   
+2. Instalar e fazer login
+
+3. Abrir repositório:
+   File → Add Local Repository
+   → Selecionar pasta "priobf25"
+   
+4. Fazer commit e push pela interface gráfica
+   (Muito mais fácil!)
+
+───────────────────────────────────────────────────────────────────
+✅ SOLUÇÃO 3: USAR TOKEN DIRETO NA URL (TEMPORÁRIO)
+───────────────────────────────────────────────────────────────────
+
+⚠️ NÃO RECOMENDADO (menos seguro)
+
+git remote set-url origin https://SEU_TOKEN@github.com/genautech/priobf25.git
+
+Substitua SEU_TOKEN pelo token que você criou.
+
+Depois fazer:
+git push origin main
+
+───────────────────────────────────────────────────────────────────
+🎯 SOLUÇÃO RÁPIDA RECOMENDADA (PASSO A PASSO)
+───────────────────────────────────────────────────────────────────
+
+1️⃣ CRIAR TOKEN:
+   https://github.com/settings/tokens
+   → Generate new token (classic)
+   → Marcar "repo"
+   → Generate token
+   → COPIAR O TOKEN
+
+2️⃣ LIMPAR KEYCHAIN:
+   • Abrir "Acesso ao Chaveiro"
+   • Buscar "github.com"
+   • Deletar entradas antigas
+
+3️⃣ TENTAR PUSH:
+   git push origin main
+   
+4️⃣ QUANDO PEDIR:
+   Username: genautech
+   Password: [COLAR O TOKEN]
+
+5️⃣ PRONTO!
+   O Mac vai salvar e não vai pedir mais
+
+───────────────────────────────────────────────────────────────────
+🔍 VERIFICAR SE DEU CERTO
+───────────────────────────────────────────────────────────────────
+
+Deve aparecer algo assim:
+
+Enumerating objects: 25, done.
+Counting objects: 100% (25/25), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (20/20), done.
+Writing objects: 100% (20/20), 150.45 KiB | 15.04 MiB/s, done.
+Total 20 (delta 12), reused 0 (delta 0)
+remote: Resolving deltas: 100% (12/12), completed with 3 local objects.
+To https://github.com/genautech/priobf25.git
+   abc1234..def5678  main -> main
+
+✅ SUCESSO!
+
+───────────────────────────────────────────────────────────────────
+🆘 SE AINDA DER ERRO
+───────────────────────────────────────────────────────────────────
+
+ERRO: "failed to erase: -25244"
+Esse é erro do keychain do Mac.
+
+SOLUÇÃO:
+1. Abrir Terminal
+2. Executar:
+   git credential-osxkeychain erase
+   host=github.com
+   protocol=https
+   [Pressionar Enter duas vezes]
+   
+3. Tentar push novamente
+
+───────────────────────────────────────────────────────────────────
+📱 CONTATOS ÚTEIS
+───────────────────────────────────────────────────────────────────
+
+GitHub Token: https://github.com/settings/tokens
+GitHub SSH Keys: https://github.com/settings/keys
+GitHub Desktop: https://desktop.github.com/
+
+───────────────────────────────────────────────────────────────────
+💡 RECOMENDAÇÃO
+───────────────────────────────────────────────────────────────────
+
+Para Mac, a forma MAIS FÁCIL é:
+
+1. Usar GitHub Desktop (interface gráfica)
+   OU
+2. Configurar SSH (uma vez só, mais seguro)
+
+Ambas evitam problemas com tokens e keychain.
+
+═══════════════════════════════════════════════════════════════════
+
+🎯 PRÓXIMO PASSO:
+
+Escolha uma das soluções acima e me avise qual você quer usar!
+Posso te ajudar passo a passo. 😊

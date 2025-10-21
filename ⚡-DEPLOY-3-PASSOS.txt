@@ -1,0 +1,156 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                    ⚡ DEPLOY EM 3 PASSOS SIMPLES ⚡                         ║
+║                                                                              ║
+║                     SEM COMANDOS | SEM GIT | SEM ERROS                       ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                                                                            ┃
+┃  PASSO 1:  Clique na aba "PUBLISH" 👆                                     ┃
+┃            (fica no topo desta interface, ao lado de "Project")            ┃
+┃                                                                            ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+                                     ⬇️
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                                                                            ┃
+┃  PASSO 2:  Clique no botão "PUBLISH PROJECT" 🚀                           ┃
+┃            (botão grande, geralmente verde ou azul)                        ┃
+┃                                                                            ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+                                     ⬇️
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                                                                            ┃
+┃  PASSO 3:  Aguarde 5 minutos ⏱️                                            ┃
+┃            (tome um café enquanto faz o upload e build)                    ┃
+┃                                                                            ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+                                     ⬇️
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                                                                            ┃
+┃  ✅ PRONTO! Acesse seu site:                                               ┃
+┃                                                                            ┃
+┃  🌐 https://priobf25.pages.dev                                             ┃
+┃  👨‍💼 https://priobf25.pages.dev/admin (v6.10.0)                             ┃
+┃  🛍️ https://priobf25.pages.dev/cliente (v6.3.5)                            ┃
+┃                                                                            ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+⏱️  TEMPO TOTAL: 5 minutos (a maioria é espera)
+📦 ARQUIVOS: Todos enviados automaticamente
+🔐 SEGURANÇA: Sem expor tokens ou keys
+✅ GARANTIA: Método 100% funcional
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+
+🎯 O QUE VOCÊ VAI VER APÓS O DEPLOY:
+
+
+ADMIN (v6.10.0):
+┌──────────────────────────────────────────────────────────────┐
+│ ABA SUGESTÕES & INOVAÇÕES 2025:                             │
+│                                                              │
+│  [🔵 Total: 142]  [🟢 Novos: 27]  [🟠 R$ 45.230]  [🟣 R$ 12.480] │
+│                                                              │
+│  [Lista de produtos...]                                     │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│ ABA FERRAMENTAS:                                             │
+│                                                              │
+│  Apenas 6 ferramentas (em vez de 11)                        │
+│  Layout limpo e organizado em 2 colunas                     │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│ EXPORTAR CSV:                                                │
+│                                                              │
+│  23 colunas (em vez de 13)                                  │
+│  Análise financeira completa                                │
+│  Compatível com Excel (acentos corretos)                    │
+└──────────────────────────────────────────────────────────────┘
+
+
+CLIENTE (v6.3.5):
+┌──────────────────────────────────────────────────────────────┐
+│ HEADER (topo da página):                                     │
+│                                                              │
+│  🏷️ Black Friday Prio 2025                                  │
+│     └─ Texto com gradiente: AMARELO → LARANJA → VERMELHO    │
+│                                                              │
+│  Catálogo de produtos a serem ativados                      │
+│     └─ Texto menor e discreto                               │
+└──────────────────────────────────────────────────────────────┘
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+
+⚠️  SE NÃO VIR AS MUDANÇAS:
+
+Faça "hard refresh" no navegador:
+  • Windows/Linux: Ctrl + Shift + R
+  • Mac: Cmd + Shift + R
+
+Isso limpa o cache e força recarregar tudo novo! ✅
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+
+📋 CHECKLIST RÁPIDO (30 segundos):
+
+[ ] Acesse: https://priobf25.pages.dev/admin
+[ ] Clique: aba "Sugestões & Inovações 2025"
+[ ] Veja: 4 cards coloridos no topo
+[ ] Clique: aba "Ferramentas"
+[ ] Conte: apenas 6 cards (em vez de 11)
+
+[ ] Acesse: https://priobf25.pages.dev/cliente
+[ ] Veja: "Black Friday Prio 2025" (colorido) no topo
+[ ] Veja: "Catálogo de produtos..." (menor) abaixo
+
+✅ Tudo OK? DEPLOY COMPLETO! 🎉
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+
+🆘 PRECISA DE AJUDA?
+
+Leia o guia completo: 🚀-DEPLOY-FACIL-v6.10-v6.3.5.txt
+
+Contém:
+  • Troubleshooting detalhado
+  • Como testar cada funcionalidade
+  • Soluções para problemas comuns
+  • FAQ completo
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                        É ISSO! APENAS 3 PASSOS! ⚡                           ║
+║                                                                              ║
+║                    1. Clique PUBLISH                                         ║
+║                    2. Clique PUBLISH PROJECT                                 ║
+║                    3. Aguarde 5 minutos                                      ║
+║                                                                              ║
+║                         ✅ DEPLOY COMPLETO! ✅                               ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝

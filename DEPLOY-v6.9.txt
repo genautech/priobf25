@@ -1,0 +1,183 @@
+════════════════════════════════════════════════════════════
+  🚀 COMANDOS GIT PARA DEPLOY - v6.9.0
+════════════════════════════════════════════════════════════
+
+📅 Data: 2025-10-21
+🎯 Versão: 6.9.0
+✨ Novas funcionalidades: Re-sincronização de Preços + Re-inserção
+
+════════════════════════════════════════════════════════════
+
+📋 COPIE E COLE ESTES COMANDOS NO TERMINAL/CMD:
+
+════════════════════════════════════════════════════════════
+
+# Adicionar arquivos novos e modificados
+git add admin-v6.9.html
+git add index.html
+git add README.md
+git add NOVAS-FUNCIONALIDADES-v6.9.md
+git add GUIA-RAPIDO-v6.9.md
+git add RESUMO-v6.9.txt
+git add 👉-LEIA-PRIMEIRO-v6.9.txt
+git add DEPLOY-v6.9.sh
+git add DEPLOY-v6.9.txt
+
+# Criar commit com mensagem descritiva
+git commit -m "🚀 Release v6.9.0 - Re-sincronização de Preços + Re-inserção de Produtos
+
+Novas Funcionalidades:
+- Re-sincronização de Preços (atualização em lote)
+- Re-inserção de Produtos Obsoletos (recuperação de dados)
+
+Arquivos:
+- admin-v6.9.html (NOVO)
+- index.html (ATUALIZADO)
+- README.md (ATUALIZADO)
+- Documentação completa (4 novos arquivos)
+
+Status: PRONTO PARA PRODUÇÃO"
+
+# Enviar para o GitHub
+git push origin main
+
+════════════════════════════════════════════════════════════
+
+✅ DEPLOY EM 3 PASSOS:
+
+PASSO 1: ADICIONAR ARQUIVOS
+─────────────────────────────────────────────────────────────
+git add admin-v6.9.html index.html README.md NOVAS-FUNCIONALIDADES-v6.9.md GUIA-RAPIDO-v6.9.md RESUMO-v6.9.txt 👉-LEIA-PRIMEIRO-v6.9.txt DEPLOY-v6.9.sh DEPLOY-v6.9.txt
+
+PASSO 2: CRIAR COMMIT
+─────────────────────────────────────────────────────────────
+git commit -m "🚀 v6.9.0 - Re-sincronização + Re-inserção"
+
+PASSO 3: ENVIAR PARA GITHUB
+─────────────────────────────────────────────────────────────
+git push origin main
+
+════════════════════════════════════════════════════════════
+
+🔍 VERIFICAR STATUS ANTES:
+─────────────────────────────────────────────────────────────
+git status
+
+📊 VER ÚLTIMOS COMMITS:
+─────────────────────────────────────────────────────────────
+git log --oneline -5
+
+🌐 VERIFICAR REMOTE:
+─────────────────────────────────────────────────────────────
+git remote -v
+
+════════════════════════════════════════════════════════════
+
+⚠️ EM CASO DE ERRO:
+
+ERRO: "Changes not staged for commit"
+SOLUÇÃO: Execute git add novamente
+
+ERRO: "Nothing to commit"
+SOLUÇÃO: Verifique se os arquivos foram modificados
+
+ERRO: "Permission denied"
+SOLUÇÃO: Verifique suas credenciais do GitHub
+
+ERRO: "Rejected - non-fast-forward"
+SOLUÇÃO: git pull origin main --rebase
+         depois: git push origin main
+
+════════════════════════════════════════════════════════════
+
+📍 APÓS O DEPLOY:
+
+1. ✅ Aguarde deploy automático do Cloudflare Pages (2-3 min)
+2. ✅ Acesse: https://priobf25.pages.dev
+3. ✅ Teste as novas funcionalidades:
+   • Re-sincronização: Ferramentas → Card verde
+   • Re-inserção: Dashboard → Histórico → Re-sincronizar
+
+════════════════════════════════════════════════════════════
+
+📚 DOCUMENTAÇÃO CRIADA:
+
+1. 👉-LEIA-PRIMEIRO-v6.9.txt    (COMECE AQUI)
+2. GUIA-RAPIDO-v6.9.md          (Tutorial)
+3. NOVAS-FUNCIONALIDADES-v6.9.md (Técnico)
+4. RESUMO-v6.9.txt              (Completo)
+5. DEPLOY-v6.9.sh               (Script Linux/Mac)
+6. DEPLOY-v6.9.txt              (Este arquivo)
+
+════════════════════════════════════════════════════════════
+
+🎯 ARQUIVOS PRINCIPAIS:
+
+NOVOS:
+✅ admin-v6.9.html              (Interface principal)
+✅ NOVAS-FUNCIONALIDADES-v6.9.md
+✅ GUIA-RAPIDO-v6.9.md
+✅ RESUMO-v6.9.txt
+✅ 👉-LEIA-PRIMEIRO-v6.9.txt
+✅ DEPLOY-v6.9.sh
+✅ DEPLOY-v6.9.txt
+
+MODIFICADOS:
+✅ index.html                   (Redirecionamento atualizado)
+✅ README.md                    (Versão 6.9.0)
+
+INALTERADOS (funcionam normalmente):
+✅ produtos-v6.1.js
+✅ produto-crud-sync.js
+✅ produto-persistencia-local.js
+✅ github-sync-worker.js
+✅ auto-sync-worker.js
+✅ cliente-analise-v6.3.4.html
+
+════════════════════════════════════════════════════════════
+
+💡 DICAS:
+
+• Use GitBash no Windows para executar .sh
+• Use CMD/PowerShell para comandos individuais
+• Sempre verifique git status antes de commitar
+• Mensagens de commit devem ser descritivas
+• Faça backup antes de grandes atualizações
+
+════════════════════════════════════════════════════════════
+
+🆘 COMANDOS ÚTEIS:
+
+# Ver diferenças antes de commitar
+git diff
+
+# Ver arquivos modificados
+git status --short
+
+# Desfazer último commit (mantém arquivos)
+git reset --soft HEAD~1
+
+# Ver histórico visual
+git log --oneline --graph
+
+# Verificar branch atual
+git branch
+
+════════════════════════════════════════════════════════════
+
+🎉 TUDO PRONTO!
+
+A versão 6.9.0 está completa e pronta para deploy.
+
+Novas funcionalidades implementadas:
+✅ Re-sincronização de Preços 💰
+✅ Re-inserção de Produtos Obsoletos 🔄
+
+Execute os comandos acima e sua atualização estará no ar!
+
+════════════════════════════════════════════════════════════
+
+   Sistema Black Friday PRIO 2025 v6.9.0
+   Desenvolvido com ❤️ para maximizar resultados
+
+════════════════════════════════════════════════════════════

@@ -5,18 +5,18 @@
 / /index.html 200
 
 # Redirect admin sem extensão
-/admin /admin-v6.6.html 200
+/admin /admin-v6.7.1.html 200
 
 # Redirect cliente sem extensão  
-/cliente /cliente-analise-v6.1.html 200
+/cliente /cliente-analise-v6.3.5.html 200
 
 # Redirect catalogo sem extensão (mesmo que cliente)
-/catalogo /cliente-analise-v6.1.html 200
+/catalogo /cliente-analise-v6.3.5.html 200
 
 # Atalhos úteis
-/painel /admin-v6.6.html 200
-/dashboard /admin-v6.6.html 200
-/produtos /cliente-analise-v6.1.html 200
+/painel /admin-v6.7.1.html 200
+/dashboard /admin-v6.7.1.html 200
+/produtos /cliente-analise-v6.3.5.html 200
 
 # 404 personalizado (futuro)
 # /* /404.html 404

@@ -1,0 +1,61 @@
+⚡ RESUMO RÁPIDO - v6.7.1
+========================
+
+✅ TODAS AS CORREÇÕES IMPLEMENTADAS!
+
+
+🎯 O QUE FOI CORRIGIDO:
+=======================
+
+1. ✅ Análise Comparativa
+   → Botões "Ver" e "Editar" funcionando
+   → Ações completas na última coluna
+
+2. ✅ Dashboard - Edição
+   → Botão "Editar" direto no dashboard
+   → Modal não fecha mais ao editar
+   → 2 formas de editar: direta ou via visualização
+
+3. ✅ Histórico - Re-sincronização
+   → Novo botão "Re-sincronizar"
+   → Verifica produtos removidos
+   → Limpa entradas obsoletas
+
+4. ✅ Status de Produtos
+   → Badges de visibilidade
+   → Verde = visível, Vermelho = removido
+   → Atualização automática
+
+
+🧪 TESTE RÁPIDO (3 minutos):
+=============================
+
+1. ANÁLISE COMPARATIVA:
+   Aba → Coluna "Ações" → Clique azul/roxo → Funciona ✅
+
+2. DASHBOARD:
+   Produto → Botão roxo → Modal CRUD abre ✅
+
+3. HISTÓRICO:
+   Widget → "Re-sincronizar" → Status OK ✅
+
+4. STATUS:
+   Histórico → Veja badges verde/vermelho ✅
+
+
+📂 ARQUIVOS:
+============
+
+✅ admin-v6.7.1.html (USE ESTE)
+✅ _redirects (atualizado)
+✅ index.html (atualizado)
+
+
+🚀 ACESSO:
+==========
+
+URL: /admin ou admin-v6.7.1.html
+
+
+---
+v6.7.1 | 2025-10-21 | 100% OK ✅

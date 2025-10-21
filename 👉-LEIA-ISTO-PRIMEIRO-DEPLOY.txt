@@ -1,0 +1,133 @@
+# ═══════════════════════════════════════════════════════════════════════
+# 👉 LEIA ISTO PRIMEIRO - DEPLOY v6.6.1 + v6.3.3
+# ═══════════════════════════════════════════════════════════════════════
+
+## 🎯 RESUMO ULTRA-RÁPIDO
+
+✅ Sistema verificado e pronto para deploy
+✅ Todos os arquivos atualizados
+✅ Redirects configurados corretamente
+✅ Dependências verificadas
+✅ README.md atualizado
+
+
+## ⚠️ CONFIGURAÇÃO OBRIGATÓRIA
+
+🔴 **ANTES DE FAZER DEPLOY:**
+
+Configure o número do WhatsApp:
+
+1. Abrir: `cliente-analise-v6.3.3.html`
+2. Buscar: `const numeroWhatsApp = '5541999999999';` (linha ~1215)
+3. Substituir pelo número real (formato: 55 + DDD + número)
+4. Exemplos:
+   - São Paulo: `5511987654321`
+   - Rio: `5521987654321`
+   - Curitiba: `5541987654321`
+5. Salvar o arquivo
+
+
+## 🚀 COMO FAZER DEPLOY
+
+### Opção 1: Copiar e Colar (Mais Rápido)
+
+```bash
+git add index.html admin-v6.6.html cliente-analise-v6.3.3.html _redirects README.md && git commit -m "Deploy v6.6.1 + v6.3.3" && git push origin main
+```
+
+### Opção 2: Passo a Passo
+
+Abra o arquivo: `⚡-COMANDOS-GIT-DEPLOY.txt`
+
+Copie e cole os comandos no terminal
+
+
+## 📋 O QUE FOI ATUALIZADO
+
+### Admin v6.6.1
+- Modal de detalhes corrigido
+- Histórico de atualizações
+- Data do último commit
+
+### Cliente v6.3.3 (NOVA FUNCIONALIDADE)
+- ✅ Botão "Enviar ao Carrinho" abre MODAL (não WhatsApp)
+- ✅ WhatsApp só abre via botão DENTRO do modal
+- ✅ Fluxo: Produto → Modal → Revisão → WhatsApp
+- ✅ Usuário pode revisar antes de enviar
+
+
+## ✅ CHECKLIST RÁPIDO
+
+Antes de fazer deploy:
+- [ ] Número WhatsApp configurado
+- [ ] Git configurado
+- [ ] Todas as mudanças salvas
+
+Depois do deploy (aguardar 3-4 min):
+- [ ] Site carrega: https://priobf25.pages.dev
+- [ ] Admin carrega: /admin
+- [ ] Cliente carrega: /cliente
+- [ ] Modal abre ao adicionar produto
+- [ ] WhatsApp abre só do botão no modal
+
+
+## 📚 DOCUMENTAÇÃO COMPLETA
+
+- `🚀-DEPLOY-v6.6.1-v6.3.3-COMPLETO.md` - Guia completo
+- `⚡-COMANDOS-GIT-DEPLOY.txt` - Comandos prontos
+- `README.md` - Documentação do projeto
+- `💬-RESPOSTA-FINAL-v6.3.3.txt` - Explicação técnica
+
+
+## 🎯 ARQUIVOS ESSENCIAIS (NÃO DELETAR)
+
+```
+✅ index.html
+✅ admin-v6.6.html
+✅ cliente-analise-v6.3.3.html
+✅ produtos-v6.1.js
+✅ _redirects
+✅ _headers
+✅ produto-crud-sync.js
+✅ produto-persistencia-local.js
+✅ github-sync-worker.js
+✅ auto-sync-worker.js
+✅ functions/sync.js
+✅ README.md
+```
+
+
+## 🔧 SE ALGO DER ERRADO
+
+1. Verificar Console (F12) para erros
+2. Limpar cache do navegador (Ctrl+Shift+R)
+3. Ver documentação completa no guia de deploy
+4. Verificar se número WhatsApp foi configurado
+
+
+## 📞 URLs IMPORTANTES
+
+- **Site:** https://priobf25.pages.dev
+- **Admin:** https://priobf25.pages.dev/admin
+- **Cliente:** https://priobf25.pages.dev/cliente
+- **GitHub:** https://github.com/genautech/priobf25
+- **Cloudflare:** https://dash.cloudflare.com
+
+
+## ⚡ DEPLOY EM 3 PASSOS
+
+```bash
+# 1. Configurar WhatsApp (ver acima)
+
+# 2. Fazer deploy
+git add . && git commit -m "Deploy v6.6.1 + v6.3.3" && git push
+
+# 3. Aguardar 3-4 minutos e testar
+```
+
+
+## 🎉 PRONTO!
+
+Sistema 100% funcional e pronto para produção!
+
+═══════════════════════════════════════════════════════════════════════

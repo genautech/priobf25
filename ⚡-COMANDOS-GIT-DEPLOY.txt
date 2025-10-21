@@ -1,0 +1,198 @@
+# ═══════════════════════════════════════════════════════════════════════
+# ⚡ COMANDOS GIT PARA DEPLOY - v6.6.1 + v6.3.3
+# ═══════════════════════════════════════════════════════════════════════
+# 
+# COPIE E COLE ESTES COMANDOS NO TERMINAL
+# 
+# ═══════════════════════════════════════════════════════════════════════
+
+# ────────────────────────────────────────────────────────────────────
+# 1️⃣ VERIFICAR STATUS
+# ────────────────────────────────────────────────────────────────────
+
+git status
+
+
+# ────────────────────────────────────────────────────────────────────
+# 2️⃣ ADICIONAR ARQUIVOS ESSENCIAIS
+# ────────────────────────────────────────────────────────────────────
+
+# Páginas principais
+git add index.html
+git add admin-v6.6.html
+git add cliente-analise-v6.3.3.html
+
+# Configuração
+git add _redirects
+git add _headers
+git add .gitignore
+
+# Dados e CRUD
+git add produtos-v6.1.js
+git add produto-crud-sync.js
+git add produto-persistencia-local.js
+
+# Sincronização
+git add github-sync-worker.js
+git add auto-sync-worker.js
+git add functions/sync.js
+
+# Documentação
+git add README.md
+git add 💬-RESPOSTA-FINAL-v6.3.3.txt
+git add ✅-MELHORIAS-UX-v6.3.2.md
+git add ✅-CARRINHO-WHATSAPP-v6.3.md
+git add ✅-CORRECAO-QUANTIDADES-v6.3.1.md
+git add 🚀-DEPLOY-v6.6.1-v6.3.3-COMPLETO.md
+git add ⚡-COMANDOS-GIT-DEPLOY.txt
+
+# Versões anteriores (backup)
+git add admin-v6.5.html
+git add cliente-analise-v6.3.2.html
+git add cliente-analise-v6.3.1.html
+git add cliente-analise-v6.3.html
+
+
+# ────────────────────────────────────────────────────────────────────
+# 3️⃣ FAZER COMMIT
+# ────────────────────────────────────────────────────────────────────
+
+git commit -m "🚀 Deploy v6.6.1 + v6.3.3: Carrinho WhatsApp em 2 Etapas
+
+✨ Admin v6.6.1:
+- Corrigido modal de detalhes após edição
+- Histórico de atualizações funcionando
+- Data/hora último commit no header
+
+✨ Cliente v6.3.3:
+- Botões 'Enviar ao Carrinho' APENAS abrem modal
+- WhatsApp só abre via botão dedicado no modal
+- Fluxo: Produto → Modal → Revisão → WhatsApp
+- Modal abre automaticamente ao adicionar/alterar
+
+📝 Arquivos atualizados:
+- index.html (link para v6.3.3)
+- admin-v6.6.html (referências atualizadas)
+- cliente-analise-v6.3.3.html (título corrigido)
+- _redirects (rotas v6.3.3)
+- README.md (documentação v6.3.3)
+- Guia de deploy completo
+- Comandos Git prontos
+
+🎯 Status: Pronto para produção"
+
+
+# ────────────────────────────────────────────────────────────────────
+# 4️⃣ ENVIAR PARA GITHUB
+# ────────────────────────────────────────────────────────────────────
+
+git push origin main
+
+
+# ────────────────────────────────────────────────────────────────────
+# 5️⃣ AGUARDAR DEPLOY AUTOMÁTICO
+# ────────────────────────────────────────────────────────────────────
+
+echo ""
+echo "✅ Código enviado para GitHub!"
+echo ""
+echo "⏳ Aguarde 3-4 minutos para o deploy automático no Cloudflare Pages"
+echo ""
+echo "🌐 URLs para testar após deploy:"
+echo "   • https://priobf25.pages.dev"
+echo "   • https://priobf25.pages.dev/admin"
+echo "   • https://priobf25.pages.dev/cliente"
+echo ""
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# 🎯 ALTERNATIVA: COMANDOS EM UMA LINHA
+# ═══════════════════════════════════════════════════════════════════════
+
+# Se quiser fazer tudo de uma vez (copie esta linha):
+
+git add index.html admin-v6.6.html cliente-analise-v6.3.3.html _redirects _headers .gitignore produtos-v6.1.js produto-crud-sync.js produto-persistencia-local.js github-sync-worker.js auto-sync-worker.js functions/sync.js README.md 💬-RESPOSTA-FINAL-v6.3.3.txt ✅-MELHORIAS-UX-v6.3.2.md ✅-CARRINHO-WHATSAPP-v6.3.md ✅-CORRECAO-QUANTIDADES-v6.3.1.md 🚀-DEPLOY-v6.6.1-v6.3.3-COMPLETO.md ⚡-COMANDOS-GIT-DEPLOY.txt admin-v6.5.html cliente-analise-v6.3.2.html cliente-analise-v6.3.1.html cliente-analise-v6.3.html && git commit -m "🚀 Deploy v6.6.1 + v6.3.3: Carrinho WhatsApp 2 Etapas + Modal Corrigido" && git push origin main
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# 📋 CHECKLIST PÓS-DEPLOY
+# ═══════════════════════════════════════════════════════════════════════
+
+# Após o deploy, verifique:
+# 
+# ✅ Site carrega: https://priobf25.pages.dev
+# ✅ Admin carrega: https://priobf25.pages.dev/admin
+# ✅ Cliente carrega: https://priobf25.pages.dev/cliente
+# ✅ Auto-sync está ON no admin
+# ✅ Modal abre ao adicionar produto
+# ✅ Botão "Enviar ao Carrinho" abre modal (NÃO WhatsApp)
+# ✅ Botão "Enviar Pedido via WhatsApp" abre WhatsApp
+# ✅ Quantidades corretas no modal
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# ⚠️ IMPORTANTE: CONFIGURAR NÚMERO WHATSAPP
+# ═══════════════════════════════════════════════════════════════════════
+
+# ANTES DE FAZER O DEPLOY:
+# 
+# 1. Abrir: cliente-analise-v6.3.3.html
+# 2. Buscar linha ~1215
+# 3. Procurar por: const numeroWhatsApp = '5541999999999';
+# 4. Substituir por seu número (formato: 55 + DDD + número)
+# 5. Exemplos:
+#    - São Paulo: 5511987654321
+#    - Rio: 5521987654321
+#    - Curitiba: 5541987654321
+# 6. Salvar o arquivo
+# 7. Fazer commit com: git add cliente-analise-v6.3.3.html
+# 8. Depois seguir comandos acima
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# 🔧 TROUBLESHOOTING
+# ═══════════════════════════════════════════════════════════════════════
+
+# Se der erro "Permission denied (publickey)":
+# 
+# git remote set-url origin https://github.com/genautech/priobf25.git
+# git push origin main
+# 
+# Vai pedir usuário e senha (use Personal Access Token como senha)
+
+
+# Se der erro "Updates were rejected":
+# 
+# git pull origin main --rebase
+# git push origin main
+
+
+# Se der conflito de merge:
+# 
+# git status  # Ver arquivos em conflito
+# # Abrir arquivos e resolver conflitos manualmente
+# git add .
+# git rebase --continue
+# git push origin main
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# 📞 SUPORTE
+# ═══════════════════════════════════════════════════════════════════════
+
+# Repositório: https://github.com/genautech/priobf25
+# Cloudflare: https://dash.cloudflare.com
+# 
+# Documentação completa: README.md
+# Guia de deploy: 🚀-DEPLOY-v6.6.1-v6.3.3-COMPLETO.md
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# ✅ TUDO PRONTO!
+# ═══════════════════════════════════════════════════════════════════════
+
+echo ""
+echo "🎉 Deploy concluído com sucesso!"
+echo ""
+echo "Sistema v6.6.1 + v6.3.3 no ar!"
+echo ""

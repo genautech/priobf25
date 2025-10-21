@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Produtos Black Friday PRIO v6.3.4 - Carrinho WhatsApp Otimizado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="produtos-v6.1.js?v=__TIMESTAMP__"></script>
+    <script>
+        // Cache busting - força reload do arquivo de produtos
+        const timestamp = new Date().getTime();
+        const scripts = document.getElementsByTagName('script');
+        for (let script of scripts) {
+            if (script.src.includes('produtos-v6.1.js')) {
+                script.src = script.src.replace('__TIMESTAMP__', timestamp);
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .gradient-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .product-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+        }
+        .selected-card {
+            border: 3px solid #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        .compare-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            max-width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .cart-badge {
+            animation: bounce 0.5s;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .comparison-table {
+            overflow-x: auto;
+        }
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-header sticky-header text-white shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold flex items-center gap-3">
+                        <i class="fas fa-tag"></i>
+                        <span class="bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 text-transparent bg-clip-text">
+                            Black Friday Prio 2025
+                        </span>
+                    </h1>
+                    <p class="text-white text-opacity-90 mt-1 text-sm">Catálogo de produtos a serem ativados</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center gap-4">
+                    <!-- Carrinho de Seleção -->
+                    <button onclick="showComparisonModal()" class="relative bg-white text-purple-600 px-6 py-3 rounded-xl font-bold hover:bg-gray-100 transition-all shadow-lg">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        Minha Seleção
+                        <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold">
+                            0
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="glass-effect rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Total de Produtos</p>
+                        <p id="stat-total" class="text-3xl font-bold text-purple-600">122</p>
+                    </div>
+                    <i class="fas fa-boxes text-4xl text-purple-300"></i>
+                </div>
+            </div>
+            <div class="glass-effect rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Selecionados</p>
+                        <p id="stat-selected" class="text-3xl font-bold text-blue-600">0</p>
+                    </div>
+                    <i class="fas fa-check-circle text-4xl text-blue-300"></i>
+                </div>
+            </div>
+            <div class="glass-effect rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Investimento</p>
+                        <p id="stat-investment" class="text-2xl font-bold text-green-600">R$ 0</p>
+                    </div>
+                    <i class="fas fa-dollar-sign text-4xl text-green-300"></i>
+                </div>
+            </div>
+            <div class="glass-effect rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Economia Total</p>
+                        <p id="stat-profit" class="text-2xl font-bold text-orange-600">R$ 0</p>
+                    </div>
+                    <i class="fas fa-chart-line text-4xl text-orange-300"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Send All to Cart Button -->
+        <div id="sendAllCartContainer" class="hidden mb-6">
+            <button onclick="sendAllToCart()" 
+                    class="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-4 rounded-xl font-bold text-lg hover:from-green-700 hover:to-green-800 transition-all shadow-lg flex items-center justify-center gap-3">
+                <i class="fas fa-shopping-cart text-2xl"></i>
+                <span>Enviar Todos ao Carrinho</span>
+                <span id="cartTotalBadge" class="bg-white text-green-700 px-3 py-1 rounded-full text-sm font-bold"></span>
+            </button>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="glass-effect rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex flex-wrap gap-4">
+                <div class="flex-1 min-w-[250px]">
+                    <div class="relative">
+                        <input type="text" id="searchProducts" 
+                               placeholder="🔍 Buscar por nome, marca, categoria..." 
+                               class="w-full px-4 py-3 pl-12 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all">
+                        <i class="fas fa-search absolute left-4 top-4 text-gray-400"></i>
+                    </div>
+                </div>
+                <select id="filterCategory" class="px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200">
+                    <option value="">📦 Todas Categorias</option>
+                </select>
+                <select id="filterSubcategory" class="px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200">
+                    <option value="">🏷️ Todas Subcategorias</option>
+                </select>
+                <select id="sortBy" class="px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200">
+                    <option value="nome">Nome A-Z</option>
+                    <option value="preco-asc">Menor Preço</option>
+                    <option value="preco-desc">Maior Preço</option>
+                    <option value="economia-desc">Maior Economia</option>
+                    <option value="desconto-desc">Maior % Desconto</option>
+                </select>
+                <button onclick="clearFilters()" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-all">
+                    <i class="fas fa-times mr-2"></i>Limpar
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Products will be loaded here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+            <p class="text-xl text-gray-500">Nenhum produto encontrado</p>
+            <p class="text-gray-400 mt-2">Tente ajustar seus filtros</p>
+        </div>
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content w-full max-w-6xl mx-4">
+            <div id="modalContent" class="p-8">
+                <!-- Content will be injected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div id="comparisonModal" class="modal">
+        <div class="modal-content w-full max-w-7xl mx-4">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800">
+                        <i class="fas fa-shopping-cart text-purple-600 mr-3"></i>
+                        Minha Seleção de Produtos
+                    </h2>
+                    <button onclick="closeComparisonModal()" class="text-gray-400 hover:text-gray-600 text-3xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Summary Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                    <div class="bg-purple-50 rounded-lg p-3">
+                        <p class="text-xs text-purple-600 font-semibold">Total de Produtos</p>
+                        <p id="comparison-total" class="text-xl font-bold text-purple-700">0</p>
+                    </div>
+                    <div class="bg-blue-50 rounded-lg p-3">
+                        <p class="text-xs text-blue-600 font-semibold">Total em Unidades</p>
+                        <p id="comparison-units" class="text-xl font-bold text-blue-700">0</p>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-3">
+                        <p class="text-xs text-green-600 font-semibold">Investimento Total</p>
+                        <p id="comparison-investment" class="text-xl font-bold text-green-700">R$ 0</p>
+                    </div>
+                    <div class="bg-orange-50 rounded-lg p-3">
+                        <p class="text-xs text-orange-600 font-semibold">Economia Total</p>
+                        <p id="comparison-profit" class="text-xl font-bold text-orange-700">R$ 0</p>
+                    </div>
+                </div>
+
+                <!-- Cost Analysis -->
+                <div class="glass-effect rounded-lg p-4 mb-6">
+                    <h3 class="text-lg font-bold mb-3">
+                        <i class="fas fa-calculator text-indigo-600 mr-2"></i>
+                        Análise de Custos e Descontos
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-semibold text-blue-700">Preço Médio por Item</span>
+                                <i class="fas fa-tag text-blue-600"></i>
+                            </div>
+                            <p id="avg-cost" class="text-2xl font-bold text-blue-800">R$ 0</p>
+                            <p class="text-xs text-blue-600 mt-1">Valor médio unitário</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-semibold text-green-700">% Desconto Médio</span>
+                                <i class="fas fa-percentage text-green-600"></i>
+                            </div>
+                            <p id="roi-percent" class="text-2xl font-bold text-green-800">0%</p>
+                            <p class="text-xs text-green-600 mt-1">Desconto médio aplicado</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-semibold text-purple-700">Economia vs Mercado</span>
+                                <i class="fas fa-arrow-down text-purple-600"></i>
+                            </div>
+                            <p id="market-saving" class="text-2xl font-bold text-purple-800">R$ 0</p>
+                            <p class="text-xs text-purple-600 mt-1">Economia comparada</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts - Tamanho Reduzido -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                    <div class="glass-effect rounded-lg p-4">
+                        <h3 class="text-sm font-bold mb-2 flex items-center">
+                            <i class="fas fa-chart-pie text-purple-600 mr-2"></i>
+                            Distribuição por Categoria
+                        </h3>
+                        <div style="height: 200px;">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-effect rounded-lg p-4">
+                        <h3 class="text-sm font-bold mb-2 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-600 mr-2"></i>
+                            Preço Nosso vs Mercado
+                        </h3>
+                        <div style="height: 200px;">
+                            <canvas id="financialChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected Products Table -->
+                <div class="glass-effect rounded-lg p-4 mb-6">
+                    <h3 class="text-xl font-bold mb-4">Produtos Selecionados</h3>
+                    <div id="selectedProductsTable" class="comparison-table overflow-x-auto">
+                        <!-- Table will be rendered here -->
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex flex-wrap gap-4 justify-between">
+                    <div class="flex gap-4">
+                        <button onclick="exportSelection()" class="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg">
+                            <i class="fas fa-download mr-2"></i>Exportar CSV
+                        </button>
+                        <button onclick="clearSelection()" class="px-6 py-3 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg">
+                            <i class="fas fa-trash mr-2"></i>Limpar Tudo
+                        </button>
+                    </div>
+                    <div class="flex gap-4">
+                        <button onclick="sendWhatsAppOrder()" class="px-8 py-3 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition-all shadow-lg text-lg">
+                            <i class="fab fa-whatsapp mr-2"></i>Enviar Pedido via WhatsApp
+                        </button>
+                        <button onclick="closeComparisonModal()" class="px-6 py-3 bg-gray-600 text-white rounded-xl font-bold hover:bg-gray-700 transition-all shadow-lg">
+                            <i class="fas fa-times mr-2"></i>Fechar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Products Data -->
+    <script src="produtos-v6.1.js"></script>
+
+    <!-- Main Application Script -->
+    <script>
+        // Global State
+        let allProducts = [];
+        let selectedProducts = new Set();
+        let productQuantities = {}; // Armazena quantidade desejada de compra
+        let charts = {};
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            initializeFilters();
+            renderProducts();
+            loadSavedSelection();
+        });
+
+        // Load Products
+        function loadProducts() {
+            allProducts = [...produtosPlanilha, ...produtosSugeridos];
+            document.getElementById('stat-total').textContent = allProducts.length;
+        }
+
+        // ============================================
+        // FORMATAÇÃO DE PREÇOS (Padrão BR: R$ 1.000,33)
+        // ============================================
+        function formatarPreco(valor) {
+            if (typeof valor !== 'number') valor = parseFloat(valor);
+            return valor.toLocaleString('pt-BR', { 
+                style: 'currency', 
+                currency: 'BRL',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        // Initialize Filters
+        function initializeFilters() {
+            const categories = [...new Set(allProducts.map(p => p.categoria))];
+            const subcategories = [...new Set(allProducts.map(p => p.subcategoria))];
+            
+            const categorySelect = document.getElementById('filterCategory');
+            categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                option.textContent = cat;
+                categorySelect.appendChild(option);
+            });
+            
+            const subcategorySelect = document.getElementById('filterSubcategory');
+            subcategories.forEach(sub => {
+                const option = document.createElement('option');
+                option.value = sub;
+                option.textContent = sub;
+                subcategorySelect.appendChild(option);
+            });
+
+            // Event Listeners
+            document.getElementById('searchProducts').addEventListener('input', renderProducts);
+            document.getElementById('filterCategory').addEventListener('change', renderProducts);
+            document.getElementById('filterSubcategory').addEventListener('change', renderProducts);
+            document.getElementById('sortBy').addEventListener('change', renderProducts);
+        }
+
+        // Render Products
+        function renderProducts() {
+            const search = document.getElementById('searchProducts').value.toLowerCase();
+            const categoryFilter = document.getElementById('filterCategory').value;
+            const subcategoryFilter = document.getElementById('filterSubcategory').value;
+            const sortBy = document.getElementById('sortBy').value;
+            
+            let filtered = allProducts.filter(p => {
+                const matchSearch = p.nome.toLowerCase().includes(search) || 
+                                   p.fornecedor.toLowerCase().includes(search) ||
+                                   p.categoria.toLowerCase().includes(search) ||
+                                   p.subcategoria.toLowerCase().includes(search);
+                const matchCategory = !categoryFilter || p.categoria === categoryFilter;
+                const matchSubcategory = !subcategoryFilter || p.subcategoria === subcategoryFilter;
+                return matchSearch && matchCategory && matchSubcategory;
+            });
+
+            // Sort
+            filtered.sort((a, b) => {
+                switch(sortBy) {
+                    case 'nome':
+                        return a.nome.localeCompare(b.nome);
+                    case 'preco-asc':
+                        return a.precoVenda - b.precoVenda;
+                    case 'preco-desc':
+                        return b.precoVenda - a.precoVenda;
+                    case 'economia-desc':
+                        const economiaA = (a.precoMercado - a.precoVenda) * a.quantidade;
+                        const economiaB = (b.precoMercado - b.precoVenda) * b.quantidade;
+                        return economiaB - economiaA;
+                    case 'desconto-desc':
+                        const descontoA = a.precoMercado > 0 ? ((a.precoMercado - a.precoVenda) / a.precoMercado) : 0;
+                        const descontoB = b.precoMercado > 0 ? ((b.precoMercado - b.precoVenda) / b.precoMercado) : 0;
+                        return descontoB - descontoA;
+                    default:
+                        return 0;
+                }
+            });
+
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(produto => {
+                const isSelected = selectedProducts.has(String(produto.id));
+                const economia = produto.precoMercado - produto.precoVenda;
+                const economiaTotal = economia * produto.quantidade;
+                
+                return `
+                    <div class="product-card glass-effect rounded-xl shadow-lg overflow-hidden ${isSelected ? 'selected-card' : ''}" 
+                         onclick="showProductDetail('${produto.id}')">
+                        ${isSelected ? `
+                            <div class="compare-badge">
+                                <span class="inline-block px-3 py-1 bg-purple-600 text-white text-xs font-bold rounded-full">
+                                    <i class="fas fa-check"></i> Selecionado
+                                </span>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="relative">
+                            <img src="${produto.imagem}" alt="${produto.nome}" 
+                                 class="w-full h-48 object-contain bg-white p-4"
+                                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27300%27 height=%27300%27%3E%3Crect fill=%27%23f3f4f6%27 width=%27300%27 height=%27300%27/%3E%3Ctext fill=%27%239ca3af%27 font-family=%27Arial%27 font-size=%2716%27 x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27%3EImagem Indispon%C3%ADvel%3C/text%3E%3C/svg%3E'">
+                            ${produto.badge ? `
+                                <span class="absolute top-2 right-2 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
+                                    ${produto.badge}
+                                </span>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-xs px-2 py-1 bg-purple-100 text-purple-600 rounded-full font-semibold">
+                                    ${produto.subcategoria}
+                                </span>
+                                <span class="text-xs text-gray-500">${produto.temNoConcorrente === false ? 'Yoobe Warehouse Connect' : produto.fornecedor}</span>
+                            </div>
+                            
+                            <h3 class="font-bold text-gray-800 mb-2 line-clamp-2 min-h-[3rem]">${produto.nome}</h3>
+                            
+                            <div class="space-y-3 mb-4">
+                                <!-- Preço Principal -->
+                                <div class="text-center py-2 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg">
+                                    <div class="text-xs text-gray-500 mb-1">Preço Yoobe</div>
+                                    <div class="text-2xl font-bold text-purple-600">${formatarPreco(produto.precoVenda)}</div>
+                                </div>
+                                
+                                <!-- Badge de Economia -->
+                                ${economia > 0 ? `
+                                <div class="flex items-center justify-center gap-2 p-2 bg-green-50 border-2 border-green-200 rounded-lg">
+                                    <i class="fas fa-tag text-green-600 text-lg"></i>
+                                    <div>
+                                        <div class="text-xs text-green-700 font-semibold">Você Economiza</div>
+                                        <div class="text-lg font-bold text-green-600">${formatarPreco(economia)}</div>
+                                    </div>
+                                    <div class="ml-2 px-2 py-1 bg-green-600 text-white rounded-full text-xs font-bold">
+                                        ${((economia/produto.precoMercado)*100).toFixed(0)}% OFF
+                                    </div>
+                                </div>
+                                ` : ''}
+                                
+                                <!-- Preço de Mercado (riscado) -->
+                                ${economia > 0 ? `
+                                <div class="text-center text-sm">
+                                    <span class="text-gray-400">De: </span>
+                                    <span class="line-through text-gray-500">${formatarPreco(produto.precoMercado)}</span>
+                                    <span class="text-gray-400"> (mercado)</span>
+                                </div>
+                                ` : ''}
+                            </div>
+                            
+                            <!-- Estoque e Economia Total -->
+                            <div class="grid grid-cols-2 gap-2 mb-3">
+                                <div class="text-center p-2 bg-blue-50 rounded-lg">
+                                    <div class="text-xs text-blue-600 font-semibold">Estoque</div>
+                                    <div class="text-lg font-bold text-blue-700">${produto.quantidade} un</div>
+                                </div>
+                                <div class="text-center p-2 bg-orange-50 rounded-lg">
+                                    <div class="text-xs text-orange-600 font-semibold">Economia Total</div>
+                                    <div class="text-lg font-bold text-orange-700">${formatarPreco(economiaTotal)}</div>
+                                </div>
+                            </div>
+                            
+                            ${isSelected ? `
+                            <!-- Controle de Quantidade -->
+                            <div class="mb-3 p-3 bg-purple-50 rounded-lg border-2 border-purple-200" onclick="event.stopPropagation()">
+                                <div class="text-xs text-purple-700 font-semibold mb-2 text-center">Quantidade Desejada</div>
+                                <div class="flex items-center justify-center gap-3">
+                                    <button onclick="event.stopPropagation(); decrementQuantity('${produto.id}'); return false;" 
+                                            type="button"
+                                            class="w-10 h-10 bg-purple-600 text-white rounded-lg font-bold hover:bg-purple-700 transition flex items-center justify-center">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" 
+                                           value="${productQuantities[String(produto.id)] || 1}"
+                                           min="1" 
+                                           max="${produto.quantidade}"
+                                           oninput="event.stopPropagation(); updateQuantity('${produto.id}', this.value)"
+                                           onchange="event.stopPropagation(); updateQuantity('${produto.id}', this.value)"
+                                           onclick="event.stopPropagation()"
+                                           onfocus="this.select()"
+                                           class="w-20 text-center text-2xl font-bold py-2 border-2 border-purple-300 rounded-lg">
+                                    <button onclick="event.stopPropagation(); incrementQuantity('${produto.id}'); return false;" 
+                                            type="button"
+                                            class="w-10 h-10 bg-purple-600 text-white rounded-lg font-bold hover:bg-purple-700 transition flex items-center justify-center">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="text-xs text-center mt-2 text-purple-600">
+                                    Investimento: <span class="font-bold">${formatarPreco(produto.custoBase * (productQuantities[String(produto.id)] || 1))}</span>
+                                </div>
+                            </div>
+                            ` : ''}
+                            
+                            ${isSelected ? `
+                            <!-- Botões quando produto está selecionado -->
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="event.stopPropagation(); sendToCart('${produto.id}')" 
+                                        class="bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition-all flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i>
+                                    Enviar ao Carrinho
+                                </button>
+                                <button onclick="event.stopPropagation(); toggleSelection('${produto.id}')" 
+                                        class="bg-red-500 text-white py-3 rounded-lg font-bold hover:bg-red-600 transition-all flex items-center justify-center">
+                                    <i class="fas fa-trash mr-2"></i>
+                                    Remover
+                                </button>
+                            </div>
+                            ` : `
+                            <!-- Botão quando produto não está selecionado -->
+                            <button onclick="event.stopPropagation(); toggleSelection('${produto.id}')" 
+                                    class="bg-purple-600 text-white w-full py-3 rounded-lg font-bold hover:bg-purple-700 transition-all">
+                                <i class="fas fa-plus mr-2"></i>
+                                Adicionar à Seleção
+                            </button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Gerenciar quantidade de produto
+        function updateQuantity(productId, quantity) {
+            const id = String(productId);
+            const produto = allProducts.find(p => String(p.id) === id);
+            if (!produto) {
+                console.error('Produto não encontrado:', productId);
+                return;
+            }
+            
+            // Validar quantidade
+            const qtd = Math.max(1, Math.min(parseInt(quantity) || 1, produto.quantidade));
+            console.log(`Atualizando quantidade do produto ${id}: ${qtd}`);
+            productQuantities[id] = qtd;
+            
+            updateSelectionStats();
+            renderProducts(); // CORREÇÃO: Re-renderizar para atualizar UI
+            saveSelection();
+        }
+        
+        function incrementQuantity(productId) {
+            const id = String(productId);
+            const produto = allProducts.find(p => String(p.id) === id);
+            if (!produto) {
+                console.error('Produto não encontrado:', productId);
+                return;
+            }
+            
+            const current = productQuantities[id] || 1;
+            console.log(`Incrementando quantidade do produto ${id}: ${current} -> ${current + 1}`);
+            if (current < produto.quantidade) {
+                productQuantities[id] = current + 1;
+                updateSelectionStats();
+                renderProducts();
+                saveSelection();
+            } else {
+                console.warn(`Quantidade máxima atingida para produto ${id}: ${produto.quantidade}`);
+            }
+        }
+        
+        function decrementQuantity(productId) {
+            const id = String(productId);
+            const current = productQuantities[id] || 1;
+            console.log(`Decrementando quantidade do produto ${id}: ${current} -> ${current - 1}`);
+            if (current > 1) {
+                productQuantities[id] = current - 1;
+                updateSelectionStats();
+                renderProducts();
+                saveSelection();
+            } else {
+                console.warn(`Quantidade mínima atingida para produto ${id}: 1`);
+            }
+        }
+
+        // Toggle Product Selection
+        function toggleSelection(productId) {
+            const id = String(productId);
+            if (selectedProducts.has(id)) {
+                selectedProducts.delete(id);
+                delete productQuantities[id]; // Remove quantidade ao desselecionar
+            } else {
+                selectedProducts.add(id);
+                productQuantities[id] = 1; // Inicia com quantidade 1
+            }
+            
+            updateSelectionStats();
+            renderProducts();
+            saveSelection();
+            
+            // Animate cart badge
+            const badge = document.getElementById('cartCount');
+            badge.classList.add('cart-badge');
+            setTimeout(() => badge.classList.remove('cart-badge'), 500);
+        }
+        
+        // Send Product to Cart (Abre modal do carrinho)
+        function sendToCart(productId) {
+            // Simplesmente abrir o modal do carrinho
+            showComparisonModal();
+            mostrarNotificacao('✅ Produto adicionado ao carrinho', 'success');
+        }
+
+        // Update Selection Stats
+        function updateSelectionStats() {
+            const selected = Array.from(selectedProducts).map(id => 
+                allProducts.find(p => String(p.id) === String(id))
+            ).filter(p => p);
+            
+            // Usar quantidade personalizada do cliente
+            const totalInvestment = selected.reduce((sum, p) => {
+                const qtd = productQuantities[String(p.id)] || 1;
+                return sum + (p.custoBase * qtd);
+            }, 0);
+            
+            const totalProfit = selected.reduce((sum, p) => {
+                const qtd = productQuantities[String(p.id)] || 1;
+                return sum + ((p.precoVenda - p.custoBase) * qtd);
+            }, 0);
+            
+            // Total de unidades
+            const totalUnits = selected.reduce((sum, p) => {
+                const qtd = productQuantities[String(p.id)] || 1;
+                return sum + qtd;
+            }, 0);
+            
+            document.getElementById('cartCount').textContent = selected.length;
+            document.getElementById('stat-selected').textContent = `${selected.length} (${totalUnits} un)`;
+            document.getElementById('stat-investment').textContent = formatarPreco(totalInvestment);
+            document.getElementById('stat-profit').textContent = formatarPreco(totalProfit);
+            
+            // Mostrar/esconder botão "Enviar Todos ao Carrinho"
+            const sendAllContainer = document.getElementById('sendAllCartContainer');
+            const cartTotalBadge = document.getElementById('cartTotalBadge');
+            if (selected.length > 0) {
+                sendAllContainer.classList.remove('hidden');
+                cartTotalBadge.textContent = `${selected.length} produto${selected.length > 1 ? 's' : ''} - ${formatarPreco(totalInvestment)}`;
+            } else {
+                sendAllContainer.classList.add('hidden');
+            }
+        }
+        
+        // Send All Products to Cart (Abre modal do carrinho)
+        function sendAllToCart() {
+            const selected = Array.from(selectedProducts).map(id => 
+                allProducts.find(p => String(p.id) === String(id))
+            ).filter(p => p);
+            
+            if (selected.length === 0) {
+                mostrarNotificacao('❌ Nenhum produto selecionado!', 'error');
+                return;
+            }
+            
+            // Simplesmente abrir o modal do carrinho
+            showComparisonModal();
+            mostrarNotificacao('✅ Visualizando carrinho completo', 'success');
+        }
+
+        // Show Product Detail Modal
+        function showProductDetail(productId) {
+            const produto = allProducts.find(p => String(p.id) === String(productId));
+            if (!produto) {
+                console.error('Produto não encontrado:', productId);
+                return;
+            }
+
+            const isSelected = selectedProducts.has(String(productId));
+            const economia = produto.precoMercado - produto.precoVenda;
+            const economiaTotal = economia * produto.quantidade;
+            const investimentoTotal = produto.custoBase * produto.quantidade;
+            const receitaTotal = produto.precoVenda * produto.quantidade;
+            const precoMercadoTotal = produto.precoMercado * produto.quantidade;
+            const descontoPercent = produto.precoMercado > 0 ? ((economia / produto.precoMercado) * 100).toFixed(1) : 0;
+
+            const modal = document.getElementById('productModal');
+            const content = document.getElementById('modalContent');
+            
+            content.innerHTML = `
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800">${produto.nome}</h2>
+                    <button onclick="closeProductModal()" class="text-gray-400 hover:text-gray-600 text-3xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Left Column: Image and Basic Info -->
+                    <div>
+                        <img src="${produto.imagem}" alt="${produto.nome}" 
+                             class="w-full rounded-xl shadow-lg mb-4"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27500%27 height=%27500%27%3E%3Crect fill=%27%23f3f4f6%27 width=%27500%27 height=%27500%27/%3E%3Ctext fill=%27%239ca3af%27 font-family=%27Arial%27 font-size=%2724%27 x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27%3EImagem Indispon%C3%ADvel%3C/text%3E%3C/svg%3E'">
+                        
+                        ${produto.badge ? `
+                            <div class="text-center mb-4">
+                                <span class="inline-block px-6 py-3 bg-red-500 text-white font-bold rounded-full text-lg">
+                                    ${produto.badge}
+                                </span>
+                            </div>
+                        ` : ''}
+
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-4">Informações Básicas</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">SKU:</span>
+                                    <span class="font-mono font-bold">${produto.sku}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Categoria:</span>
+                                    <span class="font-semibold">${produto.categoria}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Subcategoria:</span>
+                                    <span class="font-semibold">${produto.subcategoria}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Fornecedor:</span>
+                                    <span class="font-semibold">${produto.temNoConcorrente === false ? 'Yoobe Warehouse Connect' : produto.fornecedor}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Quantidade Disponível:</span>
+                                    <span class="font-bold text-blue-600">${produto.quantidade} unidades</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Pricing Info -->
+                    <div>
+                        <div class="glass-effect rounded-xl p-6 mb-6">
+                            <h3 class="text-xl font-bold mb-4">
+                                <i class="fas fa-tag text-purple-600 mr-2"></i>
+                                Informações de Preço
+                            </h3>
+                            <div class="space-y-4">
+                                <!-- Preço Principal Yoobe -->
+                                <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4 text-center">
+                                    <div class="text-sm text-purple-600 font-semibold mb-2">Preço Yoobe</div>
+                                    <div class="text-4xl font-bold text-purple-600">${formatarPreco(produto.precoVenda)}</div>
+                                </div>
+
+                                ${economia > 0 ? `
+                                <!-- Badge de Economia -->
+                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-4 border-2 border-green-200">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fas fa-piggy-bank text-green-600 text-2xl"></i>
+                                            <div>
+                                                <div class="text-xs text-green-700 font-semibold">Você Economiza</div>
+                                                <div class="text-2xl font-bold text-green-600">${formatarPreco(economia)}</div>
+                                            </div>
+                                        </div>
+                                        <div class="px-4 py-2 bg-green-600 text-white rounded-full text-lg font-bold">
+                                            ${descontoPercent}% OFF
+                                        </div>
+                                    </div>
+                                    <div class="text-center text-sm border-t border-green-200 pt-2">
+                                        <span class="text-gray-600">Preço de Mercado: </span>
+                                        <span class="line-through text-gray-500 font-semibold">${formatarPreco(produto.precoMercado)}</span>
+                                    </div>
+                                </div>
+                                ` : `
+                                <!-- Sem economia disponível -->
+                                <div class="bg-blue-50 rounded-lg p-4 text-center">
+                                    <div class="text-sm text-blue-600 font-semibold">Preço de Mercado</div>
+                                    <div class="text-xl text-gray-600">${formatarPreco(produto.precoMercado)}</div>
+                                </div>
+                                `}
+                            </div>
+                        </div>
+
+                        <div class="glass-effect rounded-xl p-6 mb-6">
+                            <h3 class="text-xl font-bold mb-4">
+                                <i class="fas fa-calculator text-blue-600 mr-2"></i>
+                                Projeção Total (${produto.quantidade} unidades)
+                            </h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4">
+                                    <div class="text-sm text-purple-600 font-semibold mb-1 flex items-center gap-2">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Total da Compra
+                                    </div>
+                                    <div class="text-3xl font-bold text-purple-700">${formatarPreco(receitaTotal)}</div>
+                                </div>
+                                ${economiaTotal > 0 ? `
+                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-4 border-2 border-green-200">
+                                    <div class="text-sm text-green-600 font-semibold mb-1 flex items-center gap-2">
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                        Economia Total
+                                    </div>
+                                    <div class="text-3xl font-bold text-green-700">${formatarPreco(economiaTotal)}</div>
+                                    <div class="text-xs text-green-600 mt-1">Comparado ao preço de mercado</div>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+
+                        ${produto.especificacoes ? `
+                            <div class="glass-effect rounded-xl p-6 mb-6">
+                                <h3 class="text-xl font-bold mb-4">Especificações Técnicas</h3>
+                                <div class="space-y-2">
+                                    ${Object.entries(produto.especificacoes).map(([key, value]) => `
+                                        <div class="flex justify-between py-2 border-b border-gray-200">
+                                            <span class="text-gray-600 capitalize font-semibold">${key}:</span>
+                                            <span class="text-gray-800 font-semibold">${value}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3">Descrição do Produto</h3>
+                            <p class="text-gray-700 leading-relaxed">${produto.descricao}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-center">
+                    <button onclick="toggleSelection('${produto.id}'); closeProductModal();" 
+                            class="${isSelected ? 'bg-red-600 hover:bg-red-700' : 'bg-purple-600 hover:bg-purple-700'} text-white px-12 py-4 rounded-xl font-bold text-lg transition-all shadow-lg">
+                        <i class="fas ${isSelected ? 'fa-times' : 'fa-plus'} mr-3"></i>
+                        ${isSelected ? 'Remover da Seleção' : 'Adicionar à Seleção'}
+                    </button>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        // Show Comparison Modal
+        function showComparisonModal() {
+            const selected = Array.from(selectedProducts).map(id => 
+                allProducts.find(p => String(p.id) === String(id))
+            ).filter(p => p);
+
+            if (selected.length === 0) {
+                alert('Nenhum produto selecionado ainda!');
+                return;
+            }
+
+            // Usar quantidade personalizada do cliente
+            const totalUnits = selected.reduce((sum, p) => {
+                const qtd = productQuantities[String(p.id)] || 1;
+                return sum + qtd;
+            }, 0);
+            const totalInvestment = selected.reduce((sum, p) => {
+                const qtd = productQuantities[String(p.id)] || 1;
+                return sum + (p.custoBase * qtd);
+            }, 0);
+            const totalOurPrice = selected.reduce((sum, p) => {
+                const qtd = productQuantities[String(p.id)] || 1;
+                return sum + (p.precoVenda * qtd);
+            }, 0);
+            const totalMarketPrice = selected.reduce((sum, p) => {
+                const qtd = productQuantities[String(p.id)] || 1;
+                return sum + (p.precoMercado * qtd);
+            }, 0);
+            const totalEconomy = totalMarketPrice - totalOurPrice;
+
+            // Update summary
+            document.getElementById('comparison-total').textContent = selected.length;
+            document.getElementById('comparison-units').textContent = totalUnits;
+            document.getElementById('comparison-investment').textContent = formatarPreco(totalInvestment);
+            document.getElementById('comparison-profit').textContent = formatarPreco(totalEconomy);
+
+            // Update cost analysis  
+            const avgCost = selected.length > 0 ? totalInvestment / totalUnits : 0;
+            const economyPercent = totalMarketPrice > 0 ? ((totalEconomy / totalMarketPrice) * 100) : 0;
+            const saving = totalEconomy;
+
+            document.getElementById('avg-cost').textContent = formatarPreco(avgCost);
+            document.getElementById('roi-percent').textContent = economyPercent.toFixed(1) + '%';
+            document.getElementById('market-saving').textContent = formatarPreco(saving);
+
+            // Render table
+            const tableContainer = document.getElementById('selectedProductsTable');
+            tableContainer.innerHTML = `
+                <table class="min-w-full">
+                    <thead class="bg-purple-100">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-purple-700 uppercase">Produto</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-purple-700 uppercase">Categoria</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-purple-700 uppercase">Qtd</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-purple-700 uppercase">Preço Yoobe</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-purple-700 uppercase">Preço Mercado</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-purple-700 uppercase">% Desconto</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-purple-700 uppercase">Economia Total</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-purple-700 uppercase">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        ${selected.map(p => {
+                            // Usar quantidade personalizada do cliente
+                            const qtdCliente = productQuantities[String(p.id)] || 1;
+                            const economiaUnit = p.precoMercado - p.precoVenda;
+                            const economiaTotal = economiaUnit * qtdCliente;
+                            const precoMercadoTotal = p.precoMercado * qtdCliente;
+                            const descontoPercent = p.precoMercado > 0 ? ((economiaUnit / p.precoMercado) * 100).toFixed(1) : 0;
+                            
+                            return `
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center gap-3">
+                                            <img src="${p.imagem}" class="w-12 h-12 object-contain rounded" 
+                                                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2750%27 height=%2750%27%3E%3Crect fill=%27%23e5e7eb%27 width=%2750%27 height=%2750%27/%3E%3Ctext fill=%27%239ca3af%27 font-family=%27Arial%27 font-size=%278%27 x=%2750%25%27 y=%2750%25%27 text-anchor=%27middle%27 dy=%27.3em%27%3EN/A%3C/text%3E%3C/svg%3E'">
+                                            <div>
+                                                <div class="font-semibold text-sm">${p.nome.substring(0, 40)}...</div>
+                                                <div class="text-xs text-gray-500">${p.temNoConcorrente === false ? 'Yoobe Warehouse Connect' : p.fornecedor}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-center text-sm">${p.subcategoria}</td>
+                                    <td class="px-4 py-3 text-right font-semibold">${qtdCliente}</td>
+                                    <td class="px-4 py-3 text-right font-bold text-purple-600 text-lg">${formatarPreco(p.precoVenda)}</td>
+                                    <td class="px-4 py-3 text-right text-sm text-gray-500 line-through">${formatarPreco(p.precoMercado)}</td>
+                                    <td class="px-4 py-3 text-center">
+                                        <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">
+                                            ${descontoPercent}%
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-right font-bold text-green-600">${formatarPreco(economiaTotal)}</td>
+                                    <td class="px-4 py-3 text-center">
+                                        <button onclick="toggleSelection(${p.id}); showComparisonModal();" 
+                                                class="text-red-600 hover:text-red-800 font-semibold">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                    <tfoot class="bg-gray-100 font-bold">
+                        <tr>
+                            <td colspan="2" class="px-4 py-4 text-lg">TOTAIS</td>
+                            <td class="px-4 py-4 text-right">${totalUnits}</td>
+                            <td colspan="3"></td>
+                            <td class="px-4 py-4 text-right text-green-700 text-xl">${formatarPreco(totalEconomy)}</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            `;
+
+            // Update charts
+            updateComparisonCharts(selected);
+
+            document.getElementById('comparisonModal').classList.add('active');
+        }
+
+        function closeComparisonModal() {
+            document.getElementById('comparisonModal').classList.remove('active');
+        }
+
+        // Update Comparison Charts
+        function updateComparisonCharts(selected) {
+            // Category Chart
+            const categories = {};
+            selected.forEach(p => {
+                categories[p.subcategoria] = (categories[p.subcategoria] || 0) + 1;
+            });
+
+            const ctxCat = document.getElementById('categoryChart');
+            if (charts.category) charts.category.destroy();
+            
+            charts.category = new Chart(ctxCat, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(categories),
+                    datasets: [{
+                        data: Object.values(categories),
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b', '#fa709a', '#fee140', '#30cfd0']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { 
+                            position: 'right',
+                            labels: {
+                                boxWidth: 12,
+                                font: { size: 10 },
+                                padding: 8
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Financial Chart - usar quantidade personalizada do cliente
+            const precosNossos = selected.map(p => {
+                const qtd = productQuantities[String(p.id)] || 1;
+                return p.precoVenda * qtd;
+            });
+            const precosMercado = selected.map(p => {
+                const qtd = productQuantities[String(p.id)] || 1;
+                return p.precoMercado * qtd;
+            });
+            const labels = selected.map(p => p.nome.substring(0, 20) + '...');
+
+            const ctxFin = document.getElementById('financialChart');
+            if (charts.financial) charts.financial.destroy();
+            
+            charts.financial = new Chart(ctxFin, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Preço Nosso',
+                            data: precosNossos,
+                            backgroundColor: 'rgba(59, 130, 246, 0.8)'
+                        },
+                        {
+                            label: 'Preço Mercado',
+                            data: precosMercado,
+                            backgroundColor: 'rgba(34, 197, 94, 0.8)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { 
+                            position: 'top',
+                            labels: {
+                                boxWidth: 12,
+                                font: { size: 10 },
+                                padding: 8
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            ticks: { font: { size: 9 } }
+                        },
+                        x: {
+                            ticks: { 
+                                font: { size: 9 },
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Export Selection
+        function exportSelection() {
+            const selected = Array.from(selectedProducts).map(id => 
+                allProducts.find(p => p.id === id)
+            );
+
+            let csv = 'SKU,Nome,Categoria,Subcategoria,Fornecedor,Quantidade,Preço Nosso,Preço Mercado,% Desconto,Total Nosso,Economia Total\n';
+            
+            selected.forEach(p => {
+                // Usar quantidade personalizada do cliente
+                const qtdCliente = productQuantities[String(p.id)] || 1;
+                const totalNosso = p.precoVenda * qtdCliente;
+                const totalMercado = p.precoMercado * qtdCliente;
+                const economia = (p.precoMercado - p.precoVenda) * qtdCliente;
+                const desconto = p.precoMercado > 0 ? ((p.precoMercado - p.precoVenda) / p.precoMercado * 100).toFixed(1) : 0;
+                csv += `"${p.sku}","${p.nome}","${p.categoria}","${p.subcategoria}","${p.fornecedor}",${qtdCliente},${p.precoVenda},${p.precoMercado},${desconto},${totalNosso.toFixed(2)},${economia.toFixed(2)}\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `selecao_produtos_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        // Clear Selection
+        function clearSelection() {
+            if (confirm('Tem certeza que deseja limpar toda a seleção?')) {
+                selectedProducts.clear();
+                productQuantities = {};
+                updateSelectionStats();
+                renderProducts();
+                saveSelection();
+                closeComparisonModal();
+            }
+        }
+        
+        // Send WhatsApp Order (Enviar pedido via WhatsApp)
+        function sendWhatsAppOrder() {
+            const selected = Array.from(selectedProducts).map(id => 
+                allProducts.find(p => String(p.id) === String(id))
+            ).filter(p => p);
+            
+            if (selected.length === 0) {
+                mostrarNotificacao('❌ Nenhum produto selecionado!', 'error');
+                return;
+            }
+            
+            // Calcular totais
+            let totalInvestimento = 0;
+            let totalLucro = 0;
+            let totalUnidades = 0;
+            let produtosTexto = '';
+            
+            selected.forEach((produto, index) => {
+                const quantidade = productQuantities[String(produto.id)] || 1;
+                const investimento = produto.custoBase * quantidade;
+                const lucro = (produto.precoVenda - produto.custoBase) * quantidade;
+                
+                totalInvestimento += investimento;
+                totalLucro += lucro;
+                totalUnidades += quantidade;
+                
+                produtosTexto += `\n${index + 1}. *${produto.nome}*\n`;
+                produtosTexto += `   • Quantidade: ${quantidade} un\n`;
+                produtosTexto += `   • Custo Unit: ${formatarPreco(produto.custoBase)}\n`;
+                produtosTexto += `   • Venda Unit: ${formatarPreco(produto.precoVenda)}\n`;
+                produtosTexto += `   • Investimento: ${formatarPreco(investimento)}\n`;
+                produtosTexto += `   • Lucro: ${formatarPreco(lucro)}\n`;
+            });
+            
+            // Preparar mensagem para WhatsApp
+            const mensagem = `🛒 *PEDIDO - BLACK FRIDAY 2025*\n` +
+                `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                `📦 *${selected.length} produto${selected.length > 1 ? 's' : ''} selecionado${selected.length > 1 ? 's' : ''}*\n` +
+                `📊 *Total: ${totalUnidades} unidade${totalUnidades > 1 ? 's' : ''}*\n` +
+                `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                `${produtosTexto}\n` +
+                `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                `💰 *INVESTIMENTO TOTAL:* ${formatarPreco(totalInvestimento)}\n` +
+                `💚 *LUCRO PROJETADO:* ${formatarPreco(totalLucro)}\n` +
+                `📈 *MARGEM MÉDIA:* ${((totalLucro / totalInvestimento) * 100).toFixed(1)}%\n` +
+                `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+                `✅ Gostaria de confirmar este pedido!`;
+            
+            // Codificar para URL
+            const mensagemCodificada = encodeURIComponent(mensagem);
+            
+            // Número do WhatsApp
+            const numeroWhatsApp = '5541987607512';
+            const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}`;
+            
+            // Abrir WhatsApp em nova aba
+            window.open(urlWhatsApp, '_blank');
+            
+            // Limpar seleção após enviar
+            selectedProducts.clear();
+            productQuantities = {};
+            updateSelectionStats();
+            renderProducts();
+            saveSelection();
+            closeComparisonModal();
+            
+            mostrarNotificacao('✅ Abrindo WhatsApp com seu pedido!', 'success');
+            console.log('Pedido enviado via WhatsApp:', { 
+                produtos: selected.length, 
+                unidades: totalUnidades,
+                investimento: totalInvestimento, 
+                lucro: totalLucro 
+            });
+        }
+
+        // Clear Filters
+        function clearFilters() {
+            document.getElementById('searchProducts').value = '';
+            document.getElementById('filterCategory').value = '';
+            document.getElementById('filterSubcategory').value = '';
+            document.getElementById('sortBy').value = 'nome';
+            renderProducts();
+        }
+
+        // Save/Load Selection (localStorage)
+        function saveSelection() {
+            const selection = {
+                products: Array.from(selectedProducts),
+                quantities: productQuantities
+            };
+            localStorage.setItem('selectedProducts', JSON.stringify(selection));
+        }
+
+        function loadSavedSelection() {
+            const saved = localStorage.getItem('selectedProducts');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    // Compatibilidade com versão antiga (apenas array)
+                    if (Array.isArray(data)) {
+                        selectedProducts = new Set(data);
+                        // Inicializar quantidades com 1
+                        data.forEach(id => {
+                            productQuantities[String(id)] = 1;
+                        });
+                    } else {
+                        // Versão nova (com quantidades)
+                        selectedProducts = new Set(data.products || []);
+                        productQuantities = data.quantities || {};
+                    }
+                    updateSelectionStats();
+                } catch (e) {
+                    console.error('Erro ao carregar seleção:', e);
+                }
+            }
+        }
+
+        // Show Notification
+        function mostrarNotificacao(mensagem, tipo = 'info') {
+            // Criar elemento de notificação
+            const notificacao = document.createElement('div');
+            notificacao.className = `fixed top-20 right-4 z-50 px-6 py-4 rounded-lg shadow-2xl text-white font-bold transform transition-all duration-500 ease-out`;
+            
+            // Cores baseadas no tipo
+            const cores = {
+                'success': 'bg-green-600',
+                'error': 'bg-red-600',
+                'info': 'bg-blue-600',
+                'warning': 'bg-yellow-600'
+            };
+            
+            notificacao.classList.add(cores[tipo] || cores['info']);
+            notificacao.textContent = mensagem;
+            notificacao.style.transform = 'translateX(400px)';
+            
+            // Adicionar ao body
+            document.body.appendChild(notificacao);
+            
+            // Animar entrada
+            setTimeout(() => {
+                notificacao.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remover após 3 segundos
+            setTimeout(() => {
+                notificacao.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notificacao);
+                }, 500);
+            }, 3000);
+        }
+        
+        // Close modals on click outside
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) closeProductModal();
+        });
+
+        document.getElementById('comparisonModal').addEventListener('click', function(e) {
+            if (e.target === this) closeComparisonModal();
+        });
+    </script>
+</body>
+</html>

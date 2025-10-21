@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparação Visual: Modais do Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">
+            🎨 Comparação: Modal de Visualização vs Modal de Edição
+        </h1>
+
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-8">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-exclamation-triangle text-yellow-500 text-2xl"></i>
+                </div>
+                <div class="ml-3">
+                    <p class="text-lg font-bold text-yellow-800">IMPORTANTE</p>
+                    <p class="text-yellow-700">O sistema tem DOIS modais diferentes. Se você não consegue editar campos, está no modal ERRADO!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Modal de Visualização -->
+            <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+                <div class="bg-blue-500 text-white p-4">
+                    <h2 class="text-2xl font-bold flex items-center">
+                        <i class="fas fa-eye mr-3"></i>
+                        Modal de VISUALIZAÇÃO
+                    </h2>
+                    <p class="text-blue-100 mt-2">Apenas para VER detalhes (Read-Only)</p>
+                </div>
+
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold mb-3 text-blue-600">Como Abrir:</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center p-3 bg-blue-50 rounded">
+                                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <span class="ml-3 text-gray-700">Clique no botão AZUL (olho)</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-blue-50 rounded">
+                                <i class="fas fa-image text-2xl text-blue-500"></i>
+                                <span class="ml-3 text-gray-700">Clique na IMAGEM do produto</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-blue-50 rounded">
+                                <i class="fas fa-tag text-2xl text-blue-500"></i>
+                                <span class="ml-3 text-gray-700">Clique no NOME do produto</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold mb-3 text-blue-600">Aparência:</h3>
+                        <div class="border-2 border-blue-300 rounded-lg p-4 bg-gray-50">
+                            <div class="text-sm font-mono mb-4">
+                                <div class="font-bold text-gray-800 mb-2">Echo Dot 5ª Geração</div>
+                            </div>
+                            
+                            <div class="space-y-3 text-sm">
+                                <div class="bg-white p-3 rounded border">
+                                    <div class="font-bold text-gray-600 mb-2">💰 Precificação</div>
+                                    <div class="space-y-1 text-gray-700">
+                                        <div class="flex justify-between">
+                                            <span>Custo Base:</span>
+                                            <span class="font-semibold">R$ 420,00</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Preço Mercado:</span>
+                                            <span class="font-semibold">R$ 599,00</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Preço Venda:</span>
+                                            <span class="font-bold text-purple-600">R$ 546,00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-center">
+                            <span class="inline-block px-4 py-2 bg-red-100 text-red-700 rounded-full font-bold text-sm">
+                                ❌ TEXTO ESTÁTICO - NÃO EDITÁVEL
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold mb-3 text-blue-600">Características:</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Perfeito para <strong>visualizar</strong> rapidamente</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times text-red-500 mt-1 mr-2"></i>
+                                <span><strong>NÃO permite edição</strong> (todos os campos são texto)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-calculator text-blue-500 mt-1 mr-2"></i>
+                                <span>Mostra cálculos de lucro e margem</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-link text-blue-500 mt-1 mr-2"></i>
+                                <span>Botões de ação (comprar, link)</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="font-bold text-blue-800 mb-2">Quando Usar:</div>
+                        <ul class="text-sm text-blue-700 space-y-1">
+                            <li>✓ Ver detalhes completos</li>
+                            <li>✓ Verificar preços e margens</li>
+                            <li>✓ Acessar link de compra</li>
+                            <li class="text-red-600 font-bold">✗ NÃO use para editar!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal de Edição -->
+            <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+                <div class="bg-purple-500 text-white p-4">
+                    <h2 class="text-2xl font-bold flex items-center">
+                        <i class="fas fa-edit mr-3"></i>
+                        Modal de EDIÇÃO/CRIAÇÃO
+                    </h2>
+                    <p class="text-purple-100 mt-2">Para EDITAR dados (CRUD)</p>
+                </div>
+
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold mb-3 text-purple-600">Como Abrir:</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center p-3 bg-purple-50 rounded">
+                                <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <span class="ml-3 text-gray-700">Clique no botão ROXO (lápis)</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-purple-50 rounded">
+                                <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                                    <i class="fas fa-plus"></i> Novo Produto
+                                </button>
+                                <span class="ml-3 text-gray-700">Clique "+ Novo Produto"</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold mb-3 text-purple-600">Aparência:</h3>
+                        <div class="border-2 border-purple-300 rounded-lg p-4 bg-gray-50">
+                            <div class="text-sm font-mono mb-4">
+                                <div class="font-bold text-gray-800 mb-2 flex items-center">
+                                    <i class="fas fa-edit text-purple-500 mr-2"></i>
+                                    Editar Produto - Echo Dot 5ª Geração
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3 text-sm">
+                                <div class="bg-white p-3 rounded border">
+                                    <div class="font-bold text-gray-600 mb-2">💰 Precificação</div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="block text-gray-700 font-semibold mb-1">Custo Base (R$) *</label>
+                                        <input type="number" value="420.00" 
+                                               class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none"
+                                               placeholder="Digite aqui...">
+                                        <div class="text-xs text-green-600 mt-1">
+                                            <i class="fas fa-check-circle"></i> Campo editável
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="block text-gray-700 font-semibold mb-1">Preço Mercado (R$) *</label>
+                                        <input type="number" value="599.00" 
+                                               class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none"
+                                               placeholder="Digite aqui...">
+                                        <div class="text-xs text-green-600 mt-1">
+                                            <i class="fas fa-check-circle"></i> Campo editável
+                                        </div>
+                                    </div>
+
+                                    <div class="p-3 bg-green-50 rounded border-2 border-green-300">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-semibold">Preço de Venda:</span>
+                                            <span class="text-xl font-bold text-green-600">R$ 546,00</span>
+                                        </div>
+                                        <div class="text-xs text-green-700 mt-1">
+                                            <i class="fas fa-sync-alt"></i> Recalcula automaticamente
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-center">
+                            <span class="inline-block px-4 py-2 bg-green-100 text-green-700 rounded-full font-bold text-sm">
+                                ✅ INPUTS EDITÁVEIS - PODE DIGITAR
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold mb-3 text-purple-600">Características:</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span><strong>TODOS os campos são editáveis</strong></span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span><strong>custoBase:</strong> Input editável</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span><strong>precoMercado:</strong> Input editável</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-sync-alt text-green-500 mt-1 mr-2"></i>
+                                <span>Recálculo automático de precoVenda</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-save text-purple-500 mt-1 mr-2"></i>
+                                <span>Botão "Atualizar" / "Adicionar"</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <div class="font-bold text-purple-800 mb-2">Quando Usar:</div>
+                        <ul class="text-sm text-purple-700 space-y-1">
+                            <li>✓ Criar novo produto</li>
+                            <li>✓ Editar dados existentes</li>
+                            <li>✓ Alterar preços</li>
+                            <li>✓ Atualizar descrição</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparação Lado a Lado -->
+        <div class="mt-12 bg-white rounded-lg shadow-xl p-8">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">
+                🔍 Identificação Rápida
+            </h2>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-3 text-left font-bold">Elemento</th>
+                            <th class="px-4 py-3 text-center font-bold bg-blue-100">
+                                <i class="fas fa-eye text-blue-500"></i> Visualização
+                            </th>
+                            <th class="px-4 py-3 text-center font-bold bg-purple-100">
+                                <i class="fas fa-edit text-purple-500"></i> Edição
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Título do Modal</td>
+                            <td class="px-4 py-3 text-center bg-blue-50">Nome do produto</td>
+                            <td class="px-4 py-3 text-center bg-purple-50">"✏️ Editar Produto" ou "🆕 Novo"</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Campos de Preço</td>
+                            <td class="px-4 py-3 text-center bg-blue-50">Texto: "R$ 420,00"</td>
+                            <td class="px-4 py-3 text-center bg-purple-50">Input: <code>[420.00]</code> com borda</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Botão Principal</td>
+                            <td class="px-4 py-3 text-center bg-blue-50">"Comprar Produto"</td>
+                            <td class="px-4 py-3 text-center bg-purple-50">"Atualizar" / "Adicionar"</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Pode Digitar?</td>
+                            <td class="px-4 py-3 text-center bg-blue-50">
+                                <span class="px-3 py-1 bg-red-200 text-red-800 rounded-full font-bold">
+                                    ❌ NÃO
+                                </span>
+                            </td>
+                            <td class="px-4 py-3 text-center bg-purple-50">
+                                <span class="px-3 py-1 bg-green-200 text-green-800 rounded-full font-bold">
+                                    ✅ SIM
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Cursor ao Passar</td>
+                            <td class="px-4 py-3 text-center bg-blue-50">Seta (→)</td>
+                            <td class="px-4 py-3 text-center bg-purple-50">I-beam (I) nos inputs</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Cor do Botão</td>
+                            <td class="px-4 py-3 text-center bg-blue-50">
+                                <button class="px-3 py-1 bg-blue-500 text-white rounded">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                            <td class="px-4 py-3 text-center bg-purple-50">
+                                <button class="px-3 py-1 bg-purple-500 text-white rounded">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Teste Rápido -->
+        <div class="mt-12 bg-gradient-to-r from-green-100 to-green-200 rounded-lg shadow-xl p-8">
+            <h2 class="text-3xl font-bold mb-6 text-center text-green-800">
+                🧪 Teste Definitivo
+            </h2>
+
+            <div class="bg-white rounded-lg p-6 shadow-lg max-w-3xl mx-auto">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Para Confirmar que Campos São Editáveis:</h3>
+                
+                <ol class="space-y-3 text-lg">
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-3">1</span>
+                        <span>Abra admin-v6.7.html</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-3">2</span>
+                        <span>Encontre qualquer produto na lista</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold mr-3">3</span>
+                        <span>Clique no <strong class="text-purple-600">botão ROXO ✏️</strong> (não no azul!)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-3">4</span>
+                        <span>Veja o campo "Custo Base (R$)" com <strong>borda cinza</strong></span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-3">5</span>
+                        <span>Clique dentro do campo</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-3">6</span>
+                        <span>Veja <strong>cursor piscando</strong> (▮)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-3">7</span>
+                        <span>Veja borda mudar para <strong class="text-green-600">verde</strong> (focus)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-3">8</span>
+                        <span>Digite qualquer número</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-3">9</span>
+                        <span>Veja <strong>texto mudando</strong> enquanto digita</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-3">10</span>
+                        <span>Veja <strong>Preço de Venda recalcular</strong> automaticamente</span>
+                    </li>
+                </ol>
+
+                <div class="mt-6 p-4 bg-green-100 rounded-lg border-2 border-green-500">
+                    <div class="text-center text-xl font-bold text-green-800">
+                        ✅ Se TODOS esses passos funcionam = CAMPOS SÃO EDITÁVEIS!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 text-center text-gray-600">
+            <p class="text-lg mb-2">Versão: admin-v6.7.html</p>
+            <p>Data: 2025-10-21</p>
+            <p class="mt-4 text-sm">
+                <i class="fas fa-check-circle text-green-500"></i>
+                Campos custoBase e precoMercado são 100% editáveis no modal de edição
+            </p>
+        </div>
+    </div>
+</body>
+</html>

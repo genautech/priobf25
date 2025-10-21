@@ -1,0 +1,253 @@
+🚀 COMO USAR O CARRINHO WHATSAPP - v6.3
+========================================
+
+📱 GUIA RÁPIDO PARA O CLIENTE
+=============================
+
+1️⃣ SELECIONAR PRODUTO
+----------------------
+→ Navegue pelo catálogo
+→ Clique em "Adicionar à Seleção" no produto desejado
+→ Controles de quantidade aparecerão
+
+
+2️⃣ AJUSTAR QUANTIDADE
+----------------------
+→ Use os botões [+] e [-] para mudar quantidade
+→ Ou digite direto no campo numérico
+→ Investimento atualiza automaticamente
+→ Estatísticas no topo também atualizam
+
+
+3️⃣ ENVIAR PEDIDO (OPÇÃO 1: PRODUTO ÚNICO)
+------------------------------------------
+→ Clique no botão verde "🛒 Enviar ao Carrinho"
+→ Veja confirmação com resumo do pedido
+→ Confirme clicando "OK"
+→ WhatsApp abre automaticamente com mensagem pronta
+→ Revise e envie para o vendedor
+
+
+3️⃣ ENVIAR PEDIDO (OPÇÃO 2: MÚLTIPLOS PRODUTOS)
+-----------------------------------------------
+→ Selecione vários produtos
+→ Ajuste quantidade de cada um
+→ Clique no botão global "🛒 Enviar Todos ao Carrinho"
+   (aparece acima dos filtros)
+→ Veja confirmação com todos produtos
+→ Confirme clicando "OK"
+→ WhatsApp abre com mensagem completa
+→ Revise e envie para o vendedor
+
+
+4️⃣ REMOVER PRODUTO DA SELEÇÃO
+------------------------------
+→ Produto selecionado tem dois botões:
+  • Verde: "Enviar ao Carrinho"
+  • Vermelho: "Remover"
+→ Clique no botão vermelho para remover
+→ Produto volta ao estado normal
+→ Quantidade é limpa
+
+
+═══════════════════════════════════════════════════════════════════
+
+
+⚙️ CONFIGURAÇÃO PARA ADMINISTRADOR
+===================================
+
+⚠️ IMPORTANTE: CONFIGURE O WHATSAPP ANTES DE USAR!
+---------------------------------------------------
+
+1. Abra o arquivo: cliente-analise-v6.3.html
+
+2. Procure por: 5541999999999 (aparece 2 vezes)
+
+3. Substitua pelo número REAL do WhatsApp:
+   
+   Linha ~716:
+   const numeroWhatsApp = '5541999999999'; // ← ALTERE AQUI
+   
+   Linha ~800:
+   const numeroWhatsApp = '5541999999999'; // ← ALTERE AQUI
+
+4. Formato correto:
+   - 55 = DDI Brasil
+   - DD = DDD (11, 21, 41, etc)
+   - NNNNNNNNN = Número com 9 dígitos
+   
+   Exemplos:
+   - São Paulo: '5511987654321'
+   - Rio de Janeiro: '5521987654321'
+   - Curitiba: '5541987654321'
+
+5. Salve o arquivo
+
+6. Teste localmente antes de fazer deploy
+
+
+═══════════════════════════════════════════════════════════════════
+
+
+📋 EXEMPLO DE MENSAGEM GERADA
+==============================
+
+PEDIDO ÚNICO:
+-------------
+🛒 *PEDIDO - BLACK FRIDAY 2025*
+
+📦 *Produto:* Notebook Dell Inspiron
+📊 *Quantidade:* 3 unidades
+💰 *Custo Base Unitário:* R$ 2.500,00
+💵 *Preço de Venda Unitário:* R$ 3.200,00
+📈 *Lucro Unitário:* R$ 700,00
+
+━━━━━━━━━━━━━━━━━━━━
+💰 *INVESTIMENTO TOTAL:* R$ 7.500,00
+💚 *LUCRO PROJETADO:* R$ 2.100,00
+📊 *MARGEM:* 28%
+━━━━━━━━━━━━━━━━━━━━
+
+🔗 *Link do Produto:*
+https://exemplo.com/produto/123
+
+✅ Gostaria de confirmar este pedido!
+
+
+PEDIDO MÚLTIPLO:
+----------------
+🛒 *PEDIDO - BLACK FRIDAY 2025*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📦 *3 produtos selecionados*
+📊 *Total: 8 unidades*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. *Notebook Dell Inspiron*
+   • Quantidade: 3 un
+   • Custo Unit: R$ 2.500,00
+   • Venda Unit: R$ 3.200,00
+   • Investimento: R$ 7.500,00
+   • Lucro: R$ 2.100,00
+   • Link: https://exemplo.com/
+
+2. *Mouse Gamer*
+   • Quantidade: 5 un
+   • Custo Unit: R$ 150,00
+   • Venda Unit: R$ 220,00
+   • Investimento: R$ 750,00
+   • Lucro: R$ 350,00
+   • Link: https://exemplo.com/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💰 *INVESTIMENTO TOTAL:* R$ 8.250,00
+💚 *LUCRO PROJETADO:* R$ 2.450,00
+📈 *MARGEM MÉDIA:* 29.7%
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Gostaria de confirmar este pedido!
+
+
+═══════════════════════════════════════════════════════════════════
+
+
+✅ CHECKLIST ANTES DO DEPLOY
+=============================
+
+[ ] Configurei número do WhatsApp (2 lugares)
+[ ] Testei envio de produto único
+[ ] Testei envio de múltiplos produtos
+[ ] Testei botão "Remover"
+[ ] Mensagens estão formatadas corretamente
+[ ] WhatsApp abre em nova aba
+[ ] Links dos produtos estão corretos
+[ ] Cálculos estão corretos
+[ ] Atualizei _redirects para v6.3
+[ ] Atualizei index.html para v6.3
+[ ] Atualizei README.md
+
+
+═══════════════════════════════════════════════════════════════════
+
+
+🐛 TROUBLESHOOTING
+==================
+
+Problema: WhatsApp não abre
+----------------------------
+→ Verifique se navegador permite pop-ups
+→ Tente em outra aba/navegador
+→ Verifique número do WhatsApp no código
+
+
+Problema: Mensagem aparece truncada
+------------------------------------
+→ Normal, WhatsApp tem limite de caracteres
+→ Mensagem completa estará no campo de texto
+→ Cliente pode revisar antes de enviar
+
+
+Problema: Número aparece como "5541999999999"
+----------------------------------------------
+→ Você NÃO configurou o número no código!
+→ Veja seção "CONFIGURAÇÃO PARA ADMINISTRADOR"
+→ Substitua nas 2 ocorrências
+
+
+Problema: Botões não aparecem
+------------------------------
+→ Limpe cache do navegador (Ctrl+Shift+Delete)
+→ Recarregue página (Ctrl+F5)
+→ Verifique se salvou o arquivo corretamente
+
+
+═══════════════════════════════════════════════════════════════════
+
+
+💡 DICAS PROFISSIONAIS
+======================
+
+Para o Vendedor:
+----------------
+1. Configure um número dedicado para pedidos
+2. Use WhatsApp Business para melhor gestão
+3. Crie respostas rápidas para confirmações
+4. Mantenha histórico de conversas organizado
+
+
+Para o Cliente:
+---------------
+1. Revise quantidades antes de enviar
+2. Pode editar mensagem no WhatsApp antes de enviar
+3. Salve número do vendedor nos contatos
+4. Tire print do pedido para referência
+
+
+Para o Sistema:
+---------------
+1. Monitore logs no Console (F12)
+2. Verifique notificações toast
+3. Teste em diferentes dispositivos
+4. Valide cálculos regularmente
+
+
+═══════════════════════════════════════════════════════════════════
+
+
+📞 SUPORTE
+==========
+
+Documentação completa:
+→ ✅-CARRINHO-WHATSAPP-v6.3.md
+
+Precisa de ajuda?
+→ Verifique logs no Console (F12)
+→ Confira mensagens de erro
+→ Revise configuração do WhatsApp
+
+
+═══════════════════════════════════════════════════════════════════
+
+
+Data: 2025-10-21
+Versão: 6.3.0
+Status: ✅ Funcional

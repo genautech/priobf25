@@ -1,0 +1,77 @@
+⚡ RESUMO RÁPIDO - CAMPOS EDITÁVEIS
+====================================
+
+Data: 2025-10-21
+Versão: admin-v6.7.html
+Status: ✅ CAMPOS JÁ SÃO EDITÁVEIS
+
+
+🎯 RESPOSTA DIRETA:
+==================
+
+Os campos custoBase e precoMercado JÁ ESTÃO EDITÁVEIS no admin-v6.7.html.
+
+Não precisa de nenhuma correção adicional.
+
+
+🔍 POSSÍVEL CONFUSÃO:
+====================
+
+Você pode estar olhando o MODAL ERRADO:
+
+❌ MODAL DE VISUALIZAÇÃO (botão azul 👁️):
+   → Campos são TEXTO (não editável)
+   → Usado apenas para VER detalhes
+   → CORRETO ser não editável
+
+✅ MODAL DE EDIÇÃO (botão roxo ✏️):
+   → Campos são INPUT (editável)
+   → Usado para EDITAR dados
+   → custoBase EDITÁVEL ✅
+   → precoMercado EDITÁVEL ✅
+
+
+🧪 TESTE AGORA:
+===============
+
+1. Abra /admin
+2. Encontre qualquer produto
+3. Clique no BOTÃO ROXO ✏️ (não no azul!)
+4. Veja o campo "Custo Base (R$)" com borda
+5. Clique dentro e DIGITE um número
+6. Funciona? ✅ ESTÁ EDITÁVEL!
+
+
+📚 DOCUMENTAÇÃO COMPLETA:
+=========================
+
+Ver arquivos:
+→ ✅-TESTE-CAMPOS-EDITAVEIS.md (teste completo passo a passo)
+→ 🎨-GUIA-VISUAL-MODAIS.md (guia visual com screenshots)
+→ 💬-RESPOSTA-ADMIN-v6.7.txt (explicação geral)
+
+
+🔧 SE NÃO FUNCIONA:
+===================
+
+1. Confirme versão: deve ser admin-v6.7.html
+2. Limpe cache: Ctrl+Shift+R
+3. Confirme modal: deve ter "Editar Produto" no título
+4. Tire screenshot e me envie
+
+
+✅ CONCLUSÃO:
+=============
+
+NENHUMA AÇÃO NECESSÁRIA.
+
+Os campos já são editáveis desde a criação do v6.7.
+
+Se você não consegue editar, está abrindo o modal errado
+(visualização em vez de edição).
+
+
+---
+Última verificação: 2025-10-21
+Código verificado: Linhas 1048-1060 de admin-v6.7.html
+Confirmado: ✅ Campos são <input type="number"> editáveis

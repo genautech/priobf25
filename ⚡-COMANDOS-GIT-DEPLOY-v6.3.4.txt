@@ -1,0 +1,187 @@
+# ═══════════════════════════════════════════════════════════════════════
+# ⚡ COMANDOS GIT PARA DEPLOY - v6.6.1 + v6.3.4
+# ═══════════════════════════════════════════════════════════════════════
+# 
+# VERSÃO 6.3.4 - CORREÇÕES FINAIS
+# - Modal SÓ abre ao clicar botão (não ao mudar quantidade)
+# - Links dos fornecedores REMOVIDOS da mensagem WhatsApp
+# - Número WhatsApp configurado: 5541987607512
+# 
+# ═══════════════════════════════════════════════════════════════════════
+
+# ────────────────────────────────────────────────────────────────────
+# 1️⃣ VERIFICAR STATUS
+# ────────────────────────────────────────────────────────────────────
+
+git status
+
+
+# ────────────────────────────────────────────────────────────────────
+# 2️⃣ ADICIONAR ARQUIVOS MODIFICADOS
+# ────────────────────────────────────────────────────────────────────
+
+# Páginas principais
+git add index.html
+git add admin-v6.6.html
+git add cliente-analise-v6.3.4.html
+
+# Configuração
+git add _redirects
+
+# Documentação
+git add README.md
+git add 💬-RESPOSTA-FINAL-v6.3.4.txt
+git add ⚡-COMANDOS-GIT-DEPLOY-v6.3.4.txt
+
+
+# ────────────────────────────────────────────────────────────────────
+# 3️⃣ FAZER COMMIT
+# ────────────────────────────────────────────────────────────────────
+
+git commit -m "🎯 Deploy v6.3.4: Modal Controlado + Links Protegidos
+
+✨ Cliente v6.3.4:
+- Modal SÓ abre ao clicar 'Enviar ao Carrinho'
+- Modal NÃO abre ao adicionar produto
+- Modal NÃO abre ao mudar quantidade (+/-)
+- Links dos fornecedores REMOVIDOS da mensagem WhatsApp
+- Número WhatsApp configurado: 5541987607512
+
+📝 Arquivos atualizados:
+- cliente-analise-v6.3.4.html (NOVO)
+- index.html (versão e link atualizados)
+- _redirects (rotas v6.3.4)
+- README.md (documentação v6.3.4)
+- Guia de resposta v6.3.4
+
+🎯 Correções:
+- Removido setTimeout() de toggleSelection()
+- Removido setTimeout() de incrementQuantity()
+- Removido setTimeout() de decrementQuantity()
+- Removido setTimeout() de updateQuantity()
+- Removida linha de link na função sendWhatsAppOrder()
+- Atualizado número WhatsApp
+
+🔒 Segurança:
+- Links de fornecedor protegidos
+- Cliente vê só preços e quantidades
+- Mensagem WhatsApp limpa
+
+Status: Pronto para produção"
+
+
+# ────────────────────────────────────────────────────────────────────
+# 4️⃣ ENVIAR PARA GITHUB
+# ────────────────────────────────────────────────────────────────────
+
+git push origin main
+
+
+# ────────────────────────────────────────────────────────────────────
+# 5️⃣ AGUARDAR DEPLOY AUTOMÁTICO
+# ────────────────────────────────────────────────────────────────────
+
+echo ""
+echo "✅ Código enviado para GitHub!"
+echo ""
+echo "⏳ Aguarde 3-4 minutos para o deploy automático no Cloudflare Pages"
+echo ""
+echo "🌐 URLs para testar após deploy:"
+echo "   • https://priobf25.pages.dev"
+echo "   • https://priobf25.pages.dev/admin"
+echo "   • https://priobf25.pages.dev/cliente"
+echo ""
+echo "🧪 Testes importantes:"
+echo "   ✅ Adicionar produto → Modal NÃO abre"
+echo "   ✅ Mudar quantidade → Modal NÃO abre"
+echo "   ✅ Clicar 'Enviar ao Carrinho' → Modal abre"
+echo "   ✅ Mensagem WhatsApp SEM links"
+echo "   ✅ Número WhatsApp: 5541987607512"
+echo ""
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# 🎯 COMANDO RÁPIDO (UMA LINHA)
+# ═══════════════════════════════════════════════════════════════════════
+
+git add index.html admin-v6.6.html cliente-analise-v6.3.4.html _redirects README.md 💬-RESPOSTA-FINAL-v6.3.4.txt ⚡-COMANDOS-GIT-DEPLOY-v6.3.4.txt && git commit -m "Deploy v6.3.4: Modal Controlado + Links Protegidos" && git push origin main
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# 📋 CHECKLIST PÓS-DEPLOY
+# ═══════════════════════════════════════════════════════════════════════
+
+# Após o deploy, verifique:
+# 
+# ✅ Site carrega: https://priobf25.pages.dev
+# ✅ Admin carrega: https://priobf25.pages.dev/admin
+# ✅ Cliente carrega: https://priobf25.pages.dev/cliente
+# 
+# Teste do Modal:
+# ✅ Adicionar produto → Modal NÃO abre
+# ✅ Clicar (+) → Modal NÃO abre
+# ✅ Clicar (-) → Modal NÃO abre
+# ✅ Digitar quantidade → Modal NÃO abre
+# ✅ Clicar "Enviar ao Carrinho" → Modal abre
+# 
+# Teste do WhatsApp:
+# ✅ Clicar "Enviar Pedido via WhatsApp" → WhatsApp abre
+# ✅ Mensagem NÃO tem links
+# ✅ Mensagem tem: nome, quantidade, preços
+# ✅ Número correto: 5541987607512
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# ✅ DIFERENÇAS DA v6.3.4
+# ═══════════════════════════════════════════════════════════════════════
+
+# v6.3.3 → v6.3.4
+# 
+# REMOVIDO:
+# ❌ setTimeout() no toggleSelection() (adicionar produto)
+# ❌ setTimeout() no incrementQuantity() (clicar +)
+# ❌ setTimeout() no decrementQuantity() (clicar -)
+# ❌ setTimeout() no updateQuantity() (digitar)
+# ❌ Linha de link na mensagem WhatsApp
+# 
+# ADICIONADO:
+# ✅ Número WhatsApp configurado: 5541987607512
+# 
+# RESULTADO:
+# ✅ Modal mais controlado (só abre quando usuário quer)
+# ✅ Links de fornecedor protegidos
+# ✅ Pronto para usar (número configurado)
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# 🔧 TROUBLESHOOTING
+# ═══════════════════════════════════════════════════════════════════════
+
+# Se modal ainda abrir automaticamente:
+# 1. Limpar cache: Ctrl+Shift+R (Windows) ou Cmd+Shift+R (Mac)
+# 2. Verificar se está na versão correta: /cliente deve abrir v6.3.4
+# 3. Aguardar deploy completo (3-4 minutos)
+
+# Se links ainda aparecerem no WhatsApp:
+# 1. Verificar mensagem no console.log
+# 2. Confirmar que está usando v6.3.4
+# 3. Testar com produto que tinha link
+
+# Se número WhatsApp errado:
+# 1. Verificar linha ~1254 em cliente-analise-v6.3.4.html
+# 2. Confirmar: const numeroWhatsApp = '5541987607512';
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# 🎉 TUDO PRONTO!
+# ═══════════════════════════════════════════════════════════════════════
+
+echo ""
+echo "🎉 Deploy v6.3.4 concluído!"
+echo ""
+echo "✅ Modal controlado"
+echo "✅ Links protegidos"  
+echo "✅ WhatsApp configurado"
+echo ""
+echo "Sistema 100% funcional!"
+echo ""

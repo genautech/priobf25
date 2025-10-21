@@ -1,9 +1,9 @@
 # 🛍️ Sistema Black Friday PRIO 2025
 
-**Sistema Completo de Gestão e Análise de Produtos - Versão 6.6.0**
+**Sistema Completo de Gestão e Análise de Produtos - Versão 6.10.0**
 
 [![Status](https://img.shields.io/badge/status-production-brightgreen)]()
-[![Version](https://img.shields.io/badge/version-6.6.0-blue)]()
+[![Version](https://img.shields.io/badge/version-6.10.0-blue)]()
 [![Deploy](https://img.shields.io/badge/deploy-cloudflare-yellow)]()
 [![Sync](https://img.shields.io/badge/sync-100%25__automatic-success)]()
 [![Security](https://img.shields.io/badge/security-SECURE-brightgreen)]()
@@ -12,7 +12,7 @@
 
 ---
 
-## 🚀 VERSÃO 6.6.0 - HISTÓRICO DE ATUALIZAÇÕES + COORDENAÇÃO MULTI-USUÁRIO
+## 🚀 VERSÃO 6.10.0 - ESTATÍSTICAS AVANÇADAS + CSV OTIMIZADO + FERRAMENTAS LIMPAS
 
 ### ✨ O QUE FAZ:
 
@@ -24,9 +24,204 @@ Sistema completo para gerenciar catálogo de produtos da Black Friday 2025:
 ✅ **Análise Avançada** - Gráficos, métricas e comparativos  
 ✅ **Catálogo Cliente** - Interface interativa para seleção de produtos  
 ✅ **100% Seguro** - Token protegido no servidor (Cloudflare Pages Function)  
-✅ **Dados Sempre Atualizados** - Todas as abas mostram dados em tempo real
+✅ **Dados Sempre Atualizados** - Todas as abas mostram dados em tempo real  
+✅ **Re-sincronização de Preços** - Atualizar múltiplos produtos com base nos links cadastrados  
+✅ **Re-inserção de Produtos** - Recuperar produtos obsoletos do histórico  
+✅ **Estatísticas em Tempo Real** - 4 cards com métricas ao vivo na aba Sugestões  
+✅ **CSV Completo** - Exportação com 23 campos incluindo análise financeira  
+✅ **Ferramentas Otimizadas** - Interface limpa com apenas 6 ferramentas essenciais
 
-### 🆕 ÚLTIMA ATUALIZAÇÃO (2025-10-20):
+### 🆕 ÚLTIMA ATUALIZAÇÃO (2025-10-21):
+**Versão 6.10.0 - Estatísticas Avançadas + CSV Otimizado + Ferramentas Limpas** 📊✨
+
+⭐ **NOVIDADES v6.10.0:**
+
+**1. 📊 Estatísticas em Tempo Real (Aba Sugestões):**
+- ✅ **4 Cards Visuais:** Total de produtos, Novos, Investimento total, Lucro projetado
+- ✅ **Gradientes Coloridos:** Azul (total), Verde (novos), Laranja (investimento), Roxo (lucro)
+- ✅ **Atualização Automática:** Cálculos em tempo real ao filtrar/buscar
+- ✅ **Cálculos Financeiros:** Investimento = Custo × Qtd, Lucro = (Venda - Custo) × Qtd
+- ✅ **Badge NOVO:** Identifica automaticamente produtos com badge "NOVO"
+- 📍 **Localização:** Aba "Sugestões & Inovações 2025" → Topo da página
+
+**2. 📄 CSV Export Completo (23 Campos):**
+- ✅ **Expandido:** De 13 para 23 campos com análise financeira completa
+- ✅ **Novos Campos:** Investimento Total, Receita Total, Lucro Unitário, Lucro Total
+- ✅ **Análise Competitiva:** Preço Concorrente, Diferença, Status Competitividade
+- ✅ **Campos Editáveis:** Todos os novos campos do formulário incluídos
+- ✅ **UTF-8 BOM:** Compatibilidade perfeita com Excel (acentos corretos)
+- ✅ **Cálculos Automáticos:** Métricas financeiras calculadas automaticamente
+- 📍 **Localização:** Aba Ferramentas → Card "Exportar CSV"
+
+**3. 🧹 Ferramentas Otimizadas (11→6):**
+- ✅ **Interface Limpa:** Removidas 5 ferramentas redundantes/externas
+- ✅ **6 Ferramentas Essenciais:** Exportar Template, Importar Catálogo, Importador Inteligente, Corrigir Links, Re-sincronizar Preços, Exportar CSV
+- ✅ **Removidas:** Atualizar Imagens, Buscar Imagens FINAL, Buscar Google/Bing, Importador Externo v2, Visualizar Imagens
+- ✅ **Foco:** Apenas ferramentas integradas e essenciais ao workflow
+- 📍 **Localização:** Aba Ferramentas → Layout de 2 colunas responsivo
+
+⭐ **FUNCIONALIDADES v6.9.0 (Anteriores):**
+
+**1. 💰 Re-sincronização de Preços:**
+- ✅ **Interface intuitiva:** Modal com lista de todos os produtos que possuem links cadastrados
+- ✅ **Seleção múltipla:** Escolha quais produtos atualizar com checkboxes
+- ✅ **Acesso direto aos links:** Botão para abrir a página do fornecedor em nova aba
+- ✅ **Atualização em lote:** Edite preços de vários produtos e aplique todos de uma vez
+- ✅ **Campos atualizáveis:** Custo Base e Preço Mercado
+- ✅ **Cálculo automático:** Preço de venda recalculado com base na margem
+- ✅ **Validação inteligente:** Ignora produtos selecionados sem novos valores
+- ✅ **Histórico registrado:** Todas as atualizações são registradas no histórico
+- 📍 **Localização:** Aba Ferramentas → Card "Re-sincronizar Preços"
+
+**2. 🔄 Re-inserção de Produtos Obsoletos:**
+- ✅ **Detecção automática:** Identifica produtos removidos que ainda estão no histórico
+- ✅ **Modal de seleção:** Interface para escolher quais produtos recuperar
+- ✅ **Seleção individual:** Checkboxes para escolher produtos específicos
+- ✅ **Botões de ação:** Selecionar todos, desmarcar todos
+- ✅ **Duas opções:** Remover do histórico OU re-inserir no sistema
+- ✅ **Re-criação inteligente:** Produtos re-inseridos com status "sugerido" para configuração
+- ✅ **Badge visual:** Produtos re-inseridos recebem badge "🔄 REINSERIDO"
+- ✅ **Dados preservados:** Nome e ID do produto original são mantidos
+- 📍 **Localização:** Dashboard → Histórico de Atualizações → Botão "Re-sincronizar"
+
+### 🚀 COMO USAR AS NOVAS FUNCIONALIDADES:
+
+#### 💰 Re-sincronização de Preços
+```
+1. Abra o Admin → Aba "Ferramentas"
+2. Clique no card "Re-sincronizar Preços" (verde esmeralda)
+3. Selecione os produtos que deseja atualizar
+4. Clique em "Abrir Link" para visitar a página do fornecedor
+5. Consulte o preço atual e digite nos campos
+6. Clique em "Aplicar Atualizações"
+7. ✅ Pronto! Preços atualizados em lote
+```
+
+#### 🔄 Re-inserção de Produtos Obsoletos
+```
+1. Abra o Admin → Aba "Dashboard"
+2. Expanda "Histórico de Atualizações"
+3. Clique em "Re-sincronizar"
+4. Se houver produtos obsoletos, um modal será aberto
+5. Selecione os produtos que deseja recuperar
+6. Escolha: "Remover do Histórico" OU "Re-inserir no Sistema"
+7. ✅ Produtos recuperados com badge "🔄 REINSERIDO"
+8. Configure manualmente os detalhes dos produtos re-inseridos
+```
+
+### 🚀 COMO USAR AS NOVAS FUNCIONALIDADES v6.10.0:
+
+#### 📊 Estatísticas em Tempo Real
+```
+1. Abra o Admin → Aba "Sugestões & Inovações 2025"
+2. Observe os 4 cards no topo da página:
+   - 🔵 Total de Produtos: Quantidade total de sugestões
+   - 🟢 Novos: Produtos marcados com badge "NOVO"
+   - 🟠 Investimento: Soma de (Custo Base × Quantidade)
+   - 🟣 Lucro Projetado: Soma de ((Preço Venda - Custo) × Quantidade)
+3. Use filtros/busca: As estatísticas atualizam automaticamente
+4. ✅ Visualização em tempo real dos números da sua operação!
+```
+
+#### 📄 CSV Export Completo (23 Campos)
+```
+1. Abra o Admin → Aba "Ferramentas"
+2. Clique no card "Exportar CSV" (roxo)
+3. Escolha "Produtos Planilha" ou "Produtos Sugeridos"
+4. ✅ Arquivo baixado com 23 campos:
+   • Básicos: ID, SKU, Nome, Categoria, Subcategoria, Fornecedor
+   • Quantidades: Quantidade, Custo Base, Preço Mercado, Margem, Preço Venda
+   • Financeiros: Investimento Total, Receita Total, Lucro Unitário, Lucro Total
+   • Extras: Link, Imagem, Badge, Status, Origem
+   • Competitivo: Preço Concorrente, Diferença, Status Competitividade
+5. Abra no Excel/Google Sheets: Acentos perfeitos (UTF-8 BOM)
+```
+
+#### 🧹 Ferramentas Otimizadas
+```
+1. Abra o Admin → Aba "Ferramentas"
+2. Veja apenas as 6 ferramentas essenciais:
+   - 📋 Exportar Template CSV
+   - 📥 Importar Catálogo de Produtos
+   - 🤖 Importador Inteligente de Produtos
+   - 🔗 Corrigir Links de Produtos
+   - 💰 Re-sincronizar Preços
+   - 📊 Exportar CSV
+3. Interface mais limpa e focada
+4. ✅ Workflow mais eficiente!
+```
+
+### 📚 Documentação Completa
+- **⚡ COMECE AQUI:** `⚡-COMECE-AQUI-v6.10.txt` - Teste em 5 minutos
+- **📋 Release Notes:** `RELEASE-v6.10.0.md` - Documentação técnica completa
+- **👉 v6.9:** `👉-LEIA-PRIMEIRO-v6.9.txt` - Funcionalidades anteriores
+- **Tutorial v6.9:** `GUIA-RAPIDO-v6.9.md` - Passo a passo com exemplos
+
+---
+
+### 📋 VERSÕES ANTERIORES:
+
+**Versão 6.7.1 - Admin COMPLETO com Todas as Correções + v6.3.4 Carrinho Otimizado**
+
+⭐ **ADMIN v6.7.1 - TODAS AS CORREÇÕES IMPLEMENTADAS:**
+- ✅ **Análise Comparativa funcionando:** Botões Ver e Editar totalmente operacionais
+- ✅ **Dashboard com edição direta:** Botão "Editar" direto na tabela + via modal de visualização
+- ✅ **Modal de edição corrigido:** Não fecha mais ao clicar "Editar Produto"
+- ✅ **Re-sincronização de histórico:** Novo botão para verificar produtos removidos
+- ✅ **Indicadores de status:** Badges verde (visível) e vermelho (removido) no histórico
+- ✅ **Sequenciamento de modais:** setTimeout implementado para transição suave
+- 📚 Documentação: `💬-CORRECOES-v6.7.1.txt` e `⚡-RESUMO-v6.7.1.txt`
+
+**ADMIN v6.7 - CORREÇÕES ANTERIORES:**
+- ✅ **Modal fecha automaticamente:** Spinner "Salvando..." → Confirmação → Fecha em 500ms
+- ✅ **Modal abre para produtos novos:** Usa dados dinâmicos do CRUD
+- ✅ **Modal funciona em busca:** Função global acessível em todos elementos
+- ✅ **Análise Comparativa com ações:** Botões Ver (👁️) e Editar (✏️) adicionados
+- ✅ **Campos editáveis confirmados:** custoBase e precoMercado SÃO editáveis no modal CRUD
+- ⚠️ **Importante:** Modal EDIÇÃO (roxo ✏️) = editável | Modal VISUALIZAÇÃO (azul 👁️) = read-only
+- 📚 Documentação completa: `📝-CORRECOES-ADMIN-v6.7.md` e `🎨-GUIA-VISUAL-MODAIS.md`
+
+---
+
+🛒 **CARRINHO WHATSAPP OTIMIZADO (v6.3.4):**
+- ✅ **Modal controlado:** Só abre ao clicar "Enviar ao Carrinho" (NÃO ao adicionar/mudar quantidade)
+- ✅ **Links protegidos:** Links dos fornecedores NÃO aparecem na mensagem WhatsApp
+- ✅ **Número WhatsApp configurado:** 5541987607512 já está no código
+- ✅ **Botão "Enviar Pedido via WhatsApp"** dentro do modal (somente este abre WhatsApp)
+- ✅ **Fluxo controlado:** Seleção → Ajuste quantidade → Botão → Modal → Revisão → WhatsApp
+- ✅ **Cálculos automáticos** de investimento, lucro e margem
+- ✅ **Sistema de notificações** toast para feedback visual
+- ✅ **Privacidade:** Cliente vê só preços e quantidades, não os links de compra
+
+🐛 **CORREÇÕES APLICADAS:**
+
+**Admin v6.6.1:**
+- ✅ **Corrigido:** Modal de detalhes não atualizava após edição
+- ✅ **Solução:** Adicionado alias `abrirCrudModal()` para compatibilidade
+- ✅ **Resultado:** Modal sempre exibe dados atualizados
+
+**Cliente v6.3.4 - MODAL CONTROLADO:**
+- ✅ **NOVO:** Modal SÓ abre ao clicar "Enviar ao Carrinho" (NÃO ao adicionar/mudar quantidade)
+- ✅ **NOVO:** Links dos produtos REMOVIDOS da mensagem WhatsApp (proteção de fornecedores)
+- ✅ **NOVO:** Número WhatsApp pré-configurado (5541987607512)
+- ✅ **Mantido:** WhatsApp só abre ao clicar botão "Enviar Pedido via WhatsApp" dentro do modal
+- ✅ **Mantido:** Controles de quantidade (+/- e input) funcionam perfeitamente
+- ✅ **Mantido:** Modal "Minha Seleção" usa quantidades corretas do cliente
+- ✅ **Mantido:** Gráficos, CSV e cálculos 100% precisos
+- ✅ **Mantido:** Botões "Enviar ao Carrinho" e "Remover" separados
+- ✅ **Resultado:** Fluxo mais controlado + Privacidade dos links de fornecedor
+
+📄 **Documentação:**
+- `💬-RESPOSTA-FINAL-v6.3.4.txt` - Modal controlado + Links protegidos
+- `💬-RESPOSTA-FINAL-v6.3.3.txt` - Fluxo de 2 etapas (modal → WhatsApp)
+- `✅-MELHORIAS-UX-v6.3.2.md` - Modal automático e sem confirmações
+- `✅-CARRINHO-WHATSAPP-v6.3.md` - Nova funcionalidade de carrinho
+- `✅-CORRECAO-QUANTIDADES-v6.3.1.md` - Correção quantidades no modal
+- `✅-CORRECOES-BUGS-v6.2-v6.6.md` - Análise técnica das correções
+
+---
+
+### 🆕 ATUALIZAÇÃO ANTERIOR (2025-10-20):
 **Versão 6.6 - Recursos de Coordenação para Multi-Computadores**
 
 ✅ **NOVO: Histórico de Atualizações**
@@ -60,9 +255,13 @@ Sistema completo para gerenciar catálogo de produtos da Black Friday 2025:
 
 ### 🎯 Páginas Principais:
 - **`index.html`** - Página inicial com links para admin e cliente
-- **`admin-v6.6.html`** - Painel administrativo (CRUD + Auto-Sync + Histórico) ⭐ NOVO
-- **`admin-v6.5.html`** - Versão anterior (ainda funcional)
-- **`cliente-analise-v6.1.html`** - Catálogo interativo para clientes
+- **`admin-v6.10.html`** - Painel administrativo com estatísticas + CSV otimizado ⭐ ATUAL
+- **`admin-v6.9.html`** - Versão anterior (bug fix re-sincronização)
+- **`admin-v6.7.1.html`** - Versão anterior (todas correções)
+- **`admin-v6.6.html`** - Versão anterior (funcional, com histórico)
+- **`cliente-analise-v6.3.4.html`** - Catálogo com modal controlado + links protegidos ⭐ ATUAL
+- **`cliente-analise-v6.3.3.html`** - Versão anterior (fluxo 2 etapas)
+- **`admin-v6.5.html`** - Versão anterior do admin (funcional)
 
 ### 📦 Dados e Lógica:
 - **`produtos-v6.1.js`** - Base de dados de produtos (atualizado automaticamente)
@@ -213,15 +412,19 @@ Ou use os atalhos:
 
 ## 🔧 FUNCIONALIDADES
 
-### Admin (admin-v6.6.html):
+### Admin (admin-v6.10.html):
 - ✅ Dashboard com métricas em tempo real
 - ✅ CRUD completo (Create, Read, Update, Delete)
 - ✅ Duplicação de produtos
 - ✅ Importação de planilhas (CSV/Excel)
 - ✅ Auto-Sync automático (toggle)
-- ✅ **NOVO:** Histórico de atualizações (widget retrátil)
-- ✅ **NOVO:** Exibição de data/hora do último commit (Curitiba/PR)
-- ✅ Exportação para CSV
+- ✅ Histórico de atualizações (widget retrátil)
+- ✅ Exibição de data/hora do último commit (Curitiba/PR)
+- ✅ **NOVO v6.10:** Estatísticas em tempo real (4 cards na aba Sugestões)
+- ✅ **NOVO v6.10:** Exportação CSV completa (23 campos com análise financeira)
+- ✅ **NOVO v6.10:** Ferramentas otimizadas (6 essenciais, interface limpa)
+- ✅ Re-sincronização de preços (v6.9)
+- ✅ Re-inserção de produtos obsoletos (v6.9)
 - ✅ Busca e filtros avançados
 - ✅ Análise de rentabilidade
 - ✅ Comparativo de preços com concorrentes
@@ -334,7 +537,47 @@ Estes arquivos são de versões antigas e não são mais usados na v6.5:
 
 ## 📝 CHANGELOG
 
-### v6.6.0 (20/10/2025) - ATUAL ✅
+### v6.10.0 (21/10/2025) - ATUAL ✅
+- 📊 **Estatísticas em Tempo Real:** 4 cards na aba Sugestões (Total, Novos, Investimento, Lucro)
+- 📄 **CSV Completo:** Exportação expandida de 13 para 23 campos com análise financeira
+- 🧹 **Ferramentas Otimizadas:** Reduzidas de 11 para 6 ferramentas essenciais
+- ✨ **Cálculos Automáticos:** Investimento e lucro calculados em tempo real
+- 🎨 **Interface Limpa:** Cards com gradientes coloridos e layout responsivo
+- 📋 **Campos Novos CSV:** Investimento Total, Receita Total, Lucro Unitário/Total, Análise Competitiva
+- 🚀 **Performance:** Renderização otimizada com estatísticas antes da filtragem
+- 📚 **Documentação:** Release notes completas + guia de início rápido (5 minutos)
+
+### v6.9.1 (21/10/2025)
+- 🐛 **Bug Fix Crítico:** Corrigido erro na re-sincronização de preços (editarProduto → atualizarProduto)
+- 📝 **Logs Detalhados:** Console logs para debug de sincronização
+- ✅ **Validações:** Verificação de produto existente antes de atualizar
+- 🔄 **Sincronização:** Integração automática com GitHub após re-sincronização
+
+### v6.9.0 (21/10/2025)
+- 💰 **Re-sincronização de Preços:** Atualização em lote com modal de seleção
+- 🔄 **Re-inserção de Produtos:** Recuperar produtos obsoletos do histórico
+- 🎯 **Seleção Individual:** Checkboxes para escolher produtos específicos
+- 📍 **Badge Reinserido:** Identificação visual de produtos recuperados
+- 🔗 **Links Diretos:** Botão para abrir página do fornecedor
+
+### v6.6.1 + v6.3.4 (21/10/2025)
+- 🎯 Modal SÓ abre ao clicar "Enviar ao Carrinho" (NÃO ao adicionar/mudar quantidade)
+- 🔒 Links dos fornecedores REMOVIDOS da mensagem WhatsApp (proteção)
+- 📱 Número WhatsApp pré-configurado: 5541987607512
+- 🔄 Fluxo controlado: Seleção → Ajuste → Botão → Modal → Revisão → WhatsApp
+- 📝 Cliente tem mais controle sobre quando ver o carrinho
+- 💰 Cálculos de investimento, lucro e margem no modal
+- 📤 Exportação CSV mantida
+- 🛡️ Privacidade: Cliente vê só preços, não links de compra
+
+### v6.6.1 + v6.3.3 (21/10/2025)
+- 🛒 Carrinho WhatsApp com fluxo de 2 etapas (revisão → envio)
+- 👉 Botões "Enviar ao Carrinho" agora APENAS abrem modal
+- ✅ WhatsApp só abre via botão dedicado dentro do modal
+- 🔄 Fluxo otimizado: Produto → Modal → Revisão → WhatsApp
+- 📝 Usuário pode revisar carrinho antes de enviar
+
+### v6.6.0 (20/10/2025)
 - 🆕 Widget de histórico de atualizações (retrátil)
 - 🆕 Registro de todas as operações CRUD (criar, editar, duplicar)
 - 🆕 Exibição de data/hora do último commit no header
@@ -414,8 +657,8 @@ Estes arquivos são de versões antigas e não são mais usados na v6.5:
 ## 📧 CONTATO
 
 - **Desenvolvedor:** Sistema desenvolvido com IA
-- **Versão:** 6.6.0
-- **Data:** 20/10/2025
+- **Versão:** 6.10.0
+- **Data:** 21/10/2025
 - **Status:** ✅ Produção
 - **Timezone:** America/Sao_Paulo (Curitiba/PR, UTC-3)
 
@@ -456,4 +699,4 @@ Uso interno - Genautech / PRIO Black Friday 2025
 
 ---
 
-**🎉 Sistema robusto e funcional - 2 de 3 fases testadas com sucesso!**
+**🎉 Sistema completo e otimizado - v6.10.0 com estatísticas avançadas e CSV completo!**

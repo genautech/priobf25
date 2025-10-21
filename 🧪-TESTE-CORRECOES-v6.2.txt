@@ -1,0 +1,265 @@
+🧪 GUIA DE TESTE - CORREÇÕES v6.2 + v6.6
+========================================
+
+📋 PROBLEMAS CORRIGIDOS:
+
+1. ✅ Modal do Admin não atualizava detalhes do produto
+2. ✅ Controles de quantidade do cliente não funcionavam
+
+
+🔧 CORREÇÕES APLICADAS:
+========================
+
+## 1️⃣ ADMIN (admin-v6.6.html)
+
+### Problema:
+- Modal de detalhes não mostrava dados atualizados após edição
+- Lista mostrava corretamente, mas modal tinha dados antigos
+
+### Solução:
+- Adicionado função alias `abrirCrudModal()` (linha ~1430)
+- Alguns códigos chamavam `abrirCrudModal()` mas a função real era `openCrudModal()`
+
+### Arquivo: admin-v6.6.html
+```javascript
+// Alias para compatibilidade
+function abrirCrudModal(mode, productId = null) {
+    openCrudModal(mode, productId);
+}
+```
+
+
+## 2️⃣ CLIENTE (cliente-analise-v6.2.html)
+
+### Problema:
+- Botões +/- de quantidade não respondiam a cliques
+- Input de quantidade não atualizava
+- UI não refletia mudanças de quantidade
+
+### Soluções Aplicadas:
+
+#### A) Adicionado renderProducts() em updateQuantity()
+**Antes:**
+```javascript
+function updateQuantity(productId, quantity) {
+    productQuantities[id] = qtd;
+    updateSelectionStats();
+    saveSelection();  // Faltava renderProducts()!
+}
+```
+
+**Depois:**
+```javascript
+function updateQuantity(productId, quantity) {
+    productQuantities[id] = qtd;
+    updateSelectionStats();
+    renderProducts();  // ✅ CORRIGIDO: Re-renderiza UI
+    saveSelection();
+}
+```
+
+#### B) Melhorado event.stopPropagation()
+**Antes:**
+```html
+<div class="mb-3 p-3 bg-purple-50 rounded-lg border-2 border-purple-200">
+    <button onclick="event.stopPropagation(); decrementQuantity('${produto.id}')">
+```
+
+**Depois:**
+```html
+<div onclick="event.stopPropagation()">  <!-- ✅ Container também para propagação -->
+    <button onclick="event.stopPropagation(); decrementQuantity('${produto.id}'); return false;"
+            type="button">  <!-- ✅ Adicionado type="button" e return false -->
+```
+
+#### C) Melhorado input de quantidade
+**Antes:**
+```html
+<input onchange="event.stopPropagation(); updateQuantity('${produto.id}', this.value)">
+```
+
+**Depois:**
+```html
+<input oninput="event.stopPropagation(); updateQuantity('${produto.id}', this.value)"
+       onchange="event.stopPropagation(); updateQuantity('${produto.id}', this.value)"
+       onfocus="this.select()">  <!-- ✅ Responde a oninput + seleciona ao focar -->
+```
+
+#### D) Adicionado logs de debug
+- Console.log em todas funções de quantidade
+- Console.error quando produto não encontrado
+- Console.warn quando limites atingidos
+
+
+📝 COMO TESTAR:
+===============
+
+## TESTE 1: Modal do Admin ✅
+------------------------------
+1. Abra: admin-v6.6.html
+2. Clique no ícone de "olho" (👁️) de qualquer produto
+3. Modal deve abrir com dados corretos
+4. Feche o modal
+5. Edite o produto (ícone lápis ✏️)
+6. Mude o nome, preço ou qualquer campo
+7. Salve as alterações
+8. Clique novamente no ícone de "olho" (👁️)
+9. ✅ VERIFICAR: Modal deve mostrar dados ATUALIZADOS
+
+**Console esperado:**
+- Nenhum erro
+- Dados devem coincidir com a lista
+
+
+## TESTE 2: Controles de Quantidade do Cliente ✅
+--------------------------------------------------
+1. Abra: cliente-analise-v6.2.html
+2. Espere carregar produtos
+3. Clique em "Adicionar à Seleção" em qualquer produto
+4. Controles de quantidade devem aparecer (caixa roxa)
+
+### Teste 2A: Botão de Incremento (+)
+- Clique no botão "+"
+- ✅ VERIFICAR: Número deve aumentar
+- ✅ VERIFICAR: "Investimento" abaixo deve atualizar
+- ✅ VERIFICAR: Estatísticas no topo devem atualizar
+- **Console esperado:** "Incrementando quantidade do produto..."
+
+### Teste 2B: Botão de Decremento (-)
+- Clique no botão "-"
+- ✅ VERIFICAR: Número deve diminuir
+- ✅ VERIFICAR: Não deve ir abaixo de 1
+- **Console esperado:** "Decrementando quantidade do produto..."
+
+### Teste 2C: Input Manual
+- Clique no campo de número
+- Digite um valor (ex: 5)
+- Pressione Enter ou clique fora
+- ✅ VERIFICAR: Valor deve ser aceito (se <= estoque)
+- ✅ VERIFICAR: Estatísticas devem atualizar
+- **Console esperado:** "Atualizando quantidade do produto..."
+
+### Teste 2D: Limites
+- Tente aumentar além do estoque disponível
+- ✅ VERIFICAR: Não deve passar do máximo
+- **Console esperado:** "Quantidade máxima atingida..."
+- Tente diminuir abaixo de 1
+- ✅ VERIFICAR: Não deve ir abaixo de 1
+- **Console esperado:** "Quantidade mínima atingida..."
+
+### Teste 2E: Persistência
+- Ajuste quantidades de vários produtos
+- Recarregue a página (F5)
+- ✅ VERIFICAR: Quantidades devem ser mantidas
+
+
+## TESTE 3: Cliques no Card ✅
+-------------------------------
+1. Com produtos selecionados e quantidade ajustada
+2. Clique em QUALQUER PARTE do card FORA dos controles de quantidade
+3. ✅ VERIFICAR: Modal de detalhes deve abrir
+4. Feche o modal
+5. Clique nos BOTÕES +/- ou INPUT de quantidade
+6. ✅ VERIFICAR: Modal NÃO deve abrir
+7. ✅ VERIFICAR: Apenas a quantidade deve mudar
+
+
+## TESTE 4: Cálculos de Investimento/Lucro ✅
+----------------------------------------------
+1. Selecione 2-3 produtos diferentes
+2. Ajuste quantidades para cada um
+3. ✅ VERIFICAR nas estatísticas do topo:
+   - "X Produtos (Y un)" - Y deve ser soma das quantidades
+   - "Investimento Total" - deve considerar qtd customizada
+   - "Lucro Projetado" - deve considerar qtd customizada
+4. Exemplo:
+   - Produto A: 2 unidades × R$ 100 = R$ 200
+   - Produto B: 3 unidades × R$ 50 = R$ 150
+   - Total: 2 produtos (5 un) - Investimento R$ 350
+
+
+🐛 TROUBLESHOOTING:
+===================
+
+Se os controles ainda não funcionarem:
+
+1. Abra DevTools (F12)
+2. Vá para Console
+3. Digite: typeof incrementQuantity
+   - ✅ Deve retornar: "function"
+4. Digite: typeof decrementQuantity
+   - ✅ Deve retornar: "function"
+5. Digite: typeof updateQuantity
+   - ✅ Deve retornar: "function"
+
+Se retornar "undefined":
+- As funções não estão no escopo global
+- Verifique se o arquivo foi salvo corretamente
+- Limpe cache do navegador (Ctrl+Shift+Delete)
+
+Se os botões não respondem:
+- Verifique Console por erros JavaScript
+- Procure por mensagens de log
+- Certifique-se que produtos foram carregados
+
+
+📊 LOGS ESPERADOS NO CONSOLE:
+==============================
+
+Ao clicar em "+":
+```
+Incrementando quantidade do produto abc123: 1 -> 2
+```
+
+Ao clicar em "-":
+```
+Decrementando quantidade do produto abc123: 2 -> 1
+```
+
+Ao digitar no input:
+```
+Atualizando quantidade do produto abc123: 5
+```
+
+Ao tentar exceder estoque:
+```
+Quantidade máxima atingida para produto abc123: 10
+```
+
+Ao tentar ir abaixo de 1:
+```
+Quantidade mínima atingida para produto abc123: 1
+```
+
+
+✅ CHECKLIST FINAL:
+===================
+
+Admin (v6.6):
+- [ ] Modal abre com dados corretos
+- [ ] Modal mostra dados atualizados após edição
+- [ ] Sem erros no console
+
+Cliente (v6.2):
+- [ ] Botão + funciona
+- [ ] Botão - funciona
+- [ ] Input aceita digitação
+- [ ] Limites são respeitados (1 a estoque)
+- [ ] Estatísticas atualizam em tempo real
+- [ ] Investimento individual calcula correto
+- [ ] Persistência funciona após reload
+- [ ] Clique no card não interfere com controles
+- [ ] Console mostra logs esperados
+
+
+🎯 RESULTADO ESPERADO:
+======================
+
+✅ Admin: Modal sempre mostra dados atualizados
+✅ Cliente: Controles de quantidade 100% funcionais
+✅ Cliente: Cálculos corretos baseados em quantidade customizada
+✅ Cliente: Experiência fluida sem bugs de interação
+
+
+📅 Data da Correção: 2025-10-21
+🔖 Versões: admin-v6.6.html + cliente-analise-v6.2.html

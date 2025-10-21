@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 Admin Black Friday PRIO v6.6 - Sistema CRUD + Histórico de Atualizações</title>
+    <title>🚀 Admin Black Friday PRIO v6.7 - Modal Corrigido + Campos Editáveis</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
@@ -238,11 +238,18 @@
                     <div id="updateHistoryList" class="space-y-2 max-h-96 overflow-y-auto">
                         <!-- Update history will be loaded here -->
                     </div>
-                    <div class="mt-3 pt-3 border-t flex justify-between">
-                        <button onclick="clearUpdateHistory()" 
-                                class="text-xs text-red-500 hover:text-red-700 font-semibold">
-                            <i class="fas fa-trash mr-1"></i>Limpar Histórico
-                        </button>
+                    <div class="mt-3 pt-3 border-t flex justify-between items-center">
+                        <div class="flex gap-2">
+                            <button onclick="resyncUpdateHistory()" 
+                                    class="text-xs text-blue-500 hover:text-blue-700 font-semibold"
+                                    title="Re-sincronizar histórico com produtos atuais">
+                                <i class="fas fa-sync-alt mr-1"></i>Re-sincronizar
+                            </button>
+                            <button onclick="clearUpdateHistory()" 
+                                    class="text-xs text-red-500 hover:text-red-700 font-semibold">
+                                <i class="fas fa-trash mr-1"></i>Limpar
+                            </button>
+                        </div>
                         <span class="text-xs text-gray-400">Horário: Curitiba/PR (UTC-3)</span>
                     </div>
                 </div>
@@ -1050,13 +1057,15 @@
                                 <input type="number" id="crud_custoBase" required min="0" step="0.01"
                                        class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
                                        placeholder="Ex: 420.00"
-                                       oninput="calcularPrecoVenda()">
+                                       oninput="calcularPrecoVenda()"
+                                       title="Campo editável - Digite o custo de aquisição do produto">
                             </div>
                             <div>
                                 <label class="block text-sm font-bold text-gray-700 mb-2">Preço Mercado (R$) *</label>
                                 <input type="number" id="crud_precoMercado" required min="0" step="0.01"
                                        class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                                       placeholder="Ex: 599.00">
+                                       placeholder="Ex: 599.00"
+                                       title="Campo editável - Digite o preço de referência do mercado">
                             </div>
                             <div>
                                 <label class="block text-sm font-bold text-gray-700 mb-2">Margem (%) *</label>
@@ -1563,6 +1572,12 @@
             // USAR WINDOW.PRODUTOCRUD (sistema correto com sync integrado)
             if (window.produtoCRUD) {
                 if (currentCrudMode === 'create') {
+                    // Desabilitar botão e mostrar loading
+                    const submitBtn = document.querySelector('#crudForm button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Salvando...';
+                    
                     const resultado = window.produtoCRUD.criarProduto(produtoData, 'sugerido');
                     
                     if (resultado.sucesso) {
@@ -1570,12 +1585,24 @@
                         registrarAtualizacaoProduto(resultado.produto.id, produtoData.nome, 'criado');
                         
                         mostrarNotificacao('✅ Produto criado com sucesso!', 'success');
-                        closeCrudModal();
-                        atualizarInterfaceCompleta(); // Dispara renderização + auto-sync
+                        
+                        // Aguardar 500ms para usuário ver a confirmação
+                        setTimeout(() => {
+                            closeCrudModal();
+                            atualizarInterfaceCompleta(); // Dispara renderização + auto-sync
+                        }, 500);
                     } else {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
                         mostrarNotificacao('❌ Erro ao criar produto: ' + resultado.erro, 'error');
                     }
                 } else if (currentCrudMode === 'edit') {
+                    // Desabilitar botão e mostrar loading
+                    const submitBtn = document.querySelector('#crudForm button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Atualizando...';
+                    
                     const resultado = window.produtoCRUD.atualizarProduto(currentEditingProductId, produtoData);
                     
                     if (resultado.sucesso) {
@@ -1584,20 +1611,14 @@
                         
                         mostrarNotificacao('✅ Produto atualizado com sucesso!', 'success');
                         
-                        // Salvar ID do produto antes de fechar
-                        const produtoId = currentEditingProductId;
-                        
-                        // Fechar modal
-                        closeCrudModal();
-                        
-                        // Atualizar interface
-                        atualizarInterfaceCompleta(); // Dispara renderização + auto-sync
-                        
-                        // Reabrir modal com dados atualizados após 300ms
+                        // Aguardar 500ms para usuário ver a confirmação
                         setTimeout(() => {
-                            abrirCrudModal('edit', produtoId);
-                        }, 300);
+                            closeCrudModal();
+                            atualizarInterfaceCompleta(); // Dispara renderização + auto-sync
+                        }, 500);
                     } else {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
                         mostrarNotificacao('❌ Erro ao atualizar produto: ' + resultado.erro, 'error');
                     }
                 }
@@ -1825,10 +1846,18 @@
                             }
                         </td>
                         <td class="px-4 py-3 text-center">
-                            <button onclick="showProductModal(${produto.id})" 
-                                    class="text-purple-600 hover:text-purple-800 font-semibold text-sm">
-                                <i class="fas fa-eye"></i> Ver
-                            </button>
+                            <div class="flex gap-2 justify-center">
+                                <button onclick="showProductModal(${produto.id})" 
+                                        class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-xs"
+                                        title="Ver Detalhes">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button onclick="openCrudModal('edit', ${produto.id})" 
+                                        class="px-2 py-1 bg-purple-500 text-white rounded hover:bg-purple-600 transition text-xs"
+                                        title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 `;
@@ -2043,8 +2072,15 @@
 
         // Show Product Modal
         function showProductModal(productId) {
-            const produto = allProducts.find(p => p.id === productId);
-            if (!produto) return;
+            // CORREÇÃO v6.7: Usar produtos atualizados do CRUD (não allProducts estático)
+            const produtosAtuais = getProdutosAtualizados();
+            const produto = produtosAtuais.find(p => p.id === productId);
+            
+            if (!produto) {
+                console.error('Produto não encontrado:', productId);
+                mostrarNotificacao('❌ Produto não encontrado!', 'error');
+                return;
+            }
 
             const modal = document.getElementById('productModal');
             const content = document.getElementById('modalProductContent');
@@ -2178,7 +2214,7 @@
 
                 <!-- Botões de Ação CRUD -->
                 <div class="mt-6 flex gap-4">
-                    <button onclick="closeModal(); openCrudModal('edit', ${produto.id});" 
+                    <button onclick="setTimeout(() => { closeModal(); setTimeout(() => openCrudModal('edit', ${produto.id}), 100); }, 0);" 
                             class="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:shadow-xl transition">
                         <i class="fas fa-edit mr-2"></i>Editar Produto
                     </button>
@@ -2191,6 +2227,9 @@
             
             modal.classList.add('active');
         }
+        
+        // Garantir que a função está no escopo global
+        window.showProductModal = showProductModal;
 
         function closeModal() {
             document.getElementById('productModal').classList.remove('active');
@@ -3099,6 +3138,7 @@
                             <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Diferença de Preço</th>
                             <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Status</th>
                             <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Link Compra</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Ações</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -3279,6 +3319,20 @@
                                         ${gerarBotaoCompraAdmin(p.linkCompra, true)}
                                         <div class="mt-1">
                                             ${gerarIndicadorLinkStatus(p.linkCompra)}
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-center">
+                                        <div class="flex gap-1 justify-center">
+                                            <button onclick="showProductModal(${p.id})" 
+                                                    class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-xs"
+                                                    title="Ver Detalhes">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button onclick="openCrudModal('edit', ${p.id})" 
+                                                    class="px-2 py-1 bg-purple-500 text-white rounded hover:bg-purple-600 transition text-xs"
+                                                    title="Editar">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -5624,6 +5678,10 @@ Arquivo disponível no projeto!
                 return;
             }
             
+            // Obter produtos atuais para verificar visibilidade
+            const produtosAtuais = getProdutosAtualizados();
+            const idsAtuais = new Set(produtosAtuais.map(p => p.id));
+            
             // Renderizar histórico
             listElement.innerHTML = updateHistory.map(registro => {
                 const iconClass = registro.acao === 'criado' ? 'fa-plus text-green-500' : 
@@ -5631,11 +5689,24 @@ Arquivo disponível no projeto!
                                   registro.acao === 'duplicado' ? 'fa-copy text-purple-500' :
                                   'fa-pencil text-gray-500';
                 
+                // Verificar se produto ainda existe
+                const produtoExiste = idsAtuais.has(registro.produtoId);
+                const statusBadge = produtoExiste ? 
+                    '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-green-100 text-green-800" title="Produto visível">' +
+                        '<i class="fas fa-check-circle mr-1"></i>Visível' +
+                    '</span>' :
+                    '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-red-100 text-red-800" title="Produto não encontrado">' +
+                        '<i class="fas fa-exclamation-triangle mr-1"></i>Removido' +
+                    '</span>';
+                
                 return `
                     <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
                         <i class="fas ${iconClass} mt-1"></i>
                         <div class="flex-1 min-w-0">
-                            <div class="font-semibold text-gray-800 truncate">${registro.produtoNome}</div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="font-semibold text-gray-800 truncate">${registro.produtoNome}</div>
+                                ${statusBadge}
+                            </div>
                             <div class="text-xs text-gray-500">ID: ${registro.produtoId} • ${registro.acao}</div>
                         </div>
                         <div class="text-xs text-gray-400 whitespace-nowrap">
@@ -5673,6 +5744,295 @@ Arquivo disponível no projeto!
                 localStorage.removeItem('productUpdateHistory');
                 carregarHistoricoAtualizacoes();
                 mostrarNotificacao('✅ Histórico limpo com sucesso!', 'success');
+            }
+        }
+        
+        /**
+         * Re-sincronizar histórico com produtos atuais
+         * Verifica se todos os produtos no histórico ainda existem e estão visíveis
+         */
+        function resyncUpdateHistory() {
+            const updateHistory = JSON.parse(localStorage.getItem('productUpdateHistory') || '[]');
+            
+            if (updateHistory.length === 0) {
+                mostrarNotificacao('ℹ️ Histórico vazio, nada para re-sincronizar', 'info');
+                return;
+            }
+            
+            // Obter produtos atuais
+            const produtosAtuais = getProdutosAtualizados();
+            const idsAtuais = new Set(produtosAtuais.map(p => p.id));
+            
+            // Verificar produtos que não existem mais
+            let produtosFaltantes = [];
+            let produtosOk = [];
+            
+            updateHistory.forEach(registro => {
+                if (!idsAtuais.has(registro.produtoId)) {
+                    produtosFaltantes.push(registro);
+                } else {
+                    produtosOk.push(registro);
+                }
+            });
+            
+            if (produtosFaltantes.length === 0) {
+                mostrarNotificacao('✅ Todos os produtos do histórico estão presentes!', 'success');
+                return;
+            }
+            
+            // Abrir modal de seleção
+            mostrarModalSelecaoProdutos(produtosFaltantes, produtosOk);
+        }
+        
+        /**
+         * Modal de seleção de produtos obsoletos
+         * Permite escolher quais remover ou re-inserir
+         */
+        function mostrarModalSelecaoProdutos(produtosFaltantes, produtosOk) {
+            // Criar modal
+            const modalHtml = `
+                <div id="modalSelecaoProdutos" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                    <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+                        <!-- Header -->
+                        <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h2 class="text-2xl font-bold mb-2">
+                                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                                        Produtos Obsoletos Encontrados
+                                    </h2>
+                                    <p class="text-orange-100">
+                                        ${produtosFaltantes.length} produto(s) no histórico não existem mais no sistema
+                                    </p>
+                                </div>
+                                <button onclick="fecharModalSelecaoProdutos()" class="text-white hover:text-gray-200 text-2xl">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Ações principais -->
+                        <div class="p-4 bg-gray-50 border-b flex flex-wrap gap-2 justify-between items-center">
+                            <div class="flex gap-2">
+                                <button onclick="selecionarTodosProdutosObsoletos(true)" 
+                                        class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition text-sm font-semibold">
+                                    <i class="fas fa-check-square mr-1"></i>Selecionar Todos
+                                </button>
+                                <button onclick="selecionarTodosProdutosObsoletos(false)" 
+                                        class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition text-sm font-semibold">
+                                    <i class="fas fa-square mr-1"></i>Desmarcar Todos
+                                </button>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Selecione os produtos que deseja gerenciar
+                            </div>
+                        </div>
+                        
+                        <!-- Lista de produtos -->
+                        <div class="flex-1 overflow-y-auto p-6">
+                            <div id="listaProdutosObsoletos" class="space-y-3">
+                                ${produtosFaltantes.map((produto, index) => `
+                                    <div class="border-2 border-gray-200 rounded-lg p-4 hover:border-orange-300 transition">
+                                        <div class="flex items-start gap-4">
+                                            <input type="checkbox" 
+                                                   id="produto-${index}" 
+                                                   class="produto-obsoleto-checkbox mt-1 w-5 h-5 text-orange-500 rounded focus:ring-orange-500"
+                                                   data-index="${index}">
+                                            <div class="flex-1">
+                                                <div class="flex items-start justify-between gap-4">
+                                                    <div class="flex-1">
+                                                        <h3 class="font-bold text-gray-800 text-lg">${produto.produtoNome}</h3>
+                                                        <div class="text-sm text-gray-600 mt-1">
+                                                            <span class="inline-block mr-3">
+                                                                <i class="fas fa-hashtag mr-1"></i>ID: ${produto.produtoId}
+                                                            </span>
+                                                            <span class="inline-block mr-3">
+                                                                <i class="fas fa-calendar mr-1"></i>${produto.dataFormatada}
+                                                            </span>
+                                                            <span class="inline-block px-2 py-1 rounded text-xs font-semibold ${
+                                                                produto.acao === 'criado' ? 'bg-green-100 text-green-700' :
+                                                                produto.acao === 'editado' ? 'bg-blue-100 text-blue-700' :
+                                                                'bg-purple-100 text-purple-700'
+                                                            }">
+                                                                ${produto.acao}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <span class="inline-block px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold">
+                                                            <i class="fas fa-exclamation-circle mr-1"></i>Removido
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <!-- Footer com ações -->
+                        <div class="p-6 bg-gray-50 border-t">
+                            <div class="flex flex-wrap gap-3 justify-end">
+                                <button onclick="fecharModalSelecaoProdutos()" 
+                                        class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition font-semibold">
+                                    <i class="fas fa-times mr-2"></i>Cancelar
+                                </button>
+                                <button onclick="removerProdutosSelecionados()" 
+                                        class="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-semibold">
+                                    <i class="fas fa-trash mr-2"></i>Remover Selecionados
+                                </button>
+                                <button onclick="reinserirProdutosSelecionados()" 
+                                        class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition font-semibold">
+                                    <i class="fas fa-redo mr-2"></i>Re-inserir Selecionados
+                                </button>
+                            </div>
+                            <div class="mt-3 text-sm text-gray-600 text-center">
+                                <i class="fas fa-lightbulb mr-1"></i>
+                                <strong>Dica:</strong> Re-inserir irá criar novamente os produtos no sistema com status "sugerido"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Adicionar modal ao body
+            const modalContainer = document.createElement('div');
+            modalContainer.innerHTML = modalHtml;
+            document.body.appendChild(modalContainer.firstElementChild);
+            
+            // Salvar dados no window para acesso posterior
+            window.produtosFaltantesData = produtosFaltantes;
+            window.produtosOkData = produtosOk;
+        }
+        
+        /**
+         * Fechar modal de seleção
+         */
+        function fecharModalSelecaoProdutos() {
+            const modal = document.getElementById('modalSelecaoProdutos');
+            if (modal) {
+                modal.remove();
+            }
+            delete window.produtosFaltantesData;
+            delete window.produtosOkData;
+        }
+        
+        /**
+         * Selecionar/desmarcar todos os produtos
+         */
+        function selecionarTodosProdutosObsoletos(selecionar) {
+            const checkboxes = document.querySelectorAll('.produto-obsoleto-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selecionar;
+            });
+        }
+        
+        /**
+         * Remover produtos selecionados do histórico
+         */
+        function removerProdutosSelecionados() {
+            const checkboxes = document.querySelectorAll('.produto-obsoleto-checkbox:checked');
+            
+            if (checkboxes.length === 0) {
+                mostrarNotificacao('⚠️ Selecione pelo menos um produto para remover', 'warning');
+                return;
+            }
+            
+            if (!confirm(`Tem certeza que deseja remover ${checkboxes.length} produto(s) do histórico?`)) {
+                return;
+            }
+            
+            // Obter índices selecionados
+            const indicesSelecionados = Array.from(checkboxes).map(cb => parseInt(cb.dataset.index));
+            
+            // Filtrar produtos faltantes removendo os selecionados
+            const produtosFaltantes = window.produtosFaltantesData.filter((_, index) => 
+                !indicesSelecionados.includes(index)
+            );
+            
+            // Reconstruir histórico
+            const novoHistorico = [...window.produtosOkData, ...produtosFaltantes];
+            
+            // Salvar
+            localStorage.setItem('productUpdateHistory', JSON.stringify(novoHistorico));
+            
+            // Atualizar interface
+            fecharModalSelecaoProdutos();
+            carregarHistoricoAtualizacoes();
+            mostrarNotificacao(`✅ ${checkboxes.length} produto(s) removido(s) do histórico`, 'success');
+        }
+        
+        /**
+         * Re-inserir produtos selecionados no sistema
+         */
+        function reinserirProdutosSelecionados() {
+            const checkboxes = document.querySelectorAll('.produto-obsoleto-checkbox:checked');
+            
+            if (checkboxes.length === 0) {
+                mostrarNotificacao('⚠️ Selecione pelo menos um produto para re-inserir', 'warning');
+                return;
+            }
+            
+            if (!confirm(`Deseja re-inserir ${checkboxes.length} produto(s) no sistema?\n\nOs produtos serão criados com status "sugerido" e você precisará configurá-los manualmente.`)) {
+                return;
+            }
+            
+            // Obter índices selecionados
+            const indicesSelecionados = Array.from(checkboxes).map(cb => parseInt(cb.dataset.index));
+            
+            let produtosReinseridos = 0;
+            let erros = 0;
+            
+            // Re-inserir cada produto selecionado
+            indicesSelecionados.forEach(index => {
+                const registro = window.produtosFaltantesData[index];
+                
+                // Criar produto básico (usuário precisará configurar)
+                const novoProduto = {
+                    sku: `REINSERIDO-${registro.produtoId}`,
+                    nome: registro.produtoNome,
+                    categoria: 'Eletrônicos',
+                    subcategoria: 'Diversos',
+                    fornecedor: 'A configurar',
+                    quantidade: 0,
+                    custoBase: 0,
+                    precoMercado: 0,
+                    margem: 30,
+                    imagem: '',
+                    descricao: `Produto re-inserido do histórico. Configure os detalhes.`,
+                    badge: '🔄 REINSERIDO',
+                    status: 'sugerido'
+                };
+                
+                const resultado = window.produtoCRUD.criarProduto(novoProduto, 'sugerido');
+                
+                if (resultado.sucesso) {
+                    produtosReinseridos++;
+                    registrarAtualizacaoProduto(resultado.produto.id, registro.produtoNome, 'reinserido');
+                } else {
+                    erros++;
+                }
+            });
+            
+            // Remover do histórico de produtos faltantes
+            const produtosFaltantes = window.produtosFaltantesData.filter((_, index) => 
+                !indicesSelecionados.includes(index)
+            );
+            
+            // Reconstruir histórico
+            const novoHistorico = [...window.produtosOkData, ...produtosFaltantes];
+            localStorage.setItem('productUpdateHistory', JSON.stringify(novoHistorico));
+            
+            // Atualizar interface
+            fecharModalSelecaoProdutos();
+            atualizarInterfaceCompleta();
+            
+            if (erros === 0) {
+                mostrarNotificacao(`✅ ${produtosReinseridos} produto(s) re-inserido(s) com sucesso!`, 'success');
+            } else {
+                mostrarNotificacao(`⚠️ ${produtosReinseridos} produto(s) re-inserido(s), ${erros} erro(s)`, 'warning');
             }
         }
         
