@@ -263,8 +263,8 @@ const produtosPlanilha = [
         "quantidade": 30,
         "custoBase": 1,
         "precoMercado": 1,
-        "margem": 2,
-        "precoVenda": 1.02,
+        "margem": 6.5,
+        "precoVenda": 1.065,
         "estoque": "Para Compra",
         "fornecedor": "Amazon.com.br",
         "imagem": "https://m.media-amazon.com/images/I/61U6MFMI8tL._AC_SL1000_.jpg",
@@ -1054,11 +1054,11 @@ const produtosSugeridos = [
         "nome": "iPhone 16 Pro Max 256GB",
         "categoria": "Eletrônicos",
         "subcategoria": "Smartphones",
-        "quantidade": 5,
-        "custoBase": 9999,
-        "precoMercado": 12999,
-        "margem": 30,
-        "precoVenda": 12999,
+        "quantidade": 1,
+        "custoBase": 1,
+        "precoMercado": 1,
+        "margem": 1,
+        "precoVenda": 1.01,
         "badge": "🔥 NOVO!",
         "fornecedor": "Apple Store",
         "imagem": "https://m.media-amazon.com/images/I/81IJSYW-VvL._AC_SL1500_.jpg",
@@ -1068,9 +1068,11 @@ const produtosSugeridos = [
             "modelo": "16 Pro Max",
             "armazenamento": "256GB",
             "camera": "48MP tripla",
-            "tela": "6.7\" Super Retina XDR"
+            "tela": "6.7"
         },
-        "linkCompra": "https://www.amazon.com.br/s?k=iPhone+16+Pro+Max+256GB"
+        "linkCompra": "https://www.amazon.com.br/s?k=iPhone+16+Pro+Max+256GB",
+        "estoque": "Para Compra",
+        "dataAtualizacao": "2025-10-21T00:26:01.330Z"
     },
     {
         "id": 2002,
