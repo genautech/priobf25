@@ -1,6 +1,6 @@
 // ============================================
 // VERSÃO 6.3.0 - PRODUTOS BLACK FRIDAY PRIO 2025
-// Total: 142 produtos (32 planilha + 110 sugestões)
+// Total: 143 produtos (32 planilha + 111 sugestões)
 // Atualizado: 2025-10-21
 // Salvo automaticamente pelo sistema de persistência local
 // ============================================
@@ -3624,6 +3624,28 @@ const produtosSugeridos = [
             "androidtv": "Built-in"
         },
         "linkCompra": "https://www.amazon.com.br/s?k=Epson+Home+Cinema+2250+3LCD"
+    },
+    {
+        "id": 2111,
+        "sku": "aaaalexa",
+        "nome": "aaaalezaaa",
+        "categoria": "Informática",
+        "subcategoria": "alexa",
+        "quantidade": 2,
+        "custoBase": 2,
+        "precoMercado": 2,
+        "margem": 2,
+        "precoVenda": 2.04,
+        "estoque": "Para Compra",
+        "fornecedor": "genau",
+        "imagem": "https://m.media-amazon.com/images/I/51-7ivDG+6L._AC_SL1500_.jpg",
+        "linkCompra": "https://www.amazon.com.br/s?k=aaaalezaaa",
+        "descricao": "22222",
+        "especificacoes": {
+            "aaa": "aqq"
+        },
+        "dataCriacao": "2025-10-21T02:10:03.987Z",
+        "dataAtualizacao": "2025-10-21T02:10:03.987Z"
     }
 ];
 
