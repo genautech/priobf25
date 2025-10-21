@@ -1,0 +1,365 @@
+# 🗑️ ARQUIVOS OBSOLETOS - PODEM SER DELETADOS
+# Sistema Black Friday PRIO v6.5.0
+# Data: 20/10/2025
+
+# ═══════════════════════════════════════════════════════════════════
+# INSTRUÇÕES:
+# ═══════════════════════════════════════════════════════════════════
+# 
+# Estes arquivos são de versões antigas (v6.0 a v6.4) e NÃO são mais
+# usados na versão 6.5.0 atual.
+#
+# Você pode deletá-los com segurança para limpar o projeto.
+#
+# ⚠️ NÃO DELETE os arquivos marcados com ⭐ no README.md!
+#
+# ═══════════════════════════════════════════════════════════════════
+
+# ──────────────────────────────────────────────────────────────────
+# VERSÕES ANTIGAS DO ADMIN (use apenas admin-v6.5.html)
+# ──────────────────────────────────────────────────────────────────
+admin-v6.html
+admin-v6.1.html
+admin-v6.3.html
+admin-v6.4.html
+
+# ──────────────────────────────────────────────────────────────────
+# VERSÕES ANTIGAS DO CLIENTE (use apenas cliente-analise-v6.1.html)
+# ──────────────────────────────────────────────────────────────────
+cliente-analise-v6.html
+
+# ──────────────────────────────────────────────────────────────────
+# VERSÕES ANTIGAS DO CATÁLOGO
+# ──────────────────────────────────────────────────────────────────
+catalogo-v5.2.html
+
+# ──────────────────────────────────────────────────────────────────
+# FERRAMENTAS AUXILIARES (não essenciais - funcionalidade já no admin)
+# ──────────────────────────────────────────────────────────────────
+importar-catalogo-produtos.html
+importar-catalogo-produtos-v2.html
+gerar-csv-catalogo.html
+executar-atualizacao-imagens.html
+corrigir-links-produtos.html
+preparar-links-imagens.html
+visualizar-imagens-catalogo.html
+test-botoes-ferramentas.html
+testar-imagens.html
+testar-produtos.html
+buscar-imagens-FINAL.html
+buscar-imagens-google.html
+buscar-imagens-multi-api.html
+buscar-imagens-produtos-proxy.html
+buscar-imagens-produtos.html
+buscar-imagens-rapido.html
+atualizar-imagens-automatico.html
+script-atualizar-imagens-produtos.html
+
+# ──────────────────────────────────────────────────────────────────
+# SCRIPTS AUXILIARES (não essenciais)
+# ──────────────────────────────────────────────────────────────────
+adicionar-links-automatico.js
+atualizar-imagens.js
+processar-atualizacao-imagens.js
+script-atualizar-links-produtos.js
+produtos-novos-upload.js
+
+# ──────────────────────────────────────────────────────────────────
+# SINCRONIZAÇÃO ANTIGA v6.3/v6.4 (substituído por github-sync-worker.js e auto-sync-worker.js)
+# ──────────────────────────────────────────────────────────────────
+github-sync.js
+github-sync-actions.js
+auto-sync-actions.js
+auto-sync-toggle.js
+auto-sync-persistencia.js
+config-global.js
+produtos-sync-api.html
+produtos-sync.json
+
+# ──────────────────────────────────────────────────────────────────
+# CLOUDFLARE WORKER STANDALONE (substituído por functions/sync.js - Pages Function)
+# ──────────────────────────────────────────────────────────────────
+worker.js
+wrangler.toml
+
+# ──────────────────────────────────────────────────────────────────
+# BACKUPS DE PRODUTOS (mantenha apenas o mais recente se quiser)
+# ──────────────────────────────────────────────────────────────────
+produtos-v6.1.js.backup-2025-10-15
+produtos-v6.1.js.backup-2025-10-17-original
+produtos-v6.1.js.backup-v6.3.0-antes-crud
+produtos-v6.1.js.backup-problema
+
+# ──────────────────────────────────────────────────────────────────
+# PRODUTOS DE TESTE/DESENVOLVIMENTO
+# ──────────────────────────────────────────────────────────────────
+produtos-v6.0.js
+produtos-competitivos-etapa1-CORRIGIDO.json
+produtos-competitivos-etapa1-uploaded.json
+produtos-competitivos-etapa1.json
+produtos-novos-200-completo.json
+produtos-novos-2025-10-16-CORRIGIDO.json
+
+# ──────────────────────────────────────────────────────────────────
+# DADOS AUXILIARES (JSON duplicados)
+# ──────────────────────────────────────────────────────────────────
+imagens-produtos-extraidas.json
+template-importacao-produtos.json
+template-pesquisa-produtos.json
+
+# ──────────────────────────────────────────────────────────────────
+# DOCUMENTAÇÃO ANTIGA DE DESENVOLVIMENTO (v6.0 a v6.4)
+# ──────────────────────────────────────────────────────────────────
+# Mantenha apenas: README.md, CONFIGURAR-GITHUB-TOKEN.md, USAR-SISTEMA.md
+
+ANTES-DEPOIS-v6.1.9.md
+ARQUIVOS-PARA-DEPLOY.md
+ATUALIZACAO-ADMIN-FERRAMENTAS-v6.1.10.md
+ATUALIZACAO-IMAGENS-COMPLETA.md
+CHANGELOG-v6.0.2.md
+CHANGELOG-v6.1.0.md
+CHECKLIST-TESTE-RAPIDO.md
+COMANDOS-DEPLOY-v6.1.2.3.txt
+COMANDOS-GIT-PRONTOS.txt
+COMECE-AQUI.md
+COMO-IMPORTAR-PRODUTOS-NOVOS.md
+CORRECAO-CRITICA-v6.1.9.md
+CORRECOES-APLICADAS.md
+CORRECOES-FINAIS-v6.0.2.md
+CRUD-PRODUTOS.md
+DEBUG-GITHUB-API.md
+DEPLOY-AGORA.md
+DEPLOY-CHECKLIST.md
+DEPLOY-CLOUDFLARE-PASSO-A-PASSO.md
+DEPLOY-RESUMO-VISUAL.md
+DEPLOY-v6.0.2-FINAL.md
+DOCUMENTACAO-COMPLETA.md
+ENTREGA-v6.3.0-RESUMO-EXECUTIVO.md
+FAQ-DEPLOY.md
+FLUXO-VISUAL-SUBSTITUICAO.md
+GIT-DEPLOY-GUIDE.md
+GUIA-BUSCAR-IMAGENS-REAIS.md
+GUIA-CRUD-v6.3.0.md
+GUIA-DEPLOY-GITHUB-v6.2.0.md
+GUIA-IMPORTACAO-ETAPA1.md
+GUIA-PERSISTENCIA-LOCAL-v6.3.0.md
+GUIA-TESTE-v6.1.md
+IMPORTACAO-ETAPA1-COMPLETA.md
+INDEX-DEPLOY.md
+INDICE-DOCUMENTACAO.md
+INTEGRACAO-25-PRODUTOS-YOOBE.md
+LISTA-ARQUIVOS-DEPLOY-v6.2.0.txt
+LISTA-ARQUIVOS-v6.3.0-DEPLOY.txt
+NOVO-IMPORTADOR-ADMIN.txt
+PLANO-SUBSTITUICAO-CATALOGO.md
+PROMPT-GERAR-JSON-PRODUTOS.md
+QUICK-START-SUBSTITUICAO.md
+README-DEPLOY.md
+README-IMPORTACAO.md
+RESUMO-ATUALIZACOES-v6.0.2.md
+RESUMO-CORRECAO-UNDEFINED-NAN.md
+RESUMO-DEPLOY-v6.2.0.md
+RESUMO-IMPLEMENTACAO-v6.1.md
+RESUMO-VISUAL-v6.0.2.md
+SOLUCAO-DEFINITIVA.txt
+SPEC-COMPLETA.md
+SPEC.md
+SUAS-URLS.md
+TESTE-NOVA-FERRAMENTA.md
+TESTE-PRODUTOS-IMPORTADOS.md
+TUTORIAL-DEPLOY-GITHUB.md
+VERSAO-ATUAL.md
+VISUALIZACAO-PAGINAS.md
+
+# Arquivos com emojis (documentação de desenvolvimento):
+▶️-COMECE-AQUI-AGORA.txt
+▶️-COMECE-AQUI-CARDS-FERRAMENTAS.txt
+▶️-COMECE-AQUI-DEPLOY.txt
+▶️-COMECE-AQUI.txt
+⚡-AUTO-SYNC-PERMANENTE-AGORA.md
+⚡-COMANDOS-DEPLOY-COPIAR-COLAR.txt
+⚡-COMANDOS-FINAIS.txt
+⚡-COMANDOS-GIT-DEPLOY-PRIOBF25.txt
+⚡-COMANDOS-RAPIDOS.txt
+⚡-COMECE-AQUI-v6.1.3.txt
+⚡-COMECE-AQUI-v6.1.4.txt
+⚡-COMECE-AQUI-v6.3.0.txt
+⚡-COMECE-AQUI-v6.3.1.txt
+⚡-COMECE-AQUI-v6.3.3.txt
+⚡-COMO-USAR-LOCALMENTE-AGORA.txt
+⚡-DEPLOY-AUTO-SYNC-v6.3.2.txt
+⚡-DEPLOY-RAPIDO-v6.4.md
+⚡-EXECUTAR-AGORA.md
+⚡-FERRAMENTAS-RESUMO-v6.1.6.txt
+⚡-GERAR-CSV-v6.1.5.md
+⚡-INICIO-RAPIDO-IMPORTACAO.md
+⚡-INICIO-RAPIDO-v6.3.3.txt
+⚡-RESUMO-EXECUTIVO-SUBSTITUICAO.md
+⚡-SOLUCAO-RAPIDA-AGORA.md
+⚡-SOLUCAO-RAPIDA-FINAL.md
+⚡-TESTE-RAPIDO-CARDS-FERRAMENTAS.md
+⚡-ULTRA-RAPIDO.md
+✅-ARQUIVOS-CRIADOS-HOJE.txt
+✅-ATUALIZACAO-CUSTO-FORNECEDOR-PRIO.md
+✅-AUTO-SYNC-GITHUB-v6.3.1.md
+✅-AUTO-SYNC-PERSISTENTE-v6.3.2.md
+✅-BUGS-CORRIGIDOS-v6.1.2.md
+✅-CARDS-FERRAMENTAS-TARGET-BLANK.md
+✅-CHECKLIST-VISUAL-CORRECAO.txt
+✅-CLIENTE-LIMPO-v6.1.1.md
+✅-CORRECAO-FINAL-v6.1.2.md
+✅-CORRECAO-LINKS-v6.1.3.md
+✅-CUPONS-DINAMICOS-v6.1.3.md
+✅-ENTREGA-SOLUCAO-IMAGENS.md
+✅-EXPORTAR-CSV-v6.1.5-FINAL.md
+✅-FEATURE-COMPLETA-IMAGENS.md
+✅-FERRAMENTAS-CORRIGIR-ATUALIZAR-BUSCAR-FUNCIONANDO.md
+✅-FINALIZADO-v6.1.md
+✅-IMPLEMENTACAO-COMPLETA-v6.3.0.md
+✅-LISTA-FINAL-ARQUIVOS-GITHUB.txt
+✅-MATCHING-PRECOS-CONCORRENTE-v6.1.4.md
+✅-MELHORIAS-IMPLEMENTADAS-LINKS.md
+✅-PERSISTENCIA-CONFIGURACOES-COMPLETA-v6.3.1.md
+✅-PERSISTENCIA-IMPLEMENTADA-v6.3.0.md
+✅-PROBLEMA-CARDS-FERRAMENTAS-RESOLVIDO.md
+✅-PROBLEMA-RESOLVIDO-FINAL.txt
+✅-RESOLVIDO-FINAL-v6.1.2.md
+✅-RESUMO-PARA-USUARIO.md
+✅-SALVAR-PRECOS-ARQUIVO-v6.3.1.md
+✅-SOLUCAO-DEFINITIVA-IMAGENS.txt
+✅-SOLUCAO-FINAL-LINKS-v6.1.3.md
+✨-RESUMO-v6.1.2.md
+⭐-INICIO-RAPIDO-v6.1.1.md
+🎁-ENTREGA-FINAL-DOCUMENTACAO.md
+🎁-ENTREGA-FINAL-IMAGENS.md
+🎁-ENTREGA-FINAL-SISTEMA-IMPORTACAO.md
+🎉-BOTOES-FERRAMENTAS-FUNCIONANDO.md
+🎉-CARDS-FERRAMENTAS-CORRIGIDOS-FINAL.md
+🎉-CONCLUIDO-ATUALIZACAO-IMAGENS.md
+🎉-CONCLUIDO-v6.1.2.md
+🎉-IMPLEMENTACAO-COMPLETA-v6.3.1.md
+🎉-IMPLEMENTACAO-FINAL-v6.3.1-COMPLETA.md
+🎉-RESPOSTA-AUTO-SYNC-PERSISTENTE.md
+🎉-RESPOSTA-COMPLETA-v6.3.0.txt
+🎉-RESUMO-FINAL-v6.3.1-COMPLETO.md
+🎉-STATUS-v6.3.3-PRONTO.md
+🎨-ANTES-DEPOIS-CARDS-FERRAMENTAS.md
+🎨-ANTES-DEPOIS-v6.3.1.txt
+🎨-DIAGRAMA-PROBLEMA-SINCRONIZACAO.txt
+🎨-INFOGRAFICO-PROCESSO.md
+🎨-VISUAL-RESULTADO-v6.1.4.md
+🎨-VISUAL-v6.1.2.md
+🎯-COMECE-AQUI-CORRECAO-LINKS.txt
+🎯-COMECE-AQUI-v6.1.5.txt
+🎯-COMECE-AQUI-v6.3.2.txt
+🎯-COMECE-AQUI-v6.4.txt
+🎯-COMECE-AQUI-v6.5.txt
+🎯-CONFIGURACAO-GLOBAL-v6.3.3.md
+🎯-DEPLOY-AGORA-v6.1.2.3.md
+🎯-DEPLOY-VISUAL-RAPIDO.txt
+🎯-GUIA-RAPIDO-GOOGLE-API.txt
+🎯-INSTRUCOES-ATUALIZACAO-IMAGENS.md
+🎯-LISTA-SIMPLES-ARQUIVOS-DEPLOY.txt
+🎯-RESPOSTA-DEPLOY-PRIOBF25.md
+🎯-RESPOSTA-FINAL-PROBLEMA-SANDBOX.md
+🎯-RESPOSTA-PERSISTENCIA-v6.3.1.md
+🎯-RESUMO-EXECUTIVO-IMPORTACAO.md
+🎯-RESUMO-TRABALHO-v6.1.1.md
+🎯-RESUMO-VISUAL-v6.1.3.md
+🎯-START-HERE.md
+🎯-USE-ESTE-ARQUIVO.txt
+🐛-BUGS-ENCONTRADOS-v6.1.2.md
+💡-DICAS-MELHORES-PRATICAS.md
+💬-CORRECAO-v6.5.md
+💬-RESPOSTA-DIRETA-USUARIO.md
+💬-RESPOSTA-DIRETA-v6.3.3.md
+💬-RESPOSTA-FINAL-v6.4.md
+💬-RESPOSTA-v6.5.md
+📁-INDEX-ATUALIZACAO-IMAGENS.md
+📂-INDICE-IMAGENS.md
+📊-ADMIN-MELHORIAS-v6.1.2.md
+📊-ANALISE-IMAGENS-COMPATIBILIDADE.md
+📊-RELATORIO-ATUALIZACAO-IMAGENS-FINAL.md
+📊-RESUMO-ATUALIZACAO-ICONE-PRIO.md
+📊-RESUMO-TRABALHO-v6.1.4.md
+📋-INDICE-GERAL-PROJETO.md
+📋-RESUMO-EXECUTIVO-DEPLOY.md
+📋-RESUMO-FINAL.md
+📋-RESUMO-IMPLEMENTACAO-v6.3.1.md
+📋-RESUMO-SESSAO-IMAGENS.md
+📋-RESUMO-v6.1.5.md
+📋-RESUMO-v6.4.md
+📋-TABELA-REFERENCIA-RAPIDA.md
+📍-LEIA-PRIMEIRO.md
+📑-INDICE-v6.1.2.md
+📖-GUIA-FERRAMENTAS-v6.1.6.md
+📖-START-HERE-SUBSTITUICAO.md
+📚-INDICE-COMPLETO-DEPLOY.md
+📚-INDICE-SUBSTITUICAO-CATALOGO.md
+📚-INDICE-v6.3.1.md
+📚-INDICE-v6.3.2.md
+📚-INDICE-v6.4.md
+📚-MASTER-INDEX.md
+📝-ENTREGA-FINAL-v6.1.3.txt
+📝-RESUMO-SESSAO-v6.1.2.3.md
+📦-ARQUIVOS-PARA-DEPLOY-GITHUB.md
+📦-ARQUIVOS-v6.1.md
+📦-ARQUIVOS-v6.3.2-LISTA.md
+📦-GUIA-IMPORTACAO-CATALOGO.md
+📦-LISTA-ARQUIVOS-FEATURE-IMAGENS.md
+📦-LISTA-ARQUIVOS-GITHUB.md
+📦-LISTA-ARQUIVOS-v6.4.txt
+📸-ANTES-DEPOIS-v6.1.1.md
+📸-SOLUCAO-IMAGENS-RESUMO.md
+🔍-ANALISE-INTEGRACAO-CONFLITOS.md
+🔍-BUSCAR-IMAGENS-GOOGLE-BING.md
+🔍-REVISAO-COMPLETA-v6.1.2.md
+🔒-GITHUB-ACTIONS-v6.4.md
+🔥-CORRECAO-FINAL-IMAGENS.md
+🔥-NOVA-SOLUCAO-RAPIDA.md
+🔧-BOTOES-CRUD-ADICIONADOS-DEBUG.md
+🔧-CORRECAO-CRITICA-IMAGENS.md
+🔧-SINCRONIZAR-PRODUTOS-NOVOS-GITHUB.md
+🔧-SOLUCAO-FERRAMENTAS-EXTERNAS-SANDBOX.md
+🖼️-ATUALIZACAO-IMAGENS-COMPLETA.md
+🖼️-VISUAL-CARDS-FERRAMENTAS.txt
+🗂️-INDICE-IMPORTACAO-CATALOGO.md
+🗂️-INDICE-VISUAL.md
+🚀-COMECE-AGORA.md
+🚀-DEPLOY-ATUALIZACAO-PRIO.md
+🚀-DEPLOY-COMPLETO-AGORA.md
+🚀-DEPLOY-GITHUB-PRIOBF25-PASSO-A-PASSO.md
+🚀-DEPLOY-PASSO-A-PASSO.md
+🚀-DEPLOY-v6.1.2.3-AGORA.md
+🚀-DEPLOY-v6.1.6.md
+🚀-DEPLOY-v6.5-CLOUDFLARE-WORKER.md
+🚀-DEPLOY-v6.5-PAGES-FUNCTION.md
+🚀-EXECUTAR-AGORA-CORRECAO-LINKS.md
+🚀-EXECUTAR-AGORA-IMAGENS.md
+🚀-INICIO-RAPIDO-IMAGENS.md
+🚨-BUG-CRITICO-RESOLVIDO-v6.1.2.md
+🚨-CORRECAO-CRITICA-v6.1.2.md
+🧪-TESTE-ADMIN-v6.1.2.md
+🧪-TESTE-CLIENTE-v6.1.1.md
+🧪-TESTE-PERSISTENCIA-v6.3.1.md
+🧪-TESTE-RAPIDO-v6.1.4.md
+
+# ══════════════════════════════════════════════════════════════════════
+# COMO DELETAR TODOS OS ARQUIVOS DE UMA VEZ (Terminal):
+# ══════════════════════════════════════════════════════════════════════
+#
+# OPÇÃO 1 - Deletar tudo desta lista:
+# (Execute no terminal dentro da pasta priobf25)
+#
+# cat ARQUIVOS-PARA-DELETAR.txt | grep -v "^#" | grep -v "^$" | xargs rm -f
+#
+# ──────────────────────────────────────────────────────────────────────
+#
+# OPÇÃO 2 - Revisar cada arquivo antes de deletar:
+# (Mais seguro - confirma cada deleção)
+#
+# cat ARQUIVOS-PARA-DELETAR.txt | grep -v "^#" | grep -v "^$" | xargs rm -i
+#
+# ══════════════════════════════════════════════════════════════════════
+
+# FIM DA LISTA

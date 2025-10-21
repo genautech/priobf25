@@ -1,0 +1,380 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║               🔒 SINCRONIZAÇÃO SEGURA VIA GITHUB ACTIONS v6.4                ║
+║                                                                              ║
+║                    TOKEN PROTEGIDO • AUDITORIA COMPLETA                     ║
+║                        IDEAL PARA PRODUÇÃO SEGURA                           ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 RESUMO EXECUTIVO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ O QUE FOI IMPLEMENTADO:
+   → Sincronização SEGURA usando GitHub Actions
+   → Token de API protegido (não mais exposto no código)
+   → Auditoria completa de todas as mudanças
+   → Commits automáticos via GitHub Actions
+   → Deploy automático via Cloudflare Pages
+
+⚠️ DIFERENÇA DA v6.3:
+   → v6.3: Token exposto no código (INSEGURO)
+   → v6.4: Token protegido no GitHub (SEGURO)
+
+🎯 QUANDO USAR v6.4:
+   ✅ Site em produção
+   ✅ Repositório público
+   ✅ Múltiplos administradores
+   ✅ Requisitos de segurança/compliance
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📦 ARQUIVOS CRIADOS (9 arquivos novos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. ✅ .github/workflows/sync-produtos.yml
+   Workflow automático do GitHub Actions
+   → Detecta mudanças em produtos-sync.json
+   → Gera produtos-v6.1.js automaticamente
+   → Faz commit e aciona deploy
+
+2. ✅ produtos-sync.json
+   Arquivo intermediário (trigger)
+   → Array JSON simples com produtos
+   → Atualizado manualmente via GitHub
+
+3. ✅ github-sync-actions.js
+   Cliente JavaScript seguro
+   → SEM token no código!
+   → Mostra modal com instruções
+   → Facilita cópia do JSON
+
+4. ✅ auto-sync-actions.js
+   Toggle e gerenciamento
+   → Auto-Sync ON/OFF
+   → Debouncing (2 segundos)
+   → Integração com CRUD
+
+5. ✅ admin-v6.4.html
+   Admin atualizado
+   → Carrega novos scripts
+   → Remove dependências inseguras
+
+6. ✅ produtos-sync-api.html
+   API de demonstração
+   → Página visual do fluxo
+   → Útil para testes
+
+7. ✅ 🔒-GITHUB-ACTIONS-v6.4.md (23 KB)
+   Documentação COMPLETA
+   → Arquitetura detalhada
+   → Troubleshooting
+   → FAQ extenso
+
+8. ✅ ⚡-DEPLOY-RAPIDO-v6.4.md (9 KB)
+   Guia de deploy em 15 min
+   → 3 passos simples
+   → Checklist completo
+
+9. ✅ 📋-RESUMO-v6.4.md (9 KB)
+   Resumo executivo
+   → Comparações
+   → Decisões
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 COMO FAZER DEPLOY (3 PASSOS - 15 MINUTOS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ PASSO 1: UPLOAD DOS ARQUIVOS (5 minutos)                                 ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+📂 Estrutura de arquivos:
+
+   .github/
+   └── workflows/
+       └── sync-produtos.yml          ← NOVO
+   produtos-sync.json                 ← NOVO
+   github-sync-actions.js             ← NOVO
+   auto-sync-actions.js               ← NOVO
+   admin-v6.4.html                    ← NOVO
+
+🔹 OPÇÃO A - Via GitHub Web (Recomendado):
+
+   1. Criar pasta workflows:
+      → https://github.com/genautech/priobf25/new/main
+      → Nome: .github/workflows/sync-produtos.yml
+      → Colar conteúdo do arquivo
+      → Commit: "feat: adicionar workflow de sincronização"
+
+   2. Upload dos outros arquivos:
+      → https://github.com/genautech/priobf25/upload/main
+      → Arrastar os 4 arquivos restantes
+      → Commit: "feat: adicionar arquivos v6.4"
+
+🔹 OPÇÃO B - Via Git CLI:
+
+   git clone https://github.com/genautech/priobf25.git
+   cd priobf25
+   
+   # Criar pasta
+   mkdir -p .github/workflows
+   
+   # Copiar arquivos (ajuste os caminhos)
+   cp /caminho/.github/workflows/sync-produtos.yml .github/workflows/
+   cp /caminho/produtos-sync.json .
+   cp /caminho/github-sync-actions.js .
+   cp /caminho/auto-sync-actions.js .
+   cp /caminho/admin-v6.4.html .
+   
+   # Commit e push
+   git add .
+   git commit -m "feat: v6.4 - sincronização segura via GitHub Actions"
+   git push origin main
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ PASSO 2: CONFIGURAR PERMISSÕES (3 minutos)                               ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+1. Acessar configurações:
+   → https://github.com/genautech/priobf25/settings/actions
+
+2. Em "Actions permissions":
+   ☑ Allow all actions and reusable workflows
+
+3. Em "Workflow permissions":
+   ☑ Read and write permissions
+   ☑ Allow GitHub Actions to create and approve pull requests
+
+4. Clicar em "Save"
+
+✅ VERIFICAR:
+   → Actions habilitado
+   → Read and write permissions
+   → Create pull requests permitido
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║ PASSO 3: TESTAR O WORKFLOW (5 minutos)                                   ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+1. Editar produtos-sync.json:
+   → https://github.com/genautech/priobf25/edit/main/produtos-sync.json
+
+2. Colar JSON de teste:
+
+   [
+     {
+       "id": 1,
+       "nome": "Produto Teste v6.4",
+       "preco": 10.00,
+       "categoria": "Eletrônicos",
+       "descricao": "Teste da sincronização",
+       "imagem": "https://via.placeholder.com/300",
+       "origem": "planilha"
+     }
+   ]
+
+3. Commit:
+   → Message: "test: verificar workflow"
+   → Clicar em "Commit changes"
+
+4. Ver workflow executando:
+   → https://github.com/genautech/priobf25/actions
+   → Deve aparecer: "🔄 Sincronizar Produtos"
+   → Aguardar conclusão (30-60 segundos)
+
+5. Verificar resultado:
+   → Ver produtos-v6.1.js atualizado
+   → Aguardar deploy Cloudflare (2-3 min)
+   → Verificar catálogo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎮 COMO USAR NO DIA A DIA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ FLUXO COMPLETO (USUÁRIO → CATÁLOGO)                                    │
+└─────────────────────────────────────────────────────────────────────────┘
+
+1. 📱 ABRIR ADMIN
+   → https://priobf25.pages.dev/admin-v6.4.html
+   → Verificar: Auto-Sync: ON ✅
+
+2. ✏️ EDITAR PRODUTO
+   → Buscar produto
+   → Clicar em "Editar"
+   → Modificar dados
+   → Clicar em "Salvar"
+
+3. 📋 MODAL APARECE
+   ┌────────────────────────────────────────────┐
+   │ 🔄 Sincronização Pronta!                   │
+   │                                             │
+   │ [JSON dos produtos aqui...]                │
+   │                                             │
+   │ [📋 Copiar JSON] [🚀 Abrir GitHub] [❌]   │
+   └────────────────────────────────────────────┘
+
+4. 📋 COPIAR JSON
+   → Clicar em "📋 Copiar JSON"
+   → JSON copiado para área de transferência
+
+5. 🌐 ABRIR GITHUB
+   → Clicar em "🚀 Abrir GitHub"
+   → Abre: produtos-sync.json
+   → Colar JSON copiado
+   → Commit: "chore: atualização de produtos"
+
+6. ⏳ AGUARDAR AUTOMAÇÃO
+   → GitHub Actions: 30-60 seg
+   → Cloudflare Deploy: 2-3 min
+   → Total: ~3-4 minutos
+
+7. ✅ VERIFICAR RESULTADO
+   → Abrir catálogo do cliente
+   → Ver produto atualizado!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 COMPARAÇÃO: v6.3 vs v6.4
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─────────────────────┬─────────────────────┬─────────────────────┐
+│ Aspecto             │ v6.3                │ v6.4                │
+├─────────────────────┼─────────────────────┼─────────────────────┤
+│ Segurança           │ ⚠️ Token exposto    │ ✅ Token protegido  │
+│ Sincronização       │ ✅ Automática       │ ⚠️ Semi-automática  │
+│ Setup               │ ✅ 5 min            │ ⚠️ 15 min           │
+│ Auditoria           │ ⚠️ Limitada         │ ✅ Completa         │
+│ Produção            │ ❌ Não              │ ✅ Sim              │
+│ Multi-usuário       │ ⚠️ Token exposto    │ ✅ Seguro           │
+└─────────────────────┴─────────────────────┴─────────────────────┘
+
+🎯 RECOMENDAÇÃO:
+   → Use v6.3: Testes, desenvolvimento, repo privado
+   → Use v6.4: Produção, repo público, segurança
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🐛 PROBLEMAS COMUNS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❓ Workflow não executa?
+   → Verificar se Actions está habilitado
+   → Verificar se arquivo .github/workflows/sync-produtos.yml existe
+   → Validar YAML em https://www.yamllint.com/
+
+❓ Workflow falha com "Permission Denied"?
+   → Settings → Actions → General
+   → Workflow permissions → Read and write permissions
+   → Salvar
+
+❓ Modal não aparece?
+   → Abrir console (F12)
+   → Verificar se github-sync-actions.js carregou
+   → Limpar cache: Ctrl + Shift + R
+
+❓ Deploy não atualiza?
+   → Limpar cache do navegador: Ctrl + Shift + R
+   → Verificar deploy no Cloudflare Dashboard
+   → Purgar cache do Cloudflare
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📚 DOCUMENTAÇÃO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📖 DOCUMENTAÇÃO COMPLETA (23 KB):
+   → 🔒-GITHUB-ACTIONS-v6.4.md
+   
+   Contém:
+   ✓ Arquitetura detalhada
+   ✓ Como funciona (passo a passo)
+   ✓ Troubleshooting completo
+   ✓ FAQ extenso (10 perguntas)
+   ✓ Comparação v6.3 vs v6.4
+   ✓ Próximos passos (v6.5)
+
+⚡ GUIA DE DEPLOY RÁPIDO (9 KB):
+   → ⚡-DEPLOY-RAPIDO-v6.4.md
+   
+   Contém:
+   ✓ 3 passos simples (15 min)
+   ✓ Checklist de verificação
+   ✓ Problemas comuns
+   ✓ Como usar no dia a dia
+
+📋 RESUMO EXECUTIVO (9 KB):
+   → 📋-RESUMO-v6.4.md
+   
+   Contém:
+   ✓ Comparação de versões
+   ✓ Quando usar cada versão
+   ✓ Checklist de conclusão
+   ✓ Próxima evolução (v6.5)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ CHECKLIST DE DEPLOY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARQUIVOS:
+[ ] .github/workflows/sync-produtos.yml no GitHub
+[ ] produtos-sync.json no GitHub
+[ ] github-sync-actions.js no GitHub
+[ ] auto-sync-actions.js no GitHub
+[ ] admin-v6.4.html no GitHub
+
+PERMISSÕES:
+[ ] Actions habilitado
+[ ] Read and write permissions configurado
+[ ] Create pull requests permitido
+
+TESTES:
+[ ] Workflow executou com sucesso
+[ ] produtos-v6.1.js foi atualizado automaticamente
+[ ] Admin abre sem erros
+[ ] Console mostra scripts carregados
+[ ] Modal aparece ao editar produto
+[ ] Botões "Copiar JSON" e "Abrir GitHub" funcionam
+[ ] Após commit, workflow executa
+[ ] Deploy Cloudflare funciona
+[ ] Catálogo reflete mudanças
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎉 RESULTADO FINAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ TOKEN PROTEGIDO - Não mais exposto no código
+✅ AUDITORIA COMPLETA - Todos os commits rastreados
+✅ PRODUÇÃO READY - Seguro para repositórios públicos
+✅ MULTI-USUÁRIO - Sem exposição de credenciais
+✅ AUTO-SYNC ATIVO - Funciona por padrão
+✅ DOCUMENTAÇÃO - 23 KB de guias completos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔮 PRÓXIMA EVOLUÇÃO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+v6.5 - API SERVERLESS (Futuro):
+→ Eliminar etapa manual de copiar JSON
+→ Cloudflare Worker faz commit automático
+→ Totalmente automático (como v6.3) + Seguro (como v6.4)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📞 SUPORTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Dúvidas? Problemas?
+→ 📖 Veja: 🔒-GITHUB-ACTIONS-v6.4.md (documentação completa)
+→ ⚡ Guia rápido: ⚡-DEPLOY-RAPIDO-v6.4.md
+→ 📋 Resumo: 📋-RESUMO-v6.4.md
+→ 🐛 Troubleshooting na documentação completa
+→ ❓ FAQ com 10 perguntas frequentes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                       Desenvolvido com 💜 por genautech
+                          v6.4.0 - GitHub Actions Edition
+                          🔒 Segurança em Primeiro Lugar
+
+                              Data: 20/10/2025
+                          Status: ✅ Pronto para Deploy
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

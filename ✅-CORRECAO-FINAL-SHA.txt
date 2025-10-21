@@ -1,0 +1,104 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║  ✅ CORREÇÃO APLICADA: Erro "SHA wasn't supplied"                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+🔴 PROBLEMA:
+   ❌ Erro no auto-sync: Error: Invalid request. "sha" wasn't supplied.
+   ❌ Fetch do SHA falhava: "Failed to fetch"
+   ❌ GitHub rejeitava atualização sem SHA
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ SOLUÇÃO IMPLEMENTADA:
+
+   1. ✅ SHA agora é OBRIGATÓRIO (não mais opcional)
+      • Validação: Aborta se SHA não for obtido
+      • Antes: ...(sha && { sha: sha })
+      • Depois: sha: sha  // Sempre enviado
+
+   2. ✅ RETRY AUTOMÁTICO para buscar SHA
+      • Até 3 tentativas
+      • Espera 1 segundo entre tentativas
+      • Busca SHA novo a cada retry
+
+   3. ✅ RETRY para SHA mismatch
+      • Detecta "does not match"
+      • Busca SHA atualizado automaticamente
+      • Tenta novamente com SHA correto
+
+   4. ✅ Modo CORS explícito
+      • mode: 'cors' definido em todas as requisições
+      • Melhora compatibilidade com APIs
+
+   5. ✅ LOGS DETALHADOS
+      • Mostra cada etapa do processo
+      • Identifica exatamente onde falhou
+      • Facilita diagnóstico
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 ARQUIVOS MODIFICADOS:
+   • admin-v6.5.html
+     → Função: salvarProdutosNoGitHubSilencioso() (linha ~5110)
+       ✅ Auto-sync (salvamento automático)
+     
+     → Função: salvarProdutosNoGitHub() (linha ~4812)
+       ✅ Salvamento manual (botão "Salvar no GitHub")
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 LOGS ESPERADOS (SUCESSO):
+
+   🔄 Tentativa 1 de salvar no GitHub...
+   📥 Buscando SHA mais recente do arquivo...
+   ✅ SHA obtido com sucesso: 7669cca2...
+   📤 Enviando arquivo para GitHub com SHA: 7669cca2...
+   ✅ Arquivo salvo com sucesso no GitHub!
+      📝 SHA antigo: 7669cca2...
+      📝 SHA novo: abc12345...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️ SE AINDA HOUVER "Failed to fetch":
+
+   O problema NÃO é mais na lógica do código.
+   É um problema de CONFIGURAÇÃO/AMBIENTE:
+
+   🔍 Verificar:
+   1. Token GitHub está configurado?
+      → console.log(githubConfig);
+
+   2. Token tem permissão "repo"?
+      → https://github.com/settings/tokens
+
+   3. Extensões bloqueando requests?
+      → Testar em modo anônimo/privado
+
+   4. Rede/firewall/VPN bloqueando?
+      → Testar em outra rede
+
+   📋 Execute: 🧪-TESTE-TOKEN-GITHUB.txt
+      → Diagnóstico completo passo a passo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 PRÓXIMO PASSO:
+
+   1. Atualize a página (Ctrl+F5 ou Cmd+Shift+R)
+   2. Faça uma alteração em um produto
+   3. Observe o console
+   4. Reporte o resultado:
+      ✅ Funcionou perfeitamente
+      ❌ Ainda dá erro [copie o erro completo]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOCUMENTAÇÃO CRIADA:
+   • ⚡-CORRECAO-SHA-GITHUB.md → Explicação técnica completa
+   • 🧪-TESTE-TOKEN-GITHUB.txt → Guia de diagnóstico
+   • ✅-CORRECAO-FINAL-SHA.txt → Este resumo (você está aqui)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏰ Atualizado: 2025-10-20
+🔧 Status: CORREÇÃO APLICADA - AGUARDANDO TESTE

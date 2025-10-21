@@ -1,0 +1,34 @@
+🔧 CORREÇÃO APLICADA: Inicialização de Produtos Admin v6.5
+═══════════════════════════════════════════════════════════
+
+❌ PROBLEMA:
+- admin-v6.5.html tentava usar produtosPlanilha e produtosSugeridos
+- Essas variáveis NÃO existiam (não exportadas por produtos-v6.1.js)
+- window.produtoCRUD.init() recebia undefined
+- Produtos não carregavam
+
+✅ SOLUÇÃO:
+- Processar window.todosOsProdutosV6 PRIMEIRO
+- Separar automaticamente em produtosPlanilha e produtosSugeridos
+- Validar arrays antes de inicializar CRUD
+- Adicionar logs de debug detalhados
+
+📝 ARQUIVOS MODIFICADOS:
+- admin-v6.5.html (2 funções corrigidas)
+
+🧪 TESTAR AGORA:
+1. Abrir admin-v6.5.html
+2. Verificar Console (F12):
+   ✅ "Produtos carregados do todosOsProdutosV6"
+   ✅ "Inicializando CRUD com: 📦 Planilha: X produtos"
+   ✅ "CRUD Sync integrado ao Admin"
+3. Testar CRUD:
+   - Adicionar produto ➕
+   - Editar produto ✏️
+   - Duplicar produto 📋
+   - Excluir produto 🗑️
+
+📚 DOCUMENTAÇÃO:
+- CORRECAO-INICIALIZACAO-PRODUTOS.md (detalhes completos)
+
+✅ STATUS: PRONTO PARA DEPLOY!

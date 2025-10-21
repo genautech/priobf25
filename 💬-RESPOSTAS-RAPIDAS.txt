@@ -1,0 +1,293 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║              💬 RESPOSTAS RÁPIDAS PARA CENÁRIOS COMUNS            ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 CENÁRIO A: "Funcionou perfeitamente!"
+
+   SE você ver no console:
+   ✅ SHA obtido com sucesso
+   ✅ Arquivo salvo com sucesso no GitHub
+
+   → RESPOSTA:
+   Perfeito! 🎉 Todas as 3 fases foram resolvidas:
+   • Produtos carregando ✅
+   • Dashboard funcionando ✅  
+   • Auto-sync com GitHub ✅
+
+   Próximos passos:
+   1. Continue usando normalmente
+   2. Suas alterações serão salvas automaticamente
+   3. Verifique no GitHub se o arquivo está atualizando
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️ CENÁRIO B: "Ainda dá Failed to fetch"
+
+   SE você ver no console:
+   ❌ Erro ao buscar SHA: Failed to fetch
+
+   → POSSÍVEIS CAUSAS:
+
+   1️⃣ Token não configurado
+      Cole no console:
+      console.log(githubConfig);
+      
+      Se mostrar "null":
+      • Clique em "⚙️ Configurar GitHub"
+      • Preencha token, owner, repo, branch
+
+   2️⃣ Token sem permissões
+      • Vá em: https://github.com/settings/tokens
+      • Verifique se tem marcado: ✅ repo
+      • Se não, crie novo token com permissão "repo"
+
+   3️⃣ Extensão bloqueando
+      • Teste em modo anônimo (Ctrl+Shift+N)
+      • Se funcionar = extensão é o problema
+      • Desabilite AdBlock, Privacy Badger, etc.
+
+   4️⃣ Rede/Firewall
+      • Teste em outra rede
+      • Desabilite VPN temporariamente
+      • Teste em outro computador
+
+   📋 Execute diagnóstico completo:
+   → 🧪-TESTE-TOKEN-GITHUB.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔄 CENÁRIO C: "Faz retry mas salva depois"
+
+   SE você ver no console:
+   ⚠️ SHA mismatch detectado, tentando novamente (tentativa 2)...
+   ✅ Arquivo salvo com sucesso no GitHub!
+
+   → RESPOSTA:
+   Isso é NORMAL! 👍
+   
+   O sistema detectou que o arquivo mudou durante a operação
+   e automaticamente:
+   • Buscou o SHA atualizado
+   • Tentou novamente
+   • Salvou com sucesso
+
+   Isso significa que o retry está funcionando perfeitamente!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ CENÁRIO D: "Tenta 3 vezes e falha"
+
+   SE você ver no console:
+   🔄 Tentativa 1 de salvar no GitHub...
+   ❌ ERRO CRÍTICO ao buscar SHA: Failed to fetch
+   🔄 Tentando novamente buscar SHA (tentativa 2)...
+   [...]
+   ❌ Não foi possível buscar SHA após 3 tentativas
+
+   → RESPOSTA:
+   O problema é de CONECTIVIDADE/CONFIGURAÇÃO,
+   não do código.
+
+   TESTE MANUAL DA API:
+   Cole no console:
+   ┌────────────────────────────────────────────────────────────┐
+   │ fetch('https://api.github.com/repos/genautech/priobf25/   │
+   │   contents/produtos-v6.1.js', {                            │
+   │   headers: {                                               │
+   │     'Authorization': 'token SEU_TOKEN_AQUI'                │
+   │   }                                                        │
+   │ })                                                         │
+   │ .then(r => r.json())                                       │
+   │ .then(d => console.log('✅ SHA:', d.sha))                  │
+   │ .catch(e => console.error('❌', e));                       │
+   └────────────────────────────────────────────────────────────┘
+
+   Se este teste também falhar:
+   → Problema é token/rede/extensão
+   → Não é o código do admin
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🆕 CENÁRIO E: "401 Unauthorized"
+
+   SE você ver no console:
+   ❌ Erro HTTP 401 ao buscar SHA
+
+   → CAUSA: Token inválido ou expirado
+
+   SOLUÇÃO:
+   1. Vá em: https://github.com/settings/tokens
+   2. Verifique se o token ainda existe e está ativo
+   3. Se expirado/deletado:
+      • Clique em "Generate new token"
+      • Nome: "PrioBF25 Admin"
+      • Marque: ✅ repo (Full control)
+      • Gerar e copiar
+   4. No admin:
+      • Clique em "⚙️ Configurar GitHub"
+      • Cole o novo token
+      • Salve
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 CENÁRIO F: "404 Not Found"
+
+   SE você ver no console:
+   ❌ Erro HTTP 404 ao buscar SHA
+
+   → CAUSA: Repositório ou arquivo não existe
+
+   VERIFIQUE:
+   • Owner: genautech (correto?)
+   • Repo: priobf25 (correto?)
+   • Branch: main (correto?)
+   • Arquivo: produtos-v6.1.js (existe?)
+
+   TESTE URL:
+   https://github.com/genautech/priobf25/blob/main/produtos-v6.1.js
+   
+   Se abrir = está correto
+   Se 404 = owner/repo/branch/arquivo errado
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 CENÁRIO G: "Dashboard não mostra produtos"
+
+   SE dashboard está vazio mas console não mostra erros:
+
+   → VERIFIQUE:
+   Cole no console:
+   ┌────────────────────────────────────────────────────────────┐
+   │ console.log('Planilha:', window.produtosPlanilha.length); │
+   │ console.log('Sugeridos:', window.produtosSugeridos.length);│
+   │ console.log('Total:', allProducts.length);                 │
+   └────────────────────────────────────────────────────────────┘
+
+   Se mostrar números corretos (32, 110, 142):
+   → Produtos carregados, problema é de renderização
+   → Atualizar página com Ctrl+F5
+
+   Se mostrar 0:
+   → Produtos não carregaram
+   → Verificar produtos-v6.1.js está incluído
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💾 CENÁRIO H: "Salvamento manual funciona mas auto-sync não"
+
+   SE clicar em "Salvar no GitHub" funciona
+   MAS editar produto não salva automaticamente:
+
+   → VERIFIQUE:
+   Console deve mostrar ao editar produto:
+   "💾 Salvando automaticamente via github..."
+
+   Se NÃO mostrar:
+   • Auto-sync pode estar desabilitado
+   • produto-persistencia-local.js não carregado
+   • Erro no evento de mudança
+
+   Cole no console:
+   console.log(window.produtoPersistencia);
+   
+   Se undefined:
+   → Arquivo não carregado
+   → Verificar script tag no HTML
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 CENÁRIO I: "Funciona localmente mas não no GitHub Pages"
+
+   SE funciona ao abrir HTML localmente
+   MAS falha no GitHub Pages:
+
+   → CAUSA COMUM: CORS
+   GitHub Pages tem restrições CORS diferentes
+
+   SOLUÇÃO:
+   • Usar navegador sem extensões
+   • Configurar _headers do Cloudflare
+   • Ou usar Cloudflare Pages ao invés de GitHub Pages
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 CENÁRIO J: "Quero desabilitar auto-sync temporariamente"
+
+   Para desabilitar auto-sync sem remover código:
+
+   1. Abra admin-v6.5.html
+   2. Procure por: "autoSyncEnabled"
+   3. Mude para: false
+   4. Salve
+
+   Ou no console:
+   window.produtoPersistencia.config.autoSyncEnabled = false;
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 RESUMO DE COMANDOS ÚTEIS:
+
+   Verificar produtos carregados:
+   → console.log(window.produtosPlanilha.length);
+
+   Verificar configuração GitHub:
+   → console.log(githubConfig);
+
+   Verificar persistência:
+   → console.log(window.produtoPersistencia);
+
+   Verificar CRUD:
+   → console.log(window.produtoCRUD);
+
+   Listar todos os produtos:
+   → console.log(allProducts);
+
+   Testar GitHub API manualmente:
+   → fetch('https://api.github.com/user', {
+       headers: {'Authorization': 'token SEU_TOKEN'}
+     }).then(r => r.json()).then(console.log);
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 FLUXOGRAMA DE DIAGNÓSTICO:
+
+   Erro → "Failed to fetch" 
+      ↓
+   Teste token configurado → githubConfig = null?
+      ↓ SIM: Configure token
+      ↓ NÃO: Continue
+      ↓
+   Teste modo anônimo → Funciona?
+      ↓ SIM: Desabilite extensões
+      ↓ NÃO: Continue
+      ↓
+   Teste outra rede → Funciona?
+      ↓ SIM: Problema de firewall/VPN
+      ↓ NÃO: Continue
+      ↓
+   Teste outro computador → Funciona?
+      ↓ SIM: Problema local (antivírus/config)
+      ↓ NÃO: Problema com token GitHub
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 ARQUIVOS DE REFERÊNCIA:
+
+   🚀 Teste rápido:
+   → 🚀-TESTE-AGORA-CORRECAO-SHA.txt
+
+   🔍 Diagnóstico completo:
+   → 🧪-TESTE-TOKEN-GITHUB.txt
+
+   📖 Entender o problema:
+   → ⚡-CORRECAO-SHA-GITHUB.md
+
+   📊 Visão geral:
+   → 📝-RESUMO-COMPLETO-CORRECOES.md
+
+   🎯 Situação atual:
+   → 🎯-SITUACAO-ATUAL.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

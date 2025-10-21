@@ -1,9 +1,9 @@
 # 🛍️ Sistema Black Friday PRIO 2025
 
-**Sistema Completo de Gestão e Análise de Produtos - Versão 6.5.0 FINAL**
+**Sistema Completo de Gestão e Análise de Produtos - Versão 6.6.0**
 
 [![Status](https://img.shields.io/badge/status-production-brightgreen)]()
-[![Version](https://img.shields.io/badge/version-6.5.0-blue)]()
+[![Version](https://img.shields.io/badge/version-6.6.0-blue)]()
 [![Deploy](https://img.shields.io/badge/deploy-cloudflare-yellow)]()
 [![Sync](https://img.shields.io/badge/sync-100%25__automatic-success)]()
 [![Security](https://img.shields.io/badge/security-SECURE-brightgreen)]()
@@ -12,7 +12,7 @@
 
 ---
 
-## 🚀 VERSÃO 6.5.0 - SINCRONIZAÇÃO 100% AUTOMÁTICA (FINAL)
+## 🚀 VERSÃO 6.6.0 - HISTÓRICO DE ATUALIZAÇÕES + COORDENAÇÃO MULTI-USUÁRIO
 
 ### ✨ O QUE FAZ:
 
@@ -27,17 +27,32 @@ Sistema completo para gerenciar catálogo de produtos da Black Friday 2025:
 ✅ **Dados Sempre Atualizados** - Todas as abas mostram dados em tempo real
 
 ### 🆕 ÚLTIMA ATUALIZAÇÃO (2025-10-20):
-**Correção Crítica: Sincronização de Dados em Tempo Real**
+**Versão 6.6 - Recursos de Coordenação para Multi-Computadores**
 
-Implementamos correções críticas que garantem que **todos os dados são atualizados imediatamente** em todas as partes do sistema:
+✅ **NOVO: Histórico de Atualizações**
+- Widget retrátil mostrando últimos produtos modificados
+- Registra todas as operações: criação, edição, duplicação
+- Timestamps no fuso horário de Curitiba/PR (America/Sao_Paulo, UTC-3)
+- Histórico persiste em localStorage (até 50 registros)
+- Útil para coordenação entre diferentes computadores
 
-- ✅ **Aba Comparativo** agora mostra produtos adicionados/editados instantaneamente
-- ✅ **Dashboard, Sugestões, Catálogo** sempre com dados atualizados
-- ✅ **Estatísticas e Gráficos** refletem mudanças em tempo real
-- ✅ **Exportação CSV** sempre com os dados mais recentes
-- ✅ **CRUD unificado** usando `window.produtoCRUD` (sem lógicas duplicadas)
+✅ **NOVO: Data/Hora do Último Commit**
+- Exibido no cabeçalho do dashboard
+- Atualizado automaticamente após cada auto-sync
+- Timezone de Curitiba/PR (America/Sao_Paulo, UTC-3)
+- Permite verificar quando foi o último salvamento no GitHub
 
-📄 **Detalhes técnicos:** Ver `CORRECOES-SISTEMA-v6.5-FINAL.md`  
+✅ **Correções Anteriores (v6.5)**
+- Produtos carregam automaticamente (142 produtos)
+- Dashboard renderiza corretamente
+- Auto-sync com SHA obrigatório e retry automático
+- Modal de edição reaberta automaticamente após salvar
+
+📄 **Documentação completa:**
+- `📝-RESUMO-COMPLETO-CORRECOES.md` - Histórico de todas as correções
+- `🚀-TESTE-AGORA-CORRECAO-SHA.txt` - Como testar as correções
+- `🧪-TESTE-TOKEN-GITHUB.txt` - Diagnóstico se houver problemas
+- `📚-INDICE-DOCUMENTACAO-CORRECOES.md` - Índice completo  
 
 ---
 
@@ -45,7 +60,8 @@ Implementamos correções críticas que garantem que **todos os dados são atual
 
 ### 🎯 Páginas Principais:
 - **`index.html`** - Página inicial com links para admin e cliente
-- **`admin-v6.5.html`** - Painel administrativo (CRUD + Auto-Sync)
+- **`admin-v6.6.html`** - Painel administrativo (CRUD + Auto-Sync + Histórico) ⭐ NOVO
+- **`admin-v6.5.html`** - Versão anterior (ainda funcional)
 - **`cliente-analise-v6.1.html`** - Catálogo interativo para clientes
 
 ### 📦 Dados e Lógica:
@@ -197,12 +213,14 @@ Ou use os atalhos:
 
 ## 🔧 FUNCIONALIDADES
 
-### Admin (admin-v6.5.html):
+### Admin (admin-v6.6.html):
 - ✅ Dashboard com métricas em tempo real
 - ✅ CRUD completo (Create, Read, Update, Delete)
 - ✅ Duplicação de produtos
 - ✅ Importação de planilhas (CSV/Excel)
 - ✅ Auto-Sync automático (toggle)
+- ✅ **NOVO:** Histórico de atualizações (widget retrátil)
+- ✅ **NOVO:** Exibição de data/hora do último commit (Curitiba/PR)
 - ✅ Exportação para CSV
 - ✅ Busca e filtros avançados
 - ✅ Análise de rentabilidade
@@ -316,7 +334,17 @@ Estes arquivos são de versões antigas e não são mais usados na v6.5:
 
 ## 📝 CHANGELOG
 
-### v6.5.0 (20/10/2025) - ATUAL ✅
+### v6.6.0 (20/10/2025) - ATUAL ✅
+- 🆕 Widget de histórico de atualizações (retrátil)
+- 🆕 Registro de todas as operações CRUD (criar, editar, duplicar)
+- 🆕 Exibição de data/hora do último commit no header
+- 🌍 Timezone de Curitiba/PR (America/Sao_Paulo, UTC-3)
+- 💾 Persistência de histórico em localStorage (50 registros)
+- 🔄 Auto-atualização do commit após cada sync
+- 👥 Coordenação entre múltiplos computadores
+- 🎨 Interface otimizada com informações de sincronização
+
+### v6.5.0 (20/10/2025)
 - ✨ Sincronização 100% automática via Cloudflare Pages Function
 - 🔐 Token seguro no servidor (não exposto no frontend)
 - ⚡ Deploy ultra-simples via `git push` (sem Wrangler CLI)
@@ -386,9 +414,39 @@ Estes arquivos são de versões antigas e não são mais usados na v6.5:
 ## 📧 CONTATO
 
 - **Desenvolvedor:** Sistema desenvolvido com IA
-- **Versão:** 6.5.0 FINAL
+- **Versão:** 6.6.0
 - **Data:** 20/10/2025
 - **Status:** ✅ Produção
+- **Timezone:** America/Sao_Paulo (Curitiba/PR, UTC-3)
+
+---
+
+## 🔧 CORREÇÕES RECENTES (v6.5 - 2025-10-20)
+
+### Problemas Corrigidos
+
+#### 1. ReferenceError: produtosPlanilha is not defined ✅
+- **Causa**: produtos-v6.1.js exportava apenas `todosOsProdutosV6`, mas código esperava arrays separados
+- **Solução**: Processamento automático em `loadProducts()` para separar produtos
+- **Status**: ✅ Resolvido - 142 produtos carregando
+
+#### 2. Dashboard vazio com "0 produtos" ✅
+- **Causa**: Race condition - render chamado antes do CRUD inicializar
+- **Solução**: Reordenada sequência de inicialização (CRUD antes do render)
+- **Status**: ✅ Resolvido - Dashboard completo
+
+#### 3. GitHub Auto-Sync: "sha wasn't supplied" 🔧
+- **Causa**: Fetch do SHA falhava mas código continuava sem validar
+- **Solução**: SHA obrigatório + retry automático (3x) + validação completa
+- **Status**: 🔧 Implementado - Aguardando teste do usuário
+
+### Como Testar
+1. Atualizar página: `Ctrl+F5` (hard refresh)
+2. Abrir console: `F12`
+3. Editar um produto qualquer
+4. Observar logs do auto-sync no console
+
+Ver: `🚀-TESTE-AGORA-CORRECAO-SHA.txt` para instruções completas
 
 ---
 
@@ -398,4 +456,4 @@ Uso interno - Genautech / PRIO Black Friday 2025
 
 ---
 
-**🎉 Sistema 100% funcional e pronto para uso!**
+**🎉 Sistema robusto e funcional - 2 de 3 fases testadas com sucesso!**

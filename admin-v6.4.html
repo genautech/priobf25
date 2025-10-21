@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 Admin Black Friday PRIO v6.6 - Sistema CRUD + Histórico de Atualizações</title>
+    <title>🔒 Admin Black Friday PRIO v6.4 - Sistema CRUD + GitHub Actions (SEGURO)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
@@ -12,9 +12,9 @@
     <script src="produto-crud-sync.js"></script>
     <script src="produto-persistencia-local.js"></script>
     
-    <!-- 🚀 Sincronização AUTOMÁTICA via Cloudflare Worker -->
-    <script src="github-sync-worker.js"></script>
-    <script src="auto-sync-worker.js"></script>
+    <!-- 🔒 Sincronização SEGURA via GitHub Actions -->
+    <script src="github-sync-actions.js"></script>
+    <script src="auto-sync-actions.js"></script>
     <style>
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
@@ -115,7 +115,7 @@
                     <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                         <i class="fas fa-shopping-cart mr-2"></i>Admin Black Friday PRIO
                     </h1>
-                    <p class="text-gray-600 mt-2">Sistema v6.6 - CRUD Completo + Sincronização Automática + Histórico de Atualizações</p>
+                    <p class="text-gray-600 mt-2">Sistema v6.3 - CRUD Completo + Sincronização Automática + Importação</p>
                     <p class="text-sm text-green-600 font-semibold mt-1">
                         <i class="fas fa-check-circle mr-1"></i>Novo: Adicionar, Editar, Duplicar e Importar Produtos
                     </p>
@@ -125,26 +125,14 @@
                     <div id="totalBudget" class="text-3xl font-bold text-purple-600">R$ 0</div>
                     <div class="text-sm text-gray-500 mt-1"><span id="totalProducts">0</span> produtos</div>
                     
-                    <!-- NOVO: Último Commit -->
-                    <div class="mt-2 text-xs text-gray-400">
-                        <i class="fas fa-code-branch mr-1"></i>
-                        <span id="lastCommitInfo">Verificando último commit...</span>
-                    </div>
-                    
-                    <!-- NOVO: Auto-Sync Toggle v6.5 -->
-                    <div class="mt-3 flex items-center justify-center md:justify-end gap-2">
-                        <div id="auto-sync-toggle" 
-                             class="relative inline-block w-14 h-7 bg-gray-400 rounded-full cursor-pointer transition-colors duration-300"
-                             onclick="toggleAutoSync()">
-                            <span class="absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition-transform duration-300"></span>
-                        </div>
-                        <div class="text-left">
-                            <div class="flex items-center gap-2">
-                                <i id="auto-sync-icon" class="fas fa-sync-alt" style="color: #9ca3af;"></i>
-                                <span id="auto-sync-badge" class="text-sm font-semibold text-gray-600">OFF</span>
-                            </div>
-                            <p class="text-xs text-gray-500">Auto-Sync</p>
-                        </div>
+                    <!-- NOVO: Badge Auto-Sync -->
+                    <div class="mt-3">
+                        <span id="auto-sync-badge" 
+                              onclick="toggleAutoSync()"
+                              class="px-3 py-1 bg-gray-400 text-white text-xs font-bold rounded-full cursor-pointer hover:opacity-80 transition-all inline-block">
+                            🔄 Auto-Sync: OFF
+                        </span>
+                        <p class="text-xs text-gray-500 mt-1">Clique para ativar/desativar</p>
                     </div>
                 </div>
             </div>
@@ -215,35 +203,6 @@
                             <p id="stat-categorias" class="text-3xl font-bold mt-2">10</p>
                         </div>
                         <i class="fas fa-tags text-4xl text-white text-opacity-50"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- NOVO: Histórico de Atualizações -->
-            <div class="glass-card rounded-xl shadow-lg mb-6 overflow-hidden">
-                <div class="flex justify-between items-center p-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white cursor-pointer" 
-                     onclick="toggleUpdateHistory()">
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-history"></i>
-                        <h3 class="text-lg font-bold">Histórico de Atualizações</h3>
-                        <span id="updateHistoryCount" class="bg-white bg-opacity-20 px-2 py-1 rounded-full text-xs">0</span>
-                    </div>
-                    <i id="updateHistoryToggleIcon" class="fas fa-chevron-down transition-transform"></i>
-                </div>
-                <div id="updateHistoryContent" class="hidden p-4">
-                    <div class="text-sm text-gray-500 mb-3">
-                        <i class="fas fa-info-circle mr-1"></i>
-                        Últimas modificações nos produtos (útil para coordenação entre computadores)
-                    </div>
-                    <div id="updateHistoryList" class="space-y-2 max-h-96 overflow-y-auto">
-                        <!-- Update history will be loaded here -->
-                    </div>
-                    <div class="mt-3 pt-3 border-t flex justify-between">
-                        <button onclick="clearUpdateHistory()" 
-                                class="text-xs text-red-500 hover:text-red-700 font-semibold">
-                            <i class="fas fa-trash mr-1"></i>Limpar Histórico
-                        </button>
-                        <span class="text-xs text-gray-400">Horário: Curitiba/PR (UTC-3)</span>
                     </div>
                 </div>
             </div>
@@ -1136,38 +1095,11 @@
         let currentTab = 'dashboard';
         let allProducts = [];
         let charts = {};
-        
-        // Função helper para SEMPRE pegar produtos atualizados do CRUD
-        function getProdutosAtualizados() {
-            if (window.produtoCRUD && typeof window.produtoCRUD.listarProdutos === 'function') {
-                const produtos = window.produtoCRUD.listarProdutos();
-                console.log('📦 getProdutosAtualizados via CRUD:', produtos.length, 'produtos');
-                return produtos;
-            } else if (typeof obterTodosProdutos === 'function') {
-                const produtos = obterTodosProdutos();
-                console.log('📦 getProdutosAtualizados via obterTodosProdutos:', produtos.length, 'produtos');
-                return produtos;
-            } else {
-                console.log('📦 getProdutosAtualizados via allProducts (fallback):', allProducts.length, 'produtos');
-                return allProducts; // fallback
-            }
-        }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 DOMContentLoaded - Iniciando aplicação...');
-            
-            // 1. Carregar produtos primeiro
             loadProducts();
-            
-            // 2. Inicializar CRUD com os produtos carregados
-            inicializarCRUDSync();
-            
-            // 3. Inicializar filtros
             initializeFilters();
-            
-            // 4. Renderizar todas as abas (agora com CRUD inicializado)
-            console.log('🎨 Renderizando interface...');
             renderDashboard();
             renderSugestoes();
             renderCatalogo();
@@ -1175,16 +1107,6 @@
             renderComparativo();
             renderCupons();
             updateStats();
-            
-            // 5. Carregar histórico de atualizações
-            carregarHistoricoAtualizacoes();
-            
-            // 6. Carregar último commit do GitHub (após 1 segundo)
-            setTimeout(() => {
-                carregarUltimoCommit();
-            }, 1000);
-            
-            console.log('✅ Aplicação inicializada com sucesso!');
         });
 
         // Load Products
@@ -1246,28 +1168,7 @@
         }
 
         function loadProducts() {
-            // Processar window.todosOsProdutosV6 primeiro
-            if (typeof window.todosOsProdutosV6 !== 'undefined' && Array.isArray(window.todosOsProdutosV6)) {
-                // Separar produtos em planilha e sugeridos
-                window.produtosPlanilha = window.todosOsProdutosV6.filter(p => p.id < 2000 || p.origem === 'planilha');
-                window.produtosSugeridos = window.todosOsProdutosV6.filter(p => p.id >= 2000 || p.origem === 'sugerido');
-                
-                console.log('✅ Produtos carregados do todosOsProdutosV6:');
-                console.log('   📦 Planilha:', window.produtosPlanilha.length);
-                console.log('   💡 Sugeridos:', window.produtosSugeridos.length);
-            } else if (typeof produtosPlanilha === 'undefined' || typeof produtosSugeridos === 'undefined') {
-                console.error('❌ ERRO: Nenhuma fonte de produtos disponível!');
-                console.error('   - window.todosOsProdutosV6:', typeof window.todosOsProdutosV6);
-                console.error('   - produtosPlanilha:', typeof produtosPlanilha);
-                console.error('   - produtosSugeridos:', typeof produtosSugeridos);
-                
-                // Fallback: inicializar arrays vazios
-                window.produtosPlanilha = [];
-                window.produtosSugeridos = [];
-            }
-            
-            // Agora podemos usar as variáveis globais
-            allProducts = [...window.produtosPlanilha, ...window.produtosSugeridos];
+            allProducts = [...produtosPlanilha, ...produtosSugeridos];
             
             // Adicionar precoConcorrente do mapeamento se disponível
             if (typeof window.precosConcorrente !== 'undefined') {
@@ -1442,9 +1343,7 @@
 
         // Preencher formulário para edição
         function preencherFormularioCrud(productId) {
-            // SEMPRE buscar produto atualizado do CRUD
-            const produtosAtuais = getProdutosAtualizados();
-            const produto = produtosAtuais.find(p => p.id === productId);
+            const produto = allProducts.find(p => p.id === productId);
             if (!produto) return;
 
             document.getElementById('crud_sku').value = produto.sku || '';
@@ -1516,10 +1415,6 @@
         }
 
         // Submeter formulário CRUD
-        // ============================================
-        // HANDLER PRINCIPAL DO FORMULÁRIO CRUD
-        // Usa window.produtoCRUD para todas as operações
-        // ============================================
         document.getElementById('crudForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -1527,11 +1422,11 @@
             const margem = parseFloat(document.getElementById('crud_margem').value);
             const precoVenda = custoBase * (1 + margem / 100);
 
-            // Coletar especificações (usando mesma lógica do handler correto)
+            // Coletar especificações
             const especificacoes = {};
             document.querySelectorAll('#especificacoesContainer > div').forEach(div => {
-                const key = div.querySelector('.spec-key')?.value.trim();
-                const value = div.querySelector('.spec-value')?.value.trim();
+                const key = div.querySelector('.spec-key').value.trim();
+                const value = div.querySelector('.spec-value').value.trim();
                 if (key && value) {
                     especificacoes[key] = value;
                 }
@@ -1554,87 +1449,83 @@
                 estoque: "Para Compra"
             };
 
-            // USAR WINDOW.PRODUTOCRUD (sistema correto com sync integrado)
-            if (window.produtoCRUD) {
-                if (currentCrudMode === 'create') {
-                    const resultado = window.produtoCRUD.criarProduto(produtoData, 'sugerido');
+            if (currentCrudMode === 'create') {
+                // Criar novo produto
+                const newId = Math.max(...allProducts.map(p => p.id)) + 1;
+                produtoData.id = newId;
+                produtoData.badge = "NOVO 2025";
+                
+                produtosSugeridos.push(produtoData);
+                allProducts.push(produtoData);
+                
+                showNotification('✅ Produto adicionado com sucesso!', 'success');
+            } else if (currentCrudMode === 'edit') {
+                // Atualizar produto existente
+                const index = allProducts.findIndex(p => p.id === currentEditingProductId);
+                if (index !== -1) {
+                    produtoData.id = currentEditingProductId;
+                    produtoData.badge = allProducts[index].badge; // Manter badge original
+                    allProducts[index] = { ...allProducts[index], ...produtoData };
                     
-                    if (resultado.sucesso) {
-                        // Registrar no histórico
-                        registrarAtualizacaoProduto(resultado.produto.id, produtoData.nome, 'criado');
-                        
-                        mostrarNotificacao('✅ Produto criado com sucesso!', 'success');
-                        closeCrudModal();
-                        atualizarInterfaceCompleta(); // Dispara renderização + auto-sync
+                    // Atualizar também no array original
+                    const sugIndex = produtosSugeridos.findIndex(p => p.id === currentEditingProductId);
+                    if (sugIndex !== -1) {
+                        produtosSugeridos[sugIndex] = allProducts[index];
                     } else {
-                        mostrarNotificacao('❌ Erro ao criar produto: ' + resultado.erro, 'error');
+                        const planIndex = produtosPlanilha.findIndex(p => p.id === currentEditingProductId);
+                        if (planIndex !== -1) {
+                            produtosPlanilha[planIndex] = allProducts[index];
+                        }
                     }
-                } else if (currentCrudMode === 'edit') {
-                    const resultado = window.produtoCRUD.atualizarProduto(currentEditingProductId, produtoData);
                     
-                    if (resultado.sucesso) {
-                        // Registrar no histórico
-                        registrarAtualizacaoProduto(currentEditingProductId, produtoData.nome, 'editado');
-                        
-                        mostrarNotificacao('✅ Produto atualizado com sucesso!', 'success');
-                        
-                        // Salvar ID do produto antes de fechar
-                        const produtoId = currentEditingProductId;
-                        
-                        // Fechar modal
-                        closeCrudModal();
-                        
-                        // Atualizar interface
-                        atualizarInterfaceCompleta(); // Dispara renderização + auto-sync
-                        
-                        // Reabrir modal com dados atualizados após 300ms
-                        setTimeout(() => {
-                            abrirCrudModal('edit', produtoId);
-                        }, 300);
-                    } else {
-                        mostrarNotificacao('❌ Erro ao atualizar produto: ' + resultado.erro, 'error');
-                    }
+                    showNotification('✅ Produto atualizado com sucesso!', 'success');
                 }
-            } else {
-                // Fallback se produtoCRUD não estiver carregado
-                mostrarNotificacao('❌ Sistema CRUD não está disponível. Recarregue a página.', 'error');
-                console.error('window.produtoCRUD não está disponível!');
             }
+
+            // Atualizar displays
+            renderDashboard();
+            renderSugestoes();
+            renderCatalogo();
+            renderAnalise();
+            updateStats();
+
+            closeCrudModal();
         });
 
-        // ============================================
-        // DELETAR PRODUTO - Usa window.produtoCRUD
-        // ============================================
+        // Deletar produto
         function deletarProduto(productId) {
-            // Buscar produto atualizado do CRUD
-            const produtosAtuais = getProdutosAtualizados();
-            const produto = produtosAtuais.find(p => p.id === productId);
-            
-            if (!produto) {
-                mostrarNotificacao('❌ Produto não encontrado!', 'error');
-                return;
-            }
+            const produto = allProducts.find(p => p.id === productId);
+            if (!produto) return;
 
             if (confirm(`⚠️ Tem certeza que deseja deletar o produto:\n\n"${produto.nome}"\n\nEsta ação não pode ser desfeita!`)) {
-                // USAR WINDOW.PRODUTOCRUD (sistema correto com sync integrado)
-                if (window.produtoCRUD) {
-                    const resultado = window.produtoCRUD.excluirProduto(productId, true);
-                    
-                    if (resultado.sucesso) {
-                        mostrarNotificacao('🗑️ Produto deletado com sucesso!', 'success');
-                        atualizarInterfaceCompleta(); // Dispara renderização + auto-sync
-                        
-                        // Fechar modal se estiver aberto
-                        if (typeof closeModal === 'function') {
-                            closeModal();
-                        }
-                    } else {
-                        mostrarNotificacao('❌ Erro ao deletar produto: ' + resultado.erro, 'error');
-                    }
-                } else {
-                    mostrarNotificacao('❌ Sistema CRUD não está disponível. Recarregue a página.', 'error');
-                    console.error('window.produtoCRUD não está disponível!');
+                // Remover de allProducts
+                const indexAll = allProducts.findIndex(p => p.id === productId);
+                if (indexAll !== -1) {
+                    allProducts.splice(indexAll, 1);
                 }
+
+                // Remover do array original
+                const sugIndex = produtosSugeridos.findIndex(p => p.id === productId);
+                if (sugIndex !== -1) {
+                    produtosSugeridos.splice(sugIndex, 1);
+                } else {
+                    const planIndex = produtosPlanilha.findIndex(p => p.id === productId);
+                    if (planIndex !== -1) {
+                        produtosPlanilha.splice(planIndex, 1);
+                    }
+                }
+
+                showNotification('🗑️ Produto deletado com sucesso!', 'success');
+
+                // Atualizar displays
+                renderDashboard();
+                renderSugestoes();
+                renderCatalogo();
+                renderAnalise();
+                updateStats();
+
+                // Fechar modal se estiver aberto
+                closeModal();
             }
         }
 
@@ -1662,25 +1553,6 @@
                 content.classList.add('hidden');
             });
             document.getElementById('content-' + tabName).classList.remove('hidden');
-            
-            // Atualizar dados ao mudar de aba
-            if (tabName === 'comparativo') {
-                // Recarregar comparativo com produtos atualizados
-                console.log('🔄 Atualizando aba comparativo com produtos mais recentes...');
-                renderComparativo();
-            } else if (tabName === 'dashboard') {
-                // Atualizar dashboard
-                renderDashboard();
-            } else if (tabName === 'sugestoes') {
-                // Atualizar sugestões
-                renderSugestoes();
-            } else if (tabName === 'catalogo') {
-                // Atualizar catálogo
-                renderCatalogo();
-            } else if (tabName === 'analise') {
-                // Atualizar análise
-                renderAnalise();
-            }
             
             // Limpar status de ferramentas ao mudar de aba
             if (tabName !== 'ferramentas') {
@@ -1731,20 +1603,15 @@
 
         // Update Stats
         function updateStats() {
-            // Sempre usar produtos atualizados do CRUD
-            const produtosAtuais = getProdutosAtualizados();
-            const produtosPlanilhaAtuais = produtosAtuais.filter(p => p.origem === 'planilha' || p.id < 2000);
-            const produtosSugeridosAtuais = produtosAtuais.filter(p => p.origem === 'sugerido' || p.id >= 2000);
-            
-            const totalBudget = produtosAtuais.reduce((sum, p) => sum + (p.custoBase * p.quantidade), 0);
+            const totalBudget = allProducts.reduce((sum, p) => sum + (p.custoBase * p.quantidade), 0);
             document.getElementById('totalBudget').textContent = formatarPreco(totalBudget);
-            document.getElementById('totalProducts').textContent = produtosAtuais.length;
+            document.getElementById('totalProducts').textContent = allProducts.length;
             
-            document.getElementById('stat-total').textContent = produtosAtuais.length;
-            document.getElementById('stat-planilha').textContent = produtosPlanilhaAtuais.length;
-            document.getElementById('stat-sugestoes').textContent = produtosSugeridosAtuais.length;
+            document.getElementById('stat-total').textContent = allProducts.length;
+            document.getElementById('stat-planilha').textContent = produtosPlanilha.length;
+            document.getElementById('stat-sugestoes').textContent = produtosSugeridos.length;
             
-            const uniqueSubcategories = [...new Set(produtosAtuais.map(p => p.subcategoria))];
+            const uniqueSubcategories = [...new Set(allProducts.map(p => p.subcategoria))];
             document.getElementById('stat-categorias').textContent = uniqueSubcategories.length;
         }
 
@@ -1753,10 +1620,7 @@
             const search = document.getElementById('searchDashboard').value.toLowerCase();
             const categoryFilter = document.getElementById('filterCategory').value;
             
-            // Sempre usar produtos atualizados do CRUD
-            const produtosAtuais = getProdutosAtualizados();
-            
-            let filtered = produtosAtuais.filter(p => {
+            let filtered = allProducts.filter(p => {
                 const matchSearch = p.nome.toLowerCase().includes(search) || 
                                    p.sku.toLowerCase().includes(search);
                 const matchCategory = !categoryFilter || p.categoria === categoryFilter;
@@ -1846,11 +1710,7 @@
             const subcategoryFilter = document.getElementById('filterSubcategory').value;
             const novosOnly = document.getElementById('filterNovos').checked;
             
-            // Sempre usar produtos atualizados do CRUD (apenas sugeridos)
-            const produtosAtuais = getProdutosAtualizados();
-            const produtosSugeridosAtuais = produtosAtuais.filter(p => p.origem === 'sugerido' || p.id >= 2000);
-            
-            let filtered = produtosSugeridosAtuais.filter(p => {
+            let filtered = produtosSugeridos.filter(p => {
                 const matchSearch = p.nome.toLowerCase().includes(search) || 
                                    p.sku.toLowerCase().includes(search);
                 const matchSubcategory = !subcategoryFilter || p.subcategoria === subcategoryFilter;
@@ -1926,10 +1786,7 @@
             const categoryFilter = document.getElementById('filterCatalogoCategory').value;
             const sortBy = document.getElementById('sortCatalogo').value;
             
-            // Sempre usar produtos atualizados do CRUD
-            const produtosAtuais = getProdutosAtualizados();
-            
-            let filtered = produtosAtuais.filter(p => {
+            let filtered = allProducts.filter(p => {
                 const matchSearch = p.nome.toLowerCase().includes(search);
                 const matchCategory = !categoryFilter || p.categoria === categoryFilter;
                 return matchSearch && matchCategory;
@@ -1985,11 +1842,8 @@
 
         // Render Análise
         function renderAnalise() {
-            // Sempre usar produtos atualizados do CRUD
-            const produtosAtuais = getProdutosAtualizados();
-            
             // Top 10 por Margem
-            const topMargem = [...produtosAtuais]
+            const topMargem = [...allProducts]
                 .sort((a, b) => b.margem - a.margem)
                 .slice(0, 10);
             
@@ -2009,9 +1863,9 @@
             `).join('');
 
             // Stock Analysis
-            const totalEstoque = produtosAtuais.reduce((sum, p) => sum + p.quantidade, 0);
-            const estoqueValor = produtosAtuais.reduce((sum, p) => sum + (p.custoBase * p.quantidade), 0);
-            const baixoEstoque = produtosAtuais.filter(p => p.quantidade < 10).length;
+            const totalEstoque = allProducts.reduce((sum, p) => sum + p.quantidade, 0);
+            const estoqueValor = allProducts.reduce((sum, p) => sum + (p.custoBase * p.quantidade), 0);
+            const baixoEstoque = allProducts.filter(p => p.quantidade < 10).length;
             
             document.getElementById('stockAnalysis').innerHTML = `
                 <div class="space-y-4">
@@ -2478,11 +2332,8 @@
             const ctx = document.getElementById('categoryChart');
             if (!ctx) return;
 
-            // Sempre usar produtos atualizados do CRUD
-            const produtosAtuais = getProdutosAtualizados();
-            
             const subcategories = {};
-            produtosAtuais.forEach(p => {
+            allProducts.forEach(p => {
                 subcategories[p.subcategoria] = (subcategories[p.subcategoria] || 0) + 1;
             });
 
@@ -2522,9 +2373,6 @@
             const ctx = document.getElementById('priceChart');
             if (!ctx) return;
 
-            // Sempre usar produtos atualizados do CRUD
-            const produtosAtuais = getProdutosAtualizados();
-            
             const ranges = {
                 '< R$ 500': 0,
                 'R$ 500-1000': 0,
@@ -2533,7 +2381,7 @@
                 '> R$ 5000': 0
             };
 
-            produtosAtuais.forEach(p => {
+            allProducts.forEach(p => {
                 if (p.precoVenda < 500) ranges['< R$ 500']++;
                 else if (p.precoVenda < 1000) ranges['R$ 500-1000']++;
                 else if (p.precoVenda < 2000) ranges['R$ 1000-2000']++;
@@ -2983,26 +2831,9 @@
         let comparativoFiltered = [];
         
         function renderComparativo() {
-            // SEMPRE pegar produtos atualizados do CRUD (não usar allProducts estático)
-            const produtosAtualizados = getProdutosAtualizados();
-            
-            // Adicionar linkCompra se não existir
-            produtosAtualizados.forEach(produto => {
-                if (!produto.linkCompra) {
-                    const nomeParaURL = produto.nome
-                        .replace(/\s+/g, '+')
-                        .replace(/[áàãâä]/gi, 'a')
-                        .replace(/[éèêë]/gi, 'e')
-                        .replace(/[íìîï]/gi, 'i')
-                        .replace(/[óòõôö]/gi, 'o')
-                        .replace(/[úùûü]/gi, 'u')
-                        .replace(/ç/gi, 'c')
-                        .replace(/[^a-zA-Z0-9+]/g, '');
-                    produto.linkCompra = `https://www.amazon.com.br/s?k=${nomeParaURL}`;
-                }
-            });
-            
-            comparativoFiltered = [...produtosAtualizados];
+            // Usar allProducts que já tem linkCompra carregado
+            // Mostrar TODOS os produtos, não apenas os que têm concorrente
+            comparativoFiltered = [...allProducts];
             
             // Debug: verificar se precoConcorrente está presente
             console.log('Produtos com precoConcorrente:', comparativoFiltered.filter(p => p.precoConcorrente).length);
@@ -3321,11 +3152,8 @@
                     csv += 'Custo Fornecedor Prio (R$),Margem (%),Preço Venda Yoobe (R$),Preço Mercado (R$),';
                     csv += 'Link de Compra,Tem Preço Prio,Diferença Yoobe vs Prio (R$),Status Competitividade\n';
                     
-                    // Sempre usar produtos atualizados do CRUD
-                    const produtosAtuais = getProdutosAtualizados();
-                    
                     // Dados
-                    produtosAtuais.forEach(p => {
+                    allProducts.forEach(p => {
                         const precoPrio = p.precoConcorrente || p.custoBase;
                         const temPrecoPrio = p.precoConcorrente ? 'Sim' : 'Não';
                         const diferenca = p.precoConcorrente ? (p.precoVenda - p.precoConcorrente) : 0;
@@ -3909,24 +3737,12 @@ Arquivo disponível no projeto!
         
         // Inicializar sistema CRUD quando produtos carregarem
         function inicializarCRUDSync() {
-            if (window.produtoCRUD) {
-                // Usar os arrays já processados em loadProducts
-                const planilha = window.produtosPlanilha || [];
-                const sugeridos = window.produtosSugeridos || [];
-                
-                if (planilha.length === 0 && sugeridos.length === 0) {
-                    console.warn('⚠️ Nenhum produto disponível para inicializar CRUD');
-                    return;
-                }
-                
-                console.log('🔄 Inicializando CRUD com:');
-                console.log('   📦 Planilha:', planilha.length, 'produtos');
-                console.log('   💡 Sugeridos:', sugeridos.length, 'produtos');
+            if (window.produtoCRUD && allProducts.length > 0) {
+                // Separar produtos planilha e sugeridos
+                const planilha = allProducts.filter(p => p.id < 2000);
+                const sugeridos = allProducts.filter(p => p.id >= 2000);
                 
                 window.produtoCRUD.init(planilha, sugeridos);
-                
-                // Marcar como inicializado
-                window.produtoCRUD._initialized = true;
                 
                 // Adicionar listener para sincronização
                 window.produtoCRUD.addListener((acao, dados) => {
@@ -3948,20 +3764,18 @@ Arquivo disponível no projeto!
                 });
                 
                 console.log('✅ CRUD Sync integrado ao Admin');
-                console.log('📊 Total de produtos no sistema:', window.produtoCRUD.listarProdutos().length);
-            } else {
-                if (!window.produtoCRUD) {
-                    console.error('❌ window.produtoCRUD não está disponível!');
-                }
             }
         }
 
         // Atualizar toda a interface após mudanças
         function atualizarInterfaceCompleta() {
-            // NÃO precisa atualizar allProducts - os renders usam getProdutosAtualizados()
-            // NÃO precisa chamar loadProducts() - ela só deve rodar na inicialização
+            // Atualizar produtos do sistema
+            if (window.produtoCRUD) {
+                allProducts = window.produtoCRUD.produtos;
+            }
             
-            // Recarregar todas as áreas (elas pegam dados frescos via getProdutosAtualizados)
+            // Recarregar todas as áreas
+            loadProducts();
             renderDashboard();
             renderSugestoes();
             renderCatalogo();
@@ -4257,20 +4071,8 @@ Arquivo disponível no projeto!
                     
                     if (resultado.sucesso) {
                         mostrarNotificacao('✅ Produto atualizado com sucesso!', 'success');
-                        
-                        // Salvar ID do produto antes de fechar
-                        const produtoId = currentEditingProductId;
-                        
-                        // Fechar modal
                         closeCrudModal();
-                        
-                        // Atualizar interface
                         atualizarInterfaceCompleta();
-                        
-                        // Reabrir modal com dados atualizados após 300ms
-                        setTimeout(() => {
-                            abrirCrudModal('edit', produtoId);
-                        }, 300);
                     } else {
                         mostrarNotificacao('❌ Erro: ' + resultado.erro, 'error');
                     }
@@ -4311,9 +4113,6 @@ Arquivo disponível no projeto!
                 const resultado = window.produtoCRUD.duplicarProduto(produtoId);
                 
                 if (resultado.sucesso) {
-                    // Registrar no histórico
-                    registrarAtualizacaoProduto(resultado.produto.id, resultado.produto.nome, 'duplicado');
-                    
                     mostrarNotificacao('✅ Produto duplicado com sucesso!', 'success');
                     atualizarInterfaceCompleta();
                 } else {
@@ -4366,13 +4165,8 @@ Arquivo disponível no projeto!
         }
 
         // Inicializar CRUD Sync quando o DOM carregar
-        // NOTA: Agora é chamado diretamente no DOMContentLoaded
-        // Mantendo este setTimeout apenas como fallback de segurança
         setTimeout(() => {
-            if (window.produtoCRUD && !window.produtoCRUD._initialized) {
-                console.warn('⚠️ Fallback: Inicializando CRUD via setTimeout');
-                inicializarCRUDSync();
-            }
+            inicializarCRUDSync();
         }, 1000);
 
         // ============================================
@@ -4904,44 +4698,28 @@ Arquivo disponível no projeto!
                 const { token, owner, repo, branch } = githubConfig;
                 const path = 'produtos-v6.1.js';
                 
-                // 1. Buscar SHA do arquivo atual (OBRIGATÓRIO para updates)
+                // 1. Buscar SHA do arquivo atual (se existir)
                 let sha = null;
-                console.log('📥 Buscando SHA do arquivo...');
-                
                 try {
                     const getResponse = await fetch(
-                        `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}&_=${Date.now()}`,
+                        `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`,
                         {
                             headers: {
                                 'Authorization': `token ${token}`,
-                                'Accept': 'application/vnd.github.v3+json',
-                                'Cache-Control': 'no-cache'
-                            },
-                            mode: 'cors'
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
                         }
                     );
                     
                     if (getResponse.ok) {
                         const data = await getResponse.json();
                         sha = data.sha;
-                        console.log('✅ SHA obtido:', sha.substring(0, 8) + '...');
-                    } else {
-                        const errorText = await getResponse.text();
-                        console.warn('⚠️ Erro HTTP ao buscar SHA:', getResponse.status, errorText);
-                        throw new Error(`HTTP ${getResponse.status}: ${errorText}`);
                     }
                 } catch (e) {
-                    console.error('❌ Erro ao buscar SHA:', e.message);
-                    throw new Error(`Não foi possível buscar SHA do arquivo: ${e.message}. Verifique o token e as permissões.`);
+                    console.log('ℹ️ Arquivo não existe ainda, será criado');
                 }
                 
-                // 2. Validação: SHA é OBRIGATÓRIO
-                if (!sha) {
-                    throw new Error('SHA não disponível. Não é possível atualizar o arquivo.');
-                }
-                
-                // 3. Criar/atualizar arquivo COM SHA
-                console.log('📤 Enviando arquivo para GitHub...');
+                // 2. Criar/atualizar arquivo
                 const content = btoa(unescape(encodeURIComponent(conteudo)));
                 
                 const putResponse = await fetch(
@@ -4953,12 +4731,11 @@ Arquivo disponível no projeto!
                             'Accept': 'application/vnd.github.v3+json',
                             'Content-Type': 'application/json'
                         },
-                        mode: 'cors',
                         body: JSON.stringify({
                             message: `Atualizar produtos-v6.1.js via Admin Panel (${allProducts.length} produtos) - ${new Date().toLocaleString('pt-BR')}`,
                             content: content,
                             branch: branch,
-                            sha: sha  // SHA agora é obrigatório (não opcional)
+                            ...(sha && { sha: sha })
                         })
                     }
                 );
@@ -5127,41 +4904,14 @@ Arquivo disponível no projeto!
          */
         function atualizarBadgeAutoSync() {
             const badge = document.getElementById('auto-sync-badge');
-            const toggle = document.getElementById('auto-sync-toggle');
-            const icon = document.getElementById('auto-sync-icon');
-            
             if (!badge) return;
             
             if (autoSyncAtivo) {
-                badge.textContent = 'ON';
-                badge.className = 'text-sm font-semibold text-green-600';
-                
-                if (toggle) {
-                    toggle.className = 'relative inline-block w-14 h-7 bg-green-500 rounded-full cursor-pointer transition-colors duration-300';
-                    const toggleSpan = toggle.querySelector('span');
-                    if (toggleSpan) {
-                        toggleSpan.style.transform = 'translateX(28px)';
-                    }
-                }
-                
-                if (icon) {
-                    icon.style.color = '#10b981';
-                }
+                badge.textContent = '🔄 Auto-Sync: ON';
+                badge.className = 'px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full cursor-pointer hover:opacity-80 transition-all inline-block animate-pulse';
             } else {
-                badge.textContent = 'OFF';
-                badge.className = 'text-sm font-semibold text-gray-600';
-                
-                if (toggle) {
-                    toggle.className = 'relative inline-block w-14 h-7 bg-gray-400 rounded-full cursor-pointer transition-colors duration-300';
-                    const toggleSpan = toggle.querySelector('span');
-                    if (toggleSpan) {
-                        toggleSpan.style.transform = 'translateX(0)';
-                    }
-                }
-                
-                if (icon) {
-                    icon.style.color = '#9ca3af';
-                }
+                badge.textContent = '🔄 Auto-Sync: OFF';
+                badge.className = 'px-3 py-1 bg-gray-400 text-white text-xs font-bold rounded-full cursor-pointer hover:opacity-80 transition-all inline-block';
             }
         }
         
@@ -5182,11 +4932,11 @@ Arquivo disponível no projeto!
             // Marcar como pendente
             autoSyncPendente = true;
             
-            // Mostrar notificação visual no ícone
-            const icon = document.getElementById('auto-sync-icon');
-            if (icon) {
-                icon.className = 'fas fa-sync-alt fa-spin';
-                icon.style.color = '#fbbf24';
+            // Mostrar notificação visual
+            const badge = document.getElementById('auto-sync-badge');
+            if (badge) {
+                badge.textContent = '⏳ Salvando...';
+                badge.className = 'px-2 py-1 bg-yellow-500 text-white text-xs font-bold rounded-full animate-pulse';
             }
             
             // Aguardar 2 segundos antes de salvar (debounce)
@@ -5198,38 +4948,26 @@ Arquivo disponível no projeto!
                     
                     autoSyncPendente = false;
                     
-                    // Atualizar ícone para sucesso
-                    if (icon) {
-                        icon.className = 'fas fa-check-circle';
-                        icon.style.color = '#10b981';
+                    // Atualizar badge
+                    if (badge) {
+                        badge.textContent = '✅ Sincronizado';
+                        badge.className = 'px-2 py-1 bg-green-500 text-white text-xs font-bold rounded-full';
                         
                         // Voltar ao normal após 3 segundos
                         setTimeout(() => {
-                            icon.className = 'fas fa-sync-alt';
-                            icon.style.color = '#10b981';
+                            badge.textContent = '🔄 Auto-Sync';
+                            badge.className = 'px-2 py-1 bg-blue-500 text-white text-xs font-bold rounded-full';
                         }, 3000);
                     }
                     
                     console.log(`✅ Auto-sync concluído (${operacao})`);
                     
-                    // Atualizar último commit após 2 segundos
-                    setTimeout(() => {
-                        carregarUltimoCommit();
-                    }, 2000);
-                    
                 } catch (error) {
                     console.error('❌ Erro no auto-sync:', error);
                     
-                    // Mostrar erro no ícone
-                    if (icon) {
-                        icon.className = 'fas fa-exclamation-circle';
-                        icon.style.color = '#ef4444';
-                        
-                        // Voltar ao normal após 5 segundos
-                        setTimeout(() => {
-                            icon.className = 'fas fa-sync-alt';
-                            icon.style.color = '#10b981';
-                        }, 5000);
+                    if (badge) {
+                        badge.textContent = '❌ Erro';
+                        badge.className = 'px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-full';
                     }
                 }
             }, 2000);
@@ -5237,9 +4975,8 @@ Arquivo disponível no projeto!
         
         /**
          * Salvar no GitHub silenciosamente (sem modal)
-         * Com retry automático em caso de SHA mismatch
          */
-        async function salvarProdutosNoGitHubSilencioso(tentativa = 1) {
+        async function salvarProdutosNoGitHubSilencioso() {
             const conteudo = gerarArquivoProdutosJS();
             
             if (!conteudo) {
@@ -5249,63 +4986,28 @@ Arquivo disponível no projeto!
             const { token, owner, repo, branch } = githubConfig;
             const path = 'produtos-v6.1.js';
             
-            console.log(`🔄 Tentativa ${tentativa} de salvar no GitHub...`);
-            
-            // 1. SEMPRE buscar SHA mais recente do arquivo (OBRIGATÓRIO para updates)
+            // 1. Buscar SHA do arquivo atual
             let sha = null;
             try {
-                console.log('📥 Buscando SHA mais recente do arquivo...');
                 const getResponse = await fetch(
-                    `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}&_=${Date.now()}`, // Cache bust
+                    `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`,
                     {
                         headers: {
                             'Authorization': `token ${token}`,
-                            'Accept': 'application/vnd.github.v3+json',
-                            'Cache-Control': 'no-cache'
-                        },
-                        mode: 'cors' // Explicitamente definir modo CORS
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
                     }
                 );
                 
                 if (getResponse.ok) {
                     const data = await getResponse.json();
                     sha = data.sha;
-                    console.log(`✅ SHA obtido com sucesso: ${sha.substring(0, 8)}...`);
-                } else {
-                    const errorText = await getResponse.text();
-                    console.warn(`⚠️ Erro HTTP ${getResponse.status} ao buscar SHA:`, errorText);
-                    
-                    // Se não conseguir buscar SHA e for tentativa < 3, tentar novamente
-                    if (tentativa < 3) {
-                        console.log(`🔄 Tentando novamente buscar SHA (tentativa ${tentativa + 1})...`);
-                        await new Promise(resolve => setTimeout(resolve, 1000));
-                        return await salvarProdutosNoGitHubSilencioso(tentativa + 1);
-                    }
-                    
-                    throw new Error(`Não foi possível obter SHA do arquivo após ${tentativa} tentativas`);
                 }
             } catch (e) {
-                console.error('❌ ERRO CRÍTICO ao buscar SHA:', e.message);
-                
-                // Se falhar ao buscar SHA e for tentativa < 3, tentar novamente
-                if (tentativa < 3) {
-                    console.log(`🔄 Tentando novamente buscar SHA (tentativa ${tentativa + 1})...`);
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                    return await salvarProdutosNoGitHubSilencioso(tentativa + 1);
-                }
-                
-                // Se falhar após 3 tentativas, abortar
-                throw new Error(`Não foi possível buscar SHA: ${e.message}. Verifique: 1) Token GitHub válido, 2) Permissões CORS, 3) Conexão de rede`);
+                console.log('ℹ️ Arquivo não existe, será criado');
             }
             
-            // 2. VALIDAÇÃO: SHA é OBRIGATÓRIO para atualizar arquivo existente
-            if (!sha) {
-                console.error('❌ SHA não foi obtido. Impossível atualizar arquivo no GitHub.');
-                throw new Error('SHA não disponível. Não é possível atualizar o arquivo.');
-            }
-            
-            // 3. Criar/atualizar arquivo COM SHA
-            console.log('📤 Enviando arquivo para GitHub com SHA:', sha.substring(0, 8) + '...');
+            // 2. Criar/atualizar arquivo
             const content = btoa(unescape(encodeURIComponent(conteudo)));
             
             const putResponse = await fetch(
@@ -5317,40 +5019,21 @@ Arquivo disponível no projeto!
                         'Accept': 'application/vnd.github.v3+json',
                         'Content-Type': 'application/json'
                     },
-                    mode: 'cors',
                     body: JSON.stringify({
                         message: `[Auto-Sync] Atualizar produtos (${allProducts.length}) - ${new Date().toLocaleString('pt-BR')}`,
                         content: content,
                         branch: branch,
-                        sha: sha // SHA agora é OBRIGATÓRIO (não mais opcional)
+                        ...(sha && { sha: sha })
                     })
                 }
             );
             
             if (!putResponse.ok) {
                 const error = await putResponse.json();
-                
-                // Se for erro de SHA mismatch (arquivo mudou durante a operação)
-                if (error.message && error.message.includes('does not match') && tentativa < 3) {
-                    console.warn(`⚠️ SHA mismatch detectado! Arquivo foi modificado durante a operação.`);
-                    console.log(`🔄 Tentando novamente com SHA atualizado (tentativa ${tentativa + 1})...`);
-                    
-                    // Aguardar 1 segundo antes de tentar novamente
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                    
-                    // Tentar novamente (recursivo) - vai buscar SHA novo
-                    return await salvarProdutosNoGitHubSilencioso(tentativa + 1);
-                }
-                
-                // Outros erros
-                console.error('❌ Erro ao salvar no GitHub:', error);
                 throw new Error(error.message || 'Erro ao salvar no GitHub');
             }
             
             const result = await putResponse.json();
-            console.log(`✅ Arquivo salvo com sucesso no GitHub!`);
-            console.log(`   📝 SHA antigo: ${sha.substring(0, 8)}...`);
-            console.log(`   📝 SHA novo: ${result.content.sha.substring(0, 8)}...`);
             return result;
         }
         
@@ -5538,189 +5221,6 @@ Arquivo disponível no projeto!
         window.toggleAutoSync = toggleAutoSync;
         window.verificarAutoSync = verificarAutoSync;
         window.dispararAutoSync = dispararAutoSync;
-
-        // ========================================
-        // NOVO: HISTÓRICO DE ATUALIZAÇÕES v6.6
-        // ========================================
-        
-        /**
-         * Registrar atualização de produto no histórico
-         */
-        function registrarAtualizacaoProduto(produtoId, produtoNome, acao = 'editado') {
-            const updateHistory = JSON.parse(localStorage.getItem('productUpdateHistory') || '[]');
-            
-            // Criar registro com timezone de Curitiba (UTC-3)
-            const now = new Date();
-            const curitibaTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
-            
-            const registro = {
-                id: Date.now(),
-                produtoId: produtoId,
-                produtoNome: produtoNome,
-                acao: acao,
-                timestamp: curitibaTime.getTime(),
-                dataFormatada: formatarDataCuritiba(curitibaTime)
-            };
-            
-            // Adicionar no início do array (mais recente primeiro)
-            updateHistory.unshift(registro);
-            
-            // Manter apenas os últimos 50 registros
-            if (updateHistory.length > 50) {
-                updateHistory.splice(50);
-            }
-            
-            localStorage.setItem('productUpdateHistory', JSON.stringify(updateHistory));
-            
-            // Atualizar interface se estiver visível
-            if (document.getElementById('updateHistoryList')) {
-                carregarHistoricoAtualizacoes();
-            }
-        }
-        
-        /**
-         * Formatar data para timezone de Curitiba
-         */
-        function formatarDataCuritiba(date) {
-            const d = new Date(date);
-            const dia = String(d.getDate()).padStart(2, '0');
-            const mes = String(d.getMonth() + 1).padStart(2, '0');
-            const ano = d.getFullYear();
-            const hora = String(d.getHours()).padStart(2, '0');
-            const min = String(d.getMinutes()).padStart(2, '0');
-            const seg = String(d.getSeconds()).padStart(2, '0');
-            
-            return `${dia}/${mes}/${ano} ${hora}:${min}:${seg}`;
-        }
-        
-        /**
-         * Carregar e exibir histórico de atualizações
-         */
-        function carregarHistoricoAtualizacoes() {
-            const updateHistory = JSON.parse(localStorage.getItem('productUpdateHistory') || '[]');
-            const listElement = document.getElementById('updateHistoryList');
-            const countElement = document.getElementById('updateHistoryCount');
-            
-            if (!listElement) return;
-            
-            // Atualizar contador
-            if (countElement) {
-                countElement.textContent = updateHistory.length;
-            }
-            
-            if (updateHistory.length === 0) {
-                listElement.innerHTML = `
-                    <div class="text-center text-gray-400 py-8">
-                        <i class="fas fa-inbox text-4xl mb-2"></i>
-                        <p>Nenhuma atualização registrada ainda</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Renderizar histórico
-            listElement.innerHTML = updateHistory.map(registro => {
-                const iconClass = registro.acao === 'criado' ? 'fa-plus text-green-500' : 
-                                  registro.acao === 'editado' ? 'fa-edit text-blue-500' :
-                                  registro.acao === 'duplicado' ? 'fa-copy text-purple-500' :
-                                  'fa-pencil text-gray-500';
-                
-                return `
-                    <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-                        <i class="fas ${iconClass} mt-1"></i>
-                        <div class="flex-1 min-w-0">
-                            <div class="font-semibold text-gray-800 truncate">${registro.produtoNome}</div>
-                            <div class="text-xs text-gray-500">ID: ${registro.produtoId} • ${registro.acao}</div>
-                        </div>
-                        <div class="text-xs text-gray-400 whitespace-nowrap">
-                            ${registro.dataFormatada}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-        
-        /**
-         * Toggle do painel de histórico
-         */
-        function toggleUpdateHistory() {
-            const content = document.getElementById('updateHistoryContent');
-            const icon = document.getElementById('updateHistoryToggleIcon');
-            
-            if (!content || !icon) return;
-            
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-                carregarHistoricoAtualizacoes();
-            } else {
-                content.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-        
-        /**
-         * Limpar histórico de atualizações
-         */
-        function clearUpdateHistory() {
-            if (confirm('Tem certeza que deseja limpar todo o histórico de atualizações?')) {
-                localStorage.removeItem('productUpdateHistory');
-                carregarHistoricoAtualizacoes();
-                mostrarNotificacao('✅ Histórico limpo com sucesso!', 'success');
-            }
-        }
-        
-        /**
-         * Buscar e exibir último commit do GitHub
-         */
-        async function carregarUltimoCommit() {
-            const infoElement = document.getElementById('lastCommitInfo');
-            if (!infoElement) return;
-            
-            if (!githubConfig || !githubConfig.token) {
-                infoElement.innerHTML = '<span class="text-gray-500">GitHub não configurado</span>';
-                return;
-            }
-            
-            try {
-                const { token, owner, repo, branch } = githubConfig;
-                const response = await fetch(
-                    `https://api.github.com/repos/${owner}/${repo}/commits/${branch}`,
-                    {
-                        headers: {
-                            'Authorization': `token ${token}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
-                    }
-                );
-                
-                if (!response.ok) {
-                    throw new Error('Erro ao buscar commit');
-                }
-                
-                const commit = await response.json();
-                
-                // Converter para timezone de Curitiba
-                const commitDate = new Date(commit.commit.author.date);
-                const curitibaDate = new Date(commitDate.toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
-                const dataFormatada = formatarDataCuritiba(curitibaDate);
-                
-                infoElement.innerHTML = `
-                    <span class="text-green-600 font-semibold">Último commit: ${dataFormatada}</span>
-                `;
-                
-            } catch (error) {
-                console.error('❌ Erro ao buscar último commit:', error);
-                infoElement.innerHTML = '<span class="text-red-500">Erro ao verificar commit</span>';
-            }
-        }
-        
-        // Expor novas funções globalmente
-        window.registrarAtualizacaoProduto = registrarAtualizacaoProduto;
-        window.carregarHistoricoAtualizacoes = carregarHistoricoAtualizacoes;
-        window.toggleUpdateHistory = toggleUpdateHistory;
-        window.clearUpdateHistory = clearUpdateHistory;
-        window.carregarUltimoCommit = carregarUltimoCommit;
 
     </script>
 </body>

@@ -1,0 +1,252 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    ✅ CHECKLIST DE TESTE                          ║
+║                  admin-v6.5.html - Correções                      ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+📅 Data do teste: ___/___/2025
+⏰ Hora do teste: ___:___
+🌐 Navegador: __________________ Versão: __________
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 FASE 1: PRODUTOS CARREGAM?
+
+   [ ] 1.1 Abrir admin-v6.5.html
+   [ ] 1.2 Pressionar F12 para abrir console
+   [ ] 1.3 Procurar no console:
+           "✅ Produtos carregados do todosOsProdutosV6"
+   
+   [ ] 1.4 Verificar números:
+           "📦 Planilha: 32"
+           "💡 Sugeridos: 110"
+   
+   [ ] 1.5 No console, colar e executar:
+           console.log(window.produtosPlanilha.length);
+           console.log(window.produtosSugeridos.length);
+   
+   [ ] 1.6 Resultado esperado:
+           32
+           110
+
+   ✅ FASE 1: [ ] PASSOU  [ ] FALHOU
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 FASE 2: DASHBOARD RENDERIZA?
+
+   [ ] 2.1 Observar dashboard na página
+   [ ] 2.2 Verificar se mostra:
+           "Total: 142 produtos"
+   
+   [ ] 2.3 Verificar estatísticas visíveis:
+           [ ] Total de produtos
+           [ ] Produtos com preço concorrente
+           [ ] Economia potencial
+   
+   [ ] 2.4 Verificar gráficos aparecem:
+           [ ] Gráfico de barras
+           [ ] Gráfico de categorias
+   
+   [ ] 2.5 Verificar tabela de produtos:
+           [ ] Lista de produtos visível
+           [ ] Dados dos produtos aparecem
+   
+   [ ] 2.6 No console, procurar:
+           "📦 getProdutosAtualizados via CRUD: 142 produtos"
+
+   ✅ FASE 2: [ ] PASSOU  [ ] FALHOU
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 PREPARAÇÃO FASE 3: GITHUB CONFIGURADO?
+
+   [ ] 3.1 No console, colar e executar:
+           console.log(githubConfig);
+   
+   [ ] 3.2 Resultado deve mostrar:
+           {
+             token: "ghp_xxxxxxxxx...",
+             owner: "genautech",
+             repo: "priobf25",
+             branch: "main"
+           }
+   
+   [ ] 3.3 Se mostrou "null":
+           [ ] Clicar em "⚙️ Configurar GitHub"
+           [ ] Preencher campos:
+               Token: ___________________________________
+               Owner: genautech
+               Repo: priobf25
+               Branch: main
+           [ ] Salvar
+
+   ✅ GITHUB: [ ] CONFIGURADO  [ ] NÃO CONFIGURADO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔄 FASE 3: AUTO-SYNC FUNCIONA?
+
+   IMPORTANTE: Atualizar página primeiro!
+   [ ] 4.1 Pressionar Ctrl+F5 (ou Cmd+Shift+R)
+           ⚠️ Hard refresh para carregar código novo
+   
+   [ ] 4.2 Console deve estar aberto (F12)
+   
+   [ ] 4.3 Clicar em qualquer produto no dashboard
+   
+   [ ] 4.4 Editar algum campo:
+           Campo editado: ________________
+           Valor antigo: _________________
+           Valor novo: ___________________
+   
+   [ ] 4.5 Salvar alteração
+   
+   [ ] 4.6 OBSERVAR CONSOLE - marcar o que apareceu:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   ✅ CENÁRIO A: SUCESSO (esperado)
+   
+   [ ] Console mostrou:
+       [ ] "🔄 Tentativa 1 de salvar no GitHub..."
+       [ ] "📥 Buscando SHA mais recente do arquivo..."
+       [ ] "✅ SHA obtido com sucesso: ________..."
+       [ ] "📤 Enviando arquivo para GitHub com SHA: ________..."
+       [ ] "✅ Arquivo salvo com sucesso no GitHub!"
+       [ ] "📝 SHA antigo: ________..."
+       [ ] "📝 SHA novo: ________..."
+   
+   ✅ RESULTADO: [ ] SUCESSO TOTAL! 🎉
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   🔄 CENÁRIO B: RETRY FUNCIONOU
+   
+   [ ] Console mostrou:
+       [ ] "🔄 Tentativa 1 de salvar no GitHub..."
+       [ ] "⚠️ SHA mismatch detectado!" ou erro temporário
+       [ ] "🔄 Tentando novamente com SHA atualizado (tentativa 2)..."
+       [ ] "✅ SHA obtido com sucesso: ________..."
+       [ ] "✅ Arquivo salvo com sucesso no GitHub!"
+   
+   ✅ RESULTADO: [ ] SUCESSO COM RETRY! 👍
+   
+   Isso é NORMAL e esperado! Sistema detectou mudança e 
+   automaticamente buscou SHA novo e salvou.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   ❌ CENÁRIO C: FAILED TO FETCH
+   
+   [ ] Console mostrou:
+       [ ] "🔄 Tentativa 1 de salvar no GitHub..."
+       [ ] "📥 Buscando SHA mais recente do arquivo..."
+       [ ] "❌ ERRO CRÍTICO ao buscar SHA: Failed to fetch"
+       [ ] "🔄 Tentando novamente buscar SHA (tentativa 2)..."
+       [ ] "❌ ERRO CRÍTICO ao buscar SHA: Failed to fetch"
+       [ ] "🔄 Tentando novamente buscar SHA (tentativa 3)..."
+       [ ] "❌ Não foi possível buscar SHA após 3 tentativas"
+   
+   ⚠️ RESULTADO: [ ] PROBLEMA DE CONFIGURAÇÃO
+   
+   Código está CORRETO, mas há problema de:
+   [ ] Token não configurado
+   [ ] Token sem permissões
+   [ ] Extensão bloqueando (AdBlock, etc.)
+   [ ] Firewall/VPN bloqueando
+   
+   📋 EXECUTAR: 🧪-TESTE-TOKEN-GITHUB.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   ❌ CENÁRIO D: OUTRO ERRO
+   
+   [ ] Console mostrou erro diferente dos acima
+   
+   📝 COPIAR ERRO COMPLETO AQUI:
+   ┌────────────────────────────────────────────────────────────┐
+   │                                                            │
+   │                                                            │
+   │                                                            │
+   │                                                            │
+   │                                                            │
+   └────────────────────────────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 TESTE ADICIONAL: SALVAMENTO MANUAL
+
+   [ ] 5.1 No admin, procurar botão "Salvar no GitHub"
+   [ ] 5.2 Clicar no botão
+   [ ] 5.3 Observar console
+   [ ] 5.4 Resultado:
+           [ ] Salvou com sucesso
+           [ ] Deu erro (copiar erro acima)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 TESTE ADICIONAL: MODO ANÔNIMO (se houver erro)
+
+   [ ] 6.1 Abrir navegador em modo anônimo:
+           Chrome/Edge: Ctrl+Shift+N
+           Firefox: Ctrl+Shift+P
+   
+   [ ] 6.2 Abrir admin-v6.5.html no modo anônimo
+   
+   [ ] 6.3 Configurar GitHub token novamente
+   
+   [ ] 6.4 Repetir teste de auto-sync
+   
+   [ ] 6.5 Resultado no modo anônimo:
+           [ ] Funcionou (extensão estava bloqueando)
+           [ ] Continua falhando (outro problema)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 RESULTADO FINAL DO TESTE:
+
+   FASE 1 (Produtos):      [ ] ✅ PASSOU  [ ] ❌ FALHOU
+   FASE 2 (Dashboard):     [ ] ✅ PASSOU  [ ] ❌ FALHOU
+   FASE 3 (Auto-sync):     [ ] ✅ PASSOU  [ ] ❌ FALHOU
+
+   CENÁRIO:
+   [ ] A - Sucesso total
+   [ ] B - Sucesso com retry
+   [ ] C - Failed to fetch (problema configuração)
+   [ ] D - Outro erro
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💬 RESPOSTA PARA O DESENVOLVEDOR:
+
+   [ ] OPÇÃO 1: "Funcionou! Console mostra SHA obtido com sucesso"
+   
+   [ ] OPÇÃO 2: "Funciona com retry automático (SHA mismatch)"
+   
+   [ ] OPÇÃO 3: "Ainda dá Failed to fetch"
+               + colar erro completo do console
+   
+   [ ] OPÇÃO 4: "Outro erro: _______________________________"
+               + colar erro completo do console
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 INFORMAÇÕES DO AMBIENTE:
+
+   Sistema Operacional: _________________________________
+   Navegador: __________________________________________
+   Versão do navegador: ________________________________
+   Extensões instaladas: _______________________________
+   ____________________________________________________
+   
+   VPN ativo? [ ] Sim [ ] Não
+   Antivírus: __________________________________________
+   Rede: [ ] Casa [ ] Trabalho [ ] Pública [ ] Outro: ______
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ CHECKLIST COMPLETO!
+
+   Preencha este checklist durante o teste e envie o resultado.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

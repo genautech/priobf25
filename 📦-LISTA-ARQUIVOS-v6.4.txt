@@ -1,0 +1,291 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                     📦 LISTA DE ARQUIVOS - v6.4.0                            ║
+║                   Sincronização Segura via GitHub Actions                   ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 ARQUIVOS ESSENCIAIS PARA DEPLOY (5 arquivos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Estes arquivos DEVEM ser enviados para o GitHub:
+
+1. 📁 .github/workflows/sync-produtos.yml
+   ├─ Tamanho: 6.8 KB
+   ├─ Tipo: Workflow do GitHub Actions
+   └─ Descrição: Detecta mudanças e atualiza produtos automaticamente
+
+2. 📄 produtos-sync.json
+   ├─ Tamanho: 3 bytes (inicialmente vazio: [])
+   ├─ Tipo: JSON
+   └─ Descrição: Arquivo trigger para o workflow
+
+3. 📜 github-sync-actions.js
+   ├─ Tamanho: 15 KB
+   ├─ Tipo: JavaScript
+   └─ Descrição: Cliente JS seguro (SEM token!)
+
+4. 📜 auto-sync-actions.js
+   ├─ Tamanho: 13 KB
+   ├─ Tipo: JavaScript
+   └─ Descrição: Toggle e gerenciamento do Auto-Sync
+
+5. 🌐 admin-v6.4.html
+   ├─ Tamanho: 275 KB
+   ├─ Tipo: HTML
+   └─ Descrição: Painel admin atualizado para v6.4
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📚 ARQUIVOS DE DOCUMENTAÇÃO (4 arquivos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Arquivos OPCIONAIS (mas recomendados):
+
+6. 📖 🔒-GITHUB-ACTIONS-v6.4.md
+   ├─ Tamanho: 23 KB
+   ├─ Tipo: Markdown
+   └─ Descrição: Documentação completa com arquitetura, troubleshooting, FAQ
+
+7. ⚡ ⚡-DEPLOY-RAPIDO-v6.4.md
+   ├─ Tamanho: 9 KB
+   ├─ Tipo: Markdown
+   └─ Descrição: Guia de deploy em 3 passos (15 minutos)
+
+8. 📋 📋-RESUMO-v6.4.md
+   ├─ Tamanho: 9 KB
+   ├─ Tipo: Markdown
+   └─ Descrição: Resumo executivo com comparações
+
+9. 🎯 🎯-COMECE-AQUI-v6.4.txt
+   ├─ Tamanho: 12 KB
+   ├─ Tipo: TXT
+   └─ Descrição: Guia rápido visual com instruções completas
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧪 ARQUIVO DE TESTE/DEMONSTRAÇÃO (1 arquivo)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Arquivo OPCIONAL (para testes):
+
+10. 🔗 produtos-sync-api.html
+    ├─ Tamanho: 11 KB
+    ├─ Tipo: HTML
+    └─ Descrição: Página de demonstração da API
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📂 ESTRUTURA COMPLETA NO GITHUB
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+priobf25/
+├── .github/
+│   └── workflows/
+│       └── sync-produtos.yml          ⭐ ESSENCIAL
+│
+├── produtos-sync.json                 ⭐ ESSENCIAL
+├── github-sync-actions.js             ⭐ ESSENCIAL
+├── auto-sync-actions.js               ⭐ ESSENCIAL
+├── admin-v6.4.html                    ⭐ ESSENCIAL
+│
+├── 🔒-GITHUB-ACTIONS-v6.4.md          📖 DOCUMENTAÇÃO
+├── ⚡-DEPLOY-RAPIDO-v6.4.md           📖 DOCUMENTAÇÃO
+├── 📋-RESUMO-v6.4.md                  📖 DOCUMENTAÇÃO
+├── 🎯-COMECE-AQUI-v6.4.txt            📖 DOCUMENTAÇÃO
+│
+└── produtos-sync-api.html             🧪 TESTE (OPCIONAL)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚡ COMANDOS PARA DEPLOY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ OPÇÃO A: DEPLOY COMPLETO (Essenciais + Documentação)                    │
+└──────────────────────────────────────────────────────────────────────────┘
+
+git clone https://github.com/genautech/priobf25.git
+cd priobf25
+
+# Criar pasta workflows
+mkdir -p .github/workflows
+
+# Copiar arquivos essenciais
+cp /caminho/.github/workflows/sync-produtos.yml .github/workflows/
+cp /caminho/produtos-sync.json .
+cp /caminho/github-sync-actions.js .
+cp /caminho/auto-sync-actions.js .
+cp /caminho/admin-v6.4.html .
+
+# Copiar documentação
+cp /caminho/🔒-GITHUB-ACTIONS-v6.4.md .
+cp /caminho/⚡-DEPLOY-RAPIDO-v6.4.md .
+cp /caminho/📋-RESUMO-v6.4.md .
+cp /caminho/🎯-COMECE-AQUI-v6.4.txt .
+
+# Commit e push
+git add .
+git commit -m "feat: v6.4 - sincronização segura via GitHub Actions
+
+- Workflow automático (.github/workflows/sync-produtos.yml)
+- Sincronização via JSON intermediário (produtos-sync.json)
+- Cliente JS seguro sem token (github-sync-actions.js)
+- Auto-Sync com toggle (auto-sync-actions.js)
+- Admin atualizado (admin-v6.4.html)
+- Documentação completa (4 arquivos MD/TXT)"
+
+git push origin main
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ OPÇÃO B: DEPLOY APENAS ESSENCIAIS (Deploy Mínimo)                       │
+└──────────────────────────────────────────────────────────────────────────┘
+
+git clone https://github.com/genautech/priobf25.git
+cd priobf25
+
+mkdir -p .github/workflows
+
+# Apenas arquivos essenciais
+cp /caminho/.github/workflows/sync-produtos.yml .github/workflows/
+cp /caminho/produtos-sync.json .
+cp /caminho/github-sync-actions.js .
+cp /caminho/auto-sync-actions.js .
+cp /caminho/admin-v6.4.html .
+
+git add .
+git commit -m "feat: v6.4 - sincronização segura (essenciais)"
+git push origin main
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ CHECKLIST DE ARQUIVOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ESSENCIAIS (OBRIGATÓRIOS):
+[ ] .github/workflows/sync-produtos.yml
+[ ] produtos-sync.json
+[ ] github-sync-actions.js
+[ ] auto-sync-actions.js
+[ ] admin-v6.4.html
+
+DOCUMENTAÇÃO (RECOMENDADOS):
+[ ] 🔒-GITHUB-ACTIONS-v6.4.md
+[ ] ⚡-DEPLOY-RAPIDO-v6.4.md
+[ ] 📋-RESUMO-v6.4.md
+[ ] 🎯-COMECE-AQUI-v6.4.txt
+
+TESTE (OPCIONAL):
+[ ] produtos-sync-api.html
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 COMPARAÇÃO DE TAMANHOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌────────────────────────────────────────┬──────────┬───────────────┐
+│ Arquivo                                │ Tamanho  │ Tipo          │
+├────────────────────────────────────────┼──────────┼───────────────┤
+│ .github/workflows/sync-produtos.yml    │ 6.8 KB   │ YAML          │
+│ produtos-sync.json                     │ 3 bytes  │ JSON          │
+│ github-sync-actions.js                 │ 15 KB    │ JavaScript    │
+│ auto-sync-actions.js                   │ 13 KB    │ JavaScript    │
+│ admin-v6.4.html                        │ 275 KB   │ HTML          │
+├────────────────────────────────────────┼──────────┼───────────────┤
+│ TOTAL ESSENCIAIS                       │ ~310 KB  │ 5 arquivos    │
+├────────────────────────────────────────┼──────────┼───────────────┤
+│ 🔒-GITHUB-ACTIONS-v6.4.md              │ 23 KB    │ Markdown      │
+│ ⚡-DEPLOY-RAPIDO-v6.4.md               │ 9 KB     │ Markdown      │
+│ 📋-RESUMO-v6.4.md                      │ 9 KB     │ Markdown      │
+│ 🎯-COMECE-AQUI-v6.4.txt                │ 12 KB    │ TXT           │
+├────────────────────────────────────────┼──────────┼───────────────┤
+│ TOTAL DOCUMENTAÇÃO                     │ ~53 KB   │ 4 arquivos    │
+├────────────────────────────────────────┼──────────┼───────────────┤
+│ produtos-sync-api.html                 │ 11 KB    │ HTML          │
+├────────────────────────────────────────┼──────────┼───────────────┤
+│ TOTAL COMPLETO                         │ ~374 KB  │ 10 arquivos   │
+└────────────────────────────────────────┴──────────┴───────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 PRIORIDADE DE UPLOAD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔴 CRÍTICO (Faça primeiro):
+   1. .github/workflows/sync-produtos.yml
+   2. produtos-sync.json
+   3. github-sync-actions.js
+   4. auto-sync-actions.js
+
+🟡 IMPORTANTE (Faça depois):
+   5. admin-v6.4.html
+
+🟢 RECOMENDADO (Para facilitar uso):
+   6. 🔒-GITHUB-ACTIONS-v6.4.md
+   7. ⚡-DEPLOY-RAPIDO-v6.4.md
+   8. 🎯-COMECE-AQUI-v6.4.txt
+
+⚪ OPCIONAL (Se quiser):
+   9. 📋-RESUMO-v6.4.md
+   10. produtos-sync-api.html
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔗 URLS APÓS DEPLOY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Após fazer push, estas URLs estarão disponíveis:
+
+🌐 SITE PRINCIPAL:
+   → https://priobf25.pages.dev
+
+🛠️ ADMIN v6.4:
+   → https://priobf25.pages.dev/admin-v6.4.html
+
+📊 CATÁLOGO DO CLIENTE:
+   → https://priobf25.pages.dev/catalogo-v6.html
+   → https://priobf25.pages.dev/cliente-analise-v6.1.html
+
+🔍 GITHUB ACTIONS:
+   → https://github.com/genautech/priobf25/actions
+
+📝 EDITAR PRODUTOS-SYNC.JSON:
+   → https://github.com/genautech/priobf25/edit/main/produtos-sync.json
+
+📖 DOCUMENTAÇÃO:
+   → https://github.com/genautech/priobf25/blob/main/🔒-GITHUB-ACTIONS-v6.4.md
+   → https://github.com/genautech/priobf25/blob/main/⚡-DEPLOY-RAPIDO-v6.4.md
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📝 NOTAS IMPORTANTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️ ATENÇÃO:
+   → A pasta .github/workflows/ DEVE ter o ponto (.) no início
+   → O arquivo sync-produtos.yml DEVE estar dentro de .github/workflows/
+   → produtos-sync.json deve começar vazio: []
+
+💡 DICA:
+   → Se produtos-sync.json não existir, o workflow não será acionado
+   → Primeiro commit pode demorar alguns segundos para aparecer no Actions
+   → Logs do workflow estão em: Actions → 🔄 Sincronizar Produtos
+
+🔐 SEGURANÇA:
+   → Esta versão NÃO expõe tokens no código
+   → GitHub Actions usa GITHUB_TOKEN automático
+   → Workflow tem permissões controladas
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ RESUMO FINAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ESSENCIAIS:        5 arquivos (~310 KB)
+DOCUMENTAÇÃO:      4 arquivos (~53 KB)
+TESTE:             1 arquivo (~11 KB)
+─────────────────────────────────────────
+TOTAL:            10 arquivos (~374 KB)
+
+TEMPO DE DEPLOY:   15-20 minutos
+COMPLEXIDADE:      ⭐⭐⭐ (Médio)
+SEGURANÇA:         ⭐⭐⭐⭐⭐ (Máxima)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                       Desenvolvido com 💜 por genautech
+                          v6.4.0 - GitHub Actions Edition
+                            📦 Lista de Arquivos Completa
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

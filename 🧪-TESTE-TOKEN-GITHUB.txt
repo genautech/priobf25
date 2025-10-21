@@ -1,0 +1,159 @@
+╔══════════════════════════════════════════════════════════════╗
+║  🧪 TESTE: Verificar Token GitHub e Conectividade API       ║
+╚══════════════════════════════════════════════════════════════╝
+
+📋 PASSO 1: Abrir Console do Navegador
+   → Pressione F12 ou Ctrl+Shift+J (Windows/Linux)
+   → Pressione Cmd+Option+J (Mac)
+   → Vá para a aba "Console"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 TESTE 1: Verificar se Token está Configurado
+   
+   Cole no console:
+   ┌────────────────────────────────────────────────────────────┐
+   │ console.log('Token:', githubConfig);                       │
+   └────────────────────────────────────────────────────────────┘
+
+   ✅ Esperado:
+   Token: {
+     token: "ghp_xxxxxxxxxxxxxxxxxx",
+     owner: "genautech",
+     repo: "priobf25",
+     branch: "main"
+   }
+
+   ❌ Se mostrar: Token: null
+   → Token não foi configurado!
+   → Clique em "⚙️ Configurar GitHub" no admin
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 TESTE 2: Testar Acesso à API GitHub (GET SHA)
+   
+   Cole no console (SUBSTITUA SEU_TOKEN_AQUI pelo token real):
+   ┌────────────────────────────────────────────────────────────┐
+   │ fetch('https://api.github.com/repos/genautech/priobf25/   │
+   │   contents/produtos-v6.1.js?ref=main', {                   │
+   │   headers: {                                               │
+   │     'Authorization': 'token SEU_TOKEN_AQUI',               │
+   │     'Accept': 'application/vnd.github.v3+json'             │
+   │   }                                                        │
+   │ })                                                         │
+   │ .then(r => r.json())                                       │
+   │ .then(d => console.log('✅ SHA:', d.sha))                  │
+   │ .catch(e => console.error('❌ Erro:', e));                 │
+   └────────────────────────────────────────────────────────────┘
+
+   ✅ Esperado:
+   ✅ SHA: 7669cca207978e55654bcf7cd5406e62237a6933
+
+   ❌ Se mostrar erro:
+   • "Failed to fetch" → Problema de CORS/rede/extensão
+   • "401 Unauthorized" → Token inválido ou sem permissões
+   • "404 Not Found" → Repositório ou arquivo não existe
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 TESTE 3: Verificar Permissões do Token
+
+   1. Acesse: https://github.com/settings/tokens
+   2. Encontre seu token
+   3. Verifique se tem marcado:
+      ✅ repo (Full control of private repositories)
+         ✅ repo:status
+         ✅ repo_deployment
+         ✅ public_repo
+         ✅ repo:invite
+         ✅ security_events
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 TESTE 4: Verificar Bloqueios de Extensões
+
+   Extensões que podem bloquear GitHub API:
+   • AdBlock / uBlock Origin
+   • Privacy Badger
+   • HTTPS Everywhere
+   • Script Blockers (NoScript, etc.)
+
+   💡 SOLUÇÃO TEMPORÁRIA:
+   → Abrir admin-v6.5.html em "Modo Anônimo/Privado"
+   → Extensões geralmente desabilitadas neste modo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 TESTE 5: Testar Auto-Sync Após Correção
+
+   1. Abra admin-v6.5.html
+   2. Faça uma mudança em qualquer produto
+   3. Observe o console:
+
+   ✅ Sucesso esperado:
+   🔄 Tentativa 1 de salvar no GitHub...
+   📥 Buscando SHA mais recente do arquivo...
+   ✅ SHA obtido com sucesso: 7669cca2...
+   📤 Enviando arquivo para GitHub com SHA: 7669cca2...
+   ✅ Arquivo salvo com sucesso no GitHub!
+      📝 SHA antigo: 7669cca2...
+      📝 SHA novo: abc12345...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 DIAGNÓSTICO DE ERROS COMUNS
+
+┌─────────────────────────────┬──────────────────────────────┐
+│ ERRO                        │ CAUSA E SOLUÇÃO              │
+├─────────────────────────────┼──────────────────────────────┤
+│ Failed to fetch             │ • CORS bloqueado             │
+│                             │ • Extensão bloqueando        │
+│                             │ • Firewall/VPN               │
+│                             │ → Testar modo anônimo        │
+├─────────────────────────────┼──────────────────────────────┤
+│ 401 Unauthorized            │ • Token inválido             │
+│                             │ • Token sem permissões       │
+│                             │ → Regenerar token com "repo" │
+├─────────────────────────────┼──────────────────────────────┤
+│ 404 Not Found               │ • Repo/arquivo não existe    │
+│                             │ • Nome incorreto             │
+│                             │ → Verificar owner/repo/path  │
+├─────────────────────────────┼──────────────────────────────┤
+│ SHA wasn't supplied         │ • Busca de SHA falhou        │
+│                             │ → CORRIGIDO nesta versão     │
+│                             │ → Retry automático ativado   │
+├─────────────────────────────┼──────────────────────────────┤
+│ does not match              │ • Arquivo modificado         │
+│                             │ → CORRIGIDO nesta versão     │
+│                             │ → Retry com SHA novo         │
+└─────────────────────────────┴──────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 DICA: Se "Failed to fetch" persistir
+
+   OPÇÃO A: Criar novo token
+   1. https://github.com/settings/tokens/new
+   2. Nome: "PrioBF25 Admin"
+   3. Marcar: ✅ repo (todas as opções)
+   4. Gerar token
+   5. Copiar e configurar no admin
+
+   OPÇÃO B: Usar outro navegador
+   • Chrome → Firefox
+   • Firefox → Chrome
+   • Edge → Brave
+
+   OPÇÃO C: Desabilitar extensões temporariamente
+   • Modo anônimo/privado
+   • Ou desabilitar uma por uma
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 Resultado Esperado Após Correção:
+   ✅ SHA sempre obtido antes de salvar
+   ✅ Retry automático em falhas temporárias
+   ✅ Erros claros para diagnóstico
+   ✅ Auto-sync funcionando perfeitamente
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
