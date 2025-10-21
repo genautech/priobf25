@@ -261,11 +261,11 @@ const produtosPlanilha = [
         "categoria": "Eletrônicos",
         "subcategoria": "Smart Home",
         "quantidade": 30,
-        "custoBase": 1,
-        "precoMercado": 1,
+        "custoBase": 420,
+        "precoMercado": 599,
         "margem": 6.5,
-        "precoVenda": 1.065,
-        "estoque": "Para Compra",
+        "precoVenda": 447.29999999999995,
+        "estoque": "Em Estoque",
         "fornecedor": "Amazon.com.br",
         "imagem": "https://m.media-amazon.com/images/I/61U6MFMI8tL._AC_SL1000_.jpg",
         "linkCompra": "https://www.amazon.com.br/s?k=Echo+Dot+5+Gera%C3%A7%C3%A3o",
@@ -277,8 +277,7 @@ const produtosPlanilha = [
             "cor": "Preta",
             "garantia": "1 ano"
         },
-        "precoConcorrente": 420,
-        "dataAtualizacao": "2025-10-21T02:05:46.855Z"
+        "precoConcorrente": 420
     },
     {
         "id": 1002,
@@ -3627,25 +3626,25 @@ const produtosSugeridos = [
     },
     {
         "id": 2111,
-        "sku": "aaaalexa",
-        "nome": "aaaalezaaa",
-        "categoria": "Informática",
-        "subcategoria": "alexa",
-        "quantidade": 2,
+        "sku": "wweweew",
+        "nome": "eweweew",
+        "categoria": "Esporte e Lazer",
+        "subcategoria": "ewewewew",
+        "quantidade": 22,
         "custoBase": 2,
         "precoMercado": 2,
         "margem": 2,
         "precoVenda": 2.04,
         "estoque": "Para Compra",
-        "fornecedor": "genau",
+        "fornecedor": "ewewewewe",
         "imagem": "https://m.media-amazon.com/images/I/51-7ivDG+6L._AC_SL1500_.jpg",
-        "linkCompra": "https://www.amazon.com.br/s?k=aaaalezaaa",
-        "descricao": "22222",
+        "linkCompra": "https://www.amazon.com.br/s?k=eweweew",
+        "descricao": "ddsds",
         "especificacoes": {
-            "aaa": "aqq"
+            "dssd": "dsds"
         },
-        "dataCriacao": "2025-10-21T02:10:03.987Z",
-        "dataAtualizacao": "2025-10-21T02:10:03.987Z"
+        "dataCriacao": "2025-10-21T02:44:23.673Z",
+        "dataAtualizacao": "2025-10-21T02:44:23.673Z"
     }
 ];
 
