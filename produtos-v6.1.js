@@ -278,7 +278,7 @@ const produtosPlanilha = [
             "garantia": "1 ano"
         },
         "precoConcorrente": 420,
-        "dataAtualizacao": "2025-10-21T00:16:21.357Z"
+        "dataAtualizacao": "2025-10-21T02:05:46.855Z"
     },
     {
         "id": 1002,
@@ -1054,11 +1054,11 @@ const produtosSugeridos = [
         "nome": "iPhone 16 Pro Max 256GB",
         "categoria": "Eletrônicos",
         "subcategoria": "Smartphones",
-        "quantidade": 1,
-        "custoBase": 1,
-        "precoMercado": 1,
-        "margem": 1,
-        "precoVenda": 1.01,
+        "quantidade": 5,
+        "custoBase": 9999,
+        "precoMercado": 12999,
+        "margem": 30,
+        "precoVenda": 12999,
         "badge": "🔥 NOVO!",
         "fornecedor": "Apple Store",
         "imagem": "https://m.media-amazon.com/images/I/81IJSYW-VvL._AC_SL1500_.jpg",
@@ -1068,11 +1068,9 @@ const produtosSugeridos = [
             "modelo": "16 Pro Max",
             "armazenamento": "256GB",
             "camera": "48MP tripla",
-            "tela": "6.7"
+            "tela": "6.7\" Super Retina XDR"
         },
-        "linkCompra": "https://www.amazon.com.br/s?k=iPhone+16+Pro+Max+256GB",
-        "estoque": "Para Compra",
-        "dataAtualizacao": "2025-10-21T00:26:01.330Z"
+        "linkCompra": "https://www.amazon.com.br/s?k=iPhone+16+Pro+Max+256GB"
     },
     {
         "id": 2002,
@@ -1973,8 +1971,8 @@ const produtosSugeridos = [
         "quantidade": 9,
         "custoBase": 6499,
         "precoMercado": 9299,
-        "margem": 8,
-        "precoVenda": 7018.92,
+        "margem": 30,
+        "precoVenda": 8449,
         "fornecedor": "ASUS",
         "imagem": "https://m.media-amazon.com/images/I/71cSV+-YZDL._AC_SL1500_.jpg",
         "descricao": "ASUS ZenBook 14 com tela 2.8K OLED 90Hz, Intel i7, bateria 18h, design slim",
