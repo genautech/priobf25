@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor CSV → Sistema PRIO (CORRETO)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .drop-zone {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 60px 20px;
+            text-align: center;
+            background: #f8f9ff;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .drop-zone:hover {
+            background: #eef1ff;
+            border-color: #764ba2;
+        }
+
+        .drop-zone.active {
+            background: #e0e7ff;
+            border-color: #667eea;
+            transform: scale(1.02);
+        }
+
+        .drop-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .instructions {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+            color: #666;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .mapping-table {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f8f9ff;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Conversor CSV → Sistema PRIO</h1>
+        <p class="subtitle">Conversão CORRETA com mapeamento de campos</p>
+
+        <div class="instructions">
+            <h3>✅ Este conversor resolve o problema "Produto sem nome"!</h3>
+            <ul>
+                <li><strong>Mapeia corretamente:</strong> "Nome do Produto" → nome</li>
+                <li><strong>Calcula preços:</strong> Usa "Menor preço" ou "Preço Mercado"</li>
+                <li><strong>Gera IDs únicos:</strong> Sequenciais a partir de 1001</li>
+                <li><strong>Arquivo pronto:</strong> produtos-v6.1.js completo para substituir</li>
+            </ul>
+        </div>
+
+        <div class="drop-zone" id="dropZone">
+            <div class="drop-icon">📁</div>
+            <div style="font-size: 18px; color: #667eea; font-weight: 600; margin-bottom: 10px;">
+                Arraste planilha-nova.csv aqui
+            </div>
+            <div style="color: #999; font-size: 14px;">ou clique para selecionar</div>
+            <input type="file" id="fileInput" accept=".csv">
+        </div>
+
+        <div id="stats" class="stats" style="display: none;"></div>
+        <div id="alertContainer"></div>
+
+        <div class="mapping-table" style="display: none;" id="mappingTable">
+            <h3 style="margin-bottom: 15px; color: #667eea;">📋 Mapeamento de Campos:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo CSV</th>
+                        <th>→</th>
+                        <th>Campo Sistema</th>
+                        <th>Tipo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>SKU</td><td>→</td><td>sku</td><td>String</td></tr>
+                    <tr><td><strong>Nome do Produto</strong></td><td>→</td><td><strong>nome</strong></td><td>String</td></tr>
+                    <tr><td>Categoria</td><td>→</td><td>categoria</td><td>String</td></tr>
+                    <tr><td>Subcategoria</td><td>→</td><td>subcategoria</td><td>String</td></tr>
+                    <tr><td>Fornecedor</td><td>→</td><td>fornecedor</td><td>String</td></tr>
+                    <tr><td>Preço Mercado</td><td>→</td><td>custoBase</td><td>Number</td></tr>
+                    <tr><td>Menor preço Marketplaces</td><td>→</td><td>precoVenda</td><td>Number</td></tr>
+                    <tr><td>Link de compra</td><td>→</td><td>linkCompra</td><td>URL</td></tr>
+                    <tr><td>Marketplace</td><td>→</td><td>especificacoes.marketplace</td><td>String</td></tr>
+                    <tr><td>Prazo de entrega</td><td>→</td><td>especificacoes.prazoEntrega</td><td>String</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button id="convertBtn" class="btn" disabled>Converter para produtos-v6.1.js</button>
+    </div>
+
+    <script>
+        let csvData = null;
+
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const convertBtn = document.getElementById('convertBtn');
+        const alertContainer = document.getElementById('alertContainer');
+        const statsDiv = document.getElementById('stats');
+        const mappingTable = document.getElementById('mappingTable');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('active');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('active');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('active');
+            const file = e.dataTransfer.files[0];
+            if (file) processFile(file);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) processFile(file);
+        });
+
+        function showAlert(message, type = 'info') {
+            alertContainer.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+        }
+
+        function parseNumber(str) {
+            if (!str || str === '' || str === 'Não encontrado') return null;
+            return parseFloat(str.toString().replace(',', '.'));
+        }
+
+        function processFile(file) {
+            if (!file.name.endsWith('.csv')) {
+                showAlert('❌ Por favor, selecione um arquivo CSV', 'error');
+                return;
+            }
+
+            showAlert('📖 Lendo e processando arquivo...', 'info');
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    csvData = e.target.result;
+                    parseAndConvert(csvData);
+                } catch (error) {
+                    showAlert('❌ Erro: ' + error.message, 'error');
+                }
+            };
+            reader.readAsText(file, 'UTF-8');
+        }
+
+        function parseAndConvert(csv) {
+            const lines = csv.split('\n').filter(line => line.trim());
+            const headers = lines[0].split(';').map(h => h.trim());
+            
+            const produtos = [];
+            let comPreco = 0;
+            let semPreco = 0;
+            let comLink = 0;
+
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(';');
+                const csvRow = {};
+                
+                headers.forEach((header, index) => {
+                    csvRow[header] = values[index] ? values[index].trim() : '';
+                });
+
+                // Mapeia campos corretamente
+                const precoMercado = parseNumber(csvRow['Preço Mercado']);
+                const menorPreco = parseNumber(csvRow['Menor preço Marketplaces']);
+                
+                const custoBase = precoMercado || menorPreco || 0;
+                const precoVenda = menorPreco || (custoBase * 1.3);
+                const margem = custoBase > 0 ? Math.round(((precoVenda - custoBase) / custoBase * 100)) : 30;
+                const quantidade = 10;
+                const estoque = (menorPreco || precoMercado) ? "Em Estoque" : "A Definir";
+
+                // Conta estatísticas
+                if (menorPreco || precoMercado) comPreco++;
+                else semPreco++;
+                if (csvRow['Link de compra']) comLink++;
+
+                const produto = {
+                    id: 1000 + i,
+                    sku: csvRow['SKU'] || `SKU-${1000 + i}`,
+                    nome: csvRow['Nome do Produto'] || 'Produto',  // ✅ CAMPO CORRETO
+                    categoria: csvRow['Categoria'] || 'Eletrônicos',
+                    subcategoria: csvRow['Subcategoria'] || 'Diversos',
+                    quantidade: quantidade,
+                    custoBase: custoBase,
+                    precoMercado: precoMercado || custoBase,
+                    margem: margem,
+                    precoVenda: precoVenda,
+                    estoque: estoque,
+                    fornecedor: csvRow['Fornecedor'] || csvRow['Marketplace'] || 'Amazon',
+                    imagem: `https://via.placeholder.com/400/667eea/ffffff?text=${encodeURIComponent(csvRow['Nome do Produto'] || 'Produto')}`,
+                    linkCompra: csvRow['Link de compra'] || '',
+                    descricao: csvRow['Nome do Produto'] || 'Produto importado',
+                    especificacoes: {
+                        marketplace: csvRow['Marketplace'] || '',
+                        prazoEntrega: csvRow['Prazo de entrega marketplace'] || ''
+                    }
+                };
+
+                produtos.push(produto);
+            }
+
+            // Mostra estatísticas
+            statsDiv.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${produtos.length}</div>
+                    <div class="stat-label">Total Produtos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${comPreco}</div>
+                    <div class="stat-label">Com Preço</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${semPreco}</div>
+                    <div class="stat-label">Sem Preço</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${comLink}</div>
+                    <div class="stat-label">Com Link</div>
+                </div>
+            `;
+            statsDiv.style.display = 'grid';
+            mappingTable.style.display = 'block';
+
+            csvData = produtos; // Salva produtos convertidos
+            convertBtn.disabled = false;
+            showAlert(`✅ ${produtos.length} produtos processados e prontos para download!`, 'success');
+        }
+
+        convertBtn.addEventListener('click', () => {
+            if (!csvData || !Array.isArray(csvData)) {
+                showAlert('❌ Nenhum dado para converter', 'error');
+                return;
+            }
+
+            try {
+                // Gera código JavaScript
+                let codigo = '// ============================================\n';
+                codigo += '// CATÁLOGO DE PRODUTOS - BLACK FRIDAY 2025\n';
+                codigo += `// Total: ${csvData.length} produtos\n`;
+                codigo += `// Gerado em: ${new Date().toLocaleString('pt-BR')}\n`;
+                codigo += '// ============================================\n\n';
+                codigo += 'const produtos = [\n';
+
+                csvData.forEach((p, index) => {
+                    codigo += '    {\n';
+                    codigo += `        id: ${p.id},\n`;
+                    codigo += `        sku: "${p.sku}",\n`;
+                    codigo += `        nome: "${p.nome.replace(/"/g, '\\"')}",\n`;
+                    codigo += `        categoria: "${p.categoria}",\n`;
+                    codigo += `        subcategoria: "${p.subcategoria}",\n`;
+                    codigo += `        quantidade: ${p.quantidade},\n`;
+                    codigo += `        custoBase: ${p.custoBase},\n`;
+                    codigo += `        precoMercado: ${p.precoMercado},\n`;
+                    codigo += `        margem: ${p.margem},\n`;
+                    codigo += `        precoVenda: ${p.precoVenda},\n`;
+                    codigo += `        estoque: "${p.estoque}",\n`;
+                    codigo += `        fornecedor: "${p.fornecedor}",\n`;
+                    codigo += `        imagem: "${p.imagem}",\n`;
+                    codigo += `        linkCompra: "${p.linkCompra}",\n`;
+                    codigo += `        descricao: "${p.descricao.replace(/"/g, '\\"')}",\n`;
+                    codigo += `        especificacoes: {\n`;
+                    codigo += `            marketplace: "${p.especificacoes.marketplace}",\n`;
+                    codigo += `            prazoEntrega: "${p.especificacoes.prazoEntrega}"\n`;
+                    codigo += `        }\n`;
+                    codigo += '    }' + (index < csvData.length - 1 ? ',' : '') + '\n';
+                });
+
+                codigo += '];\n\n';
+                codigo += '// Cupons de desconto\n';
+                codigo += 'const cuponsDesconto = [];\n\n';
+                codigo += '// Exporta para uso global\n';
+                codigo += 'if (typeof window !== "undefined") {\n';
+                codigo += '    window.produtos = produtos;\n';
+                codigo += '    window.cuponsDesconto = cuponsDesconto;\n';
+                codigo += '}\n';
+
+                // Download
+                const blob = new Blob([codigo], { type: 'text/javascript; charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'produtos-v6.1.js';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showAlert('✅ Arquivo produtos-v6.1.js baixado! Substitua no projeto e faça push.', 'success');
+            } catch (error) {
+                showAlert('❌ Erro ao gerar arquivo: ' + error.message, 'error');
+            }
+        });
+    </script>
+</body>
+</html>
