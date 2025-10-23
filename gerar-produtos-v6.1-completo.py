@@ -170,22 +170,22 @@ if (typeof window !== 'undefined') {
     // Cupons de desconto
     window.cuponsDesconto = cuponsDesconto;
     
-    console.log('✅ Catálogo carregado:', {{
+    console.log('✅ Catálogo carregado:', {
         planilha: produtosPlanilha.length,
         sugeridos: produtosSugeridos.length,
         total: produtosPlanilha.length + produtosSugeridos.length
-    }});
-}}
+    });
+}
 
 // Export para Node.js (se necessário)
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {{
+    module.exports = {
         produtosPlanilha,
         produtosSugeridos,
         todosOsProdutosV6: [...produtosPlanilha, ...produtosSugeridos],
         cuponsDesconto
-    }};
-}}
+    };
+}
 '''
     
     with open('produtos-v6.1.js', 'w', encoding='utf-8') as f:
