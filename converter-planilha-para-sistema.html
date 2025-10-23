@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Planilha CSV para Sistema PRIO BF25</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9ff;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            background: #eef1ff;
+            border-color: #764ba2;
+        }
+
+        .upload-area.dragover {
+            background: #e0e7ff;
+            border-color: #4c51bf;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        .log-item {
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .log-item:last-child {
+            border-bottom: none;
+        }
+
+        .log-success {
+            color: #28a745;
+        }
+
+        .log-warning {
+            color: #ffc107;
+        }
+
+        .log-error {
+            color: #dc3545;
+        }
+
+        .log-info {
+            color: #17a2b8;
+        }
+
+        .mapping-info {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .mapping-info h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .mapping-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .mapping-table th,
+        .mapping-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .mapping-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .file-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Conversor de Planilha CSV</h1>
+        <p class="subtitle">Sistema de Conversão para PRIO Black Friday 2025 - v6.1</p>
+
+        <div class="mapping-info">
+            <h3>📋 Mapeamento de Campos</h3>
+            <table class="mapping-table">
+                <thead>
+                    <tr>
+                        <th>Campo CSV</th>
+                        <th>Campo Sistema</th>
+                        <th>Observação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SKU</td>
+                        <td>sku</td>
+                        <td>Identificador único do produto</td>
+                    </tr>
+                    <tr>
+                        <td>Nome do Produto</td>
+                        <td>nome</td>
+                        <td>Nome completo</td>
+                    </tr>
+                    <tr>
+                        <td>Categoria</td>
+                        <td>categoria</td>
+                        <td>Eletrônicos, Casa e Cozinha, etc.</td>
+                    </tr>
+                    <tr>
+                        <td>Subcategoria</td>
+                        <td>subcategoria</td>
+                        <td>Classificação detalhada</td>
+                    </tr>
+                    <tr>
+                        <td>Fornecedor</td>
+                        <td>fornecedor</td>
+                        <td>Nome do fornecedor</td>
+                    </tr>
+                    <tr>
+                        <td>Preço Mercado</td>
+                        <td>precoMercado / custoBase</td>
+                        <td>Será usado como custo base</td>
+                    </tr>
+                    <tr>
+                        <td>Menor preço Marketplaces</td>
+                        <td>precoVenda (calculado)</td>
+                        <td>Com margem de 30%</td>
+                    </tr>
+                    <tr>
+                        <td>Link de compra</td>
+                        <td>linkCompra</td>
+                        <td>URL do produto</td>
+                    </tr>
+                    <tr>
+                        <td>Marketplace</td>
+                        <td>especificacoes.marketplace</td>
+                        <td>Loja de origem</td>
+                    </tr>
+                    <tr>
+                        <td>Prazo de entrega marketplace</td>
+                        <td>especificacoes.prazoEntrega</td>
+                        <td>Tempo de entrega</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="upload-area" id="uploadArea">
+            <h2>📁 Selecione ou arraste o arquivo CSV</h2>
+            <p style="margin: 15px 0; color: #666;">Formato: CSV com separador ponto-e-vírgula (;)</p>
+            <input type="file" id="fileInput" accept=".csv">
+            <button class="btn" onclick="document.getElementById('fileInput').click()">
+                Selecionar Arquivo
+            </button>
+        </div>
+
+        <div class="file-info" id="fileInfo" style="display: none;">
+            <strong>📄 Arquivo carregado:</strong> <span id="fileName"></span><br>
+            <strong>📏 Tamanho:</strong> <span id="fileSize"></span>
+        </div>
+
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill">0%</div>
+        </div>
+
+        <div class="stats" id="stats" style="display: none;">
+            <div class="stat-card">
+                <div class="stat-value" id="totalProdutos">0</div>
+                <div class="stat-label">Total de Produtos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="produtosComLink">0</div>
+                <div class="stat-label">Com Link de Compra</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="produtosSemPreco">0</div>
+                <div class="stat-label">Sem Preço Definido</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="categorias">0</div>
+                <div class="stat-label">Categorias Diferentes</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <button class="btn" id="convertBtn" onclick="converterParaSistema()" disabled>
+                🔄 Converter para Sistema
+            </button>
+            <button class="btn" id="downloadBtn" onclick="baixarArquivo()" disabled>
+                💾 Baixar produtos-v6.1.js
+            </button>
+        </div>
+
+        <div class="log" id="log" style="display: none;"></div>
+    </div>
+
+    <script>
+        let dadosCSV = [];
+        let produtosConvertidos = [];
+
+        // Configuração de drag and drop
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                processarArquivo(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                processarArquivo(e.target.files[0]);
+            }
+        });
+
+        function processarArquivo(file) {
+            log(`📂 Processando arquivo: ${file.name}`, 'info');
+            
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = formatarTamanho(file.size);
+            document.getElementById('fileInfo').style.display = 'block';
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const conteudo = e.target.result;
+                parsearCSV(conteudo);
+            };
+            reader.readAsText(file, 'UTF-8');
+        }
+
+        function parsearCSV(conteudo) {
+            log('🔍 Analisando estrutura do CSV...', 'info');
+            
+            const linhas = conteudo.split('\n');
+            const headers = linhas[0].split(';').map(h => h.trim());
+            
+            log(`✅ Encontrados ${headers.length} campos no cabeçalho`, 'success');
+            log(`📋 Campos: ${headers.join(', ')}`, 'info');
+
+            dadosCSV = [];
+            for (let i = 1; i < linhas.length; i++) {
+                if (!linhas[i].trim()) continue;
+                
+                const valores = linhas[i].split(';');
+                const produto = {};
+                
+                headers.forEach((header, index) => {
+                    produto[header] = valores[index] ? valores[index].trim() : '';
+                });
+                
+                dadosCSV.push(produto);
+            }
+
+            log(`✅ ${dadosCSV.length} produtos lidos com sucesso`, 'success');
+            
+            analisarDados();
+            document.getElementById('convertBtn').disabled = false;
+        }
+
+        function analisarDados() {
+            const stats = {
+                total: dadosCSV.length,
+                comLink: 0,
+                semPreco: 0,
+                categorias: new Set()
+            };
+
+            dadosCSV.forEach(p => {
+                if (p['Link de compra'] && p['Link de compra'] !== '') {
+                    stats.comLink++;
+                }
+                if (!p['Preço Mercado'] || p['Preço Mercado'] === '') {
+                    stats.semPreco++;
+                }
+                if (p['Categoria']) {
+                    stats.categorias.add(p['Categoria']);
+                }
+            });
+
+            document.getElementById('totalProdutos').textContent = stats.total;
+            document.getElementById('produtosComLink').textContent = stats.comLink;
+            document.getElementById('produtosSemPreco').textContent = stats.semPreco;
+            document.getElementById('categorias').textContent = stats.categorias.size;
+            document.getElementById('stats').style.display = 'grid';
+
+            log(`📊 Estatísticas:`, 'info');
+            log(`   • Total: ${stats.total} produtos`, 'info');
+            log(`   • Com link: ${stats.comLink} produtos`, 'info');
+            log(`   • Sem preço: ${stats.semPreco} produtos`, 'warning');
+            log(`   • Categorias: ${[...stats.categorias].join(', ')}`, 'info');
+        }
+
+        function converterParaSistema() {
+            log('🔄 Iniciando conversão para formato do sistema...', 'info');
+            document.getElementById('progressBar').style.display = 'block';
+            
+            produtosConvertidos = [];
+            let idBase = 1001;
+            let sucessos = 0;
+            let avisos = 0;
+
+            dadosCSV.forEach((csvProd, index) => {
+                const progresso = Math.round(((index + 1) / dadosCSV.length) * 100);
+                atualizarProgresso(progresso);
+
+                try {
+                    const produto = converterProduto(csvProd, idBase + index);
+                    produtosConvertidos.push(produto);
+                    sucessos++;
+                } catch (error) {
+                    log(`⚠️ Erro ao converter: ${csvProd['Nome do Produto']} - ${error.message}`, 'error');
+                    avisos++;
+                }
+            });
+
+            log(`✅ Conversão concluída: ${sucessos} produtos convertidos`, 'success');
+            if (avisos > 0) {
+                log(`⚠️ ${avisos} produtos com avisos`, 'warning');
+            }
+
+            document.getElementById('downloadBtn').disabled = false;
+        }
+
+        function converterProduto(csvProd, id) {
+            // Converter vírgula para ponto em números
+            const parseNumber = (str) => {
+                if (!str || str === '' || str === 'Não encontrado') return null;
+                return parseFloat(str.replace(',', '.'));
+            };
+
+            const precoMercado = parseNumber(csvProd['Preço Mercado']);
+            const menorPreco = parseNumber(csvProd['Menor preço Marketplaces']);
+            
+            // Definir custoBase e precoVenda
+            let custoBase = precoMercado || menorPreco || 0;
+            let precoVenda = menorPreco || (custoBase * 1.3);
+            let margem = custoBase > 0 ? Math.round(((precoVenda - custoBase) / custoBase * 100)) : 30;
+
+            // Quantidade padrão
+            const quantidade = 10;
+
+            return {
+                id: id,
+                sku: csvProd['SKU'] || `SKU-${id}`,
+                nome: csvProd['Nome do Produto'],
+                categoria: csvProd['Categoria'] || 'Eletrônicos',
+                subcategoria: csvProd['Subcategoria'] || 'Diversos',
+                quantidade: quantidade,
+                custoBase: custoBase,
+                precoMercado: precoMercado || custoBase,
+                margem: margem,
+                precoVenda: precoVenda,
+                estoque: custoBase > 0 ? 'Disponível' : 'A Definir',
+                fornecedor: csvProd['Fornecedor'] || 'A Definir',
+                imagem: 'https://via.placeholder.com/500x500?text=' + encodeURIComponent(csvProd['Nome do Produto']),
+                linkCompra: csvProd['Link de compra'] || '',
+                descricao: `${csvProd['Nome do Produto']} - ${csvProd['Categoria']} - ${csvProd['Subcategoria']}`,
+                especificacoes: {
+                    marca: csvProd['Fornecedor'] || 'A Definir',
+                    marketplace: csvProd['Marketplace'] || '',
+                    prazoEntrega: csvProd['Prazo de entrega marketplace'] || ''
+                }
+            };
+        }
+
+        function gerarArquivoJS() {
+            const dataAtual = new Date().toISOString().split('T')[0];
+            
+            let conteudo = `// ============================================
+// VERSÃO 6.1.1 - PRODUTOS BLACK FRIDAY PRIO 2025
+// Total: ${produtosConvertidos.length} produtos (Atualizado via CSV)
+// Atualizado: ${dataAtual}
+// FONTE: Planilha CSV "Pesquisa de Produtos e Preços"
+// ============================================
+
+// ============================================
+// CUPONS DE DESCONTO DISPONÍVEIS
+// ============================================
+const cuponsDesconto = [
+    {
+        id: "CUP-001",
+        loja: "Amazon",
+        codigo: "BLACKFRIDAY25",
+        desconto: "15%",
+        validade: "2025-11-29",
+        minimo: 200,
+        maximo: 500,
+        categorias: ["Eletrônicos", "Casa e Cozinha"],
+        ativo: true,
+        link: "https://www.amazon.com.br"
+    },
+    {
+        id: "CUP-002",
+        loja: "Magazine Luiza",
+        codigo: "MAGALU15",
+        desconto: "10%",
+        validade: "2025-11-30",
+        minimo: 150,
+        maximo: 300,
+        categorias: ["Eletrônicos"],
+        ativo: true,
+        link: "https://www.magazineluiza.com.br"
+    }
+];
+
+// ============================================
+// PRODUTOS DA PLANILHA (Importados do CSV)
+// ============================================
+const produtosPlanilha = ${JSON.stringify(produtosConvertidos, null, 4)};
+
+// ============================================
+// PRODUTOS SUGERIDOS (Vazios - Adicionar manualmente)
+// ============================================
+const produtosSugeridos = [];
+
+// ============================================
+// EXPORTAR PARA USO GLOBAL
+// ============================================
+if (typeof window !== 'undefined') {
+    window.produtosPlanilha = produtosPlanilha;
+    window.produtosSugeridos = produtosSugeridos;
+    window.todosOsProdutosV6 = [...produtosPlanilha, ...produtosSugeridos];
+    window.cuponsDesconto = cuponsDesconto;
+}
+`;
+
+            return conteudo;
+        }
+
+        function baixarArquivo() {
+            const conteudo = gerarArquivoJS();
+            const blob = new Blob([conteudo], { type: 'text/javascript;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'produtos-v6.1.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            log(`✅ Arquivo produtos-v6.1.js baixado com sucesso!`, 'success');
+            log(`📦 Total de ${produtosConvertidos.length} produtos no arquivo`, 'info');
+        }
+
+        function log(mensagem, tipo = 'info') {
+            const logDiv = document.getElementById('log');
+            logDiv.style.display = 'block';
+            
+            const item = document.createElement('div');
+            item.className = `log-item log-${tipo}`;
+            item.textContent = `[${new Date().toLocaleTimeString()}] ${mensagem}`;
+            
+            logDiv.appendChild(item);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function atualizarProgresso(percentual) {
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = percentual + '%';
+            progressFill.textContent = percentual + '%';
+        }
+
+        function formatarTamanho(bytes) {
+            if (bytes < 1024) return bytes + ' bytes';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+    </script>
+</body>
+</html>

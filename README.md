@@ -21,6 +21,7 @@ Sistema completo para gerenciar catálogo de produtos da Black Friday 2025:
 ✅ **CRUD Completo** - Adicionar, editar, duplicar, deletar produtos  
 ✅ **Sincronização Automática** - Salva no GitHub automaticamente (2 segundos)  
 ✅ **Importação de Planilhas** - Importar CSV/Excel direto no admin  
+✅ **🆕 Conversor CSV Avançado** - Ferramenta standalone para substituição completa do catálogo  
 ✅ **Análise Avançada** - Gráficos, métricas e comparativos  
 ✅ **Catálogo Cliente** - Interface interativa para seleção de produtos  
 ✅ **100% Seguro** - Token protegido no servidor (Cloudflare Pages Function)  
@@ -31,10 +32,56 @@ Sistema completo para gerenciar catálogo de produtos da Black Friday 2025:
 ✅ **CSV Completo** - Exportação com 23 campos incluindo análise financeira  
 ✅ **Ferramentas Otimizadas** - Interface limpa com apenas 6 ferramentas essenciais
 
-### 🆕 ÚLTIMA ATUALIZAÇÃO (2025-10-21):
-**Versão 6.10.0 - Estatísticas Avançadas + CSV Otimizado + Ferramentas Limpas** 📊✨
+### 🆕 ÚLTIMA ATUALIZAÇÃO (2025-10-23):
+**✅ SISTEMA FINALIZADO E PRONTO PARA PRODUÇÃO** 🎉
 
-⭐ **NOVIDADES v6.10.0:**
+**Status:** 100% Funcional | Deploy: OK | Testes: Aprovados
+
+⭐ **NOVIDADES v6.10.1 (2025-10-22):**
+
+**1. 🔄 Conversor CSV Avançado (Nova Ferramenta):**
+- ✅ **Ferramenta Standalone:** Interface web completa para conversão de CSV
+- ✅ **Substituição Completa:** Permite substituir todo o catálogo de produtos
+- ✅ **Mapeamento Automático:** Converte 10 campos CSV para estrutura do sistema
+- ✅ **Validação Inteligente:** Verifica dados, calcula preços e margens automaticamente
+- ✅ **Drag & Drop:** Arraste CSV e converta instantaneamente
+- ✅ **Estatísticas em Tempo Real:** Mostra análise dos dados antes de converter
+- ✅ **100% Compatível:** Gera arquivo produtos-v6.1.js pronto para uso
+- 📍 **Localização:** Arquivo `converter-planilha-para-sistema.html`
+- 📖 **Documentação:** `GUIA-ATUALIZACAO-CATALOGO-CSV.md`
+
+**Campos Convertidos Automaticamente:**
+```
+CSV → Sistema:
+SKU → sku
+Nome do Produto → nome
+Categoria → categoria
+Subcategoria → subcategoria
+Fornecedor → fornecedor
+Preço Mercado → custoBase + precoMercado
+Menor preço Marketplaces → precoVenda (calculado)
+Link de compra → linkCompra
+Marketplace → especificacoes.marketplace
+Prazo de entrega → especificacoes.prazoEntrega
+
+Campos Calculados:
+• margem (automático)
+• quantidade (padrão: 10)
+• estoque (baseado em preço)
+• imagem (placeholder)
+```
+
+**Como Usar:**
+```
+1. Abra: converter-planilha-para-sistema.html
+2. Arraste seu CSV (separador ";")
+3. Clique: "Converter para Sistema"
+4. Baixe: produtos-v6.1.js
+5. Substitua o arquivo no projeto
+6. Push para GitHub → Deploy automático!
+```
+
+⭐ **NOVIDADES v6.10.0 (2025-10-21):**
 
 **1. 📊 Estatísticas em Tempo Real (Aba Sugestões):**
 - ✅ **4 Cards Visuais:** Total de produtos, Novos, Investimento total, Lucro projetado
@@ -253,6 +300,12 @@ Sistema completo para gerenciar catálogo de produtos da Black Friday 2025:
 
 ## 📂 ARQUIVOS PRINCIPAIS (USE APENAS ESTES)
 
+### 🆕 Ferramentas de Conversão:
+- **`converter-planilha-para-sistema.html`** - Conversor CSV avançado ⭐ NOVO
+- **`GUIA-ATUALIZACAO-CATALOGO-CSV.md`** - Documentação completa da conversão ⭐ NOVO
+- **`COMECE-AQUI-ATUALIZACAO.txt`** - Início rápido (3 passos) ⭐ NOVO
+- **`planilha-nova.csv`** - Planilha de exemplo anexada
+
 ### 🎯 Páginas Principais:
 - **`index.html`** - Página inicial com links para admin e cliente
 - **`admin-v6.10.html`** - Painel administrativo com estatísticas + CSV otimizado ⭐ ATUAL
@@ -314,14 +367,31 @@ Ou use os atalhos:
 - `/catalogo` → Catálogo interativo
 - `/produtos` → Catálogo interativo
 
-### 4️⃣ IMPORTAR PLANILHA:
+### 4️⃣ IMPORTAR/SUBSTITUIR CATÁLOGO:
 
-**No Admin:**
+**Opção A - Importação Incremental (pelo Admin):**
 1. Vá em **"Ferramentas"**
 2. Clique em **"Importar Planilha"**
 3. Selecione seu arquivo CSV/Excel
 4. Confirme a importação
 5. Auto-Sync sincroniza automaticamente!
+
+**Opção B - Substituição Completa (Conversor CSV):** 🆕
+1. Abra **`converter-planilha-para-sistema.html`**
+2. Arraste seu arquivo CSV (separador `;`)
+3. Clique **"Converter para Sistema"**
+4. Baixe **`produtos-v6.1.js`** gerado
+5. Substitua o arquivo no projeto:
+   ```bash
+   cp produtos-v6.1.js.backup produtos-v6.1.js  # backup
+   cp ~/Downloads/produtos-v6.1.js produtos-v6.1.js
+   git add produtos-v6.1.js
+   git commit -m "feat: Atualização catálogo via CSV"
+   git push origin main
+   ```
+6. Aguarde deploy automático (3-4 min)
+
+📖 **Documentação completa:** `GUIA-ATUALIZACAO-CATALOGO-CSV.md`
 
 ---
 

@@ -1,0 +1,401 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║              🔥 DEPLOY VIA GIT - COMANDOS PRONTOS PARA COPIAR              ║
+║                                                                              ║
+║                  ⚠️  ATENÇÃO: CONFIGURE PRIMEIRO! ⚠️                        ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Data: 21/10/2025
+Versões: Admin v6.10.0 + Cliente v6.3.5
+Método: Git Push
+Repositório: genautech/priobf25
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ⚠️  IMPORTANTE: LEIA ANTES DE EXECUTAR!                                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Você teve problemas com autenticação antes. Vamos resolver isso AGORA:
+
+ERRO COMUM:
+❌ "remote: Permission to genautech/priobf25.git denied"
+❌ "fatal: Authentication failed"
+
+CAUSA:
+Seu Git não tem permissão para fazer push no repositório GitHub.
+
+SOLUÇÃO (escolha UMA das 3 opções abaixo):
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ OPÇÃO 1: USAR GITHUB CLI (MAIS FÁCIL) ⭐ RECOMENDADO                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+1. Instale GitHub CLI: https://cli.github.com/
+   
+   Windows: 
+   winget install --id GitHub.cli
+   
+   Mac:
+   brew install gh
+   
+   Linux:
+   sudo apt install gh
+
+2. Faça login uma única vez:
+   gh auth login
+   
+   └─ Escolha: GitHub.com
+   └─ Escolha: HTTPS
+   └─ Escolha: Login with a web browser
+   └─ Copie o código que aparece
+   └─ Pressione Enter para abrir navegador
+   └─ Cole o código e autorize
+
+3. ✅ PRONTO! Agora pode usar os comandos abaixo normalmente
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ OPÇÃO 2: USAR TOKEN PESSOAL (MÉTODO MANUAL)                                 │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+1. Crie um token no GitHub:
+   https://github.com/settings/tokens
+   
+   └─ Clique: "Generate new token (classic)"
+   └─ Nome: "Deploy PRIO BF25"
+   └─ Marque: ✅ repo (todos os sub-items)
+   └─ Clique: "Generate token"
+   └─ COPIE O TOKEN (só aparece uma vez!)
+
+2. Configure Git para usar o token:
+   
+   git config --global credential.helper store
+   
+3. No primeiro push, use:
+   
+   Username: seu_usuario_github
+   Password: COLE_O_TOKEN_AQUI (não a senha do GitHub!)
+
+4. ✅ PRONTO! Próximos pushs não pedirão senha
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ OPÇÃO 3: USAR SSH KEY (MAIS SEGURO, MAIS COMPLEXO)                          │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+1. Gere uma chave SSH:
+   
+   ssh-keygen -t ed25519 -C "seu_email@exemplo.com"
+   
+   └─ Pressione Enter 3 vezes (aceita padrões)
+
+2. Copie a chave pública:
+   
+   Windows:
+   type %USERPROFILE%\.ssh\id_ed25519.pub
+   
+   Mac/Linux:
+   cat ~/.ssh/id_ed25519.pub
+
+3. Adicione no GitHub:
+   https://github.com/settings/keys
+   
+   └─ Clique: "New SSH key"
+   └─ Cole a chave pública
+   └─ Clique: "Add SSH key"
+
+4. Mude a URL do repositório para SSH:
+   
+   git remote set-url origin git@github.com:genautech/priobf25.git
+
+5. ✅ PRONTO! Pode usar os comandos abaixo
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🚀 COMANDOS GIT - COPIE E COLE (LINHA POR LINHA)                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+⚠️  EXECUTE DENTRO DA PASTA DO PROJETO (onde está o README.md)
+
+════════════════════════════════════════════════════════════════════════════════
+
+COMANDO 1: Verificar status (ver arquivos modificados)
+───────────────────────────────────────────────────────
+git status
+
+Você deve ver:
+  • admin-v6.10.html (novo)
+  • cliente-analise-v6.3.5.html (novo)
+  • index.html (modificado)
+  • _redirects (modificado)
+  • README.md (modificado)
+  • E vários arquivos de documentação
+
+════════════════════════════════════════════════════════════════════════════════
+
+COMANDO 2: Adicionar TODOS os arquivos
+───────────────────────────────────────
+git add .
+
+Isso adiciona todos os arquivos modificados e novos ao staging.
+
+════════════════════════════════════════════════════════════════════════════════
+
+COMANDO 3: Fazer commit com mensagem descritiva
+────────────────────────────────────────────────
+git commit -m "v6.10.0 + v6.3.5: Estatísticas, CSV Otimizado, Header Atualizado"
+
+Mensagem explica claramente o que foi feito.
+
+════════════════════════════════════════════════════════════════════════════════
+
+COMANDO 4: Fazer push para o GitHub
+────────────────────────────────────
+git push origin main
+
+⚠️  AQUI PODE PEDIR SENHA!
+   • Se configurou GitHub CLI: Vai passar direto ✅
+   • Se configurou Token: Digite o TOKEN (não a senha!)
+   • Se configurou SSH: Vai passar direto ✅
+
+════════════════════════════════════════════════════════════════════════════════
+
+✅ SE DEU CERTO:
+Você verá mensagens como:
+  Counting objects: 25, done.
+  Delta compression using up to 8 threads.
+  Compressing objects: 100% (25/25), done.
+  Writing objects: 100% (25/25), 15.5 KiB | 2.2 MiB/s, done.
+  To https://github.com/genautech/priobf25.git
+     abc1234..def5678  main -> main
+
+════════════════════════════════════════════════════════════════════════════════
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 📋 TODOS OS COMANDOS JUNTOS (COPIAR TUDO DE UMA VEZ)                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+git status
+git add .
+git commit -m "v6.10.0 + v6.3.5: Estatísticas, CSV Otimizado, Header Atualizado"
+git push origin main
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ⏱️  TEMPO ESTIMADO                                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+git add . ........................... 2 segundos
+git commit .......................... 1 segundo
+git push ............................ 10-30 segundos (upload)
+Build Cloudflare .................... 3-4 minutos
+Deploy em produção .................. 30 segundos
+
+⏱️  TEMPO TOTAL: 5-6 minutos
+
+Durante o build você pode:
+  • Verificar em: https://dash.cloudflare.com
+  • Ver logs do deploy
+  • Tomar café ☕
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🆘 TROUBLESHOOTING                                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+ERRO: "Permission denied"
+SOLUÇÃO:
+  1. Você não configurou autenticação ainda
+  2. Volte e escolha uma das 3 opções acima (GitHub CLI, Token, ou SSH)
+  3. Execute os comandos de configuração
+  4. Tente git push novamente
+
+ERRO: "Authentication failed"
+SOLUÇÃO:
+  1. Se usando token: Certifique-se de colar o TOKEN, não a senha
+  2. Se usando SSH: Verifique se a chave foi adicionada no GitHub
+  3. Se usando GitHub CLI: Execute "gh auth login" novamente
+
+ERRO: "fatal: Not a git repository"
+SOLUÇÃO:
+  1. Você está na pasta errada
+  2. Navegue até a pasta do projeto: cd caminho/para/priobf25
+  3. Verifique com: ls (deve ver README.md, index.html, etc)
+
+ERRO: "Updates were rejected"
+SOLUÇÃO:
+  1. Alguém fez push antes de você
+  2. Execute: git pull origin main
+  3. Depois: git push origin main
+
+ERRO: "Could not resolve host"
+SOLUÇÃO:
+  1. Problema de internet
+  2. Verifique sua conexão
+  3. Tente novamente em alguns segundos
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ✅ APÓS O PUSH BEM-SUCEDIDO                                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+1. Aguarde 3-4 minutos (Cloudflare faz build automático)
+
+2. Verifique o deploy em:
+   https://dash.cloudflare.com
+   └─ Pages → priobf25 → Deployments
+   └─ Veja status: "Building..." → "Success"
+
+3. Acesse seu site atualizado:
+   https://priobf25.pages.dev
+
+4. Teste as novidades:
+   └─ /admin → Estatísticas (4 cards)
+   └─ /admin → Ferramentas (6 cards)
+   └─ /admin → CSV (23 colunas)
+   └─ /cliente → Header "Black Friday Prio 2025"
+
+5. Faça hard refresh se necessário:
+   Ctrl+Shift+R (ou Cmd+Shift+R no Mac)
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 📊 ARQUIVOS QUE SERÃO ENVIADOS                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+NOVOS (criados):
+  ✅ admin-v6.10.html
+  ✅ cliente-analise-v6.3.5.html
+  ✅ RELEASE-v6.10.0.md
+  ✅ ⚡-COMECE-AQUI-v6.10.txt
+  ✅ ✅-IMPLEMENTACAO-v6.10-COMPLETA.md
+  ✅ 🎉-TUDO-PRONTO-v6.10.0.txt
+  ✅ ✅-HEADER-ATUALIZADO-v6.3.5.txt
+  ✅ 🎨-PREVIEW-HEADER-v6.3.5.html
+  ✅ 🚀-DEPLOY-FACIL-v6.10-v6.3.5.txt
+  ✅ ⚡-DEPLOY-3-PASSOS.txt
+  ✅ 🔥-DEPLOY-GIT-COMANDOS-PRONTOS.txt (este arquivo)
+
+MODIFICADOS:
+  ✅ index.html (link para v6.3.5)
+  ✅ _redirects (rotas atualizadas)
+  ✅ README.md (versão 6.10.0)
+  ✅ cliente-analise-v6.3.4.html (header atualizado)
+
+MANTIDOS (sem alteração):
+  ✅ produtos-v6.1.js
+  ✅ produto-crud-sync.js
+  ✅ functions/sync.js
+  ✅ _headers
+  ✅ Todas as versões anteriores
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🎯 CHECKLIST PÓS-DEPLOY                                                      │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Após 5 minutos do push:
+
+ADMIN v6.10.0:
+  [ ] Acesse /admin
+  [ ] Aba Sugestões → Veja 4 cards coloridos
+  [ ] Valores calculados (Total, Novos, Investimento, Lucro)
+  [ ] Aba Ferramentas → Conte apenas 6 cards
+  [ ] Exportar CSV → Baixe e veja 23 colunas
+  [ ] Campos financeiros calculados no CSV
+
+CLIENTE v6.3.5:
+  [ ] Acesse /cliente
+  [ ] Header: "Black Friday Prio 2025" (colorido)
+  [ ] Gradiente: amarelo → laranja → vermelho
+  [ ] Subtítulo: "Catálogo de produtos..." (menor)
+  [ ] Ícone: Tag (🏷️)
+
+REDIRECTS:
+  [ ] /admin → admin-v6.10.html
+  [ ] /cliente → cliente-analise-v6.3.5.html
+  [ ] /catalogo → cliente-analise-v6.3.5.html
+  [ ] /produtos → cliente-analise-v6.3.5.html
+
+✅ Tudo OK? DEPLOY COMPLETO! 🎉
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 💡 DICAS PRO                                                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+1. Sempre faça "git status" antes de commit
+   └─ Para ver exatamente o que vai ser enviado
+
+2. Use "git diff" para ver mudanças
+   └─ git diff index.html (ver mudanças em arquivo específico)
+
+3. Faça commits descritivos
+   └─ Facilita encontrar mudanças depois
+
+4. Sempre pull antes de push (se trabalha em equipe)
+   └─ git pull origin main (atualiza local com remoto)
+
+5. Verifique o deploy no Cloudflare
+   └─ https://dash.cloudflare.com → Pages → priobf25
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🎓 ENTENDENDO OS COMANDOS                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+git status
+  └─ Mostra arquivos modificados, novos, deletados
+
+git add .
+  └─ Adiciona TODOS os arquivos ao staging (prontos para commit)
+  └─ O "." significa "tudo na pasta atual"
+
+git commit -m "mensagem"
+  └─ Salva as mudanças localmente com uma descrição
+  └─ -m = message (mensagem do commit)
+
+git push origin main
+  └─ Envia commits locais para o GitHub
+  └─ origin = repositório remoto (GitHub)
+  └─ main = branch principal
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 📞 PRECISA DE AJUDA?                                                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Se tiver problemas:
+
+1. Copie a mensagem de erro completa
+2. Leia a seção TROUBLESHOOTING acima
+3. Verifique se configurou autenticação (GitHub CLI, Token, ou SSH)
+4. Tente novamente após configurar
+
+Se ainda não funcionar:
+  • Considere usar a aba PUBLISH (método mais fácil)
+  • Guia: 🚀-DEPLOY-FACIL-v6.10-v6.3.5.txt
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║              🔥 COMANDOS PRONTOS - COPIE E COLE! 🔥                          ║
+║                                                                              ║
+║              git status                                                      ║
+║              git add .                                                       ║
+║              git commit -m "v6.10.0 + v6.3.5: Updates"                      ║
+║              git push origin main                                            ║
+║                                                                              ║
+║              ⚠️  Configure autenticação ANTES! ⚠️                            ║
+║              (GitHub CLI, Token, ou SSH)                                     ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Desenvolvido por: Sistema de IA
+Data: 21/10/2025
+Versões: Admin v6.10.0 + Cliente v6.3.5
+Método: Git Push
+Status: ✅ COMANDOS PRONTOS PARA USO

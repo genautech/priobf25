@@ -1,0 +1,63 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║              ✅ GIT PULL COMPLETO! CONTINUE COM ESTES 3 COMANDOS           ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+✅ PASSO 1 COMPLETO: git pull origin main --no-rebase
+   └─ Sincronizado! produtos-v6.1.js foi atualizado do GitHub
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ AGORA EXECUTE ESTES 3 COMANDOS (COPIE E COLE)                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+git add .
+
+git commit -m "v6.10.0 + v6.3.5: Estatísticas, CSV Otimizado, Header Atualizado"
+
+git push origin main
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+OU COPIE TUDO DE UMA VEZ:
+
+git add .
+git commit -m "v6.10.0 + v6.3.5: Estatísticas, CSV Otimizado, Header Atualizado"
+git push origin main
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⏱️  TEMPO RESTANTE:
+  • git add: 2 segundos
+  • git commit: 1 segundo  
+  • git push: 10-30 segundos
+  • Build Cloudflare: 3-4 minutos
+
+TOTAL: ~5 minutos até site atualizado
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ APÓS git push VOCÊ VERÁ:
+
+Counting objects: XX, done.
+Compressing objects: 100% (XX/XX), done.
+Writing objects: 100% (XX/XX), XX.XX KiB | X.XX MiB/s, done.
+To https://github.com/genautech/priobf25.git
+   8927aac..XXXXXXX  main -> main
+
+✅ SUCESSO! Aguarde 3-4 minutos e teste:
+   • https://priobf25.pages.dev/admin
+   • https://priobf25.pages.dev/cliente
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+EXECUTE AGORA:
+
+git add .
+git commit -m "v6.10.0 + v6.3.5: Estatísticas, CSV Otimizado, Header Atualizado"
+git push origin main
