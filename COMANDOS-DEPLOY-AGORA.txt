@@ -1,0 +1,139 @@
+═══════════════════════════════════════════════════════════════
+🚀 COMANDOS PARA DEPLOY - COPIE E COLE NO TERMINAL
+═══════════════════════════════════════════════════════════════
+
+📍 ESCOLHA UMA OPÇÃO:
+
+═══════════════════════════════════════════════════════════════
+OPÇÃO 1: SCRIPT AUTOMÁTICO (MAIS FÁCIL)
+═══════════════════════════════════════════════════════════════
+
+🪟 WINDOWS:
+   Clique duas vezes em: DEPLOY-CONVERSOR-CORRETO.bat
+
+🍎 MAC/LINUX:
+   chmod +x DEPLOY-CONVERSOR-CORRETO.sh
+   ./DEPLOY-CONVERSOR-CORRETO.sh
+
+═══════════════════════════════════════════════════════════════
+OPÇÃO 2: COMANDOS MANUAIS (COPIE E COLE)
+═══════════════════════════════════════════════════════════════
+
+git add converter-csv-para-sistema-CORRETO.html SOLUCAO-PRODUTO-SEM-NOME.md DEPLOY-CONVERSOR-CORRETO.sh DEPLOY-CONVERSOR-CORRETO.bat COMANDOS-DEPLOY-AGORA.txt
+
+git commit -m "fix: adiciona conversor correto que resolve problema 'Produto sem nome'"
+
+git push origin main
+
+═══════════════════════════════════════════════════════════════
+OPÇÃO 3: UM COMANDO ÚNICO (SUPER RÁPIDO)
+═══════════════════════════════════════════════════════════════
+
+git add . && git commit -m "fix: conversor correto + documentação" && git push origin main
+
+═══════════════════════════════════════════════════════════════
+📍 DEPOIS DO PUSH (1-2 MINUTOS APÓS)
+═══════════════════════════════════════════════════════════════
+
+1️⃣  BAIXE O CONVERSOR:
+    https://priobf25.pages.dev/converter-csv-para-sistema-CORRETO.html
+    
+    OU do GitHub:
+    https://github.com/seu-usuario/priobf25/raw/main/converter-csv-para-sistema-CORRETO.html
+
+2️⃣  ABRA LOCALMENTE:
+    - Clique duas vezes no arquivo HTML baixado
+    - Ele abrirá no seu navegador
+
+3️⃣  ARRASTE O CSV:
+    - Arraste planilha-nova.csv para a área indicada
+
+4️⃣  CLIQUE CONVERTER:
+    - Botão "Converter para produtos-v6.1.js"
+
+5️⃣  BAIXE O ARQUIVO:
+    - Arquivo produtos-v6.1.js será baixado automaticamente
+
+6️⃣  SUBSTITUA NO PROJETO:
+    - Copie o arquivo baixado para a pasta do projeto
+    - Substitua o produtos-v6.1.js atual
+
+7️⃣  FAÇA PUSH DO CATÁLOGO ATUALIZADO:
+
+    git add produtos-v6.1.js
+    git commit -m "fix: atualiza catálogo com 165 produtos - nomes corretos"
+    git push origin main
+
+8️⃣  AGUARDE DEPLOY (1-2 MIN):
+    - Acesse: https://priobf25.pages.dev
+    - Verifique se produtos aparecem com nomes corretos ✅
+
+═══════════════════════════════════════════════════════════════
+🆘 SE DER ERRO NO PUSH
+═══════════════════════════════════════════════════════════════
+
+ERRO: "Updates were rejected"
+SOLUÇÃO:
+    git pull origin main
+    git push origin main
+
+ERRO: "Permission denied"
+SOLUÇÃO:
+    # Configure credenciais
+    git config user.name "Seu Nome"
+    git config user.email "seu@email.com"
+
+ERRO: "Branch 'main' not found"
+SOLUÇÃO:
+    # Tente com master
+    git push origin master
+    
+    # Ou descubra a branch
+    git branch -a
+
+═══════════════════════════════════════════════════════════════
+📊 VERIFICAÇÃO FINAL
+═══════════════════════════════════════════════════════════════
+
+Após deploy do catálogo, verifique:
+
+✅ Site online: https://priobf25.pages.dev
+✅ Produtos com nomes corretos (não "Produto sem nome")
+✅ Total de 165 produtos
+✅ Preços calculados corretamente
+✅ Links de compra funcionando
+
+═══════════════════════════════════════════════════════════════
+📖 DOCUMENTAÇÃO COMPLETA
+═══════════════════════════════════════════════════════════════
+
+Leia para entender tudo:
+- SOLUCAO-PRODUTO-SEM-NOME.md ← Explica o problema e solução
+- DEPLOY-GIT-PASSO-A-PASSO.md ← Guia completo de deploy
+- README.md ← Documentação do projeto
+
+═══════════════════════════════════════════════════════════════
+🎯 RESUMO ULTRA RÁPIDO
+═══════════════════════════════════════════════════════════════
+
+# 1. Deploy do conversor
+git add . && git commit -m "fix: conversor correto" && git push origin main
+
+# 2. Aguarde 2 minutos
+
+# 3. Baixe: https://priobf25.pages.dev/converter-csv-para-sistema-CORRETO.html
+
+# 4. Abra localmente, arraste CSV, baixe produtos-v6.1.js
+
+# 5. Substitua e push
+git add produtos-v6.1.js && git commit -m "fix: catálogo correto" && git push origin main
+
+# 6. Pronto! ✅
+
+═══════════════════════════════════════════════════════════════
+💬 PRECISA DE AJUDA?
+═══════════════════════════════════════════════════════════════
+
+Me avise em qual passo você está e qual erro apareceu!
+
+═══════════════════════════════════════════════════════════════

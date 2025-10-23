@@ -1,0 +1,214 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║         📥 COMO SALVAR OS ARQUIVOS LOCALMENTE 📥                         ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+
+IMPORTANTE: Você precisa BAIXAR todos os arquivos que eu gerei aqui para o
+seu computador na pasta priobf25.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LISTA DOS 11 ARQUIVOS PARA BAIXAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  ATENÇÃO: Você precisa clicar no botão de DOWNLOAD de cada arquivo
+na interface onde estou te mostrando estes arquivos.
+
+1. ✅ gerar-produtos-v6.1-completo.py
+2. ✅ deploy-completo.sh
+3. ✅ deploy-completo.bat
+4. ✅ 🚀-COMECE-AQUI.txt
+5. ✅ RESUMO-EXECUTIVO-DEPLOY.txt
+6. ✅ GUIA-RAPIDO-DEPLOY.txt
+7. ✅ DEPLOY-COMPLETO-PASSO-A-PASSO.md
+8. ✅ README-DEPLOY-165-PRODUTOS.md
+9. ✅ GIT-COMANDOS-PASSO-A-PASSO.txt
+10. ✅ ARQUIVOS-GERADOS.md
+11. ✅ 📝-LISTA-COMPLETA-ARQUIVOS.txt
+12. ✅ SALVAR-ARQUIVOS-LOCALMENTE.txt (este arquivo)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PASSO-A-PASSO PARA BAIXAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 1: Localize cada arquivo na interface
+────────────────────────────────────────────
+
+Os arquivos devem aparecer na interface onde você está conversando comigo.
+Cada arquivo tem um nome e um botão para baixar ou copiar o conteúdo.
+
+
+PASSO 2: Baixe cada arquivo
+────────────────────────────
+
+Para cada um dos 12 arquivos acima:
+
+a) Clique no botão de DOWNLOAD ou "Save file" ou ícone de download
+
+b) OU copie o conteúdo completo e:
+   • Abra um editor de texto (Notepad, TextEdit, VS Code, etc)
+   • Cole o conteúdo
+   • Salve com o nome exato do arquivo
+
+
+PASSO 3: Salve na pasta correta
+────────────────────────────────
+
+Todos os arquivos devem ser salvos na pasta:
+
+📁 priobf25/
+
+CAMINHOS EXEMPLO:
+• Mac: ~/Documents/priobf25/
+• Windows: C:\Users\SeuNome\priobf25\
+• Linux: ~/priobf25/
+
+
+PASSO 4: Verifique se todos foram salvos
+─────────────────────────────────────────
+
+Mac / Linux:
+────────────
+cd ~/path/to/priobf25
+ls -lh gerar-produtos-v6.1-completo.py \
+       deploy-completo.sh \
+       deploy-completo.bat \
+       🚀-COMECE-AQUI.txt \
+       RESUMO-EXECUTIVO-DEPLOY.txt \
+       GUIA-RAPIDO-DEPLOY.txt \
+       DEPLOY-COMPLETO-PASSO-A-PASSO.md \
+       README-DEPLOY-165-PRODUTOS.md \
+       GIT-COMANDOS-PASSO-A-PASSO.txt \
+       ARQUIVOS-GERADOS.md \
+       📝-LISTA-COMPLETA-ARQUIVOS.txt \
+       SALVAR-ARQUIVOS-LOCALMENTE.txt
+
+Windows:
+────────
+cd C:\path\to\priobf25
+dir gerar-produtos-v6.1-completo.py ^
+    deploy-completo.sh ^
+    deploy-completo.bat ^
+    🚀-COMECE-AQUI.txt ^
+    RESUMO-EXECUTIVO-DEPLOY.txt ^
+    GUIA-RAPIDO-DEPLOY.txt ^
+    DEPLOY-COMPLETO-PASSO-A-PASSO.md ^
+    README-DEPLOY-165-PRODUTOS.md ^
+    GIT-COMANDOS-PASSO-A-PASSO.txt ^
+    ARQUIVOS-GERADOS.md ^
+    📝-LISTA-COMPLETA-ARQUIVOS.txt ^
+    SALVAR-ARQUIVOS-LOCALMENTE.txt
+
+RESULTADO ESPERADO: 12 arquivos encontrados
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ATENÇÃO: PERMISSÕES (Mac/Linux)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Após baixar os scripts .sh, dê permissão de execução:
+
+chmod +x gerar-produtos-v6.1-completo.py
+chmod +x deploy-completo.sh
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ESTRUTURA FINAL DA PASTA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Após baixar tudo, sua pasta priobf25/ deve ter:
+
+priobf25/
+├── planilha-nova.csv (já existe)
+├── converter-csv-para-sistema-CORRETO.html (já existe)
+├── admin-v6.10.html (já existe)
+├── index.html (já existe)
+│
+├── 🛠️ NOVOS ARQUIVOS (que você acabou de baixar):
+│
+├── gerar-produtos-v6.1-completo.py ⬅️ Script Python
+├── deploy-completo.sh ⬅️ Deploy Mac/Linux
+├── deploy-completo.bat ⬅️ Deploy Windows
+│
+├── 🚀-COMECE-AQUI.txt ⬅️ ⭐ COMECE POR ESTE
+├── RESUMO-EXECUTIVO-DEPLOY.txt
+├── GUIA-RAPIDO-DEPLOY.txt
+├── DEPLOY-COMPLETO-PASSO-A-PASSO.md
+├── README-DEPLOY-165-PRODUTOS.md
+├── GIT-COMANDOS-PASSO-A-PASSO.txt
+├── ARQUIVOS-GERADOS.md
+├── 📝-LISTA-COMPLETA-ARQUIVOS.txt
+└── SALVAR-ARQUIVOS-LOCALMENTE.txt
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRÓXIMOS PASSOS APÓS SALVAR TUDO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Verifique se os 12 arquivos estão na pasta priobf25/
+
+2. Abra o arquivo: 🚀-COMECE-AQUI.txt
+
+3. Siga as instruções lá dentro
+
+4. Execute o deploy!
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MÉTODO ALTERNATIVO (SE BOTÃO DOWNLOAD NÃO FUNCIONAR)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Se a interface não tiver botão de download direto:
+
+1. Copie o conteúdo COMPLETO de cada arquivo (selecione tudo, Ctrl+C/Cmd+C)
+
+2. Abra um editor de texto:
+   • Windows: Notepad, VS Code
+   • Mac: TextEdit, VS Code
+   • Linux: gedit, nano, vim, VS Code
+
+3. Cole o conteúdo (Ctrl+V/Cmd+V)
+
+4. Salve como arquivo com o nome EXATO:
+   • gerar-produtos-v6.1-completo.py
+   • deploy-completo.sh
+   • etc.
+
+⚠️  ATENÇÃO: Use o nome EXATO de cada arquivo, incluindo:
+   • Hífens (-)
+   • Pontos (.)
+   • Extensões (.py, .sh, .bat, .txt, .md)
+   • Emojis se houver (🚀, 📝)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] Baixei gerar-produtos-v6.1-completo.py
+[ ] Baixei deploy-completo.sh
+[ ] Baixei deploy-completo.bat
+[ ] Baixei 🚀-COMECE-AQUI.txt
+[ ] Baixei RESUMO-EXECUTIVO-DEPLOY.txt
+[ ] Baixei GUIA-RAPIDO-DEPLOY.txt
+[ ] Baixei DEPLOY-COMPLETO-PASSO-A-PASSO.md
+[ ] Baixei README-DEPLOY-165-PRODUTOS.md
+[ ] Baixei GIT-COMANDOS-PASSO-A-PASSO.txt
+[ ] Baixei ARQUIVOS-GERADOS.md
+[ ] Baixei 📝-LISTA-COMPLETA-ARQUIVOS.txt
+[ ] Baixei SALVAR-ARQUIVOS-LOCALMENTE.txt
+[ ] Todos os 12 arquivos estão na pasta priobf25/
+[ ] Dei permissão de execução aos scripts (Mac/Linux)
+[ ] Abri 🚀-COMECE-AQUI.txt
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Se todos os checkboxes estão marcados: 🎉 PRONTO PARA DEPLOY! 🎉
+
+Abra: 🚀-COMECE-AQUI.txt e comece!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

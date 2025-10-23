@@ -1,0 +1,77 @@
+════════════════════════════════════════════════════════════════════════════
+                                                                        
+            🚀 DEPLOY COMPLETO - 165 PRODUTOS BLACK FRIDAY 2025 🚀             
+                                                                        
+════════════════════════════════════════════════════════════════════════════
+
+📝 VOCÊ TEM 3 OPÇÕES:
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ OPÇÃO 1: AUTOMÁTICO (MAIS FÁCIL) ⭐                                      │
+│──────────────────────────────────────────────────────────────────────────│
+│                                                                          │
+│ 🍎 MAC:                                                                  │
+│    bash deploy-completo.sh                                               │
+│                                                                          │
+│ 🪟 WINDOWS:                                                              │
+│    deploy-completo.bat                                                   │
+│                                                                          │
+│ ⏰ Tempo: 2 minutos                                                      │
+│ 🎯 Resultado: Tudo feito automaticamente!                               │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ OPÇÃO 2: PYTHON + GIT                                                   │
+│──────────────────────────────────────────────────────────────────────────│
+│                                                                          │
+│ 1. python3 gerar-produtos-v6.1-completo.py                               │
+│ 2. git add .                                                             │
+│ 3. git commit -m "feat: 165 produtos"                                    │
+│ 4. git push origin main                                                  │
+│                                                                          │
+│ ⏰ Tempo: 3 minutos                                                      │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ OPÇÃO 3: SEM PYTHON (NAVEGADOR + GIT)                                   │
+│──────────────────────────────────────────────────────────────────────────│
+│                                                                          │
+│ 1. Abra: converter-csv-para-sistema-CORRETO.html                        │
+│ 2. Selecione: planilha-nova.csv                                         │
+│ 3. Clique: "Converter CSV para Sistema"                                 │
+│ 4. Salve como: produtos-v6.1.js                                         │
+│ 5. git add .                                                             │
+│ 6. git commit -m "feat: 165 produtos"                                    │
+│ 7. git push origin main                                                  │
+│                                                                          │
+│ ⏰ Tempo: 5 minutos                                                      │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+════════════════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTAÇÃO COMPLETA:
+
+• GUIA-RAPIDO-DEPLOY.txt .............. Guia visual passo-a-passo
+• DEPLOY-COMPLETO-PASSO-A-PASSO.md .... Instruções detalhadas
+• README-DEPLOY-165-PRODUTOS.md ....... Documentação completa
+
+════════════════════════════════════════════════════════════════════════════
+
+⏰ DEPOIS DO PUSH:
+
+1. Aguarde 2-3 minutos (deploy Cloudflare)
+2. Acesse: https://priobf25.pages.dev
+3. Limpe cache: Cmd+Shift+R (Mac) ou Ctrl+Shift+R (Windows)
+4. Abra Console (F12) - deve aparecer:
+   ✅ Catálogo carregado: {planilha: 165, sugeridos: 0, total: 165}
+
+════════════════════════════════════════════════════════════════════════════
+
+🎯 ESCOLHA SUA OPÇÃO E EXECUTE!
+
+Se tiver dúvida, leia: GUIA-RAPIDO-DEPLOY.txt
+
+════════════════════════════════════════════════════════════════════════════

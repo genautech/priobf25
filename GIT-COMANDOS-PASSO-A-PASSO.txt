@@ -1,0 +1,256 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║           GIT - COMANDOS PASSO-A-PASSO PARA DEPLOY                      ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+
+IMPORTANTE: Execute estes comandos NA ORDEM, um de cada vez.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PASSO 0: Ir para a pasta do projeto
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Mac / Linux:
+cd ~/path/to/priobf25
+
+# Windows:
+cd C:\path\to\priobf25
+
+# Confirme que está na pasta correta:
+ls -la
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PASSO 1: Verificar status atual
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+git status
+
+# Deve mostrar arquivos modificados/novos
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PASSO 2: Adicionar TODOS os arquivos
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+git add .
+
+# Verificar o que será commitado:
+git status
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PASSO 3: Fazer commit
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+git commit -m "feat: atualizar catálogo com 165 produtos da planilha-nova.csv
+
+- Substituir produtos-v6.1.js completo
+- 165 produtos com preços reais de marketplaces
+- Estrutura correta: produtosPlanilha, produtosSugeridos, todosOsProdutosV6
+- Campos: precoConcorrente, marketplace, prazoEntrega
+- Gerado automaticamente via script Python
+- Inclui scripts de deploy automático (Mac/Linux/Windows)
+- Documentação completa (4 guias)"
+
+# Se aparecer erro "nothing to commit", não tem problema, pule para PASSO 4
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PASSO 4: Sincronizar com servidor (IMPORTANTE!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+git pull origin main --rebase
+
+# Se aparecer conflitos (CONFLITO):
+git stash
+git pull origin main --rebase
+git stash pop
+
+# Se ainda tiver conflitos, peça ajuda!
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PASSO 5: Enviar para GitHub
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+git push origin main
+
+# Se aparecer erro "rejected", volte ao PASSO 4
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ PRONTO! Agora aguarde o deploy
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Quando o push finalizar com sucesso, você verá algo como:
+
+   Enumerating objects: 12, done.
+   Counting objects: 100% (12/12), done.
+   Delta compression using up to 8 threads
+   Compressing objects: 100% (8/8), done.
+   Writing objects: 100% (8/8), 45.23 KiB | 5.65 MiB/s, done.
+   Total 8 (delta 4), reused 0 (delta 0), pack-reused 0
+   To https://github.com/genautech/priobf25.git
+      abc1234..def5678  main -> main
+
+✅ SUCESSO! Agora aguarde 2-3 minutos para deploy no Cloudflare.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⏰ PRÓXIMOS PASSOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Acesse: https://dash.cloudflare.com
+   → Workers & Pages
+   → priobf25
+   → Aguarde status: ✅ Success
+
+2. Acesse seu site: https://priobf25.pages.dev
+
+3. Limpe o cache:
+   🍎 Mac: Cmd + Shift + R
+   🪟 Windows: Ctrl + Shift + R
+
+4. Abra Console (F12) e verifique:
+   ✅ Catálogo carregado: {planilha: 165, sugeridos: 0, total: 165}
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 COMANDOS ÚTEIS EXTRAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Ver últimos 5 commits
+git log --oneline -5
+
+# Ver arquivos modificados
+git status
+
+# Ver diferenças de um arquivo específico
+git diff produtos-v6.1.js
+
+# Ver branch atual
+git branch
+
+# Ver remoto configurado
+git remote -v
+
+# Desfazer último commit (sem perder alterações)
+git reset --soft HEAD~1
+
+# Descartar alterações locais de um arquivo
+git checkout -- produtos-v6.1.js
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+❌ PROBLEMAS E SOLUÇÕES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PROBLEMA 1: "! [rejected] main -> main (fetch first)"
+──────────────────────────────────────────────────────
+
+SOLUÇÃO:
+git pull origin main --rebase
+git push origin main
+
+
+PROBLEMA 2: "fatal: not a git repository"
+──────────────────────────────────────────
+
+SOLUÇÃO:
+Você não está na pasta correta!
+cd /caminho/correto/priobf25
+
+
+PROBLEMA 3: "error: Your local changes to the following files would be overwritten by merge"
+────────────────────────────────────────────────────────────────────────────────────────────
+
+SOLUÇÃO:
+git stash
+git pull origin main --rebase
+git stash pop
+
+
+PROBLEMA 4: "fatal: Authentication failed"
+──────────────────────────────────────────
+
+SOLUÇÃO:
+Você precisa configurar suas credenciais Git:
+git config --global user.name "Seu Nome"
+git config --global user.email "seu@email.com"
+
+E configurar autenticação:
+https://docs.github.com/pt/authentication
+
+
+PROBLEMA 5: "nothing to commit, working tree clean"
+────────────────────────────────────────────────────
+
+SOLUÇÃO:
+Nenhum arquivo foi modificado. Se você acabou de gerar produtos-v6.1.js,
+verifique se o arquivo foi salvo corretamente:
+ls -lh produtos-v6.1.js
+
+
+PROBLEMA 6: Conflitos de merge
+───────────────────────────────
+
+SOLUÇÃO 1 (Preservar suas alterações):
+git stash
+git pull origin main
+git stash pop
+# Resolver conflitos manualmente
+git add .
+git commit -m "resolve: conflitos resolvidos"
+git push origin main
+
+SOLUÇÃO 2 (Usar versão do servidor):
+git reset --hard origin/main
+# CUIDADO: Você perde suas alterações locais!
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔒 BACKUP DE SEGURANÇA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ANTES de fazer git push, faça backup:
+
+# Backup completo da pasta
+cp -r . ../priobf25-backup-$(date +%Y%m%d-%H%M%S)
+
+# Backup só do arquivo produtos
+cp produtos-v6.1.js produtos-v6.1.js.backup-$(date +%Y%m%d-%H%M%S)
+
+
+RESTAURAR BACKUP:
+
+# Listar backups
+ls -lh produtos-v6.1.js.backup-*
+
+# Restaurar backup específico
+cp produtos-v6.1.js.backup-20251023-143022 produtos-v6.1.js
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ CHECKLIST FINAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] PASSO 0: Estou na pasta correta (priobf25)
+[ ] PASSO 1: git status executado
+[ ] PASSO 2: git add . executado
+[ ] PASSO 3: git commit executado
+[ ] PASSO 4: git pull executado (sem conflitos)
+[ ] PASSO 5: git push executado com SUCESSO
+[ ] Deploy Cloudflare concluído (✅ Success)
+[ ] Site testado: https://priobf25.pages.dev
+[ ] Console mostra: "✅ Catálogo carregado: {total: 165}"
+[ ] Admin mostra 165 produtos
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Se todos os checkboxes estão marcados: 🎉 PARABÉNS! Deploy concluído! 🎉
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

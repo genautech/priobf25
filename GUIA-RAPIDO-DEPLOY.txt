@@ -1,0 +1,187 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║              🚀 GUIA RÁPIDO - DEPLOY COMPLETO 🚀                         ║
+║                    Black Friday 2025 - 165 Produtos                      ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+📋 RESUMO EXECUTIVO
+══════════════════
+
+✅ O QUE VOCÊ VAI FAZER:
+   • Gerar produtos-v6.1.js com 165 produtos da planilha-nova.csv
+   • Fazer backup automático
+   • Enviar tudo para o GitHub
+   • Aguardar deploy automático no Cloudflare Pages
+
+⏰ TEMPO ESTIMADO: 5-10 minutos
+
+══════════════════════════════════════════════════════════════════════════
+
+🚀 OPÇÃO 1: DEPLOY AUTOMÁTICO (RECOMENDADO)
+═════════════════════════════════════════════
+
+🍎 MAC / LINUX:
+────────────────
+
+1. Abra o Terminal
+2. Vá para a pasta priobf25:
+   cd ~/path/to/priobf25
+
+3. Execute o script:
+   bash deploy-completo.sh
+
+4. Aguarde conclusão!
+
+🪟 WINDOWS:
+───────────
+
+1. Abra o Prompt de Comando ou PowerShell
+2. Vá para a pasta priobf25:
+   cd C:\path\to\priobf25
+
+3. Execute o script:
+   deploy-completo.bat
+
+4. Aguarde conclusão!
+
+══════════════════════════════════════════════════════════════════════════
+
+🔧 OPÇÃO 2: DEPLOY MANUAL (SE SCRIPT NÃO FUNCIONAR)
+════════════════════════════════════════════════════
+
+PASSO 1: Gerar produtos-v6.1.js
+────────────────────────────────
+
+   A. COM PYTHON:
+      python3 gerar-produtos-v6.1-completo.py
+
+   B. SEM PYTHON (NAVEGADOR):
+      1. Abra converter-csv-para-sistema-CORRETO.html
+      2. Selecione planilha-nova.csv
+      3. Clique "Converter CSV para Sistema"
+      4. Salve como produtos-v6.1.js
+
+
+PASSO 2: Fazer backup
+──────────────────────
+
+   # Mac/Linux:
+   cp produtos-v6.1.js produtos-v6.1.js.backup-$(date +%Y-%m-%d)
+
+   # Windows:
+   copy produtos-v6.1.js produtos-v6.1.js.backup
+
+
+PASSO 3: Verificar arquivo
+───────────────────────────
+
+   # Mac/Linux:
+   head -n 10 produtos-v6.1.js
+   tail -n 20 produtos-v6.1.js
+
+   # Windows:
+   type produtos-v6.1.js | more
+
+   ✅ VERIFICAR SE TEM:
+      • "Total: 165 produtos"
+      • "const produtosPlanilha = ["
+      • "window.todosOsProdutosV6"
+
+
+PASSO 4: Git add + commit + push
+─────────────────────────────────
+
+   git add .
+   git commit -m "feat: atualizar catálogo com 165 produtos"
+   git pull origin main
+   git push origin main
+
+══════════════════════════════════════════════════════════════════════════
+
+⏰ AGUARDAR DEPLOY (2-3 MINUTOS)
+═════════════════════════════════
+
+1. Acesse: https://dash.cloudflare.com
+2. Vá em "Workers & Pages"
+3. Clique em "priobf25"
+4. Aguarde status: ✅ Success
+
+══════════════════════════════════════════════════════════════════════════
+
+🧪 TESTAR O SITE
+════════════════
+
+1. LIMPAR CACHE:
+   • Mac: Cmd + Shift + R
+   • Windows: Ctrl + Shift + R
+
+2. ACESSAR SITE:
+   https://priobf25.pages.dev
+
+3. ABRIR CONSOLE (F12):
+   Deve aparecer:
+   ✅ Catálogo carregado: {planilha: 165, sugeridos: 0, total: 165}
+
+4. TESTAR ADMIN:
+   https://priobf25.pages.dev/admin-v6.10.html
+   • Deve mostrar 165 produtos
+   • Preços devem estar corretos
+
+══════════════════════════════════════════════════════════════════════════
+
+❌ PROBLEMAS COMUNS
+═══════════════════
+
+1. "git push rejected"
+   → git pull origin main
+   → git push origin main
+
+2. Catálogo vazio
+   → Aguarde 3 minutos
+   → Limpe cache (Cmd+Shift+R ou Ctrl+Shift+R)
+
+3. Python não instalado
+   → Use conversor HTML
+   → Ou instale Python: https://www.python.org/downloads/
+
+4. Erro no script
+   → Execute deploy manual (Opção 2)
+
+══════════════════════════════════════════════════════════════════════════
+
+📊 ARQUIVOS IMPORTANTES
+═══════════════════════
+
+• planilha-nova.csv ........................ Fonte de dados (165 produtos)
+• gerar-produtos-v6.1-completo.py .......... Script gerador Python
+• produtos-v6.1.js ......................... Arquivo final (será gerado)
+• converter-csv-para-sistema-CORRETO.html .. Conversor HTML alternativo
+• deploy-completo.sh ....................... Script deploy Mac/Linux
+• deploy-completo.bat ...................... Script deploy Windows
+• DEPLOY-COMPLETO-PASSO-A-PASSO.md ......... Guia detalhado
+
+══════════════════════════════════════════════════════════════════════════
+
+✅ CHECKLIST FINAL
+══════════════════
+
+[ ] Arquivo produtos-v6.1.js gerado
+[ ] Backup criado
+[ ] Git push executado
+[ ] Deploy Cloudflare concluído (✅ Success)
+[ ] Cache limpo
+[ ] Site testado: https://priobf25.pages.dev
+[ ] Admin testado: 165 produtos aparecendo
+[ ] Console mostra: "✅ Catálogo carregado: {total: 165}"
+
+══════════════════════════════════════════════════════════════════════════
+
+🎉 PARABÉNS!
+
+Seu catálogo com 165 produtos está ONLINE!
+
+🌐 Site: https://priobf25.pages.dev
+📊 Admin: https://priobf25.pages.dev/admin-v6.10.html
+
+══════════════════════════════════════════════════════════════════════════
