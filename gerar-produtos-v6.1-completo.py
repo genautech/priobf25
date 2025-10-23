@@ -161,13 +161,13 @@ const produtosSugeridos = [];
 // ============================================
 // EXPORTAÇÃO PARA USO GLOBAL
 // ============================================
+// ============================================
+// EXPORTAÇÃO PARA WINDOW (BROWSER)
+// ============================================
 if (typeof window !== 'undefined') {
-    // Versão original (compatibilidade)
     window.produtosPlanilha = produtosPlanilha;
     window.produtosSugeridos = produtosSugeridos;
     window.todosOsProdutosV6 = [...produtosPlanilha, ...produtosSugeridos];
-    
-    // Cupons de desconto
     window.cuponsDesconto = cuponsDesconto;
     
     console.log('✅ Catálogo carregado:', {
