@@ -5150,11 +5150,17 @@ Arquivo disponível no projeto!
         }
         
         /**
-         * Ativar auto-sync no GitHub
+         * Ativar auto-sync via Pages Function (não precisa de token local)
          */
         function ativarAutoSync() {
-            if (!githubConfig || !githubConfig.token) {
-                alert('❌ Configure o GitHub API primeiro!\n\nVá em: Persistência → GitHub API');
+            // Verificar se Pages Function está disponível
+            if (!window.gitHubSyncWorker || !window.gitHubSyncWorker.isConfigurado()) {
+                alert('❌ Pages Function não disponível!\n\n' +
+                      'Verifique:\n' +
+                      '1. GITHUB_TOKEN configurado no Cloudflare Pages\n' +
+                      '2. Deploy realizado após configuração\n' +
+                      '3. Aguardou 2-3 minutos após deploy\n\n' +
+                      'Recarregue a página (Cmd+Shift+R) e tente novamente.');
                 return false;
             }
             
@@ -5164,9 +5170,9 @@ Arquivo disponível no projeto!
             // Atualizar badge
             atualizarBadgeAutoSync();
             
-            mostrarNotificacao('✅ Auto-Sync GitHub ativado! Produtos serão salvos automaticamente.', 'success');
+            mostrarNotificacao('✅ Auto-Sync ativado! Produtos serão salvos automaticamente via Pages Function.', 'success');
             
-            console.log('✅ Auto-Sync GitHub ATIVADO');
+            console.log('✅ Auto-Sync ATIVADO (via Pages Function)');
             console.log('📝 Produtos serão salvos automaticamente após criar/editar/duplicar');
             
             return true;
