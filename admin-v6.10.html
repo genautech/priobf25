@@ -5195,24 +5195,29 @@ Arquivo disponível no projeto!
                     desativarAutoSync();
                 }
             } else {
-                if (!githubConfig || !githubConfig.token) {
-                    if (confirm('Auto-Sync requer GitHub API configurado.\n\nDeseja configurar agora?')) {
-                        abrirConfigGitHub();
-                    }
-                } else {
+                // Ativar Auto-Sync via Pages Function (sem precisar de token local)
+                if (window.gitHubSyncWorker && window.gitHubSyncWorker.isConfigurado()) {
                     if (confirm(
-                        '🔄 Ativar Auto-Sync no GitHub?\n\n' +
-                        '✅ Produtos serão salvos AUTOMATICAMENTE no GitHub após:\n' +
+                        '🔄 Ativar Auto-Sync via Pages Function?\n\n' +
+                        '✅ Produtos serão salvos AUTOMATICAMENTE após:\n' +
                         '   • Criar novo produto\n' +
                         '   • Editar produto existente\n' +
                         '   • Duplicar produto\n' +
                         '   • Excluir produto\n\n' +
-                        '⚡ O arquivo produtos-v6.1.js será atualizado automaticamente\n' +
-                        '🌐 O site será atualizado em 2-3 minutos\n\n' +
+                        '🤖 Sincronização via Cloudflare Pages Function\n' +
+                        '🔒 Token seguro no servidor (não exposto)\n' +
+                        '🌐 Deploy automático em 2-3 minutos\n\n' +
                         'Deseja ativar o Auto-Sync?'
                     )) {
                         ativarAutoSync();
                     }
+                } else {
+                    alert('❌ Pages Function não disponível!\n\n' +
+                          'Verifique:\n' +
+                          '1. GITHUB_TOKEN configurado no Cloudflare Pages\n' +
+                          '2. Deploy realizado após configuração\n' +
+                          '3. Aguardou 2-3 minutos\n\n' +
+                          'Recarregue a página e tente novamente.');
                 }
             }
         }
