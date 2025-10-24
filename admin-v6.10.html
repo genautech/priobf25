@@ -1466,12 +1466,65 @@
 
         // Preview de imagem
         function previewImage() {
-            const url = document.getElementById('crud_imagem').value;
+            const url = document.getElementById('crud_imagem').value.trim();
+            const previewContainer = document.getElementById('imagePreview');
+            const previewImg = document.getElementById('previewImg');
+            
             if (url) {
-                document.getElementById('previewImg').src = url;
-                document.getElementById('imagePreview').classList.remove('hidden');
+                // 🛡️ Detectar base64
+                if (url.startsWith('data:image/')) {
+                    console.warn('⚠️ Imagem base64 detectada no preview');
+                    
+                    // Mostrar preview MAS com aviso visual
+                    previewImg.src = url;
+                    previewContainer.classList.remove('hidden');
+                    
+                    // Adicionar borda vermelha e aviso
+                    previewContainer.innerHTML = `
+                        <div class="border-4 border-red-500 bg-red-50 p-4 rounded-lg">
+                            <div class="flex items-start gap-3 mb-3">
+                                <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-red-900 mb-1">⚠️ AVISO: Imagem Base64 Detectada</h4>
+                                    <p class="text-sm text-red-800 mb-2">
+                                        <strong>Esta imagem NÃO será salva no banco de dados!</strong><br>
+                                        Motivo: Base64 aumenta muito o tamanho do arquivo.
+                                    </p>
+                                    <div class="bg-white p-3 rounded border border-red-300 mb-2">
+                                        <p class="text-xs font-bold text-green-900 mb-1">✅ SOLUÇÃO RECOMENDADA:</p>
+                                        <ol class="text-xs text-gray-700 list-decimal list-inside space-y-1">
+                                            <li>Acesse: <a href="https://imgur.com" target="_blank" class="text-blue-600 underline">imgur.com</a>, <a href="https://imgbb.com" target="_blank" class="text-blue-600 underline">imgbb.com</a> ou <a href="https://postimages.org" target="_blank" class="text-blue-600 underline">postimages.org</a></li>
+                                            <li>Faça upload da sua imagem</li>
+                                            <li>Copie a URL gerada (ex: https://i.imgur.com/abc123.jpg)</li>
+                                            <li>Cole aqui no campo "URL da Imagem"</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <img src="${url}" alt="Preview" class="w-48 h-48 object-contain border-2 border-red-400 rounded">
+                            </div>
+                            <p class="text-xs text-center text-red-700 mt-2 font-semibold">
+                                ⚠️ Ao salvar, esta imagem será substituída por um placeholder
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    // URL normal - preview padrão
+                    previewImg.src = url;
+                    previewContainer.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <img id="previewImg" src="${url}" alt="Preview" class="w-32 h-32 object-contain border-2 border-green-300 rounded-lg">
+                            <div class="text-sm text-green-700">
+                                <i class="fas fa-check-circle mr-1"></i>
+                                <strong>URL válida!</strong> Esta imagem será salva corretamente.
+                            </div>
+                        </div>
+                    `;
+                    previewContainer.classList.remove('hidden');
+                }
             } else {
-                document.getElementById('imagePreview').classList.add('hidden');
+                previewContainer.classList.add('hidden');
             }
         }
 
@@ -1516,6 +1569,40 @@
                 }
             });
 
+            // Obter valor da imagem
+            let imagemValue = document.getElementById('crud_imagem').value.trim();
+            
+            // 🛡️ PROTEÇÃO: Detectar e bloquear base64
+            if (imagemValue.startsWith('data:image/')) {
+                console.warn('⚠️ Imagem base64 detectada - NÃO será salva no banco');
+                
+                // Mostrar aviso ao usuário
+                const avisoBase64 = confirm(
+                    '⚠️ IMAGEM BASE64 DETECTADA\n\n' +
+                    '❌ Imagens base64 NÃO são salvas no banco de dados\n' +
+                    '❌ Motivo: Aumentam muito o tamanho do arquivo\n\n' +
+                    '✅ SOLUÇÃO RECOMENDADA:\n' +
+                    '   1. Faça upload em: imgur.com, imgbb.com ou postimages.org\n' +
+                    '   2. Copie a URL gerada\n' +
+                    '   3. Cole aqui no campo de imagem\n\n' +
+                    '🔄 A imagem será substituída por um placeholder.\n\n' +
+                    'Deseja continuar mesmo assim?'
+                );
+                
+                if (!avisoBase64) {
+                    return; // Cancelar salvamento
+                }
+                
+                // Substituir base64 por placeholder
+                const nomeProduto = document.getElementById('crud_nome').value;
+                imagemValue = `https://via.placeholder.com/400/667eea/ffffff?text=${encodeURIComponent(nomeProduto || 'Produto')}`;
+                
+                mostrarNotificacao(
+                    '⚠️ Imagem base64 substituída por placeholder. Use URLs externas para imagens!',
+                    'warning'
+                );
+            }
+            
             const produtoData = {
                 sku: document.getElementById('crud_sku').value,
                 nome: document.getElementById('crud_nome').value,
@@ -1527,7 +1614,7 @@
                 precoMercado: parseFloat(document.getElementById('crud_precoMercado').value),
                 margem: margem,
                 precoVenda: precoVenda,
-                imagem: document.getElementById('crud_imagem').value,
+                imagem: imagemValue, // Usar valor filtrado (sem base64)
                 descricao: document.getElementById('crud_descricao').value,
                 especificacoes: Object.keys(especificacoes).length > 0 ? especificacoes : null,
                 estoque: "Para Compra"
