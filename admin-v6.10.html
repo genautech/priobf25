@@ -649,7 +649,40 @@
                         </button>
                     </div>
 
-                    <!-- 4. Corrigir Links de Compra -->
+                    <!-- 4. Atualizar Imagens (NOVO) -->
+                    <div class="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-6 border-2 border-pink-200 hover:shadow-xl transition-all relative">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="bg-pink-600 text-white p-3 rounded-lg">
+                                <i class="fas fa-images text-2xl"></i>
+                            </div>
+                            <span class="px-2 py-1 bg-red-600 text-white text-xs font-bold rounded-full animate-pulse">NOVO</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">🖼️ Atualizar Imagens</h4>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Atualizar imagens dos produtos via Google Drive com sincronização automática
+                        </p>
+                        <div class="bg-white rounded-lg p-2 mb-3 text-xs">
+                            <div class="flex items-start mb-1">
+                                <i class="fas fa-check text-green-600 mr-2 mt-0.5"></i>
+                                <span class="text-gray-700">Suporta Google Drive, Imgur e URLs diretas</span>
+                            </div>
+                            <div class="flex items-start mb-1">
+                                <i class="fas fa-check text-green-600 mr-2 mt-0.5"></i>
+                                <span class="text-gray-700">Preview em tempo real</span>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check text-green-600 mr-2 mt-0.5"></i>
+                                <span class="text-gray-700">Sincroniza automaticamente com Git</span>
+                            </div>
+                        </div>
+                        <a href="ferramenta-atualizar-imagens.html" target="_blank" 
+                           class="w-full block bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded-lg transition-all text-center"
+                           onclick="return verificarAcessoFerramenta(event, 'ferramenta-atualizar-imagens.html')">
+                            <i class="fas fa-external-link-alt mr-2"></i>Abrir Atualizador de Imagens
+                        </a>
+                    </div>
+
+                    <!-- 5. Corrigir Links de Compra -->
                     <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 border-2 border-orange-200 hover:shadow-xl transition-all">
                         <div class="flex items-start justify-between mb-4">
                             <div class="bg-orange-600 text-white p-3 rounded-lg">
@@ -1464,67 +1497,108 @@
             document.getElementById('crud_precoVendaDisplay').textContent = formatarPreco(precoVenda);
         }
 
+        // Converter URL do Google Drive para formato direto
+        function converterGoogleDriveURL(url) {
+            // Padrão: https://drive.google.com/file/d/FILE_ID/view?usp=...
+            // Converter para: https://drive.google.com/uc?export=view&id=FILE_ID
+            const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (driveMatch) {
+                const fileId = driveMatch[1];
+                return `https://drive.google.com/uc?export=view&id=${fileId}`;
+            }
+            return url;
+        }
+
         // Preview de imagem
         function previewImage() {
-            const url = document.getElementById('crud_imagem').value.trim();
+            let url = document.getElementById('crud_imagem').value.trim();
             const previewContainer = document.getElementById('imagePreview');
-            const previewImg = document.getElementById('previewImg');
             
-            if (url) {
-                // 🛡️ Detectar base64
-                if (url.startsWith('data:image/')) {
-                    console.warn('⚠️ Imagem base64 detectada no preview');
-                    
-                    // Mostrar preview MAS com aviso visual
-                    previewImg.src = url;
-                    previewContainer.classList.remove('hidden');
-                    
-                    // Adicionar borda vermelha e aviso
-                    previewContainer.innerHTML = `
-                        <div class="border-4 border-red-500 bg-red-50 p-4 rounded-lg">
-                            <div class="flex items-start gap-3 mb-3">
-                                <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
-                                <div class="flex-1">
-                                    <h4 class="font-bold text-red-900 mb-1">⚠️ AVISO: Imagem Base64 Detectada</h4>
-                                    <p class="text-sm text-red-800 mb-2">
-                                        <strong>Esta imagem NÃO será salva no banco de dados!</strong><br>
-                                        Motivo: Base64 aumenta muito o tamanho do arquivo.
-                                    </p>
-                                    <div class="bg-white p-3 rounded border border-red-300 mb-2">
-                                        <p class="text-xs font-bold text-green-900 mb-1">✅ SOLUÇÃO RECOMENDADA:</p>
-                                        <ol class="text-xs text-gray-700 list-decimal list-inside space-y-1">
-                                            <li>Acesse: <a href="https://imgur.com" target="_blank" class="text-blue-600 underline">imgur.com</a>, <a href="https://imgbb.com" target="_blank" class="text-blue-600 underline">imgbb.com</a> ou <a href="https://postimages.org" target="_blank" class="text-blue-600 underline">postimages.org</a></li>
-                                            <li>Faça upload da sua imagem</li>
-                                            <li>Copie a URL gerada (ex: https://i.imgur.com/abc123.jpg)</li>
-                                            <li>Cole aqui no campo "URL da Imagem"</li>
-                                        </ol>
-                                    </div>
+            console.log('🔍 Preview Image chamado com URL:', url);
+            
+            if (!url) {
+                previewContainer.classList.add('hidden');
+                return;
+            }
+            
+            // 🔧 AUTO-CORREÇÃO: Converter URL do Google Drive
+            if (url.includes('drive.google.com')) {
+                const urlCorrigida = converterGoogleDriveURL(url);
+                if (urlCorrigida !== url) {
+                    console.log('🔧 URL do Google Drive corrigida automaticamente:', urlCorrigida);
+                    document.getElementById('crud_imagem').value = urlCorrigida;
+                    url = urlCorrigida;
+                    mostrarNotificacao('✅ URL do Google Drive corrigida automaticamente', 'success');
+                }
+            }
+            
+            // 🔧 AUTO-CORREÇÃO: Converter URL do Imgur (sem "i.") para URL direta
+            if (url.match(/^https?:\/\/imgur\.com\/([a-zA-Z0-9]+)$/)) {
+                const imgurCode = url.match(/^https?:\/\/imgur\.com\/([a-zA-Z0-9]+)$/)[1];
+                const urlCorrigida = `https://i.imgur.com/${imgurCode}.jpg`;
+                console.log('🔧 URL do Imgur corrigida automaticamente:', urlCorrigida);
+                
+                // Atualizar campo com URL corrigida
+                document.getElementById('crud_imagem').value = urlCorrigida;
+                url = urlCorrigida;
+                
+                // Mostrar notificação
+                mostrarNotificacao('✅ URL do Imgur corrigida automaticamente para formato direto', 'success');
+            }
+            
+            // 🛡️ Detectar base64
+            if (url.startsWith('data:image/')) {
+                console.warn('⚠️ Imagem base64 detectada no preview');
+                
+                // Mostrar preview MAS com aviso visual
+                previewContainer.innerHTML = `
+                    <div class="border-4 border-red-500 bg-red-50 p-4 rounded-lg">
+                        <div class="flex items-start gap-3 mb-3">
+                            <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-red-900 mb-1">⚠️ AVISO: Imagem Base64 Detectada</h4>
+                                <p class="text-sm text-red-800 mb-2">
+                                    <strong>Esta imagem NÃO será salva no banco de dados!</strong><br>
+                                    Motivo: Base64 aumenta muito o tamanho do arquivo.
+                                </p>
+                                <div class="bg-white p-3 rounded border border-red-300 mb-2">
+                                    <p class="text-xs font-bold text-green-900 mb-1">✅ SOLUÇÃO RECOMENDADA:</p>
+                                    <ol class="text-xs text-gray-700 list-decimal list-inside space-y-1">
+                                        <li>Acesse: <a href="https://imgur.com" target="_blank" class="text-blue-600 underline">imgur.com</a>, <a href="https://imgbb.com" target="_blank" class="text-blue-600 underline">imgbb.com</a> ou <a href="https://postimages.org" target="_blank" class="text-blue-600 underline">postimages.org</a></li>
+                                        <li>Faça upload da sua imagem</li>
+                                        <li>Copie a URL gerada (ex: https://i.imgur.com/abc123.jpg)</li>
+                                        <li>Cole aqui no campo "URL da Imagem"</li>
+                                    </ol>
                                 </div>
                             </div>
-                            <div class="flex justify-center">
-                                <img src="${url}" alt="Preview" class="w-48 h-48 object-contain border-2 border-red-400 rounded">
-                            </div>
-                            <p class="text-xs text-center text-red-700 mt-2 font-semibold">
-                                ⚠️ Ao salvar, esta imagem será substituída por um placeholder
-                            </p>
                         </div>
-                    `;
-                } else {
-                    // URL normal - preview padrão
-                    previewImg.src = url;
-                    previewContainer.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <img id="previewImg" src="${url}" alt="Preview" class="w-32 h-32 object-contain border-2 border-green-300 rounded-lg">
-                            <div class="text-sm text-green-700">
-                                <i class="fas fa-check-circle mr-1"></i>
-                                <strong>URL válida!</strong> Esta imagem será salva corretamente.
-                            </div>
+                        <div class="flex justify-center">
+                            <img src="${url}" alt="Preview" class="w-48 h-48 object-contain border-2 border-red-400 rounded" 
+                                 onerror="console.error('❌ Erro ao carregar base64'); this.src='https://via.placeholder.com/200x200/ef4444/ffffff?text=Erro+ao+Carregar'">
                         </div>
-                    `;
-                    previewContainer.classList.remove('hidden');
-                }
+                        <p class="text-xs text-center text-red-700 mt-2 font-semibold">
+                            ⚠️ Ao salvar, esta imagem será substituída por um placeholder
+                        </p>
+                    </div>
+                `;
+                previewContainer.classList.remove('hidden');
             } else {
-                previewContainer.classList.add('hidden');
+                // URL normal - preview padrão
+                console.log('✅ URL normal detectada, mostrando preview...');
+                
+                previewContainer.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <img src="${url}" alt="Preview" 
+                             class="w-32 h-32 object-contain border-2 border-green-300 rounded-lg" 
+                             onload="console.log('✅ Imagem carregada com sucesso:', '${url}')"
+                             onerror="console.error('❌ Erro ao carregar imagem:', '${url}'); this.parentElement.innerHTML='<div class=\\'text-red-600 p-4 bg-red-50 rounded-lg border-2 border-red-300\\'><i class=\\'fas fa-exclamation-circle mr-2\\'></i><strong>Erro ao carregar imagem</strong><br><span class=\\'text-xs\\'>Verifique se a URL está correta e acessível</span><br><code class=\\'text-xs bg-white p-1 rounded mt-1 block\\'>${url}</code></div>'">
+                        <div class="text-sm text-green-700">
+                            <i class="fas fa-check-circle mr-1"></i>
+                            <strong>URL válida!</strong> Esta imagem será salva corretamente.
+                        </div>
+                    </div>
+                `;
+                previewContainer.classList.remove('hidden');
             }
         }
 
@@ -1572,6 +1646,11 @@
             // Obter valor da imagem
             let imagemValue = document.getElementById('crud_imagem').value.trim();
             
+            // 🔧 Converter Google Drive URLs automaticamente
+            if (imagemValue && imagemValue.includes('drive.google.com')) {
+                imagemValue = converterGoogleDriveURL(imagemValue);
+            }
+            
             // 🛡️ PROTEÇÃO: Detectar e bloquear base64
             if (imagemValue.startsWith('data:image/')) {
                 console.warn('⚠️ Imagem base64 detectada - NÃO será salva no banco');
@@ -1593,9 +1672,10 @@
                     return; // Cancelar salvamento
                 }
                 
-                // Substituir base64 por placeholder
+                // Substituir base64 por placeholder do Google Drive
                 const nomeProduto = document.getElementById('crud_nome').value;
-                imagemValue = `https://via.placeholder.com/400/667eea/ffffff?text=${encodeURIComponent(nomeProduto || 'Produto')}`;
+                // Placeholder padrão do Google Drive
+                imagemValue = 'https://drive.google.com/uc?export=view&id=1J5p6JhpvIhjmToS2Pxa-6lwcrYSwVol0';
                 
                 mostrarNotificacao(
                     '⚠️ Imagem base64 substituída por placeholder. Use URLs externas para imagens!',

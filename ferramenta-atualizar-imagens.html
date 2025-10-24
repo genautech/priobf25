@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🖼️ Atualizar Imagens dos Produtos - PrioBF25</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto p-6 max-w-6xl">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-lg shadow-lg mb-6">
+            <h1 class="text-3xl font-bold mb-2">
+                <i class="fas fa-images mr-2"></i>
+                Atualizar Imagens dos Produtos
+            </h1>
+            <p class="text-blue-100">Ferramenta para atualizar imagens via URL do Google Drive</p>
+        </div>
+
+        <!-- Instruções -->
+        <div class="bg-white p-6 rounded-lg shadow mb-6">
+            <h2 class="text-xl font-bold mb-4 flex items-center">
+                <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                Como Usar
+            </h2>
+            <div class="space-y-3 text-gray-700">
+                <p><strong>1. Prepare suas imagens no Google Drive:</strong></p>
+                <ul class="list-disc list-inside ml-4 space-y-1">
+                    <li>Faça upload das imagens para a pasta: <a href="https://drive.google.com/drive/folders/1CDQIFpTO_G8jw3v8AndRc0gHe4Uy1QCD" target="_blank" class="text-blue-600 underline">Pasta de Imagens</a></li>
+                    <li>Clique com botão direito na imagem → "Obter link"</li>
+                    <li>Certifique-se que o compartilhamento está como "Qualquer pessoa com o link"</li>
+                </ul>
+                
+                <p><strong>2. Preencha a tabela abaixo:</strong></p>
+                <ul class="list-disc list-inside ml-4 space-y-1">
+                    <li>Cole o link do Google Drive na coluna "URL da Imagem"</li>
+                    <li>O sistema converterá automaticamente para o formato correto</li>
+                    <li>Você pode atualizar múltiplos produtos de uma vez</li>
+                </ul>
+                
+                <p><strong>3. Salve e sincronize:</strong></p>
+                <ul class="list-disc list-inside ml-4 space-y-1">
+                    <li>Clique em "Salvar Todas as Alterações"</li>
+                    <li>O sistema sincronizará automaticamente com o GitHub</li>
+                    <li>As imagens aparecerão na nuvem após o deploy</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="bg-white p-4 rounded-lg shadow mb-4">
+            <div class="flex gap-4 items-center">
+                <input type="text" id="searchProduto" placeholder="🔍 Buscar produto..." 
+                       class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                <select id="filterCategoria" class="px-4 py-2 border rounded-lg">
+                    <option value="">Todas as Categorias</option>
+                </select>
+                <button onclick="aplicarPlaceholderTodos()" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                    <i class="fas fa-magic mr-2"></i>
+                    Aplicar Placeholder em Todos
+                </button>
+            </div>
+        </div>
+
+        <!-- Estatísticas -->
+        <div class="grid grid-cols-3 gap-4 mb-6">
+            <div class="bg-white p-4 rounded-lg shadow">
+                <div class="text-gray-500 text-sm">Total de Produtos</div>
+                <div id="totalProdutos" class="text-2xl font-bold text-blue-600">0</div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <div class="text-gray-500 text-sm">Com Imagem Válida</div>
+                <div id="comImagem" class="text-2xl font-bold text-green-600">0</div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow">
+                <div class="text-gray-500 text-sm">Sem Imagem</div>
+                <div id="semImagem" class="text-2xl font-bold text-red-600">0</div>
+            </div>
+        </div>
+
+        <!-- Tabela de Produtos -->
+        <div class="bg-white rounded-lg shadow overflow-hidden mb-6">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-3 text-left">Preview</th>
+                            <th class="px-4 py-3 text-left">SKU</th>
+                            <th class="px-4 py-3 text-left">Nome do Produto</th>
+                            <th class="px-4 py-3 text-left">Categoria</th>
+                            <th class="px-4 py-3 text-left">URL da Imagem</th>
+                            <th class="px-4 py-3 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="produtosTable">
+                        <!-- Preenchido via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Botão Salvar -->
+        <div class="flex justify-end gap-4">
+            <button onclick="cancelar()" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+                <i class="fas fa-times mr-2"></i>
+                Cancelar
+            </button>
+            <button onclick="salvarTodas()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                <i class="fas fa-save mr-2"></i>
+                Salvar Todas as Alterações e Sincronizar com Git
+            </button>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-8 rounded-lg shadow-2xl text-center">
+                <i class="fas fa-spinner fa-spin text-4xl text-blue-600 mb-4"></i>
+                <p class="text-xl font-bold mb-2">Sincronizando com GitHub...</p>
+                <p class="text-gray-600">Aguarde enquanto atualizamos os produtos</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="produtos-v6.1.js"></script>
+    <script>
+        const PLACEHOLDER_GOOGLE_DRIVE = 'https://drive.google.com/uc?export=view&id=1J5p6JhpvIhjmToS2Pxa-6lwcrYSwVol0';
+        let produtosModificados = {};
+
+        // Converter URL do Google Drive
+        function converterGoogleDriveURL(url) {
+            if (!url || !url.includes('drive.google.com')) return url;
+            
+            const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (driveMatch) {
+                const fileId = driveMatch[1];
+                return `https://drive.google.com/uc?export=view&id=${fileId}`;
+            }
+            return url;
+        }
+
+        // Carregar produtos
+        function carregarProdutos() {
+            const produtos = window.todosOsProdutosV6 || window.produtosPlanilha || [];
+            const tbody = document.getElementById('produtosTable');
+            tbody.innerHTML = '';
+
+            let comImagem = 0;
+            let semImagem = 0;
+
+            produtos.forEach(produto => {
+                const imagemAtual = produtosModificados[produto.id]?.imagem || produto.imagem || '';
+                const temImagem = imagemAtual && !imagemAtual.includes('placeholder');
+                
+                if (temImagem) comImagem++;
+                else semImagem++;
+
+                const row = document.createElement('tr');
+                row.className = 'border-b hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="px-4 py-3">
+                        <img id="preview-${produto.id}" 
+                             src="${imagemAtual || PLACEHOLDER_GOOGLE_DRIVE}" 
+                             alt="Preview"
+                             class="w-16 h-16 object-cover rounded border"
+                             onerror="this.src='${PLACEHOLDER_GOOGLE_DRIVE}'">
+                    </td>
+                    <td class="px-4 py-3 font-mono text-sm">${produto.sku}</td>
+                    <td class="px-4 py-3">${produto.nome}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600">${produto.categoria}</td>
+                    <td class="px-4 py-3">
+                        <input type="text" 
+                               id="img-${produto.id}"
+                               value="${imagemAtual}"
+                               placeholder="Cole o link do Google Drive aqui"
+                               class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500"
+                               onchange="atualizarImagem(${produto.id}, this.value)"
+                               onblur="this.value = converterGoogleDriveURL(this.value)">
+                    </td>
+                    <td class="px-4 py-3 text-center">
+                        <button onclick="aplicarPlaceholder(${produto.id})" 
+                                class="px-3 py-1 bg-purple-500 text-white rounded hover:bg-purple-600 text-sm">
+                            <i class="fas fa-magic mr-1"></i>
+                            Placeholder
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Atualizar estatísticas
+            document.getElementById('totalProdutos').textContent = produtos.length;
+            document.getElementById('comImagem').textContent = comImagem;
+            document.getElementById('semImagem').textContent = semImagem;
+
+            // Preencher filtro de categorias
+            const categorias = [...new Set(produtos.map(p => p.categoria))];
+            const filterCategoria = document.getElementById('filterCategoria');
+            filterCategoria.innerHTML = '<option value="">Todas as Categorias</option>';
+            categorias.forEach(cat => {
+                filterCategoria.innerHTML += `<option value="${cat}">${cat}</option>`;
+            });
+        }
+
+        // Atualizar imagem de um produto
+        function atualizarImagem(produtoId, novaURL) {
+            novaURL = converterGoogleDriveURL(novaURL.trim());
+            
+            produtosModificados[produtoId] = {
+                imagem: novaURL
+            };
+
+            // Atualizar preview
+            const preview = document.getElementById(`preview-${produtoId}`);
+            if (preview) {
+                preview.src = novaURL || PLACEHOLDER_GOOGLE_DRIVE;
+            }
+
+            // Atualizar input
+            const input = document.getElementById(`img-${produtoId}`);
+            if (input) {
+                input.value = novaURL;
+            }
+
+            console.log(`✅ Imagem do produto ${produtoId} atualizada:`, novaURL);
+        }
+
+        // Aplicar placeholder em um produto
+        function aplicarPlaceholder(produtoId) {
+            atualizarImagem(produtoId, PLACEHOLDER_GOOGLE_DRIVE);
+        }
+
+        // Aplicar placeholder em todos
+        function aplicarPlaceholderTodos() {
+            if (!confirm('Tem certeza que deseja aplicar o placeholder em TODOS os produtos?\n\nIsso substituirá todas as imagens atuais.')) {
+                return;
+            }
+
+            const produtos = window.todosOsProdutosV6 || window.produtosPlanilha || [];
+            produtos.forEach(produto => {
+                atualizarImagem(produto.id, PLACEHOLDER_GOOGLE_DRIVE);
+            });
+
+            alert('✅ Placeholder aplicado em todos os produtos!');
+        }
+
+        // Salvar todas as alterações
+        async function salvarTodas() {
+            const modificacoes = Object.keys(produtosModificados).length;
+            
+            if (modificacoes === 0) {
+                alert('⚠️ Nenhuma alteração foi feita.');
+                return;
+            }
+
+            if (!confirm(`Salvar ${modificacoes} alterações e sincronizar com GitHub?\n\nIsso atualizará o arquivo produtos-v6.1.js na nuvem.`)) {
+                return;
+            }
+
+            // Mostrar loading
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+
+            try {
+                // Carregar produtos atuais
+                const produtos = window.todosOsProdutosV6 || window.produtosPlanilha || [];
+                
+                // Aplicar modificações
+                produtos.forEach(produto => {
+                    if (produtosModificados[produto.id]) {
+                        produto.imagem = produtosModificados[produto.id].imagem;
+                    }
+                });
+
+                // Chamar API do Admin (se estiver aberto em outra aba)
+                const adminWindow = window.opener;
+                if (adminWindow && adminWindow.salvarProdutosNoGit) {
+                    await adminWindow.salvarProdutosNoGit(produtos);
+                    alert('✅ Imagens atualizadas e sincronizadas com sucesso!');
+                } else {
+                    // Fallback: salvar localmente e instruir usuário
+                    localStorage.setItem('produtosAtualizados', JSON.stringify(produtos));
+                    alert('✅ Imagens atualizadas localmente!\n\n⚠️ Para sincronizar com GitHub:\n1. Abra o Admin\n2. Clique em "Ferramentas"\n3. Clique em "Sincronizar Produtos"\n\nOu use o botão de sincronização automática no Admin.');
+                }
+
+                // Limpar modificações
+                produtosModificados = {};
+                carregarProdutos();
+            } catch (error) {
+                console.error('Erro ao salvar:', error);
+                alert('❌ Erro ao salvar alterações: ' + error.message);
+            } finally {
+                document.getElementById('loadingOverlay').classList.add('hidden');
+            }
+        }
+
+        // Cancelar
+        function cancelar() {
+            if (Object.keys(produtosModificados).length > 0) {
+                if (!confirm('Você tem alterações não salvas. Deseja realmente cancelar?')) {
+                    return;
+                }
+            }
+            window.close();
+        }
+
+        // Buscar produtos
+        document.getElementById('searchProduto').addEventListener('input', filtrarProdutos);
+        document.getElementById('filterCategoria').addEventListener('change', filtrarProdutos);
+
+        function filtrarProdutos() {
+            const search = document.getElementById('searchProduto').value.toLowerCase();
+            const categoria = document.getElementById('filterCategoria').value;
+            const rows = document.querySelectorAll('#produtosTable tr');
+
+            rows.forEach(row => {
+                const texto = row.textContent.toLowerCase();
+                const matchSearch = texto.includes(search);
+                const matchCategoria = !categoria || texto.includes(categoria);
+                
+                row.style.display = (matchSearch && matchCategoria) ? '' : 'none';
+            });
+        }
+
+        // Inicializar
+        window.addEventListener('DOMContentLoaded', carregarProdutos);
+    </script>
+</body>
+</html>
