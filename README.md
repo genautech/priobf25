@@ -39,28 +39,38 @@ Sistema completo para gerenciar catálogo de produtos da Black Friday 2025:
 
 ⭐ **NOVIDADES v6.10.2 (2025-10-24):**
 
-**1. 🖼️ Sistema Completo Google Drive para Imagens:**
-- ✅ **Auto-Conversão de URLs:** Links do Google Drive convertidos automaticamente
-- ✅ **Preview Melhorado:** Suporte nativo para Google Drive, Imgur, detecção Base64
+**1. 🖼️ Sistema Completo para Imagens (Google Drive + Imgur):**
+- ✅ **Auto-Conversão de URLs:** Links do Google Drive/Imgur convertidos automaticamente
+- ✅ **Preview Melhorado:** Suporte para Google Drive (thumbnail), Imgur, detecção Base64
 - ✅ **Ferramenta de Atualização em Massa:** Interface para gerenciar imagens de todos os produtos
-- ✅ **Proteção CORS:** Google Drive não tem bloqueios (Amazon tem)
+- ✅ **Proteção CORS:** Soluções testadas (Google Drive thumbnail, Imgur)
 - ✅ **Bloqueio Base64:** Detecta e substitui automaticamente por placeholder
-- ✅ **Sincronização GitHub:** Atualizações refletem automaticamente na nuvem
-- 📍 **Documentação:** `GOOGLE-DRIVE-IMAGES-GUIA-COMPLETO.md` e `⚡-INICIO-RAPIDO-GOOGLE-DRIVE.md`
-- 📁 **Pasta Imagens:** https://drive.google.com/drive/folders/1CDQIFpTO_G8jw3v8AndRc0gHe4Uy1QCD
+- ✅ **Sincronização GitHub:** Git push manual (controle total)
+- 📍 **Documentação:** `📌-LEIA-PRIMEIRO-SOLUCAO-FINAL.md` e `👉-RESPOSTA-FINAL-IMGUR-SOLUCAO.md`
+- ⭐ **RECOMENDADO:** Use **Imgur** para imagens (funciona 100%, sem CORS)
 
-**Como Usar:**
+**Como Usar com Imgur (Recomendado):**
 ```
-1. Faça upload da imagem para o Google Drive
-2. Obtenha link de compartilhamento (Qualquer pessoa com o link)
-3. Cole no Admin → O sistema converte automaticamente
-4. Preview instantâneo + sincronização com GitHub
-5. Imagens aparecem na nuvem sem problemas de CORS!
+1. Acesse: https://imgur.com → Upload imagem
+2. Copiar URL direta (https://i.imgur.com/ABC123.jpg)
+3. Cole no Admin → Preview instantâneo
+4. Salvar produto
+5. Git push quando quiser subir → Deploy automático
+6. ✅ Imagens aparecem perfeitamente na nuvem!
+```
+
+**Alternativa - Google Drive:**
+```
+1. Upload para: https://drive.google.com/drive/folders/1CDQIFpTO_G8jw3v8AndRc0gHe4Uy1QCD
+2. Compartilhar (Qualquer pessoa com o link)
+3. Cole no Admin → Conversão automática para thumbnail
+4. Preview + salvar
+5. ⚠️ Pode ter problemas CORS → Use Imgur se der erro
 ```
 
 **Arquivos Modificados:**
-- `admin-v6.10.html` - Função converterGoogleDriveURL() + integração completa
-- `ferramenta-atualizar-imagens.html` - Nova ferramenta de gerenciamento em massa
+- `admin-v6.10.html` - Google Drive thumbnail + conversões automáticas
+- `ferramenta-atualizar-imagens.html` - Gerenciamento em massa de imagens
 
 ⭐ **NOVIDADES v6.10.1 (2025-10-22):**
 

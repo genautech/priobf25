@@ -124,7 +124,7 @@
 
     <script src="produtos-v6.1.js"></script>
     <script>
-        const PLACEHOLDER_GOOGLE_DRIVE = 'https://drive.google.com/uc?export=view&id=1J5p6JhpvIhjmToS2Pxa-6lwcrYSwVol0';
+        const PLACEHOLDER_GOOGLE_DRIVE = 'https://drive.google.com/thumbnail?id=1J5p6JhpvIhjmToS2Pxa-6lwcrYSwVol0&sz=w800';
         let produtosModificados = {};
 
         // Converter URL do Google Drive
@@ -134,7 +134,8 @@
             const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
             if (driveMatch) {
                 const fileId = driveMatch[1];
-                return `https://drive.google.com/uc?export=view&id=${fileId}`;
+                // Usar thumbnail para melhor compatibilidade CORS
+                return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
             }
             return url;
         }
