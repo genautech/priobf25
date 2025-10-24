@@ -83,6 +83,22 @@ export async function onRequestPost(context) {
       );
     }
     
+    // 🛡️ PROTEÇÃO: Validar número mínimo de produtos
+    if (produtos.length < 100) {
+      console.error(`❌ PROTEÇÃO ATIVADA: Poucos produtos (${produtos.length} < 100)`);
+      return jsonResponse(
+        { 
+          error: 'Proteção contra perda de dados ativada',
+          message: `Apenas ${produtos.length} produtos recebidos. Mínimo esperado: 100`,
+          hint: 'Verifique se todos os produtos foram carregados corretamente antes de salvar'
+        }, 
+        400,
+        getCORSHeaders(origin, config.allowedOrigins)
+      );
+    }
+    
+    console.log(`✅ Validação OK: ${produtos.length} produtos (>= 100)`);
+    
     // 5. Gerar conteúdo do arquivo produtos-v6.1.js
     const conteudoJS = gerarConteudoProdutos(produtos);
     

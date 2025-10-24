@@ -114,7 +114,15 @@ async function executarSincronizacao() {
         
         // Verificar se Worker está configurado
         if (!window.gitHubSyncWorker.isConfigurado()) {
-            throw new Error('Cloudflare Worker não está configurado. Configure a URL do Worker.');
+            console.warn('⚠️ Pages Function não detectada, Auto-Sync desativado temporariamente');
+            if (badge) {
+                badge.textContent = '⚠️ Offline';
+                badge.classList.add('text-yellow-600');
+            }
+            // Desativar auto-sync automaticamente
+            window.autoSyncEnabled = false;
+            localStorage.setItem('autoSyncEnabled', 'false');
+            return;
         }
         
         // Sincronizar via Cloudflare Worker

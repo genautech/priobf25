@@ -4945,11 +4945,29 @@ Arquivo disponível no projeto!
         }
         
         /**
-         * Salvar produtos no GitHub via API
+         * Salvar produtos no GitHub via API (com fallback para Pages Function)
          */
         async function salvarProdutosNoGitHub() {
+            // TENTATIVA 1: Usar Pages Function (método preferido - sem precisar de token)
+            if (window.gitHubSyncWorker && window.gitHubSyncWorker.isConfigurado()) {
+                try {
+                    console.log('🚀 Tentando salvar via Pages Function (método automático)...');
+                    const todosProdutos = getProdutosAtualizados();
+                    const resultado = await window.gitHubSyncWorker.salvarProdutos(todosProdutos);
+                    
+                    if (resultado.sucesso) {
+                        mostrarNotificacao('✅ Produtos salvos com sucesso via Pages Function!', 'success');
+                        console.log('✅ Commit:', resultado.detalhes.commit);
+                        return;
+                    }
+                } catch (erro) {
+                    console.warn('⚠️ Pages Function falhou, tentando método alternativo...', erro.message);
+                }
+            }
+            
+            // TENTATIVA 2: Usar GitHub API direta (método antigo - precisa de token)
             if (!githubConfig || !githubConfig.token) {
-                alert('❌ Configure o GitHub API primeiro!\n\nVá em: Persistência → GitHub API');
+                alert('❌ Configure o GitHub API primeiro!\n\nVá em: Persistência → GitHub API\n\nOu aguarde a configuração da Pages Function.');
                 return;
             }
             
