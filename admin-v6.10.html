@@ -4945,31 +4945,46 @@ Arquivo disponível no projeto!
         }
         
         /**
-         * Salvar produtos no GitHub via API (com fallback para Pages Function)
+         * Salvar produtos no GitHub via Pages Function (100% automático)
          */
         async function salvarProdutosNoGitHub() {
-            // TENTATIVA 1: Usar Pages Function (método preferido - sem precisar de token)
+            // SEMPRE usar Pages Function (método automático - sem precisar de token)
             if (window.gitHubSyncWorker && window.gitHubSyncWorker.isConfigurado()) {
                 try {
-                    console.log('🚀 Tentando salvar via Pages Function (método automático)...');
+                    console.log('🚀 Salvando via Pages Function (método automático)...');
+                    
                     const todosProdutos = getProdutosAtualizados();
+                    console.log(`📦 Salvando ${todosProdutos.length} produtos...`);
+                    
+                    mostrarNotificacao('🔄 Salvando produtos via Pages Function...', 'info');
+                    
                     const resultado = await window.gitHubSyncWorker.salvarProdutos(todosProdutos);
                     
                     if (resultado.sucesso) {
-                        mostrarNotificacao('✅ Produtos salvos com sucesso via Pages Function!', 'success');
-                        console.log('✅ Commit:', resultado.detalhes.commit);
+                        mostrarNotificacao(
+                            `✅ ${resultado.total} produtos salvos com sucesso!\n\n🤖 Commit automático realizado\n🚀 Deploy em andamento (2-3 min)`, 
+                            'success'
+                        );
+                        console.log('✅ Commit:', resultado.detalhes);
                         return;
+                    } else {
+                        throw new Error(resultado.mensagem || 'Erro desconhecido');
                     }
                 } catch (erro) {
-                    console.warn('⚠️ Pages Function falhou, tentando método alternativo...', erro.message);
+                    console.error('❌ Erro ao salvar via Pages Function:', erro);
+                    mostrarNotificacao(`❌ Erro ao salvar: ${erro.message}`, 'error');
+                    return;
                 }
             }
             
-            // TENTATIVA 2: Usar GitHub API direta (método antigo - precisa de token)
-            if (!githubConfig || !githubConfig.token) {
-                alert('❌ Configure o GitHub API primeiro!\n\nVá em: Persistência → GitHub API\n\nOu aguarde a configuração da Pages Function.');
-                return;
-            }
+            // FALLBACK: Se Pages Function não estiver disponível
+            alert('❌ Pages Function não disponível!\n\n' +
+                  'Verifique:\n' +
+                  '1. GITHUB_TOKEN está configurado no Cloudflare Pages?\n' +
+                  '2. Deploy foi realizado após configuração?\n' +
+                  '3. Aguardou 2-3 minutos após deploy?\n\n' +
+                  'Console: Verifique mensagens de erro no console (F12)');
+            return;
             
             const conteudo = gerarArquivoProdutosJS();
             
