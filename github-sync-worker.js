@@ -209,12 +209,13 @@ class GitHubSyncWorker {
     }
     
     /**
-     * Verifica se Worker está configurado
+     * Verifica se Worker/Pages Function está configurado
      */
     isConfigurado() {
         return this.config.workerUrl && 
                this.config.workerUrl !== '' &&
-               this.config.workerUrl.includes('workers.dev');
+               (this.config.workerUrl.includes('workers.dev') || 
+                this.config.workerUrl.includes('pages.dev'));
     }
     
     /**
