@@ -1500,13 +1500,13 @@
         // Converter URL do Google Drive para formato direto
         function converterGoogleDriveURL(url) {
             // Padrão: https://drive.google.com/file/d/FILE_ID/view?usp=...
-            // Converter para: https://drive.google.com/thumbnail?id=FILE_ID&sz=w800
-            // Ou alternativa: https://lh3.googleusercontent.com/d/FILE_ID
+            // Converter para múltiplos formatos (fallback automático)
             const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
             if (driveMatch) {
                 const fileId = driveMatch[1];
-                // Usar thumbnail que tem melhor compatibilidade CORS
-                return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
+                // Tentar formato mais compatível (lh3.googleusercontent)
+                // Este formato tem melhor suporte CORS
+                return `https://lh3.googleusercontent.com/d/${fileId}`;
             }
             return url;
         }
@@ -1676,8 +1676,8 @@
                 
                 // Substituir base64 por placeholder do Google Drive
                 const nomeProduto = document.getElementById('crud_nome').value;
-                // Placeholder padrão do Google Drive (formato thumbnail)
-                imagemValue = 'https://drive.google.com/thumbnail?id=1J5p6JhpvIhjmToS2Pxa-6lwcrYSwVol0&sz=w800';
+                // Placeholder padrão do Google Drive (formato lh3.googleusercontent)
+                imagemValue = 'https://lh3.googleusercontent.com/d/1J5p6JhpvIhjmToS2Pxa-6lwcrYSwVol0';
                 
                 mostrarNotificacao(
                     '⚠️ Imagem base64 substituída por placeholder. Use URLs externas para imagens!',

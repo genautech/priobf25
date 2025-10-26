@@ -62,10 +62,11 @@ Sistema completo para gerenciar catálogo de produtos da Black Friday 2025:
 **Alternativa - Google Drive:**
 ```
 1. Upload para: https://drive.google.com/drive/folders/1CDQIFpTO_G8jw3v8AndRc0gHe4Uy1QCD
-2. Compartilhar (Qualquer pessoa com o link)
-3. Cole no Admin → Conversão automática para thumbnail
+2. IMPORTANTE: Compartilhar como "Qualquer pessoa com o link" (público)
+3. Cole no Admin → Conversão automática para googleusercontent
 4. Preview + salvar
-5. ⚠️ Pode ter problemas CORS → Use Imgur se der erro
+5. ✅ Formato: lh3.googleusercontent.com (melhor CORS)
+6. 📖 Guia: 👉-GOOGLE-DRIVE-CONFIGURAR-AGORA.md
 ```
 
 **Arquivos Modificados:**
