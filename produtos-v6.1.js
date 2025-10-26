@@ -31,7 +31,7 @@ const produtosPlanilha = [
     "fornecedor": "1MORE",
     "imagem": "https://bloomaudio.com/cdn/shop/files/1more-evo-main2-black.jpg?v=1691583619&width=1080",
     "linkCompra": "https://www.amazon.com.br/s?k=1MORE+EVO",
-    "descricao": "1MORE EVO",
+    "descricao": "1MORE EVO com QuietMax ANC, LDAC, certificado Hi-Res, drivers duplos",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -52,7 +52,7 @@ const produtosPlanilha = [
     "fornecedor": "Acer",
     "imagem": "https://t2.tudocdn.net/669714?w=824&h=494",
     "linkCompra": "https://www.amazon.com.br/s?k=Acer+Swift+Edge+16",
-    "descricao": "Acer Swift Edge 16",
+    "descricao": "Acer Swift Edge 16\" OLED 4K, AMD Ryzen 7, ultra fino 1.23kg, bateria 10h",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -117,7 +117,7 @@ const produtosPlanilha = [
     "fornecedor": "Apple",
     "imagem": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-max-hero-select-202409_FMT_WHH?wid=752&hei=636&fmt=jpeg&qlt=90&.v=WXBZVEZCOUNiUWlBYUtjZmtBc0J2MGkxeEVQUXVsbFk4WEhBc0JFOWdSN2pmMHBIdXRoME5iSzRYUmF4Y3dVRy81NGMrcU1sYkxwTFJaVHI1NEQzenBJRnRzZXYwZVJMZmZQVjdBR0RkVVNpdi91OXpsc3gvUHZvVGU1aUpOaFE",
     "linkCompra": "https://www.mercadolivre.com.br/apple-bluetooth-airpods-max-pgyl3ama-meia-noite-1/p/MLB40520113?product_trigger_id=MLB40520112&pdp_filters=item_id%3AMLB4238326071&applied_product_filters=MLB40520113&from=gshop&picker=true&matt_tool=18956390&utm_source=google_shopping&utm_medium=organic&quantity=1",
-    "descricao": "AirPods Max",
+    "descricao": "AirPods Max com cancelamento de ruído ativo, áudio espacial, Digital Crown, case premium",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 A 10 DIAS"
@@ -139,7 +139,7 @@ const produtosPlanilha = [
     "fornecedor": "Amazon.com.br",
     "imagem": "https://fastshopbr.vtexassets.com/arquivos/ids/2314230/1_0_675b4280447c42f8bd09e462.jpg?v=638966691056970000",
     "linkCompra": "https://www.casasbahia.com.br/smart-speaker-amazon-echo-dot-5-geracao-com-alexa-preta/p/55062089?utm_medium=Cpc&utm_source=GP_PLA&IdSku=55062089&idLojista=10037&tipoLojista=1P&gclsrc=aw.ds&&utm_content=b2c_blackout_mix_brasil_1200x628_geral&gad_source=4&gad_campaignid=21644304367&gbraid=0AAAAADtAamgTh247v8I7A5bkFBXoE-9c0&gclid=CjwKCAjw3tzHBhBREiwAlMJoUlfzrpGMTieAAMPGqCAeESRaNRFyhYhTmk5gCzK55L5MUOB_7hm-khoCAfUQAvD_BwE",
-    "descricao": "Alexa - Echo Dot 5ª Geração",
+    "descricao": "Smart speaker com Alexa, som premium 360°, controle de casa inteligente por voz",
     "especificacoes": {
       "marketplace": "Casas Bahia",
       "prazoEntrega": "5 DIAS"
@@ -161,7 +161,7 @@ const produtosPlanilha = [
     "fornecedor": "Dellamed",
     "imagem": "https://m.media-amazon.com/images/I/71+RVNhEZZL._AC_SL1500_.jpg",
     "linkCompra": "https://www.magazineluiza.com.br/dellamed-almofada-massageadora-shiatsu/p/gc450jb09b/cp/alma/?&seller_id=cirurgicadl&utm_source=google&utm_medium=cpc&utm_term=80673&utm_campaign=google_eco_per_ven_pla_bel_sor_3p_cab-cp-drm-maq-pfm-csp&utm_content=&partner_id=80673&gclsrc=aw.ds&gad_source=4&gad_campaignid=22825371728&gbraid=0AAAAAD4zZmT9Wv8j4-gLrGXltUclC89hf&gclid=CjwKCAjw3tzHBhBREiwAlMJoUpyHffIy2sRG2mi7PfIcCubbJrXfZIij3bqSxUMYML7WNIKTICFJXxoCocEQAvD_BwE",
-    "descricao": "Almofada Massageadora Shiatsu Dellamed Preta",
+    "descricao": "Almofada massageadora Shiatsu com função calor, ideal para costas, pescoço e pernas",
     "especificacoes": {
       "marketplace": "Magalu",
       "prazoEntrega": ""
@@ -183,7 +183,7 @@ const produtosPlanilha = [
     "fornecedor": "Amazfit",
     "imagem": "https://static.runnea.pt/images/202404/amazfit-balance-smartwatch-400x400x90xX.jpg?1",
     "linkCompra": "https://www.amazon.com.br/s?k=Amazfit+GTR+5+Pro",
-    "descricao": "Amazfit GTR 5 Pro",
+    "descricao": "Amazfit GTR 5 Pro com tela AMOLED 1.46\", GPS dual-band, bateria 14 dias",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -204,7 +204,7 @@ const produtosPlanilha = [
     "fornecedor": "Amazon",
     "imagem": "https://mirandacomputacao.jetassets.com.br/produto/multifotos/43789-2_43789_DM.jpg",
     "linkCompra": "https://www.amazon.com.br/s?k=Amazon+Echo+4+Geracao",
-    "descricao": "Amazon Echo (4ª Geração)",
+    "descricao": "Echo 4ª Gen com som premium, Alexa, hub Zigbee integrado, design esférico",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -225,7 +225,7 @@ const produtosPlanilha = [
     "fornecedor": "Amazon",
     "imagem": "https://horizonplay.fbitsstatic.net/img/p/tablet-amazon-fire-max-11-13th-geracao-64gb-4ram-11-polegadas-151508/338102-1.jpg?w=420&h=420&v=no-value",
     "linkCompra": "https://www.amazon.com.br/s?k=Amazon+Fire+Max+11",
-    "descricao": "Amazon Fire Max 11",
+    "descricao": "Fire Max 11 com tela 11\" 2K, Alexa integrada, bateria 14h, ideal para streaming",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -246,7 +246,7 @@ const produtosPlanilha = [
     "fornecedor": "Anker",
     "imagem": "https://carrefourbr.vtexassets.com/arquivos/ids/182586153/image-0.jpg?v=638725734668330000",
     "linkCompra": "https://www.amazon.com.br/s?k=Anker+747+GaNPrime+150W+Carregador",
-    "descricao": "Anker 747 GaNPrime 150W Carregador",
+    "descricao": "Anker 747 carregador GaN 150W com 4 portas (3 USB-C + 1 USB-A), compacto",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -289,7 +289,7 @@ const produtosPlanilha = [
     "fornecedor": "Anker",
     "imagem": "https://http2.mlstatic.com/D_NQ_NP_661946-MLU77356291531_062024-O.webp",
     "linkCompra": "https://www.amazon.com.br/s?k=Anker+Soundcore+Liberty+3+Pro",
-    "descricao": "Anker Soundcore Liberty 3 Pro",
+    "descricao": "Soundcore Liberty 3 Pro com LDAC Hi-Res, ACAA 2.0, ANC híbrido",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -310,7 +310,7 @@ const produtosPlanilha = [
     "fornecedor": "Apple",
     "imagem": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MXK83?wid=2000&hei=2000&fmt=jpeg&qlt=90&.v=SkZJV2RqWG51OWJFeFBSU2pJK053bWorYzFkTG5HaE9wejd5WUxYZjRML3VCdEVHeHhPSGNpL2MzN05PekJuUVdWN1hhVWczMHFQK0pYK2wrbmNib1E",
     "linkCompra": "https://www.kabum.com.br/produto/661371/teclado-magic-keyboard-apple-para-mac-com-touch-id-chip-da-apple-padrao-us-branco-mxck3bz-a?utm_id=22427039975&gad_source=4&gad_campaignid=22427039975&gbraid=0AAAAADx-HyGXPodPCgPWlnttQA_y6lLca&gclid=CjwKCAjw3tzHBhBREiwAlMJoUj6ErWxjpT8jZbhob7DqQuz7nX2OPw16KcWqdvv6QdUK9t1qA0vleRoCT0YQAvD_BwE",
-    "descricao": "Apple Magic Keyboard com Touch ID",
+    "descricao": "Magic Keyboard com Touch ID para Mac, bateria recarregável, design low-profile",
     "especificacoes": {
       "marketplace": "Kabum",
       "prazoEntrega": "5 DIAS"
@@ -332,7 +332,7 @@ const produtosPlanilha = [
     "fornecedor": "Apple",
     "imagem": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MX2D3?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=aERwRkppV2pTZWx2MDU5ek9FWVpkd2tuVHYzMERCZURia3c5SzJFOTlPamtyK21QQVlqVGgrcGQ5Uy9BWWRGOUU5TjEzNDVxWGZyenF5K251RnVTZXc",
     "linkCompra": "https://www.mercadolivre.com.br/apple-pencil-pro-2024/up/MLBU3471063755?matt_tool=18956390&utm_source=google_shopping&utm_medium=organic&pdp_filters=item_id:MLB5774387584",
-    "descricao": "Apple Pencil Pro",
+    "descricao": "Apple Pencil Pro com barrel roll, squeeze, feedback háptico, Find My",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "15 DIAS"
@@ -354,7 +354,7 @@ const produtosPlanilha = [
     "fornecedor": "Apple Store",
     "imagem": "https://horizonplay.fbitsstatic.net/img/p/apple-watch-series-10-42-mm-ouro-rosa-pulseira-esportiva-rosa-152236/338839-1.jpg?w=670&h=670&v=202506012131",
     "linkCompra": "https://www.mercadolivre.com.br/apple-series-10-watch-gps-mwwa3ama-1654-42-mm-pm-aluminio-ouro-rosa-correa-esportiva-blush-clara/p/MLB40694297?product_trigger_id=MLB40694304&pdp_filters=item_id%3AMLB4067212475&applied_product_filters=MLB40694304&from=gshop&picker=true&matt_tool=54660454&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090354553&matt_ad_group_id=173090632956&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727882734918&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735125422&matt_product_id=MLB40694304-product&matt_product_partition_id=2389562704490&matt_target_id=aud-1966852281496%3Apla-2389562704490&cq_src=google_ads&cq_cmp=22090354553&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090354553&gbraid=0AAAAAD93qcD4PtqwFFSNnQCU7CP4jFzYk&gclid=CjwKCAjw3tzHBhBREiwAlMJoUjFDFo-3qBfdFAD33sC9Kb8YBbpll5actqaaXyCtX6sIp0zvKGpW8RoCZwUQAvD_BwE&quantity=1",
-    "descricao": "Apple Watch Series 10 Rosa",
+    "descricao": "Apple Watch Series 10 com tela maior, processador S10, detecção de queda aprimorada",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "5 DIAS"
@@ -376,7 +376,7 @@ const produtosPlanilha = [
     "fornecedor": "Apple Store",
     "imagem": "https://www.iplacecorp.com.br/ccstore/v1/images/?source=/file/v9093594294955450411/products/226808.00-apple-watch-series-9-gps-meia-noite-pulseira-esportiva-mr8w3bz-a.jpg&height=475&width=475",
     "linkCompra": "https://www.carrefour.com.br/apple-watch-series-9-caixa-e-pulseira-esportiva-aluminio-midnight-41mm-mg-mp938504800/p?utm_medium=sem&utm_source=google_pmax_3p&utm_campaign=3p_performancemax_Eletro_Smartphone&gad_source=4&gad_campaignid=22048817029&gbraid=0AAAAADjinok76No8iE4dnZW8IBE71u7qF&gclid=CjwKCAjw3tzHBhBREiwAlMJoUn1khkXYtbZrLWmY3BEN-pTopOZorZMziAokb1Qh-maiyl5tS1oHwRoCGf4QAvD_BwE",
-    "descricao": "Apple Watch Series 9 41mm Preta",
+    "descricao": "Apple Watch Series 9 preta, design elegante, recursos de saúde avançados",
     "especificacoes": {
       "marketplace": "Carrefour",
       "prazoEntrega": "5 DIAS"
@@ -398,7 +398,7 @@ const produtosPlanilha = [
     "fornecedor": "Apple Store",
     "imagem": "https://carrefourbr.vtexassets.com/arquivos/ids/172308027/9e24a9885a934ce9ac8ab7bfa65e4ecb.jpg?v=638617601131430000",
     "linkCompra": "https://www.carrefour.com.br/apple-watch-series-9-caixa-meia-noite-aluminio-45mm-pulseira-esportiva-meia-noite-m-g-mp938477732/p?utm_medium=sem&utm_source=google_pmax_3p&utm_campaign=3p_performancemax_Eletro_Smartphone&gad_source=4&gad_campaignid=22048817029&gbraid=0AAAAADjinok76No8iE4dnZW8IBE71u7qF&gclid=CjwKCAjw3tzHBhBREiwAlMJoUgT_2HJHJno-v5LK6giksWop7CVUB6x9_9BlppiqmlQ7yov9nz5QfBoCijoQAvD_BwE",
-    "descricao": "Apple Watch Series 9 45mm Preta",
+    "descricao": "Apple Watch Series 9 com tela Always-On, GPS, monitoramento de saúde",
     "especificacoes": {
       "marketplace": "Carrefour",
       "prazoEntrega": "5 DIAS"
@@ -442,7 +442,7 @@ const produtosPlanilha = [
     "fornecedor": "Aqara",
     "imagem": "https://hayloubrasil.com.br/wp-content/uploads/2025/07/8853_01.jpg",
     "linkCompra": "https://www.amazon.com.br/s?k=Aqara+Hub+M2",
-    "descricao": "Aqara Hub M2",
+    "descricao": "Aqara Hub M2 Zigbee 3.0, IR controle, automação local, Apple HomeKit, Google, Alexa",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -463,7 +463,7 @@ const produtosPlanilha = [
     "fornecedor": "ASUS",
     "imagem": "https://www.reddit.com/media?url=https%3A%2F%2Fexternal-preview.redd.it%2Fasus-rog-ally-z1-extreme-review-gaming-handheld-with-120-hz-v0-5xRUOkPv_CF5MxH0brg4XIzTGNm3HauN-rjcaBiBZi0.jpg%3Fauto%3Dwebp%26s%3D01bc083168a3fc3ba6b047e06bbdd56915409d7d",
     "linkCompra": "https://shopee.com.br/product/1297949192/23693196153?gads_t_sig=VTJGc2RHVmtYMTlxTFVSVVRrdENkWHlFU0hvQlZFVENpb1FnT09uNDlDSnU5VGFWS05yRzhtWnN1ZkdLNGVVYnR3Qk1oQVdPYjBMOTdCV0d6emJBZG1RTVAySmlBTHJqWk5QMlhLaHVsNlFDMmRjcmZ6MWxPQjNEaXZzZTB1d0FZajdDOTZobkErTVgvZDFLcVUxM0xRPT0&gad_source=4&gad_campaignid=21900060165&gbraid=0AAAAACoEtRlzqjHtJ5uralJTHQsd6gJBP&gclid=CjwKCAjw3tzHBhBREiwAlMJoUkQ2wnh76bCZjI0i9Nx0GoQsE2Psejv1c-H1jA2A9qqvGRuh9st9HRoCfPEQAvD_BwE",
-    "descricao": "ASUS ROG Ally Z1 Extreme",
+    "descricao": "ROG Ally com AMD Z1 Extreme, tela 7\" 1080p 120Hz, Windows 11, Game Pass",
     "especificacoes": {
       "marketplace": "Shopee",
       "prazoEntrega": "5 DIAS"
@@ -485,7 +485,7 @@ const produtosPlanilha = [
     "fornecedor": "ASUS",
     "imagem": "https://dlcdnwebimgs.asus.com/gain/1F082CCC-7F01-4057-B250-4B81B1651877",
     "linkCompra": "https://www.amazon.com.br/s?k=ASUS+ROG+Phone+8",
-    "descricao": "ASUS ROG Phone 8",
+    "descricao": "ROG Phone 8 gamer com sistema de resfriamento, gatilhos AirTrigger, tela 165Hz",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -506,7 +506,7 @@ const produtosPlanilha = [
     "fornecedor": "ASUS",
     "imagem": "https://dlcdnwebimgs.asus.com/gain/282fa6b1-5d9e-4950-ab46-1da2defbe6a3/",
     "linkCompra": "https://www.mercadolivre.com.br/computador-portatil-asus-zenbook-14-oled-q415m-14-touch-intel-ultra-5-color-gris-oscuro/p/MLB36727745?matt_tool=18956390&utm_source=google_shopping&utm_medium=organic&pdp_filters=item_id%3AMLB5322484080&from=gshop",
-    "descricao": "ASUS ZenBook 14 OLED",
+    "descricao": "ASUS ZenBook 14 com tela 2.8K OLED 90Hz, Intel i7, bateria 18h, design slim",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 DIAS"
@@ -528,7 +528,7 @@ const produtosPlanilha = [
     "fornecedor": "Audio-Technica",
     "imagem": "https://images.tcdn.com.br/img/img_prod/1148871/fone_de_ouvido_audio_technica_ath_m50xbt2_profissional_com_bluetooth_preto_35_2_322ce9f52b9381b5b532cd35093f49f7.jpg",
     "linkCompra": "https://www.mercadolivre.com.br/audifonos-profesionales-dinamicos-ath-m50x-audiotechnica-color-black/p/MLB24560880?pdp_filters=item_id%3AMLB5445107408&from=gshop&matt_tool=96040271&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090193909&matt_ad_group_id=174661987324&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727914181378&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735128761&matt_product_id=MLB24560880-product&matt_product_partition_id=2389837591619&matt_target_id=aud-1966852281496:pla-2389837591619&cq_src=google_ads&cq_cmp=22090193909&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090193909&gbraid=0AAAAAD93qcA8JV7igp3Yx9wibPfJSSFAE&gclid=CjwKCAjw3tzHBhBREiwAlMJoUuj18muxyGg5U5V70vKgtlbhVdoHCAKYUA6Ks2tKZov8_vikdUQu0hoC1VMQAvD_BwE",
-    "descricao": "Audio-Technica ATH-M50xBT2",
+    "descricao": "ATH-M50xBT2 referência para estúdio, drivers 45mm, AptX, bateria 50h",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 DIAS"
@@ -550,7 +550,7 @@ const produtosPlanilha = [
     "fornecedor": "August",
     "imagem": "https://sm.pcmag.com/pcmag_au/review/a/august-wi-/august-wi-fi-smart-lock_z4pg.jpg",
     "linkCompra": "https://produto.mercadolivre.com.br/MLB-2791523618-kit-august-smart-lock-wi-fi-4-geraco-teclado-_JM?matt_tool=59586449&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22120855419&matt_ad_group_id=179138687971&matt_match_type=&matt_network=g&matt_device=c&matt_creative=729092955256&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=5562120837&matt_product_id=MLB2791523618&matt_product_partition_id=2393015073058&matt_target_id=aud-1966852281496:pla-2393015073058&cq_src=google_ads&cq_cmp=22120855419&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22120855419&gbraid=0AAAAAD93qcCQI-VzBV0pm8eGz8dVz-8hz&gclid=CjwKCAjw3tzHBhBREiwAlMJoUnFaLJSmhgEXHLEMNq4jvOFIp-gYUF7fh9ZunqI5lvBHzCIUhRlWyxoCAF0QAvD_BwE",
-    "descricao": "August Wi-Fi Smart Lock",
+    "descricao": "August Smart Lock com WiFi integrado, instalação sobre fechadura existente, auto-lock",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 DIAS"
@@ -594,7 +594,7 @@ const produtosPlanilha = [
     "fornecedor": "Xiaomi",
     "imagem": "https://m.media-amazon.com/images/I/51ytwQsTQJL._AC_SL1500_.jpg",
     "linkCompra": "https://www.mercadolivre.com.br/balanca-corporal-digital-xiaomi-mi-smart-scale-2-branca-ate-150-kg/p/MLB15274416?pdp_filters=item_id%3AMLB5296990714&from=gshop&matt_tool=35397717&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090354487&matt_ad_group_id=173090610436&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727882733238&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735098639&matt_product_id=MLB15274416-product&matt_product_partition_id=2389721501503&matt_target_id=aud-1966852281496:pla-2389721501503&cq_src=google_ads&cq_cmp=22090354487&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090354487&gbraid=0AAAAAD93qcD2CpV1SiZLni4Nk_BCf1dLr&gclid=CjwKCAjw3tzHBhBREiwAlMJoUlUHPinq6uhKlSUJ0DGTVnTR1Kwx3VtGgs5kIv4_n9enUEKdACk7JBoCJyUQAvD_BwE",
-    "descricao": "Balança Digital Xiaomi com Bioimpedância Scale 2 Original",
+    "descricao": "Xiaomi Mi Body Composition Scale 2 com análise de 13 métricas corporais via app",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 DIAS"
@@ -616,7 +616,7 @@ const produtosPlanilha = [
     "fornecedor": "Beats",
     "imagem": "https://down-br.img.susercontent.com/file/cn-11134207-7ras8-mdvealcvpb6v42",
     "linkCompra": "https://www.mercadolivre.com.br/fone-de-ouvido-beats-powerbeats-pro-totalmente-sem-fio-vermelho-lava/p/MLB16368441?pdp_filters=item_id%3AMLB5771947318&from=gshop&matt_tool=13560550&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22120855569&matt_ad_group_id=179138690851&matt_match_type=&matt_network=g&matt_device=c&matt_creative=729092955484&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735098639&matt_product_id=MLB16368441-product&matt_product_partition_id=2415222870954&matt_target_id=aud-1966852281496:pla-2415222870954&cq_src=google_ads&cq_cmp=22120855569&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22120855569&gbraid=0AAAAAD93qcBowTPuqmgps6xGQOqOMqk-o&gclid=CjwKCAjw3tzHBhBREiwAlMJoUgdvXnBEGn8oL2B4hotyXoLweE-TJEncO5tGfXRY1VVNzuga9fL9-RoCxgkQAvD_BwE",
-    "descricao": "Beats Powerbeats Pro",
+    "descricao": "Powerbeats Pro para esportes, ganchos ajustáveis, resistência IPX4, chip H1",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "5 DIAS"
@@ -638,7 +638,7 @@ const produtosPlanilha = [
     "fornecedor": "Belkin",
     "imagem": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/HRGH2?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=cTdlUnBqVGdvanFGTGVIQitEZmt2UWtuVHYzMERCZURia3c5SzJFOTlPaEZNQjI0eVVYcEVHZkJReDNTSHVZTit3WVIzN0JVWWU4VmR5Ti9GYkNWV2c",
     "linkCompra": "https://www.mercadolivre.com.br/carregador-iphone-belkin-boost-charge-pro-magsafe-3-em-1/up/MLBU2770777561?pdp_filters=item_id:MLB3791178989&matt_tool=31485049&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090354244&matt_ad_group_id=173090558156&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727882729161&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=5389655908&matt_product_id=MLB3791178989&matt_product_partition_id=2387641353766&matt_target_id=aud-1966852281496:pla-2387641353766&cq_src=google_ads&cq_cmp=22090354244&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090354244&gbraid=0AAAAAD93qcACjR8rBVeYO-6aGeodIfg4n&gclid=CjwKCAjw3tzHBhBREiwAlMJoUnvXwzPvm3eNnep8-wCtDeAmWEO5QfC9TSZGcd2Kam1Qs6zorlu_8xoC8_4QAvD_BwE",
-    "descricao": "Belkin BoostCharge Pro 3-in-1 MagSafe",
+    "descricao": "Belkin carregador 3-in-1 MagSafe 15W para iPhone, Apple Watch, AirPods",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "5 DIAS"
@@ -681,7 +681,7 @@ const produtosPlanilha = [
     "fornecedor": "Bose",
     "imagem": "https://www.notebookcheck.info/fileadmin/Notebooks/News/_nc3/50987.jpg",
     "linkCompra": "https://www.amazon.com.br/Bose-QuietComfort-cancelamento-resistente-Quietcomfort/dp/B0CCZ26B5V/ref=asc_df_B0CCZ26B5V?mcid=6ef22351644f3078865c080896fb4c31&tag=googleshopp00-20&linkCode=df0&hvadid=709964503106&hvpos=&hvnetw=g&hvrand=14113176082279703290&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9198709&hvtargid=pla-2199765524836&psc=1&language=pt_BR&gad_source=4",
-    "descricao": "Bose QuietComfort 45",
+    "descricao": "Bose QC45 com cancelamento de ruído premium, modo aware, conforto excepcional",
     "especificacoes": {
       "marketplace": "Amazon",
       "prazoEntrega": ""
@@ -703,7 +703,7 @@ const produtosPlanilha = [
     "fornecedor": "JBL Brasil",
     "imagem": "https://img.terabyteshop.com.br/produto/g/caixa-de-som-jbl-flip-6-bluetooth-30w-usb-c-azul-jblflip6blu_223787.jpg",
     "linkCompra": "https://www.havan.com.br/caixa-de-som-jbl-filp-6-a-prova-d-agua-bluetooth-preto/p?utm_source=google&utm_medium=cpc&utm_campaign=aon-shopping-purchase-110-sf-tlh&utm_content=tlh-purchase-auto-generico-auto-campanha-aon-shopping&gad_source=4&gad_campaignid=23076176818&gbraid=0AAAAADq2I2iXwa6vx0BcDDHqAfwpRwph0&gclid=CjwKCAjw3tzHBhBREiwAlMJoUs_hpDWoxggQdEDTGf7x93_fsTL8AU0tC6xHRgjlJw_JQQsW5K4nGxoCtzsQAvD_BwE",
-    "descricao": "Caixa de Som JBL Flip 6",
+    "descricao": "Caixa de som portátil JBL Flip 6, à prova d'água IP67, 12h de bateria",
     "especificacoes": {
       "marketplace": "Havan",
       "prazoEntrega": "7 DIAS"
@@ -725,7 +725,7 @@ const produtosPlanilha = [
     "fornecedor": "JBL Brasil",
     "imagem": "https://images.tcdn.com.br/img/img_prod/872390/caixa_de_som_jbl_xtreme_4_portatil_bluetooth_preta_100w_1477_1_99cf54379ea5e8ba5d0da1b56e7dee31.jpg",
     "linkCompra": "https://www.amazon.com.br/Caixa-Bluetooth-Xtreme-Preta-Fun%C3%A7%C3%A3o/dp/B0D2LPLTJ8/ref=asc_df_B0D2LPLTJ8?mcid=4b9608e83be830369baccc737ad55bd4&tag=googleshopp00-20&linkCode=df0&hvadid=709964503124&hvpos=&hvnetw=g&hvrand=15194363295446366070&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9198709&hvtargid=pla-2300684296747&psc=1&language=pt_BR&gad_source=4",
-    "descricao": "Caixa de Som JBL Xtreme 4 Portátil",
+    "descricao": "JBL Xtreme 4 caixa portátil ultra potente, à prova d'água IP67 e bateria de longa duração",
     "especificacoes": {
       "marketplace": "Amazon",
       "prazoEntrega": "5 DIAS"
@@ -747,7 +747,7 @@ const produtosPlanilha = [
     "fornecedor": "Fujifilm",
     "imagem": "https://imgs.casasbahia.com.br/1562981920/1xg.jpg?imwidth=1000",
     "linkCompra": "https://www.amazon.com.br/instax-85363-CAMERA-INSTAX-MINI-AZUL-CANDY/dp/B0BX8W9SPW/ref=asc_df_B0BX8W9SPW?mcid=dbeabab5cf693152b94dfb1e85c94f97&tag=googleshopp00-20&linkCode=df0&hvadid=709964503100&hvpos=&hvnetw=g&hvrand=3799672084950919501&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9198709&hvtargid=pla-2224268473324&language=pt_BR&gad_source=4&th=1",
-    "descricao": "Câmera Polaroid - Instax Mini 11",
+    "descricao": "Câmera instantânea Fujifilm Instax Mini 11 com ajuste automático de exposição e fotos instantâneas",
     "especificacoes": {
       "marketplace": "Amazon",
       "prazoEntrega": "7 DIAS"
@@ -857,7 +857,7 @@ const produtosPlanilha = [
     "fornecedor": "Microsoft",
     "imagem": "https://mirandacomputacao.jetassets.com.br/produto/43587-principal.png",
     "linkCompra": "https://www.mercadolivre.com.br/controle-joystick-sem-fio-microsoft-xbox-carbon-black-preto/p/MLB17483958?pdp_filters=item_id%3AMLB4254382983&from=gshop&matt_tool=87533595&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090354544&matt_ad_group_id=173090628676&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727882734870&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735128761&matt_product_id=MLB17483958-product&matt_product_partition_id=2389820030294&matt_target_id=aud-1966852281496:pla-2389820030294&cq_src=google_ads&cq_cmp=22090354544&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090354544&gbraid=0AAAAAD93qcDBSNwWEVKeapbu6TQ6HOzps&gclid=CjwKCAjw3tzHBhBREiwAlMJoUiYJS0hZu2-y1Rz7egwAZqvlwnK2B92lAaXluyCl-FuvEo75ak_6oRoCCYIQAvD_BwE",
-    "descricao": "Controle Sem Fio Microsoft Xbox Wireless Carbon Black",
+    "descricao": "Controle Xbox Wireless Series X|S com design ergonômico, botão share e conexão Bluetooth",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "5 DIAS"
@@ -879,7 +879,7 @@ const produtosPlanilha = [
     "fornecedor": "Sony",
     "imagem": "https://images.kabum.com.br/produtos/fotos/115801/controle-sem-fio-ps5-dualsense_1598897393_gg.jpg",
     "linkCompra": "https://www.magazineluiza.com.br/controle-sony-dualsense-ps5-sem-fio-branco-3005767/p/hcf5hfh0f2/ga/otga/?seller_id=kabum&region_id=123473&utm_source=google&utm_medium=cpc&utm_term=79704&utm_campaign=google_eco_per_ven_pla_tc_apo_3p_ea-ga-tb-wea-csp&utm_content=&partner_id=79704&gclsrc=aw.ds&gad_source=4&gad_campaignid=22589506492&gbraid=0AAAAAD4zZmRWcnAbnrxsLADtyz9xSQNwm&gclid=CjwKCAjw3tzHBhBREiwAlMJoUlIkHpmWzHLAFePMDnkKU8CoOLRRHejxNfnr-SByw2LyN4ah92dNpBoCqYUQAvD_BwE",
-    "descricao": "Controle Sony DualSense Sem Fio PlayStation 5 Branco",
+    "descricao": "Controle DualSense PS5 com feedback háptico, gatilhos adaptativos, alto-falante e microfone",
     "especificacoes": {
       "marketplace": "Magalu",
       "prazoEntrega": ""
@@ -901,7 +901,7 @@ const produtosPlanilha = [
     "fornecedor": "Coros",
     "imagem": "https://acdn-us.mitiendanube.com/stores/001/572/406/products/vertix2smoon-ff67eab9972b648de917528703826286-1024-1024.png",
     "linkCompra": "https://www.amazon.com.br/s?k=Coros+Vertix+2S",
-    "descricao": "Coros Vertix 2S",
+    "descricao": "Coros Vertix 2S para aventuras extremas, bateria 60 dias, GPS dual-frequency",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -944,7 +944,7 @@ const produtosPlanilha = [
     "fornecedor": "Dell",
     "imagem": "https://http2.mlstatic.com/D_Q_NP_714305-MLU77315373211_062024-O.webp",
     "linkCompra": "https://www.amazon.com.br/s?k=Dell+XPS+15+9530",
-    "descricao": "Dell XPS 15 9530",
+    "descricao": "Dell XPS 15 com Intel i7 13ª gen, RTX 4050, tela 3.5K OLED, design premium",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -965,7 +965,7 @@ const produtosPlanilha = [
     "fornecedor": "DJI",
     "imagem": "https://cdn.awsli.com.br/2500x2500/2660/2660613/produto/284690885/ca-mera-dji-action-4-standard-combo-cor-preto-premier-drones-iiv00ywb7m.png",
     "linkCompra": "https://www.mercadolivre.com.br/cmera-cinza-impermeavel-dji-osmo-action-4-standard-combo-4k120-fps/p/MLB27258769?pdp_filters=item_id%3AMLB4068899989&from=gshop&matt_tool=31485049&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090354244&matt_ad_group_id=173090553316&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727882728933&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735098660&matt_product_id=MLB27258769-product&matt_product_partition_id=2387571483776&matt_target_id=aud-1966852281496:pla-2387571483776&cq_src=google_ads&cq_cmp=22090354244&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090354244&gbraid=0AAAAAD93qcACjR8rBVeYO-6aGeodIfg4n&gclid=CjwKCAjw3tzHBhBREiwAlMJoUtWDAMgPX7VWmuk9yLTkjm9CJiG3w1QarN8EJbWx1YnJwTCGQEdMERoCcikQAvD_BwE",
-    "descricao": "DJI Action 4",
+    "descricao": "DJI Action 4 com sensor 1/1.3\", visão noturna 4K, resistência 18m, bateria 160min",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 DIAS"
@@ -1053,7 +1053,7 @@ const produtosPlanilha = [
     "fornecedor": "DJI",
     "imagem": "https://emania.vteximg.com.br/arquivos/ids/227347",
     "linkCompra": "https://www.mercadolivre.com.br/mini-drone-dji-mini-4-pro-single-com-cmera-4k-mini-4-pro-58ghz-1-bateria/p/MLB38316754?pdp_filters=item_id%3AMLB4240255293&from=gshop&matt_tool=61921241&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090354535&matt_ad_group_id=173090627196&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727882734462&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735098660&matt_product_id=MLB38316754-product&matt_product_partition_id=2389830994001&matt_target_id=aud-1966852281496:pla-2389830994001&cq_src=google_ads&cq_cmp=22090354535&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090354535&gbraid=0AAAAAD93qcAzn26R504Y-7i_PmoTEh0DF&gclid=CjwKCAjw3tzHBhBREiwAlMJoUviskKXnq5ETS5nffrT-DuiUUv2mojTHoTknH4QcezY7Q11EeVLAJRoCwCQQAvD_BwE",
-    "descricao": "DJI Mini 4 Pro",
+    "descricao": "DJI Mini 4 Pro drone compacto sub-249g, 4K HDR, omnidirecional, bateria 34min",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 DIAS"
@@ -1075,7 +1075,7 @@ const produtosPlanilha = [
     "fornecedor": "DJI",
     "imagem": "https://horizonplay.fbitsstatic.net/img/p/camera-estabilizadora-dji-osmo-pocket-3-151971/338572.jpg?w=670&h=670&v=202508202143",
     "linkCompra": "https://shopee.com.br/product/1571899997/21298263683?gads_t_sig=VTJGc2RHVmtYMTlxTFVSVVRrdENkWHlFU0hvQlZFVENpb1FnT09uNDlDTGdJbW9OUjZ6M2gzVmR1ZjVFaUNDUmJxNDdMN1N2MEVwOWR0c29WazRuOWtoWm9KNGlWL3dreE1vN3pUNHd3TXkxdnk4VXlxWHh0Q1g1WWt5ZytjRTBzTG5Db0xYc3EveFRBcU5OcGJsa0RRPT0&gad_source=4&gad_campaignid=21900060165&gbraid=0AAAAACoEtRlzqjHtJ5uralJTHQsd6gJBP&gclid=CjwKCAjw3tzHBhBREiwAlMJoUpyeRpQLTwZMyJ7-t644Ml3HyyXye0_Q_KjkiQjMoLYy48xBRg_7IRoC-KMQAvD_BwE",
-    "descricao": "DJI Pocket 3",
+    "descricao": "DJI Pocket 3 com sensor 1\" CMOS, gimbal 3 eixos, gravação 4K 120fps, tela rotativa",
     "especificacoes": {
       "marketplace": "Shopee",
       "prazoEntrega": "15 DIAS"
@@ -1097,7 +1097,7 @@ const produtosPlanilha = [
     "fornecedor": "DJI",
     "imagem": "https://djibrasil.vtexassets.com/arquivos/ids/193432-800-800?v=638882884562800000&width=800&height=800&aspect=true",
     "linkCompra": "https://www.mercadolivre.com.br/estabilizador-dji-rs-3-mini-cmera-ronin-gimbal-serie-rs3-cor-black/p/MLB27124140?pdp_filters=item_id%3AMLB4256069487&from=gshop&matt_tool=31485049&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090354244&matt_ad_group_id=173090553276&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727882728930&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735128188&matt_product_id=MLB27124140-product&matt_product_partition_id=2387571483016&matt_target_id=aud-1966852281496:pla-2387571483016&cq_src=google_ads&cq_cmp=22090354244&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090354244&gbraid=0AAAAAD93qcACjR8rBVeYO-6aGeodIfg4n&gclid=CjwKCAjw3tzHBhBREiwAlMJoUh9sRfxqe8bGgsWtIBeLjKVKWPpxuqDbWyUp8QnjYMgPtYQU138tVxoCmg4QAvD_BwE",
-    "descricao": "DJI RS 3 Gimbal",
+    "descricao": "DJI RS 3 gimbal 3 eixos, carga 3kg, tela OLED touch 1.8\", ActiveTrack 3.0",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7"
@@ -1119,7 +1119,7 @@ const produtosPlanilha = [
     "fornecedor": "Ecobee",
     "imagem": "https://smecomarketplace.com/cdn/shop/files/ecobeesmartthermostatpremium.webp?v=1741900169&width=1366",
     "linkCompra": "https://www.carrefour.com.br/termostato-inteligente-programavel-wifi-ecobee-smartthermostat-mp951842895/p?utm_medium=sem&utm_source=google_pmax_3p&utm_campaign=3p_performancemax_todos_os_produtos&gad_source=4&gad_campaignid=17931135269&gbraid=0AAAAADjinolM5nnGgvbnbNauIjj3sAoW2&gclid=CjwKCAjw3tzHBhBREiwAlMJoUgqpUxRFjS03f3esqMcPLI6kdeUsRjQo1v575fW3MhgdIknql2Z1AhoC7ZgQAvD_BwE",
-    "descricao": "Ecobee SmartThermostat Premium",
+    "descricao": "Ecobee Premium termostato inteligente, sensor remoto, Alexa integrada, economia energia",
     "especificacoes": {
       "marketplace": "Carrefour",
       "prazoEntrega": "20 DIAS"
@@ -1141,7 +1141,7 @@ const produtosPlanilha = [
     "fornecedor": "Edifier",
     "imagem": "https://igormiranda.com.br/wp-content/uploads/2023/12/Edifier-Neobuds-Pro-2-fone-de-ouvido-00.jpg",
     "linkCompra": "https://edifier.com.br/fone-tws1-pro-2-cancelamento-de-ruido-inteligente.html?srsltid=AfmBOopSLVgQ7JA0HF9V9dYHoC_79taTrQYrZhM4OP3EMpplJhICaCtsuWM",
-    "descricao": "Edifier NeoBuds Pro 2",
+    "descricao": "Edifier NeoBuds Pro 2 com LDAC, ANC -45dB, drivers coaxiais 10mm+6mm",
     "especificacoes": {
       "marketplace": "Edifier",
       "prazoEntrega": "7 DIAS"
@@ -1184,7 +1184,7 @@ const produtosPlanilha = [
     "fornecedor": "Eve",
     "imagem": "https://www.evehome.com/sites/default/files/2023-03/Eve-Energy-US-box-matter.png",
     "linkCompra": "https://www.amazon.com.br/s?k=Eve+Energy+Smart+Plug",
-    "descricao": "Eve Energy Smart Plug",
+    "descricao": "Eve Energy tomada inteligente Thread, monitoramento consumo, agendamento, Apple Home",
     "especificacoes": {
       "marketplace": "",
       "prazoEntrega": ""
@@ -1205,7 +1205,7 @@ const produtosPlanilha = [
     "fornecedor": "Fitbit",
     "imagem": "https://s2-techtudo.glbimg.com/7Ug73bQXUkHYO9pDIzQC_u98Boc=/0x0:1200x675/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2024/X/p/CCGKIzQsACeX0pxrTEHg/fit-bit-charge6-capa.jpg",
     "linkCompra": "https://www.mercadolivre.com.br/fitbit-smartband-charge-6-104-cor-bege/p/MLB34116162?pdp_filters=item_id%3AMLB3639889133&from=gshop&matt_tool=54660454&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090354553&matt_ad_group_id=173090632956&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727882734918&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735128188&matt_product_id=MLB34116162-product&matt_product_partition_id=2389562704490&matt_target_id=aud-1966852281496:pla-2389562704490&cq_src=google_ads&cq_cmp=22090354553&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090354553&gbraid=0AAAAAD93qcD4PtqwFFSNnQCU7CP4jFzYk&gclid=CjwKCAjw3tzHBhBREiwAlMJoUo5-k5aELFO20T17EbnoCGGh9WVCntE70yq14-EhZFGTfLh3zURdvhoCg9gQAvD_BwE",
-    "descricao": "Fitbit Charge 6",
+    "descricao": "Fitbit Charge 6 com GPS integrado, monitoramento de stress, bateria 7 dias",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 DIAS"
@@ -1249,7 +1249,7 @@ const produtosPlanilha = [
     "fornecedor": "JBL",
     "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_604011-MLB94967621353_102025-T-fone-de-ouvido-sem-fio-bluetooth-conduco-ossea-headphone.webp",
     "linkCompra": "https://www.mercadolivre.com.br/fone-xiaomi-inducao-ossea-sem-fio-bluetooth-resistente-agua/up/MLBU2362656539?pdp_filters=item_id:MLB3880555115",
-    "descricao": "Fone de Ouvido JBL com Condução Óssea",
+    "descricao": "JBL fone com tecnologia de condução óssea, ideal para esportes mantendo consciência do ambiente",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 DIAS"
@@ -1271,7 +1271,7 @@ const produtosPlanilha = [
     "fornecedor": "JBL Brasil",
     "imagem": "https://images.kabum.com.br/produtos/fotos/sync_mirakl/418505/xlarge/Fone-De-Ouvido-Harman-JBL-Wave-Buds-Bluetooth-Tws-Preto_1760643218.jpg",
     "linkCompra": "https://www.mercadolivre.com.br/fone-de-ouvido-wave-buds-sem-fio-branco-jbl/p/MLB26205897?pdp_filters=item_id%3AMLB4238617545&from=gshop&matt_tool=54660454&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090354553&matt_ad_group_id=173090632796&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727882734915&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735128761&matt_product_id=MLB26205897-product&matt_product_partition_id=2389837591819&matt_target_id=aud-1966852281496:pla-2389837591819&cq_src=google_ads&cq_cmp=22090354553&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090354553&gbraid=0AAAAAD93qcD4PtqwFFSNnQCU7CP4jFzYk&gclid=CjwKCAjw3tzHBhBREiwAlMJoUiKlPiEVslW70IF_LwsOyFTs14s1Rc16padlYtlYsipdOktFRwDwIRoCTxwQAvD_BwE",
-    "descricao": "Fone JBL Wave Buds",
+    "descricao": "Fone de ouvido sem fio JBL com graves potentes e 8h de bateria",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "10 DIAS"
@@ -1293,7 +1293,7 @@ const produtosPlanilha = [
     "fornecedor": "Fujifilm",
     "imagem": "https://www.cameralabs.com/wp-content/uploads/2023/12/fujifilm-x100v-long-term-test-header-1-1920x1080.jpg",
     "linkCompra": "https://www.amazon.com.br/FUJIFILM-16821913-Fujifilm-X100VI-preto/dp/B0CW1KVSVF/ref=asc_df_B0CW1KVSVF?mcid=865218d0af2a33dca963d97684803325&tag=googleshopp00-20&linkCode=df0&hvadid=709964503127&hvpos=&hvnetw=g&hvrand=7140691475767575807&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9198709&hvtargid=pla-2357635115677&psc=1&language=pt_BR&gad_source=4",
-    "descricao": "Fujifilm X100V",
+    "descricao": "Fujifilm X100V câmera compacta premium, sensor X-Trans IV, lente 23mm f/2, design retrô",
     "especificacoes": {
       "marketplace": "Amazon",
       "prazoEntrega": "10 DIAS"
@@ -1315,7 +1315,7 @@ const produtosPlanilha = [
     "fornecedor": "Garmin",
     "imagem": "https://garmin.vtexassets.com/arquivos/ids/160808/010-02863-20.1.png?v=638451724530570000",
     "linkCompra": "https://www.mercadolivre.com.br/relogio-garmin-forerunner-165-com-monitor-cardiaco-de-pulso-e-gps-cor-cinza/p/MLB35497571?pdp_filters=item_id%3AMLB5629164194&from=gshop&matt_tool=96040271&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090193909&matt_ad_group_id=174661987364&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727914181381&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735098639&matt_product_id=MLB35497571-product&matt_product_partition_id=2389562704250&matt_target_id=aud-1966852281496:pla-2389562704250&cq_src=google_ads&cq_cmp=22090193909&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090193909&gbraid=0AAAAAD93qcA8JV7igp3Yx9wibPfJSSFAE&gclid=CjwKCAjw3tzHBhBREiwAlMJoUlCE_fH6jeGFp8gRhpbbLEONv2bBUfh4KfU16gnJ1B5TbAbYUxAPHhoC9NIQAvD_BwE",
-    "descricao": "Garmin Forerunner 165 GPS Running Watch",
+    "descricao": "Garmin Forerunner 165 com GPS, monitor cardíaco, treinos adaptativos e bateria 11 dias",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "2 DIAS"
@@ -1337,7 +1337,7 @@ const produtosPlanilha = [
     "fornecedor": "Garmin",
     "imagem": "https://horizonplay.fbitsstatic.net/img/p/smartwatch-garmin-forerunner-965-010-02809-00-com-gps-bluetooth-preto-150726/337320-1.jpg?w=670&h=670&v=202502061445",
     "linkCompra": "https://www.mercadolivre.com.br/garmin-forerunner-965-sport/p/MLB28767913?pdp_filters=item_id%3AMLB5670532270&from=gshop&matt_tool=96040271&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090193909&matt_ad_group_id=174661987364&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727914181381&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735128761&matt_product_id=MLB28767913-product&matt_product_partition_id=2389562704250&matt_target_id=aud-1966852281496:pla-2389562704250&cq_src=google_ads&cq_cmp=22090193909&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090193909&gbraid=0AAAAAD93qcA8JV7igp3Yx9wibPfJSSFAE&gclid=CjwKCAjw3tzHBhBREiwAlMJoUqdxom5TcXpLCLgkgHYooPfOg3B4qkqNFxxoG5xVpnOel2HW9b9qWhoCF1gQAvD_BwE",
-    "descricao": "Garmin Forerunner 965",
+    "descricao": "Garmin Forerunner 965 com tela AMOLED, mapas, training readiness, bateria 23 dias",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 DIAS"
@@ -1359,7 +1359,7 @@ const produtosPlanilha = [
     "fornecedor": "Geonav",
     "imagem": "https://mirandacomputacao.jetassets.com.br/produto/47805-principal.png",
     "linkCompra": "https://www.mercadolivre.com.br/carregador-portatil-20000mah-com-carregamento-rapido-geonav/p/MLB35303481?pdp_filters=item_id%3AMLB4239597839&from=gshop&matt_tool=91562990&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090193891&matt_ad_group_id=174661986404&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727914181150&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735098639&matt_product_id=MLB35303481-product&matt_product_partition_id=2387641353726&matt_target_id=aud-1966852281496:pla-2387641353726&cq_src=google_ads&cq_cmp=22090193891&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090193891&gbraid=0AAAAAD93qcAbr94ekuco6N18BibxqKup5&gclid=CjwKCAjw3tzHBhBREiwAlMJoUigSlaiWNmDM2BiCBdYADWupk5tDqhQ-s_dswKedMuzlE3DUOp3OgBoCX3AQAvD_BwE",
-    "descricao": "Geonav Power Bank Carregador Portátil 20.000mAh",
+    "descricao": "Power bank 20.000mAh com USB-A 18W e USB-C 20W, carregamento rápido para múltiplos dispositivos",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 DIAS"
@@ -1381,7 +1381,7 @@ const produtosPlanilha = [
     "fornecedor": "Google",
     "imagem": "https://www.multitek.ao/wp-content/uploads/2025/08/Google-Nest-Hub-7-Smart-Display-2nd-Gen.webp",
     "linkCompra": "https://www.mercadolivre.com.br/google-nest-mini-2nd-gen-chalk/p/MLB15541143?product_trigger_id=MLB15541142&picker=true&quantity=1",
-    "descricao": "Google Nest Hub (2ª Geração)",
+    "descricao": "Nest Hub 2ª Gen com tela 7\", monitoramento de sono, controle Matter, Google Assistant",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "2 DIAS"
@@ -1403,7 +1403,7 @@ const produtosPlanilha = [
     "fornecedor": "Google Store",
     "imagem": "https://images.tcdn.com.br/img/img_prod/625110/google_pixel_8_pro_256gb_bay_blue_desbloqueado_7231_1_03f68466aa1bb77eb92ac11d1a877a12.jpg",
     "linkCompra": "https://www.kabum.com.br/produto/535159/smartphone-google-pixel-8-pro-128gb-bay-blue?srsltid=AfmBOoqhwgApRw0fE2TCHOEnaRwlKPe5SbswFdH05ORB4D32YsJ9g62EPZg",
-    "descricao": "Google Pixel 8 Pro",
+    "descricao": "Pixel 8 Pro com Google Tensor G3, câmera com IA, tela LTPO 120Hz",
     "especificacoes": {
       "marketplace": "Kabum",
       "prazoEntrega": "30 DIAS"
@@ -1425,7 +1425,7 @@ const produtosPlanilha = [
     "fornecedor": "GoPro",
     "imagem": "https://images.kabum.com.br/produtos/fotos/sync_mirakl/485781/xlarge/Gopro-Hero-12-Black-27MP-5-3K-Bluetooth-LCD-Frontal-Hypersmooth-6-0-Bateria-Enduro-AutoBoost-Prova-D-gua-At-10-Metros-Preto_1752178479.jpg",
     "linkCompra": "https://www.magazineluiza.com.br/gopro-hero12-black-a-prova-dagua-5-3k60-27mp-video-foto-hdr-hypersmooth-6-0-trava-horiz-360o-live-webcam-audio-p-bluetooth-bateria-enduro-quik/p/dj9gca2eh9/cf/gopr/?&seller_id=inpower4&utm_source=google&utm_medium=cpc&utm_term=82074&utm_campaign=google_eco_per_ven_pla_ca_sor_teste-full-exp_3p_ci-cj-csp&utm_content=&partner_id=82074&gclsrc=aw.ds&gad_source=4&gad_campaignid=23097251705&gbraid=0AAAAAD4zZmQuYG2vDKUCNixr0YJa-m5jU&gclid=CjwKCAjw3tzHBhBREiwAlMJoUubJ8Ud5C_flJV9n2tkYP6k5Ayx0eoUtyhKBqGmkZ6LqVHArcEw0hBoCiDQQAvD_BwE",
-    "descricao": "GoPro HERO 12 Black",
+    "descricao": "GoPro HERO 12 Black com HyperSmooth 6.0, HDR, bateria Enduro, à prova d'água 10m",
     "especificacoes": {
       "marketplace": "Magalu",
       "prazoEntrega": "2 DIAS"

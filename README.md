@@ -23,7 +23,7 @@ Sistema completo para gerenciar catálogo de produtos da Black Friday 2025:
 ✅ **Importação de Planilhas** - Importar CSV/Excel direto no admin  
 ✅ **🆕 Conversor CSV Avançado** - Ferramenta standalone para substituição completa do catálogo  
 ✅ **Análise Avançada** - Gráficos, métricas e comparativos  
-✅ **Catálogo Cliente** - Interface interativa para seleção de produtos  
+✅ **Catálogo Cliente** - Interface interativa para seleção de produtos com descrições  
 ✅ **100% Seguro** - Token protegido no servidor (Cloudflare Pages Function)  
 ✅ **Dados Sempre Atualizados** - Todas as abas mostram dados em tempo real  
 ✅ **Re-sincronização de Preços** - Atualizar múltiplos produtos com base nos links cadastrados  
@@ -32,10 +32,10 @@ Sistema completo para gerenciar catálogo de produtos da Black Friday 2025:
 ✅ **CSV Completo** - Exportação com 23 campos incluindo análise financeira  
 ✅ **Ferramentas Otimizadas** - Interface limpa com apenas 6 ferramentas essenciais
 
-### 🆕 ÚLTIMA ATUALIZAÇÃO (2025-10-24):
-**✅ INTEGRAÇÃO GOOGLE DRIVE PARA IMAGENS IMPLEMENTADA** 🖼️
+### 🆕 ÚLTIMA ATUALIZAÇÃO (2025-10-26):
+**✅ ATUALIZAÇÃO DE IMAGENS COMPLETA + DESCRIÇÕES NO CATÁLOGO** 🎉
 
-**Status:** 100% Funcional | Deploy: OK | Testes: Aprovados | Google Drive: ✅ ATIVO
+**Status:** 100% Funcional | Imagens: ✅ 164/164 | Deploy: Pronto | Catálogo: ✅ Atualizado
 
 ⭐ **NOVIDADES v6.10.2 (2025-10-24):**
 
