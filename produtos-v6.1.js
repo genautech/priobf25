@@ -5,7 +5,7 @@
 // 🔄 ATUALIZADO AUTOMATICAMENTE via Cloudflare Pages Function
 // ⚠️  NÃO EDITAR MANUALMENTE - Use o Admin para modificar produtos
 // 
-// Última atualização: 2025-10-27T18:04:37.900Z
+// Última atualização: 2025-10-27T18:09:34.911Z
 // Sincronização: Cloudflare Pages Function → GitHub API → Deploy automático
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -65,10 +65,10 @@ const produtosPlanilha = [
     "categoria": "Casa e Cozinha",
     "subcategoria": "Fritadeiras",
     "quantidade": 10,
-    "custoBase": 254.53,
-    "precoMercado": 254.53,
+    "custoBase": 217.13,
+    "precoMercado": 255.45,
     "margem": 30,
-    "precoVenda": 330.889,
+    "precoVenda": 282.269,
     "estoque": "Para Compra",
     "fornecedor": "Mondial",
     "imagem": "https://imgs.casasbahia.com.br/55032021/1g.jpg?imwidth=500",
@@ -79,7 +79,7 @@ const produtosPlanilha = [
       "prazoEntrega": "2 DIAS"
     },
     "precoConcorrente": 222.13,
-    "dataAtualizacao": "2025-10-27T17:57:25.768Z"
+    "dataAtualizacao": "2025-10-27T18:09:32.705Z"
   },
   {
     "id": 1004,
@@ -2095,11 +2095,11 @@ const produtosPlanilha = [
     "categoria": "Casa e Cozinha",
     "subcategoria": "Cafeteiras",
     "quantidade": 10,
-    "custoBase": 467,
+    "custoBase": 552.5,
     "precoMercado": 650,
     "margem": 30,
-    "precoVenda": 607.1,
-    "estoque": "Para Compra",
+    "precoVenda": 718.25,
+    "estoque": "Em Estoque",
     "fornecedor": "Nespresso",
     "imagem": "https://spicy.vtexassets.com/arquivos/ids/239862-1200-auto?v=638810278979600000&width=1200&height=auto&aspect=true",
     "linkCompra": "amazon.com.br/Nespresso-Vertuo-Preta-110V-Cafeteira/dp/B0BXBHTXSF/ref=asc_df_B0BXBHTXSF?mcid=ec94c881dab433f3b4f157432161ad77&tag=googleshopp00-20&linkCode=df0&hvadid=709874962041&hvpos=&hvnetw=g&hvrand=13375615598345040151&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9198709&hvtargid=pla-2202090195826&psc=1&language=pt_BR&gad_source=4",
@@ -2108,8 +2108,7 @@ const produtosPlanilha = [
       "marketplace": "amazon",
       "prazoEntrega": "10 DIAS"
     },
-    "precoConcorrente": 366.15,
-    "dataAtualizacao": "2025-10-27T18:04:35.727Z"
+    "precoConcorrente": 366.15
   },
   {
     "id": 1097,
@@ -3645,7 +3644,7 @@ const estatisticasProdutos = {
     totalPlanilha: produtosPlanilha.length,
     totalSugeridos: produtosSugeridos.length,
     total: produtosPlanilha.length + produtosSugeridos.length,
-    ultimaAtualizacao: '2025-10-27T18:04:37.900Z'
+    ultimaAtualizacao: '2025-10-27T18:09:34.911Z'
 };
 
 // Log de carregamento
