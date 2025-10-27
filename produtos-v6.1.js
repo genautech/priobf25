@@ -5,7 +5,7 @@
 // 🔄 ATUALIZADO AUTOMATICAMENTE via Cloudflare Pages Function
 // ⚠️  NÃO EDITAR MANUALMENTE - Use o Admin para modificar produtos
 // 
-// Última atualização: 2025-10-27T03:12:18.849Z
+// Última atualização: 2025-10-27T17:52:25.512Z
 // Sincronização: Cloudflare Pages Function → GitHub API → Deploy automático
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -25,8 +25,8 @@ const produtosPlanilha = [
     "quantidade": 10,
     "custoBase": 993.65,
     "precoMercado": 1169,
-    "margem": 6.5,
-    "precoVenda": 1.065,
+    "margem": 20,
+    "precoVenda": 504,
     "estoque": "Sob Consulta",
     "fornecedor": "1MORE",
     "imagem": "https://bloomaudio.com/cdn/shop/files/1more-evo-main2-black.jpg?v=1691583619&width=1080",
@@ -3301,12 +3301,12 @@ const produtosPlanilha = [
     "nome": "🔥 NOVO! Oura Ring 4 - Smart Ring Premium",
     "categoria": "Eletrônicos",
     "subcategoria": "Wearables",
-    "quantidade": 10,
-    "custoBase": 2315.4,
-    "precoMercado": 2724,
-    "margem": 30,
-    "precoVenda": 3010.02,
-    "estoque": "Em Estoque",
+    "quantidade": 1,
+    "custoBase": 3959.99,
+    "precoMercado": 3959.99,
+    "margem": 20,
+    "precoVenda": 4751.987999999999,
+    "estoque": "Para Compra",
     "fornecedor": "Oura",
     "imagem": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/0eeb09bd-34e8-49a7-b45a-a16ccf6754f7.__CR0,0,990,743_PT0_SX600_V1___.png",
     "linkCompra": "https://www.mercadolivre.com.br/oura-ring-horizon-4-geracao--tamanho-08-cor-black/up/MLBU3042405267?matt_tool=18956390&utm_source=google_shopping&utm_medium=organic&pdp_filters=item_id:MLB3991106621",
@@ -3315,7 +3315,8 @@ const produtosPlanilha = [
       "marketplace": "Mercado Livre",
       "prazoEntrega": "7 DIAS"
     },
-    "precoConcorrente": 3677
+    "precoConcorrente": 3677,
+    "dataAtualizacao": "2025-10-27T17:52:23.356Z"
   },
   {
     "id": 1152,
@@ -3642,7 +3643,7 @@ const estatisticasProdutos = {
     totalPlanilha: produtosPlanilha.length,
     totalSugeridos: produtosSugeridos.length,
     total: produtosPlanilha.length + produtosSugeridos.length,
-    ultimaAtualizacao: '2025-10-27T03:12:18.849Z'
+    ultimaAtualizacao: '2025-10-27T17:52:25.512Z'
 };
 
 // Log de carregamento
