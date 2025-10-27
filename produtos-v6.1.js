@@ -5,7 +5,7 @@
 // 🔄 ATUALIZADO AUTOMATICAMENTE via Cloudflare Pages Function
 // ⚠️  NÃO EDITAR MANUALMENTE - Use o Admin para modificar produtos
 // 
-// Última atualização: 2025-10-27T18:09:34.911Z
+// Última atualização: 2025-10-27T18:12:04.789Z
 // Sincronização: Cloudflare Pages Function → GitHub API → Deploy automático
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -152,23 +152,23 @@ const produtosPlanilha = [
     "id": 1007,
     "sku": "ALM-SHIA",
     "nome": "Almofada Massageadora Shiatsu Dellamed Preta",
-    "categoria": "Geral",
+    "categoria": "Outros",
     "subcategoria": "Saúde e Bem-estar",
-    "quantidade": 10,
-    "custoBase": 442,
+    "quantidade": 1,
+    "custoBase": 199,
     "precoMercado": 520,
-    "margem": 30,
-    "precoVenda": 574.6,
-    "estoque": "Em Estoque",
+    "margem": 35,
+    "precoVenda": 268.65000000000003,
+    "estoque": "Para Compra",
     "fornecedor": "Dellamed",
     "imagem": "https://m.media-amazon.com/images/I/71+RVNhEZZL._AC_SL1500_.jpg",
     "linkCompra": "https://www.magazineluiza.com.br/dellamed-almofada-massageadora-shiatsu/p/gc450jb09b/cp/alma/?&seller_id=cirurgicadl&utm_source=google&utm_medium=cpc&utm_term=80673&utm_campaign=google_eco_per_ven_pla_bel_sor_3p_cab-cp-drm-maq-pfm-csp&utm_content=&partner_id=80673&gclsrc=aw.ds&gad_source=4&gad_campaignid=22825371728&gbraid=0AAAAAD4zZmT9Wv8j4-gLrGXltUclC89hf&gclid=CjwKCAjw3tzHBhBREiwAlMJoUpyHffIy2sRG2mi7PfIcCubbJrXfZIij3bqSxUMYML7WNIKTICFJXxoCocEQAvD_BwE",
     "descricao": "Almofada massageadora Shiatsu com função calor, ideal para costas, pescoço e pernas",
     "especificacoes": {
-      "marketplace": "Magalu",
-      "prazoEntrega": ""
+      "marketplace": "Dellamed"
     },
-    "precoConcorrente": 89.9
+    "precoConcorrente": 89.9,
+    "dataAtualizacao": "2025-10-27T18:12:02.664Z"
   },
   {
     "id": 1008,
@@ -3644,7 +3644,7 @@ const estatisticasProdutos = {
     totalPlanilha: produtosPlanilha.length,
     totalSugeridos: produtosSugeridos.length,
     total: produtosPlanilha.length + produtosSugeridos.length,
-    ultimaAtualizacao: '2025-10-27T18:09:34.911Z'
+    ultimaAtualizacao: '2025-10-27T18:12:04.789Z'
 };
 
 // Log de carregamento
