@@ -5,7 +5,7 @@
 // 🔄 ATUALIZADO AUTOMATICAMENTE via Cloudflare Pages Function
 // ⚠️  NÃO EDITAR MANUALMENTE - Use o Admin para modificar produtos
 // 
-// Última atualização: 2025-10-27T18:35:15.884Z
+// Última atualização: 2025-10-27T18:39:19.432Z
 // Sincronização: Cloudflare Pages Function → GitHub API → Deploy automático
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -2995,14 +2995,14 @@ const produtosPlanilha = [
     "id": 1137,
     "sku": "SUP-MON-DAV",
     "nome": "Suporte de Mesa Articulado p/ Monitor de até 32\" Fitter Preto",
-    "categoria": "Geral",
+    "categoria": "Casa e Cozinha",
     "subcategoria": "Periféricos",
     "quantidade": 10,
     "custoBase": 136.75,
     "precoMercado": 160.88,
     "margem": 30,
-    "precoVenda": 177.78,
-    "estoque": "Em Estoque",
+    "precoVenda": 177.775,
+    "estoque": "Para Compra",
     "fornecedor": "Fitter",
     "imagem": "https://images5.kabum.com.br/produtos/fotos/687705/suporte-para-monitor-fitter-ate-32-articulado-com-pistao-a-gas-preto-f8_1737983628_gg.jpg",
     "linkCompra": "https://www.kabum.com.br/produto/687705/suporte-de-mesa-articulado-para-monitor-de-ate-32-fitter-ajuste-com-pistao-a-gas-vesa-preto-f8?srsltid=AfmBOoqlrvMDSVWFgNEWEl7dFFGKKMtFlA3iGdSbt_ACZhlXBVjg6cLNH4I",
@@ -3011,7 +3011,8 @@ const produtosPlanilha = [
       "marketplace": "Kabum",
       "prazoEntrega": "7 DIAS"
     },
-    "precoConcorrente": 139.9
+    "precoConcorrente": 139.9,
+    "dataAtualizacao": "2025-10-27T18:39:17.313Z"
   },
   {
     "id": 1138,
@@ -3646,7 +3647,7 @@ const estatisticasProdutos = {
     totalPlanilha: produtosPlanilha.length,
     totalSugeridos: produtosSugeridos.length,
     total: produtosPlanilha.length + produtosSugeridos.length,
-    ultimaAtualizacao: '2025-10-27T18:35:15.884Z'
+    ultimaAtualizacao: '2025-10-27T18:39:19.432Z'
 };
 
 // Log de carregamento
