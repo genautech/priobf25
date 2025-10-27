@@ -5,7 +5,7 @@
 // 🔄 ATUALIZADO AUTOMATICAMENTE via Cloudflare Pages Function
 // ⚠️  NÃO EDITAR MANUALMENTE - Use o Admin para modificar produtos
 // 
-// Última atualização: 2025-10-27T18:31:44.039Z
+// Última atualização: 2025-10-27T18:35:15.884Z
 // Sincronização: Cloudflare Pages Function → GitHub API → Deploy automático
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -2334,23 +2334,24 @@ const produtosPlanilha = [
     "id": 1107,
     "sku": "PIP-MOND",
     "nome": "Pipoqueira Mondial PopFlix PP-03 Vermelha 110V",
-    "categoria": "Geral",
+    "categoria": "Casa e Cozinha",
     "subcategoria": "Eletrodomésticos",
     "quantidade": 10,
-    "custoBase": 237.15,
+    "custoBase": 154.73,
     "precoMercado": 279,
     "margem": 30,
-    "precoVenda": 308.3,
-    "estoque": "Em Estoque",
+    "precoVenda": 201.149,
+    "estoque": "Para Compra",
     "fornecedor": "Mondial",
     "imagem": "https://m.media-amazon.com/images/I/81oRNVZ6SUL._AC_SL1500_.jpg",
     "linkCompra": "https://www.amazon.com.br/Pipoqueira-Popflix-Mondial-Pp-03-Vermelho/dp/B07G1HWM9D/ref=asc_df_B07G1HWM9D?mcid=4860077b701e35f1ba91833a44af03c6&tag=googleshopp00-20&linkCode=df0&hvadid=709964506241&hvpos=&hvnetw=g&hvrand=1370778564882041473&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9198709&hvtargid=pla-913055793317&language=pt_BR&gad_source=4&th=1",
     "descricao": "Pipoqueira Mondial PopFlix PP-03 Vermelha 110V",
     "especificacoes": {
-      "marketplace": "Amazon",
+      "marketplace": "mercadi livre",
       "prazoEntrega": "2 DIAS"
     },
-    "precoConcorrente": 145.9
+    "precoConcorrente": 145.9,
+    "dataAtualizacao": "2025-10-27T18:35:13.729Z"
   },
   {
     "id": 1108,
@@ -3645,7 +3646,7 @@ const estatisticasProdutos = {
     totalPlanilha: produtosPlanilha.length,
     totalSugeridos: produtosSugeridos.length,
     total: produtosPlanilha.length + produtosSugeridos.length,
-    ultimaAtualizacao: '2025-10-27T18:31:44.039Z'
+    ultimaAtualizacao: '2025-10-27T18:35:15.884Z'
 };
 
 // Log de carregamento
