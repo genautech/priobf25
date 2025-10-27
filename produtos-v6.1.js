@@ -5,7 +5,7 @@
 // 🔄 ATUALIZADO AUTOMATICAMENTE via Cloudflare Pages Function
 // ⚠️  NÃO EDITAR MANUALMENTE - Use o Admin para modificar produtos
 // 
-// Última atualização: 2025-10-24T00:57:58.245Z
+// Última atualização: 2025-10-27T03:12:18.849Z
 // Sincronização: Cloudflare Pages Function → GitHub API → Deploy automático
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -133,9 +133,9 @@ const produtosPlanilha = [
     "quantidade": 10,
     "custoBase": 0.85,
     "precoMercado": 1,
-    "margem": 40,
-    "precoVenda": 1.19,
-    "estoque": "Em Estoque",
+    "margem": 1,
+    "precoVenda": 0.8584999999999999,
+    "estoque": "Para Compra",
     "fornecedor": "Amazon.com.br",
     "imagem": "https://fastshopbr.vtexassets.com/arquivos/ids/2314230/1_0_675b4280447c42f8bd09e462.jpg?v=638966691056970000",
     "linkCompra": "https://www.casasbahia.com.br/smart-speaker-amazon-echo-dot-5-geracao-com-alexa-preta/p/55062089?utm_medium=Cpc&utm_source=GP_PLA&IdSku=55062089&idLojista=10037&tipoLojista=1P&gclsrc=aw.ds&&utm_content=b2c_blackout_mix_brasil_1200x628_geral&gad_source=4&gad_campaignid=21644304367&gbraid=0AAAAADtAamgTh247v8I7A5bkFBXoE-9c0&gclid=CjwKCAjw3tzHBhBREiwAlMJoUlfzrpGMTieAAMPGqCAeESRaNRFyhYhTmk5gCzK55L5MUOB_7hm-khoCAfUQAvD_BwE",
@@ -144,7 +144,8 @@ const produtosPlanilha = [
       "marketplace": "Casas Bahia",
       "prazoEntrega": "5 DIAS"
     },
-    "precoConcorrente": 369.9
+    "precoConcorrente": 369.9,
+    "dataAtualizacao": "2025-10-27T03:12:16.561Z"
   },
   {
     "id": 1007,
@@ -3641,7 +3642,7 @@ const estatisticasProdutos = {
     totalPlanilha: produtosPlanilha.length,
     totalSugeridos: produtosSugeridos.length,
     total: produtosPlanilha.length + produtosSugeridos.length,
-    ultimaAtualizacao: '2025-10-24T00:57:58.245Z'
+    ultimaAtualizacao: '2025-10-27T03:12:18.849Z'
 };
 
 // Log de carregamento
