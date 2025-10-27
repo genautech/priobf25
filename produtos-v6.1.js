@@ -5,7 +5,7 @@
 // 🔄 ATUALIZADO AUTOMATICAMENTE via Cloudflare Pages Function
 // ⚠️  NÃO EDITAR MANUALMENTE - Use o Admin para modificar produtos
 // 
-// Última atualização: 2025-10-27T17:52:25.512Z
+// Última atualização: 2025-10-27T17:57:27.898Z
 // Sincronização: Cloudflare Pages Function → GitHub API → Deploy automático
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -65,11 +65,11 @@ const produtosPlanilha = [
     "categoria": "Casa e Cozinha",
     "subcategoria": "Fritadeiras",
     "quantidade": 10,
-    "custoBase": 217.13,
-    "precoMercado": 255.45,
+    "custoBase": 254.53,
+    "precoMercado": 254.53,
     "margem": 30,
-    "precoVenda": 282.27,
-    "estoque": "Em Estoque",
+    "precoVenda": 330.889,
+    "estoque": "Para Compra",
     "fornecedor": "Mondial",
     "imagem": "https://imgs.casasbahia.com.br/55032021/1g.jpg?imwidth=500",
     "linkCompra": "https://www.casasbahia.com.br/fritadeira-eletrica-sem-oleo-air-fryer-mondial-afn40bi-family-inox-4l-preta-inox/p/55032021?utm_medium=cpc&utm_source=GP_PLA&IdSku=55032021&idLojista=10037&tipoLojista=1P&gclsrc=aw.ds&&utm_campaign=cb_b2c_gg_shopping_core_elpo_fritadeira&gad_source=4&gad_campaignid=22440145884&gbraid=0AAAAADtAamhL9CXFP3_eScR1ZJFhO-b_9&gclid=CjwKCAjw3tzHBhBREiwAlMJoUmP3VeTSzfW-YrgKn4ryAOa926zeHH_LZ9HmIHVO1Q5SRVJhwzfEcRoCeJEQAvD_BwE",
@@ -78,7 +78,8 @@ const produtosPlanilha = [
       "marketplace": "Casas Bahia",
       "prazoEntrega": "2 DIAS"
     },
-    "precoConcorrente": 222.13
+    "precoConcorrente": 222.13,
+    "dataAtualizacao": "2025-10-27T17:57:25.768Z"
   },
   {
     "id": 1004,
@@ -3643,7 +3644,7 @@ const estatisticasProdutos = {
     totalPlanilha: produtosPlanilha.length,
     totalSugeridos: produtosSugeridos.length,
     total: produtosPlanilha.length + produtosSugeridos.length,
-    ultimaAtualizacao: '2025-10-27T17:52:25.512Z'
+    ultimaAtualizacao: '2025-10-27T17:57:27.898Z'
 };
 
 // Log de carregamento
