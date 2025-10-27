@@ -5,7 +5,7 @@
 // 🔄 ATUALIZADO AUTOMATICAMENTE via Cloudflare Pages Function
 // ⚠️  NÃO EDITAR MANUALMENTE - Use o Admin para modificar produtos
 // 
-// Última atualização: 2025-10-27T18:12:04.789Z
+// Última atualização: 2025-10-27T18:31:44.039Z
 // Sincronização: Cloudflare Pages Function → GitHub API → Deploy automático
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -804,23 +804,24 @@ const produtosPlanilha = [
     "id": 1037,
     "sku": "CHA-MOND",
     "nome": "Chaleira Elétrica Térmica CE-06 Mondial Preto/Inox 2L 127V",
-    "categoria": "Geral",
+    "categoria": "Casa e Cozinha",
     "subcategoria": "Eletrodomésticos",
     "quantidade": 10,
-    "custoBase": 183.6,
+    "custoBase": 107,
     "precoMercado": 216,
     "margem": 30,
-    "precoVenda": 238.68,
-    "estoque": "Em Estoque",
+    "precoVenda": 139.1,
+    "estoque": "Para Compra",
     "fornecedor": "Mondial",
-    "imagem": "https://m.media-amazon.com/images/I/51K6htcmuWL._AC_SL1000_.jpg",
+    "imagem": "https://http2.mlstatic.com/D_NQ_NP_2X_772162-MLA96140381475_102025-F.webp",
     "linkCompra": "https://www.mercadolivre.com.br/chaleira-eletrica-pratic-mondial-1200w-ce-06/p/MLB8980300?pdp_filters=item_id%3AMLB2872434751&from=gshop&matt_tool=74738421&matt_internal_campaign_id=&matt_word=&matt_source=google&matt_campaign_id=22090354220&matt_ad_group_id=173090540596&matt_match_type=&matt_network=g&matt_device=c&matt_creative=727882728141&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=735125422&matt_product_id=MLB8980300-product&matt_product_partition_id=2390507780318&matt_target_id=aud-1966852281496:pla-2390507780318&cq_src=google_ads&cq_cmp=22090354220&cq_net=g&cq_plt=gp&cq_med=pla&gad_source=4&gad_campaignid=22090354220&gbraid=0AAAAAD93qcD2uwUrl3XHdPjSHNeeBQR2-&gclid=CjwKCAjw3tzHBhBREiwAlMJoUvB5rYm6LmRZZwqbhODQ-VyttNpB-qCt64DavMxvbOdSpmDLM-MIRhoCZdgQAvD_BwE",
     "descricao": "Chaleira Elétrica Térmica CE-06 Mondial Preto/Inox 2L 127V",
     "especificacoes": {
       "marketplace": "Mercado Livre",
       "prazoEntrega": "3 DIAS"
     },
-    "precoConcorrente": 99.9
+    "precoConcorrente": 99.9,
+    "dataAtualizacao": "2025-10-27T18:31:41.872Z"
   },
   {
     "id": 1038,
@@ -3644,7 +3645,7 @@ const estatisticasProdutos = {
     totalPlanilha: produtosPlanilha.length,
     totalSugeridos: produtosSugeridos.length,
     total: produtosPlanilha.length + produtosSugeridos.length,
-    ultimaAtualizacao: '2025-10-27T18:12:04.789Z'
+    ultimaAtualizacao: '2025-10-27T18:31:44.039Z'
 };
 
 // Log de carregamento
