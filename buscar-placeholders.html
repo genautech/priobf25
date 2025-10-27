@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Placeholders nos Produtos</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .result { padding: 10px; margin: 5px 0; background: #f0f0f0; border-left: 4px solid #007bff; }
+        .updated { background: #d4edda; border-color: #28a745; }
+        .placeholder { background: #f8d7da; border-color: #dc3545; }
+        button { padding: 10px 20px; margin: 10px 0; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Verificar Status das Imagens dos Produtos</h1>
+    <button onclick="verificarStatus()">Verificar Status</button>
+    <div id="resultados"></div>
+
+    <script src="produtos-v6.1.js"></script>
+    <script>
+        function verificarStatus() {
+            const resultadosDiv = document.getElementById('resultados');
+            resultadosDiv.innerHTML = '';
+            
+            const produtos = [...produtosPlanilha, ...(produtosCriados || [])];
+            
+            let totalPlaceholders = 0;
+            let totalAtualizados = 0;
+            
+            produtos.forEach(produto => {
+                const temPlaceholder = produto.imagem.includes('placeholder') || produto.imagem.includes('drive.google.com');
+                
+                if (temPlaceholder) {
+                    totalPlaceholders++;
+                    const div = document.createElement('div');
+                    div.className = 'result placeholder';
+                    div.innerHTML = `<strong>${produto.sku}</strong> - ${produto.nome}<br>
+                                   <small>Imagem: ${produto.imagem.substring(0, 80)}...</small>`;
+                    resultadosDiv.appendChild(div);
+                } else {
+                    totalAtualizados++;
+                }
+            });
+            
+            const resumo = document.createElement('div');
+            resumo.innerHTML = `<h2>Resumo:</h2>
+                              <p>✅ Produtos com imagens reais: ${totalAtualizados}</p>
+                              <p>❌ Produtos com placeholders: ${totalPlaceholders}</p>
+                              <p>📦 Total de produtos: ${produtos.length}</p>`;
+            resultadosDiv.insertBefore(resumo, resultadosDiv.firstChild);
+        }
+    </script>
+</body>
+</html>

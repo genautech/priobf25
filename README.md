@@ -33,9 +33,40 @@ Sistema completo para gerenciar catálogo de produtos da Black Friday 2025:
 ✅ **Ferramentas Otimizadas** - Interface limpa com apenas 6 ferramentas essenciais
 
 ### 🆕 ÚLTIMA ATUALIZAÇÃO (2025-10-27):
-**✅ CORREÇÕES CRÍTICAS: MODAIS + SINCRONIZAÇÃO AUTOMÁTICA** 🎉
+**✅ CORREÇÕES CRÍTICAS + SUPORTE DESENVOLVIMENTO LOCAL** 🎉
 
-**Status:** 100% Funcional | Modais: ✅ Corrigidos | Sincronização: ✅ Automática | Deploy: Pronto
+**Status:** 100% Funcional | Dev: ✅ | Produção: ✅ | Modais: ✅ Corrigidos | Deploy: Pronto
+
+⭐ **NOVIDADES v6.10.3.2 (2025-10-27):**
+
+**1. 💻 Suporte Completo para Desenvolvimento Local:**
+- ✅ **Detecção Automática:** Sistema detecta ambiente (dev/produção) automaticamente
+- ✅ **Modo Desenvolvimento:** Salva em localStorage (sem necessidade de token ou Pages Function)
+- ✅ **Modo Produção:** Salva no GitHub via Pages Function automaticamente
+- ✅ **Sem Erros:** Funciona perfeitamente em preview/localhost/GenSpark
+- ✅ **Logs Claros:** Console mostra exatamente o que está acontecendo em cada ambiente
+- 📍 **Documentação:** `💡-DESENVOLVIMENTO-LOCAL-v6.10.3.2.md`
+
+**Ambientes Detectados Automaticamente:**
+```
+Desenvolvimento: localhost, 127.0.0.1, file://, genspark, preview
+Produção: priobf25.pages.dev (Cloudflare)
+```
+
+**Como Funciona:**
+```
+Desenvolvimento Local:
+→ Edita produto → Salva em localStorage
+→ Sincroniza UI em todas as abas
+→ Console: "💾 Modo Desenvolvimento Local"
+→ Sem erros, sem necessidade de configuração
+
+Produção (priobf25.pages.dev):
+→ Edita produto → Salva via Pages Function
+→ Commit automático no GitHub (2-5s)
+→ Deploy automático Cloudflare (1-2 min)
+→ Site atualizado em produção
+```
 
 ⭐ **NOVIDADES v6.10.3 (2025-10-27):**
 

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 REGENERAR produtos-v6.1.js - URGENTE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        #output {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            height: 500px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-8">
+    <div class="max-w-6xl mx-auto">
+        <div class="glass-card rounded-2xl shadow-2xl p-8 mb-6">
+            <h1 class="text-3xl font-bold mb-4" style="color: #667eea;">
+                🔥 REGENERAR produtos-v6.1.js
+            </h1>
+            <p class="text-gray-700 mb-4">
+                Esta ferramenta vai ler <strong>planilha-nova.csv</strong> e gerar o arquivo 
+                <strong>produtos-v6.1.js</strong> completo com <strong>164 produtos</strong>.
+            </p>
+            
+            <div class="flex gap-4 mb-6">
+                <button onclick="regenerarArquivo()" 
+                        class="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-3 rounded-lg font-bold hover:shadow-lg transition-all">
+                    ▶️ REGENERAR ARQUIVO AGORA
+                </button>
+                
+                <button onclick="copiarParaClipboard()" 
+                        class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:shadow-lg transition-all">
+                    📋 COPIAR CÓDIGO
+                </button>
+                
+                <button onclick="baixarArquivo()" 
+                        class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-8 py-3 rounded-lg font-bold hover:shadow-lg transition-all">
+                    💾 BAIXAR ARQUIVO
+                </button>
+            </div>
+            
+            <div id="stats" class="bg-blue-50 p-4 rounded-lg mb-4 hidden">
+                <h3 class="font-bold text-blue-900 mb-2">📊 Estatísticas:</h3>
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div class="text-2xl font-bold text-blue-600" id="totalProdutos">0</div>
+                        <div class="text-sm text-gray-600">Total Produtos</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-green-600" id="tamanhoArquivo">0</div>
+                        <div class="text-sm text-gray-600">Tamanho (KB)</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-purple-600" id="linhasGeradas">0</div>
+                        <div class="text-sm text-gray-600">Linhas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="glass-card rounded-2xl shadow-2xl p-6">
+            <h3 class="text-xl font-bold mb-4">📝 Saída do Processamento:</h3>
+            <div id="output"></div>
+        </div>
+    </div>
+
+    <script>
+        let conteudoGerado = '';
+        
+        function log(mensagem, cor = '#4ade80') {
+            const output = document.getElementById('output');
+            const linha = document.createElement('div');
+            linha.style.color = cor;
+            linha.textContent = `${new Date().toLocaleTimeString()} - ${mensagem}`;
+            output.appendChild(linha);
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function limparPreco(valor) {
+            if (!valor || valor.trim() === '' || valor === 'Não encontrado') return 0;
+            return parseFloat(valor.replace(',', '.').replace(/[^\d.]/g, '')) || 0;
+        }
+        
+        async function regenerarArquivo() {
+            log('🚀 Iniciando regeneração...', '#60a5fa');
+            
+            try {
+                // 1. Carregar CSV
+                log('📂 Carregando planilha-nova.csv...', '#fbbf24');
+                const response = await fetch('planilha-nova.csv');
+                if (!response.ok) {
+                    throw new Error(`Erro ao carregar CSV: ${response.status}`);
+                }
+                
+                const text = await response.text();
+                const lines = text.trim().split('\n');
+                log(`✅ CSV carregado: ${lines.length - 1} linhas de dados`, '#4ade80');
+                
+                // 2. Processar produtos
+                log('⚙️ Processando produtos...', '#fbbf24');
+                const produtos = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const cols = lines[i].split(';');
+                    if (cols.length < 6) continue;
+                    
+                    const [sku, nome, categoria, subcategoria, fornecedor, precoMercado, precoConcorrente, _, prazo, marketplace, link] = cols;
+                    
+                    const pm = limparPreco(precoMercado);
+                    const pc = limparPreco(precoConcorrente);
+                    
+                    let custoBase = 0;
+                    if (pm > 0) {
+                        custoBase = pm * 0.85;
+                    } else if (pc > 0) {
+                        custoBase = pc * 0.98;
+                    } else {
+                        custoBase = 1000;
+                    }
+                    
+                    const precoVenda = custoBase * 1.3;
+                    const estoque = pc > 0 ? "Em Estoque" : "Sob Consulta";
+                    
+                    const produto = {
+                        id: 1000 + i,
+                        sku: sku || `SKU-${i}`,
+                        nome: nome || 'Produto',
+                        categoria: categoria || 'Eletrônicos',
+                        subcategoria: subcategoria || 'Diversos',
+                        quantidade: 10,
+                        custoBase: Math.round(custoBase * 100) / 100,
+                        precoMercado: Math.round((pm > 0 ? pm : (pc > 0 ? pc * 1.15 : 1000)) * 100) / 100,
+                        margem: 30,
+                        precoVenda: Math.round(precoVenda * 100) / 100,
+                        estoque: estoque,
+                        fornecedor: fornecedor || marketplace || 'Amazon',
+                        imagem: `https://via.placeholder.com/400/667eea/ffffff?text=${encodeURIComponent(nome || 'Produto')}`,
+                        linkCompra: (link || '').trim(),
+                        descricao: nome || 'Produto',
+                        especificacoes: {
+                            marketplace: (marketplace || '').trim(),
+                            prazoEntrega: (prazo || '').trim()
+                        }
+                    };
+                    
+                    if (pc > 0) {
+                        produto.precoConcorrente = Math.round(pc * 100) / 100;
+                    }
+                    
+                    produtos.push(produto);
+                }
+                
+                log(`✅ ${produtos.length} produtos processados`, '#4ade80');
+                
+                // 3. Gerar arquivo JavaScript
+                log('📝 Gerando código JavaScript...', '#fbbf24');
+                
+                const now = new Date().toLocaleString('pt-BR');
+                
+                conteudoGerado = `// ============================================
+// CATÁLOGO DE PRODUTOS - BLACK FRIDAY 2025
+// Total: ${produtos.length} produtos
+// Gerado em: ${now}
+// ============================================
+
+// ============================================
+// CUPONS DE DESCONTO DISPONÍVEIS
+// ============================================
+const cuponsDesconto = [
+    {
+        id: "CUP-001",
+        loja: "Amazon",
+        codigo: "BLACKFRIDAY25",
+        desconto: "15%",
+        validade: "2025-11-29",
+        minimo: 200,
+        maximo: 500,
+        categorias: ["Eletrônicos", "Casa e Cozinha"],
+        ativo: true,
+        link: "https://www.amazon.com.br"
+    },
+    {
+        id: "CUP-002",
+        loja: "Magazine Luiza",
+        codigo: "MAGALU15",
+        desconto: "10%",
+        validade: "2025-11-30",
+        minimo: 150,
+        maximo: 300,
+        categorias: ["Eletrônicos"],
+        ativo: true,
+        link: "https://www.magazineluiza.com.br"
+    },
+    {
+        id: "CUP-003",
+        loja: "Mercado Livre",
+        codigo: "MELI12",
+        desconto: "12%",
+        validade: "2025-11-28",
+        minimo: 100,
+        maximo: 400,
+        categorias: ["Todos"],
+        ativo: true,
+        link: "https://www.mercadolivre.com.br"
+    }
+];
+
+// ============================================
+// PRODUTOS DA PLANILHA
+// ============================================
+const produtosPlanilha = ${JSON.stringify(produtos, null, 4)};
+
+// ============================================
+// PRODUTOS SUGERIDOS (vazio por enquanto)
+// ============================================
+const produtosSugeridos = [];
+
+// ============================================
+// EXPORTAÇÃO PARA WINDOW (BROWSER)
+// ============================================
+if (typeof window !== 'undefined') {
+    window.produtosPlanilha = produtosPlanilha;
+    window.produtosSugeridos = produtosSugeridos;
+    window.todosOsProdutosV6 = [...produtosPlanilha, ...produtosSugeridos];
+    window.cuponsDesconto = cuponsDesconto;
+    
+    console.log('✅ Catálogo carregado:', {
+        planilha: produtosPlanilha.length,
+        sugeridos: produtosSugeridos.length,
+        total: produtosPlanilha.length + produtosSugeridos.length
+    });
+}
+
+// Export para Node.js (se necessário)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        produtosPlanilha,
+        produtosSugeridos,
+        todosOsProdutosV6: [...produtosPlanilha, ...produtosSugeridos],
+        cuponsDesconto
+    };
+}
+`;
+                
+                // 4. Estatísticas
+                const tamanhoKB = (conteudoGerado.length / 1024).toFixed(2);
+                const linhas = conteudoGerado.split('\n').length;
+                
+                document.getElementById('totalProdutos').textContent = produtos.length;
+                document.getElementById('tamanhoArquivo').textContent = tamanhoKB;
+                document.getElementById('linhasGeradas').textContent = linhas;
+                document.getElementById('stats').classList.remove('hidden');
+                
+                log('', '#4ade80');
+                log('🎉 ARQUIVO GERADO COM SUCESSO!', '#4ade80');
+                log(`📊 Total: ${produtos.length} produtos`, '#4ade80');
+                log(`📝 Tamanho: ${tamanhoKB} KB`, '#4ade80');
+                log(`📄 Linhas: ${linhas}`, '#4ade80');
+                log('', '#4ade80');
+                log('👉 Agora você pode:', '#60a5fa');
+                log('   1️⃣ Clicar em "COPIAR CÓDIGO" e salvar manualmente', '#fbbf24');
+                log('   2️⃣ Clicar em "BAIXAR ARQUIVO" para download automático', '#fbbf24');
+                
+            } catch (erro) {
+                log(`❌ ERRO: ${erro.message}`, '#ef4444');
+                console.error(erro);
+            }
+        }
+        
+        function copiarParaClipboard() {
+            if (!conteudoGerado) {
+                alert('❌ Primeiro gere o arquivo clicando em "REGENERAR ARQUIVO AGORA"');
+                return;
+            }
+            
+            navigator.clipboard.writeText(conteudoGerado).then(() => {
+                log('✅ Código copiado para a área de transferência!', '#4ade80');
+                alert('✅ Código copiado!\n\nAgora:\n1. Abra o arquivo produtos-v6.1.js\n2. Cole o conteúdo (Ctrl+V)\n3. Salve o arquivo');
+            }).catch(err => {
+                log(`❌ Erro ao copiar: ${err.message}`, '#ef4444');
+            });
+        }
+        
+        function baixarArquivo() {
+            if (!conteudoGerado) {
+                alert('❌ Primeiro gere o arquivo clicando em "REGENERAR ARQUIVO AGORA"');
+                return;
+            }
+            
+            const blob = new Blob([conteudoGerado], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'produtos-v6.1.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            log('✅ Arquivo baixado! Agora substitua o produtos-v6.1.js antigo', '#4ade80');
+        }
+    </script>
+</body>
+</html>

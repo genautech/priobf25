@@ -1,0 +1,243 @@
+═══════════════════════════════════════════════════════════════════
+🚀 DEPLOY INDEX.HTML - GUIA RÁPIDO
+═══════════════════════════════════════════════════════════════════
+
+Escolha o método mais fácil para você:
+
+═══════════════════════════════════════════════════════════════════
+⚡ MÉTODO 1: SCRIPT AUTOMÁTICO (MAIS FÁCIL)
+═══════════════════════════════════════════════════════════════════
+
+🪟 WINDOWS:
+─────────────────────────────────────────────────────────────────
+1. Duplo clique em: deploy-index.bat
+2. Confirme quando perguntado (digite S)
+3. Aguarde conclusão
+4. ✅ Pronto!
+
+🍎 MAC/LINUX:
+─────────────────────────────────────────────────────────────────
+1. Abrir Terminal na pasta do projeto
+2. Executar:
+   chmod +x deploy-index.sh
+   ./deploy-index.sh
+3. Confirme quando perguntado (digite s)
+4. ✅ Pronto!
+
+
+═══════════════════════════════════════════════════════════════════
+💻 MÉTODO 2: LINHA DE COMANDO (MANUAL)
+═══════════════════════════════════════════════════════════════════
+
+1️⃣ Abrir Terminal/PowerShell/Git Bash
+
+2️⃣ Copiar e colar ESTE bloco completo:
+─────────────────────────────────────────────────────────────────
+
+git add index.html && git commit -m "feat: atualizar landing page index.html" && git push origin main
+
+─────────────────────────────────────────────────────────────────
+
+3️⃣ Pressionar Enter
+
+4️⃣ Aguardar 2-3 minutos
+
+5️⃣ ✅ Pronto!
+
+
+═══════════════════════════════════════════════════════════════════
+🌐 MÉTODO 3: INTERFACE WEB (SEM INSTALAR NADA)
+═══════════════════════════════════════════════════════════════════
+
+1️⃣ Acessar GitHub:
+   https://github.com/genautech/priobf25
+
+2️⃣ Clicar em: index.html
+
+3️⃣ Clicar no ícone de lápis (✏️) no canto superior direito
+
+4️⃣ Deletar TODO o conteúdo atual
+
+5️⃣ Abrir seu index.html local (Notepad/TextEdit)
+
+6️⃣ Copiar TODO o conteúdo (Ctrl+A, Ctrl+C)
+
+7️⃣ Colar no editor do GitHub (Ctrl+V)
+
+8️⃣ Rolar até o final da página
+
+9️⃣ No campo "Commit changes":
+   feat: atualizar landing page index.html
+
+🔟 Deixar marcado: "Commit directly to the main branch"
+
+1️⃣1️⃣ Clicar em: "Commit changes" (botão verde)
+
+1️⃣2️⃣ Aguardar 2-3 minutos
+
+1️⃣3️⃣ ✅ Pronto!
+
+
+═══════════════════════════════════════════════════════════════════
+🔍 VERIFICAR DEPLOY
+═══════════════════════════════════════════════════════════════════
+
+Após qualquer método:
+
+1. ⏱️  AGUARDE 2-3 MINUTOS (importante!)
+
+2. 🔍 VERIFIQUE GITHUB ACTIONS:
+   https://github.com/genautech/priobf25/actions
+   
+   Procure:
+   • Workflow mais recente
+   • Deve ter ✅ verde ao concluir
+
+3. 🌐 ACESSE SEU SITE:
+   https://priobf25.pages.dev
+   
+4. 🔄 LIMPE O CACHE:
+   Windows: Ctrl + F5
+   Mac: Cmd + Shift + R
+   
+5. ✅ VERIFIQUE AS MUDANÇAS
+
+
+═══════════════════════════════════════════════════════════════════
+❌ PROBLEMAS COMUNS
+═══════════════════════════════════════════════════════════════════
+
+PROBLEMA: "nothing to commit"
+─────────────────────────────────────────────────────────────────
+CAUSA: Arquivo já foi commitado ou não foi modificado
+
+SOLUÇÃO:
+  • Verifique se você realmente modificou o index.html
+  • Se sim, já está no GitHub (nada a fazer)
+
+
+PROBLEMA: "Your branch is behind"
+─────────────────────────────────────────────────────────────────
+CAUSA: Versão local desatualizada
+
+SOLUÇÃO:
+  git pull origin main
+  (depois faça o deploy novamente)
+
+
+PROBLEMA: "authentication failed"
+─────────────────────────────────────────────────────────────────
+CAUSA: Git não está configurado
+
+SOLUÇÃO:
+  git config --global user.name "Seu Nome"
+  git config --global user.email "seu@email.com"
+  (depois faça o deploy novamente)
+
+
+PROBLEMA: "Permission denied"
+─────────────────────────────────────────────────────────────────
+CAUSA: Token expirado ou sem permissão
+
+SOLUÇÃO:
+  • Use o Método 3 (Interface Web) - mais fácil
+  • OU gere novo token no GitHub
+
+
+PROBLEMA: Mudanças não aparecem no site
+─────────────────────────────────────────────────────────────────
+CAUSA: Cache do navegador
+
+SOLUÇÃO:
+  1. Aguarde 3-5 minutos (não apenas 2-3)
+  2. Limpe cache: Ctrl+F5 (Windows) ou Cmd+Shift+R (Mac)
+  3. Teste em aba anônima
+  4. Teste em outro navegador
+
+
+═══════════════════════════════════════════════════════════════════
+⏱️ TIMELINE DO DEPLOY
+═══════════════════════════════════════════════════════════════════
+
+00:00 → Você executa o comando/script
+00:05 → GitHub recebe o commit
+00:10 → GitHub Actions inicia build
+00:30 → Build completa ✅
+01:00 → Cloudflare recebe arquivos
+02:00 → Deploy em andamento...
+03:00 → ✅ SITE ATUALIZADO!
+
+TOTAL: ~2-3 minutos
+
+
+═══════════════════════════════════════════════════════════════════
+✅ CHECKLIST FINAL
+═══════════════════════════════════════════════════════════════════
+
+Antes de fazer deploy:
+[ ] index.html está modificado localmente
+[ ] Você está na pasta correta do projeto
+[ ] Git está configurado (nome e email)
+
+Fazer deploy:
+[ ] Escolheu método (Script, Comando ou Web)
+[ ] Executou o deploy
+[ ] Viu mensagem de sucesso
+
+Verificar:
+[ ] Aguardou 2-3 minutos
+[ ] Verificou GitHub Actions (✅ verde)
+[ ] Acessou https://priobf25.pages.dev
+[ ] Limpou cache (Ctrl+F5)
+[ ] Mudanças apareceram no site
+
+
+═══════════════════════════════════════════════════════════════════
+📚 ARQUIVOS DE AJUDA
+═══════════════════════════════════════════════════════════════════
+
+📄 DEPLOY-INDEX-SOMENTE.md
+   → Documentação completa e detalhada
+
+🪟 deploy-index.bat
+   → Script automático para Windows
+
+🍎 deploy-index.sh
+   → Script automático para Mac/Linux
+
+📝 👉-DEPLOY-INDEX-AGORA.txt
+   → Este guia rápido
+
+
+═══════════════════════════════════════════════════════════════════
+🎯 RECOMENDAÇÃO
+═══════════════════════════════════════════════════════════════════
+
+Se você é iniciante ou tem dúvidas:
+→ Use o MÉTODO 3 (Interface Web)
+  É o mais visual e não precisa de terminal
+
+Se você tem Git configurado:
+→ Use o MÉTODO 1 (Script Automático)
+  É o mais rápido e fácil
+
+Se você é avançado:
+→ Use o MÉTODO 2 (Linha de Comando)
+  É o mais direto
+
+
+═══════════════════════════════════════════════════════════════════
+💬 DÚVIDAS?
+═══════════════════════════════════════════════════════════════════
+
+1. Leia: DEPLOY-INDEX-SOMENTE.md (documentação completa)
+2. Verifique erros no terminal
+3. Consulte GitHub Actions para logs
+4. Tente método alternativo
+
+
+═══════════════════════════════════════════════════════════════════
+
+👉 ESCOLHA UM MÉTODO ACIMA E COMECE AGORA! 🚀
+
+═══════════════════════════════════════════════════════════════════

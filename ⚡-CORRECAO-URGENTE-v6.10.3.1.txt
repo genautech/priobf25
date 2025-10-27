@@ -1,0 +1,129 @@
+═══════════════════════════════════════════════════════════════════
+  ⚡ CORREÇÃO URGENTE APLICADA - v6.10.3.1
+═══════════════════════════════════════════════════════════════════
+
+🐛 PROBLEMA ENCONTRADO:
+"ℹ️ Auto-sync não está ativo" mesmo com badge ON
+
+═══════════════════════════════════════════════════════════════════
+  ✅ CORREÇÃO APLICADA
+═══════════════════════════════════════════════════════════════════
+
+FIX 1: verificarAutoSync() Melhorado
+────────────────────────────────────
+• Detecta ambiente (produção/desenvolvimento) automaticamente
+• Usa Pages Function em produção
+• Usa API direta em desenvolvimento local
+• Logs claros e informativos
+
+FIX 2: salvarProdutosNoGitHubSilencioso() com Fallback
+───────────────────────────────────────────────────────
+• Tenta Pages Function primeiro
+• Fallback para API direta se falhar
+• Não exige token local em produção
+
+FIX 3: Carregamento de Configurações
+─────────────────────────────────────
+• Reativa auto-sync com qualquer método disponível
+• Não exige token local se Pages Function disponível
+• Desativa automaticamente se nenhum método disponível
+
+═══════════════════════════════════════════════════════════════════
+  🧪 TESTE AGORA (2 MINUTOS)
+═══════════════════════════════════════════════════════════════════
+
+1. Recarregue admin-v6.10.html (Ctrl+Shift+R)
+
+2. Console (F12):
+   └─ Digite: verificarAutoSync()
+   └─ Deve retornar: true
+   └─ Log: "✅ Auto-sync verificado: Modo Pages Function"
+
+3. Edite uma margem:
+   └─ Análise Comparativa → Produto → Editar Margem
+   └─ Mude para 40% → Salvar
+   
+4. Console deve mostrar:
+   ✓ "🔄 Salvando margem via CRUD"
+   ✓ "✅ Auto-sync verificado: Modo Pages Function"
+   ✓ "🔄 Auto-sync disparado"
+   ✓ "🚀 Usando Cloudflare Pages Function"
+   ✓ "✅ Sync via Pages Function concluído"
+
+5. GitHub (após 2-5 segundos):
+   └─ https://github.com/genautech/priobf25/commits/main
+   └─ Deve ter commit com "🔄 Auto-sync"
+
+═══════════════════════════════════════════════════════════════════
+  🚨 SE NÃO FUNCIONAR
+═══════════════════════════════════════════════════════════════════
+
+PROBLEMA: verificarAutoSync() retorna false
+SOLUÇÃO:
+```javascript
+// Console (F12):
+autoSyncAtivo = true;
+salvarConfiguracoesAdmin();
+location.reload();
+```
+
+PROBLEMA: Pages Function offline (desenvolvimento local)
+SOLUÇÃO:
+```javascript
+// Configure token local:
+githubConfig = {
+    token: 'ghp_SEU_TOKEN_AQUI',
+    owner: 'genautech',
+    repo: 'priobf25',
+    branch: 'main'
+};
+localStorage.setItem('githubConfig', JSON.stringify(githubConfig));
+salvarConfiguracoesAdmin();
+location.reload();
+```
+
+═══════════════════════════════════════════════════════════════════
+  📚 DOCUMENTAÇÃO
+═══════════════════════════════════════════════════════════════════
+
+Detalhes Completos:
+📄 🔧-CORRECAO-AUTO-SYNC-v6.10.3.1.md
+
+Testes Atualizados:
+📄 ⚡-TESTE-AGORA-v6.10.3.txt (inclui TESTE 0: Verificar Auto-Sync)
+
+═══════════════════════════════════════════════════════════════════
+  🎯 RESUMO
+═══════════════════════════════════════════════════════════════════
+
+ANTES:
+❌ Auto-sync não disparava
+❌ Exigia token local sempre
+❌ Não usava Pages Function
+
+DEPOIS:
+✅ Auto-sync funciona em produção (Pages Function)
+✅ Auto-sync funciona local (API direta com token)
+✅ Detecção automática de ambiente
+✅ Fallback inteligente
+
+═══════════════════════════════════════════════════════════════════
+  🚀 DEPLOY
+═══════════════════════════════════════════════════════════════════
+
+SE TESTE OK, FAÇA DEPLOY:
+
+Windows: ⚡-GIT-DEPLOY-v6.10.3.bat
+Linux/Mac: bash ⚡-GIT-DEPLOY-v6.10.3.sh
+
+OU MANUAL:
+git add admin-v6.10.html
+git commit -m "🔧 v6.10.3.1: Corrigido auto-sync (Pages Function + fallback)"
+git push origin main
+
+═══════════════════════════════════════════════════════════════════
+
+TESTE AGORA E CONFIRME SE FUNCIONA! 🚀
+
+v6.10.3.1 - Auto-Sync Corrigido
+Data: 27 de Outubro de 2025
